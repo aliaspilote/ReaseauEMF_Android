@@ -64,8 +64,8 @@
             <Button android:id="@+id/btn_Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lbl_pickdate"
-                android:onClick="showDatePickerDialog" />
+                android:onClick="showDatePickerDialog"
+                android:text="@string/lbl_pickdate" />
         </LinearLayout>
 
         <LinearLayout
@@ -162,7 +162,7 @@
                 android:id="@+id/editxt_check_mail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="2" />
             <Button
                 android:id="@+id/btn_check_mail"
                 android:layout_width="0dp"
@@ -171,14 +171,6 @@
                 android:onClick="OnCheckMail"
                 android:text="@string/lbl_btn_check_mail" />
 
-            <Button
-                android:id="@+id/btn_check"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="OnControl"
-                android:text="@string/lbl_btn_check" />
-            OnControl
         </LinearLayout>
     </LinearLayout>
 

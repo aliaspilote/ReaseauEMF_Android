@@ -11,6 +11,6 @@
     <string name="lbl_phone">Telephone</string>
     <string name="lbl_btn_validate">Valider</string>
     <string name="lbl_btn_cancel">Annuler</string>
-    <string name="lbl_btn_check_mail">Vérifier mail</string>
+    <string name="lbl_btn_check_mail">Test mail</string>
     <string name="lbl_btn_check">Control</string>
 </resources>

@@ -16,8 +16,37 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this);
-    public String reponse;
+    public HttpReponse LastReponse;
+
+    public void ReceptionResponse(HttpReponse Rep) {
+        LastReponse = Rep;
+        String Message = "";
+        if (!LastReponse.getSucces())
+            Message = LastReponse.getExceptionText();
+        else {
+            Message = "Réussi avec succès.\n";
+            Message += "Contenu de la réponse : \n";
+            Message += LastReponse.getResultat().toString();
+        }
+
+
+        new AlertDialog.Builder(this)
+                .setTitle("Action : " + LastReponse.getAction())
+                .setMessage(Message)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // Some stuff to do when ok got clicked
+                    }
+                })
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // Some stuff to do when cancel got clicked
+                    }
+                })
+                .show();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,37 +90,12 @@ public class MainActivity extends AppCompatActivity {
         afficherFormInscr();
     }
 
-    public Object var;
     public void OnCheckMail(View  view) throws IOException {
-
-        var = wb_thread.execute("action=check_mail&var=" + ((EditText) findViewById(R.id.editxt_check_mail)).getText());
-
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.checkmail(
+                ((EditText) findViewById(R.id.editxt_check_mail)).getText().toString()));
+        wb_thread.execute();
     }
 
-    public void OnControl(View view)
-    {
-        try {
-            reponse = ((Web_Service_Controlleur) var).get();
-        }
-        catch (Exception e)
-        {
-
-        }
-        new AlertDialog.Builder(this)
-                .setTitle("Compte déjà inscrit ?")
-                .setMessage(reponse)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Some stuff to do when ok got clicked
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Some stuff to do when cancel got clicked
-                    }
-                })
-                .show();
-    }
     private void afficherFormInscr()
     {
         String message = new String();

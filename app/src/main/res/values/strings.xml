@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Réseau E.M.F</string>
+    <string name="action_settings">Parametre</string>
+    <string name="lbl_name">Nom</string>
+    <string name="lbl_firstname">Prénom</string>
+    <string name="lbl_pickdate">Choix date</string>
+    <string name="lbl_age">Age</string>
+    <string name="lbl_mail">Email</string>
+    <string name="lbl_domainstudy">Domain Etude</string>
+    <string name="lbl_city">Ville</string>
+    <string name="lbl_phone">Telephone</string>
+    <string name="lbl_btn_validate">Valider</string>
+    <string name="lbl_btn_cancel">Annuler</string>
+    <string name="lbl_btn_check_mail">Vérifier mail</string>
+    <string name="lbl_btn_check">Control</string>
+</resources>

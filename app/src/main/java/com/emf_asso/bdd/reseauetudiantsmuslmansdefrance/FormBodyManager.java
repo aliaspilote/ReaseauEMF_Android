@@ -15,4 +15,12 @@ public class FormBodyManager {
                 .build();
         return formBody;
     }
+
+    public static RequestBody addUser(String... args) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", "check_mail")
+                .add("mail", args[0])
+                .build();
+        return formBody;
+    }
 }

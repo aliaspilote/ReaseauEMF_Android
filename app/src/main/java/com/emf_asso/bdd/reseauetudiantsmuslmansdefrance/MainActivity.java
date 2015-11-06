@@ -1,7 +1,9 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,16 +19,27 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     public HttpReponse LastReponse;
+    private Context context = this;
 
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse = Rep;
         String Message = "";
+
         if (!LastReponse.getSucces())
             Message = LastReponse.getExceptionText();
         else {
-            Message = "Réussi avec succès.\n";
-            Message += "Contenu de la réponse : \n";
-            Message += LastReponse.getResultat().toString();
+            switch (LastReponse.Action) {
+                case "check_mail":
+                    Message = LastReponse.Action + " effectué\n";
+                    Message += "Contenu de la réponse : \n";
+                    Message += LastReponse.getResultat().toString();
+                    break;
+                default:
+                    Message = LastReponse.Action + " effectué\n";
+                    Message += "aucun post traitement défini \n";
+                    Message += LastReponse.getResultat().toString();
+                    break;
+            }
         }
 
 
@@ -96,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
         wb_thread.execute();
     }
 
+
+    private void showDatePickerDialog() {
+    }
+
     private void afficherFormInscr()
     {
         String message = new String();
@@ -115,6 +132,10 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         // Some stuff to do when ok got clicked
+                        Intent intent = new Intent(context, ProcessInscription.class);
+                        intent.putExtra("id", "1");
+                        context.startActivity(intent);
+
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {

@@ -13,4 +13,12 @@
     <string name="lbl_btn_cancel">Annuler</string>
     <string name="lbl_btn_check_mail">Test mail</string>
     <string name="lbl_btn_check">Control</string>
+    <string name="lbl_auth_title">Authentification</string>
+    <string name="email">Email</string>
+    <string name="mdp">Mot de passe</string>
+    <string name="btn_go">Go</string>
+    <string name="lbl_linkedin">LINKEDIN</string>
+    <string name="lbl_password">Mot de passe</string>
+
+
 </resources>

@@ -6,4 +6,6 @@
     <color name="accent_material_light_1">#820099</color>
     <color name="primary_dark_material_light">#343737</color>
     <color name="primary_material_light">#721f81</color>
+    <color name="rouge">#f70622</color>
+    <color name="gray">#9c9999</color>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="liste_membre_etat">
+        <item>Ville</item>
+        <item>Paris</item>
+        <item>Marseille</item>
+    </string-array>
+    <string-array name="liste_domaines_etude">
+        <item>Domain détudes</item>
+    </string-array>
+    <string-array name="liste_diplome">
+        <item>Type de diplome préparer</item>
+        <item>Paris</item>
+        <item>Marseille</item>
+    </string-array>
+</resources>

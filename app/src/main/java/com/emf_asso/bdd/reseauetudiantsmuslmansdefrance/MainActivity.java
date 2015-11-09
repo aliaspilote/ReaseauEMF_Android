@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     public HttpReponse LastReponse;
     private Context context = this;
 
+
+
+
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse = Rep;
         String Message = "";

@@ -15,6 +15,7 @@ public class ProcessInscription extends Activity {
 
 
     private static final int NUM_PAGES = 5;
+    public ViewStub stub;
     private Context context = this;
     private int current_NUM_PAGES;
 
@@ -25,8 +26,25 @@ public class ProcessInscription extends Activity {
         Log.d("test", getIntent().getExtras().getString("id", "0"));
 
         current_NUM_PAGES = 1;
-        ViewStub stub = (ViewStub) findViewById(R.id.stub_pi1);
-        stub.inflate();
+        //stub = (ViewStub) findViewById(R.id.stub_pi1);
+        //stub.inflate();
+        InitStubs();
+    }
+
+    public void InitStubs() {
+
+        ((ViewStub) findViewById(R.id.stub_pi1)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pi2)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pi3)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pi4_1)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pi4_2)).inflate();
+
+        // findViewById(R.id.stub_Inflated1).setVisibility(View.INVISIBLE);
+        findViewById(R.id.stub_Inflated2).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
+
     }
 
     public void OnNext(View view) {
@@ -70,13 +88,13 @@ public class ProcessInscription extends Activity {
                 findViewById(R.id.stub_Inflated2).setVisibility(View.GONE);
                 break;
             case 3:
-                findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
+                findViewById(R.id.stub_Inflated3).setVisibility(View.INVISIBLE);
                 break;
             case 4:
-                findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
+                findViewById(R.id.stub_Inflated4_1).setVisibility(View.INVISIBLE);
                 break;
             case 5:
-                findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
+                findViewById(R.id.stub_Inflated4_2).setVisibility(View.INVISIBLE);
                 break;
             default:
 
@@ -87,29 +105,34 @@ public class ProcessInscription extends Activity {
     }
 
     public void displayViewByNum(int numView) {
-        ViewStub stub;
         switch (numView) {
             case 1:
-                stub = (ViewStub) findViewById(R.id.stub_pi1);
+                findViewById(R.id.stub_Inflated1).setVisibility(View.VISIBLE);
+                //stub = (ViewStub) findViewById(R.id.stub_pi1);
                 break;
             case 2:
-                stub = (ViewStub) findViewById(R.id.stub_pi2);
+                findViewById(R.id.stub_Inflated2).setVisibility(View.VISIBLE);
+                //stub = (ViewStub) findViewById(R.id.stub_pi2);
                 break;
             case 3:
-                stub = (ViewStub) findViewById(R.id.stub_pi3);
+                findViewById(R.id.stub_Inflated3).setVisibility(View.VISIBLE);
+                // stub = (ViewStub) findViewById(R.id.stub_pi3);
                 break;
             case 4:
-                stub = (ViewStub) findViewById(R.id.stub_pi4_1);
+                findViewById(R.id.stub_Inflated4_1).setVisibility(View.VISIBLE);
+                // stub = (ViewStub) findViewById(R.id.stub_pi4_1);
                 break;
             case 5:
-                stub = (ViewStub) findViewById(R.id.stub_pi4_2);
+                findViewById(R.id.stub_Inflated4_2).setVisibility(View.VISIBLE);
+                //stub = (ViewStub) findViewById(R.id.stub_pi4_2);
                 break;
             default:
-                stub = (ViewStub) findViewById(R.id.stub_pi1);
+                findViewById(R.id.stub_Inflated1).setVisibility(View.VISIBLE);
+                //stub = (ViewStub) findViewById(R.id.stub_pi1);
                 break;
         }
 
-        stub.inflate();
+        // stub.inflate();
 
     }
 }

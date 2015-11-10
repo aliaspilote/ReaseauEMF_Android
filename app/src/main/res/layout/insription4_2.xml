@@ -50,12 +50,12 @@
                 android:orientation="vertical"
                 android:padding="6dp">
 
-                <Spinner
+                <!--<Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray"
                     android:entries="@array/liste_domaines_etude"
-                    android:padding="4dp"></Spinner>
+                    android:padding="4dp"></Spinner>-->
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -65,13 +65,13 @@
                     android:padding="4dp"
                     android:text="@string/lbl_init_diplome" />
 
-                <Spinner
+                <!--<Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:background="@color/gray"
                     android:entries="@array/liste_diplome"
-                    android:padding="4dp"></Spinner>
+                    android:padding="4dp"></Spinner>-->
 
                 <EditText
                     android:layout_width="fill_parent"

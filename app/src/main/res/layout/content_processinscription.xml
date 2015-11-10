@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <ViewStub
+        android:id="@+id/stub_pi1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated1"
+        android:layout="@layout/insription1" />
+    <ViewStub
+        android:id="@+id/stub_pi2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated2"
+        android:layout="@layout/insription2" />
+
+    <ViewStub
+        android:id="@+id/stub_pi3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated3"
+        android:layout="@layout/insription3" />
+
+    <ViewStub
+        android:id="@+id/stub_pi4_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated4_1"
+        android:layout="@layout/insription4_1" />
+
+    <ViewStub
+        android:id="@+id/stub_pi4_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated4_2"
+        android:layout="@layout/insription4_2" />
+
+</LinearLayout>

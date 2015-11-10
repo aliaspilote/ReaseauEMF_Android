@@ -56,6 +56,8 @@
     <string name="lbl_ville_etude">Ville d\'étude</string>
     <string name="lbl_btn_annuler">Annuler</string>
     <string name="lbl_btn_ajouter">Ajouter</string>
+    <string name="lbl_btn_previous">Précédent</string>
+    <string name="lbl_btn_next">Suivant</string>
 
     <string-array name="liste_ville">
         <item>Ville</item>

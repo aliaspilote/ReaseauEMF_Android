@@ -103,7 +103,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void showDatePickerDialog() {
+    public void OnRegisterClick(View view) {
+        Intent intent = new Intent(context, ProcessInscription.class);
+        intent.putExtra("id", "1");
+        context.startActivity(intent);
     }
 
     private void afficherFormInscr()
@@ -125,9 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         // Some stuff to do when ok got clicked
-                        Intent intent = new Intent(context, ProcessInscription.class);
-                        intent.putExtra("id", "1");
-                        context.startActivity(intent);
+
 
                     }
                 })

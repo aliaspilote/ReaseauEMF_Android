@@ -13,4 +13,9 @@
         <item>Paris</item>
         <item>Marseille</item>
     </string-array>
+    <string-array name="list_status">
+        <item>Membre actif</item>
+        <item>Membre actif</item>
+        <item>Actif</item>
+    </string-array>
 </resources>

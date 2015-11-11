@@ -13,7 +13,7 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical">
@@ -23,12 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_profil_emf"
-            android:textSize="15sp" />
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -37,60 +39,62 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="@string/lbl_etat" />
-
-                <Spinner
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/liste_membre_etat"
-
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:text="@string/lbl_status" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom"
+
+                        android:layout_marginTop="30dp"
+                        android:layout_weight="1"
                         android:text="@string/lbl_section" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
                     <Spinner
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:entries="@array/list_status"
+                        android:spinnerMode="dialog"
+
+                        />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
                         android:entries="@array/liste_section"
+                        android:spinnerMode="dialog"
 
                         />
 
                 </LinearLayout>
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="@string/lbl_section_ma_ville"
-                    android:textSize="10sp" />
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -103,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="@string/lbl_competence" />
+                    android:text="@string/lbl_skills" />
 
                 <ListView
                     android:layout_width="wrap_content"
@@ -128,30 +132,40 @@
                     android:text="@string/lbl_contact" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_offer"
+                    style="@style/text_petite_taille"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_offre" />
+                    android:layout_marginTop="5dp"
+                    android:text="@string/lbl_offer" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_info_EMFcity"
+                    style="@style/text_petite_taille"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_info_ville" />
+                    android:text="@string/lbl_info_EMFcity" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_info_national"
+                    style="@style/text_petite_taille"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_info_national" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_project"
+                    style="@style/text_petite_taille"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_projet" />
+                    android:text="@string/lbl_project" />
 
 
             </LinearLayout>
 
 
         </LinearLayout>
+
 
     </LinearLayout>
 

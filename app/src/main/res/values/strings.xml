@@ -58,6 +58,26 @@
     <string name="lbl_btn_ajouter">Ajouter</string>
     <string name="lbl_btn_previous">Précédent</string>
     <string name="lbl_btn_next">Suivant</string>
+    <string name="lbl_zipcode">Code Postale</string>
+    <string name="lbl_editxt_city">Ville</string>
+    <string name="lbl_editxt_birthday">Date de naissance</string>
+    <string name="lbl_btn_choose_birthday">Choisir</string>
+    <string name="lbl_birthday">Format dd-mm-aaaa</string>
+    <string name="lbl_lastName">Nom</string>
+    <string name="lbl_editxt_phone">Téléphone</string>
+    <string name="lbl_status">Vous êtes ou seriez</string>
+    <string name="lbl_skills">Vos compétences/talents :</string>
+    <string name="lbl_offer">Offre de stage/emploi</string>
+    <string name="lbl_info_EMFcity">Infos sur les activités EMF dans votre ville</string>
+    <string name="lbl_project">Participer a des projets selon vos cométences</string>
+    <string name="btn_new_curriculum">Ajouter un nouveau cursus</string>
+    <string name="lbl_curriculum">Vos cursus</string>
+    <string name="lbl_entiled_diploma">Intitulé du diplôme</string>
+    <string name="lbl_city_studies">Ville d\'études</string>
+    <string name="lbl_date_begin">Date début</string>
+    <string name="lbl_date_end">Date fin</string>
+    <string name="lbl_choose_date">Choisir</string>
+    <string name="lbl_format">Format : mm-aaaa</string>
 
     <string-array name="liste_ville">
         <item>Ville</item>

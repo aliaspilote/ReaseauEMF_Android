@@ -88,13 +88,13 @@ public class ProcessInscriptionActivity extends Activity {
                 findViewById(R.id.stub_Inflated2).setVisibility(View.GONE);
                 break;
             case 3:
-                findViewById(R.id.stub_Inflated3).setVisibility(View.INVISIBLE);
+                findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
                 break;
             case 4:
-                findViewById(R.id.stub_Inflated4_1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
                 break;
             case 5:
-                findViewById(R.id.stub_Inflated4_2).setVisibility(View.INVISIBLE);
+                findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
                 break;
             default:
 

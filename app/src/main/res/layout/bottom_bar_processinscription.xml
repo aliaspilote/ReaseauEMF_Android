@@ -13,33 +13,38 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
-                android:layout_width="wrap_content"
+                style="@style/button_style"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="OnPrevious"
                 android:text="@string/lbl_btn_previous"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textAllCaps="false" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="right">
+
 
             <Button
-                android:layout_width="wrap_content"
+
+                style="@style/button_style"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="OnNext"
                 android:text="@string/lbl_btn_next"
-                android:textAllCaps="false"
-                android:textColor="@color/accent_material_light_1"
-                android:textSize="20sp" />
+                android:textAllCaps="false" />
         </LinearLayout>
 
 

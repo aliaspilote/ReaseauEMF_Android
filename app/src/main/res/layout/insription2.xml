@@ -13,8 +13,8 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical">
 
@@ -23,56 +23,61 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_votre_id"
-            android:textSize="15sp" />
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="45dp"
-            android:paddingRight="45dp">
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
 
 
             <EditText
                 android:id="@+id/editxt_familyname"
                 style="@style/text_style"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:layout_weight="1"
                 android:background="@drawable/text_border"
                 android:padding="4dp"
-                android:text="@string/lbl_nom" />
+                android:inputType="textPersonName"
+                android:hint="@string/lbl_nom" />
 
             <EditText
                 android:id="@+id/editxt_firstname"
                 style="@style/text_style"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/text_border"
                 android:padding="4dp"
-                android:text="@string/lbl_prenom" />
+                android:inputType="textPersonName"
+                android:hint="@string/lbl_prenom" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_marginTop="30dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/editxt_cp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="bottom"
+                    android:layout_weight="1"
                     android:text="@string/lbl_cp" />
 
                 <Spinner
-                    android:id="@+id/spinner_ville"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="fill_parent"
                     android:entries="@array/liste_ville"
 
                     />
@@ -83,17 +88,19 @@
                 android:id="@+id/editxt_tel"
                 style="@style/text_style"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/text_border"
                 android:padding="4dp"
-                android:text="@string/lbl_tel" />
+                android:inputType="phone"
+                android:hint="@string/lbl_tel" />
 
 
-        </LinearLayout>
-        <!--
-                <LinearLayout
+        </LinearLayout>-->
+
+
+        <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -104,13 +111,17 @@
 
 
                     <DatePicker
+                        android:id="@+id/SelectDate"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:datePickerMode="calendar"
                         android:endYear="2100"
+                        android:spinnersShown="true"
                         android:startYear="1900" >
                     </DatePicker>
                 </LinearLayout>
-         -->
+
     </LinearLayout>
 
     <LinearLayout

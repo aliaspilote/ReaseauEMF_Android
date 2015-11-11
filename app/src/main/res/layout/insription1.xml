@@ -30,15 +30,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_vos_id"
-            android:textSize="15sp" />
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
-            android:paddingLeft="45dp"
-            android:paddingRight="45dp">
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
 
             <LinearLayout
                 android:layout_width="match_parent"

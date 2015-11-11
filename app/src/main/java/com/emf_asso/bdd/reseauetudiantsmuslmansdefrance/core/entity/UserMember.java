@@ -26,7 +26,7 @@ public class UserMember implements Serializable {
     private Section section;
     private String involvement;
     private Discipline dicipline;
-    private List<Cursus> cursuses;
+    private List<Curriculum> curriculum;
     private List<Skill> skills;
     private ContactPreference status;
     //application informations
@@ -200,11 +200,11 @@ public class UserMember implements Serializable {
         this.last_update_date = last_update_date;
     }
 
-    public List<Cursus> getCursuses() {
-        return cursuses;
+    public List<Curriculum> getCurriculum() {
+        return curriculum;
     }
 
-    public void setCursuses(List<Cursus> cursuses) {
-        this.cursuses = cursuses;
+    public void setCursuses(List<Curriculum> curriculum) {
+        this.curriculum = curriculum;
     }
 }

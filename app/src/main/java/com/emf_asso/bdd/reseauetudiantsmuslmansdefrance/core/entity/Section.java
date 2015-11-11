@@ -1,7 +1,40 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Omar_Desk on 10/11/2015.
  */
-public class Section {
+public class Section implements Serializable {
+
+    private String label;
+    private int[] zipCode;
+    private boolean isActive;
+
+    public Section() {
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public int[] getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int[] zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 }

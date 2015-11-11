@@ -18,10 +18,10 @@ public class UserMember implements Serializable {
     private String name;
     private String firstname;
     private String civility;
-    private int zip_code;
+    private String zip_code;
     private String city;
     private Date birth_date;
-    private ContactsContract.CommonDataKinds.Phone phone;
+    private String phone;
     //profile EMF
     private Section section;
     private String involvement;
@@ -44,7 +44,7 @@ public class UserMember implements Serializable {
                       ContactsContract.CommonDataKinds.Email email,
                       String city,
                       Date birth_date,
-                      ContactsContract.CommonDataKinds.Phone phone,
+                      String phone,
                       String hashed_pwd) {
         setName(name);
         setFirstname(firstname);
@@ -96,11 +96,11 @@ public class UserMember implements Serializable {
         this.civility = civility;
     }
 
-    public int getZip_code() {
+    public String getZip_code() {
         return zip_code;
     }
 
-    public void setZip_code(int zip_code) {
+    public void setZip_code(String zip_code) {
         this.zip_code = zip_code;
     }
 
@@ -120,11 +120,11 @@ public class UserMember implements Serializable {
         this.birth_date = birth_date;
     }
 
-    public ContactsContract.CommonDataKinds.Phone getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(ContactsContract.CommonDataKinds.Phone phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

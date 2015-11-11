@@ -10,41 +10,39 @@
         android:gravity="bottom|center"
         android:orientation="horizontal">
 
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:gravity="left">
+            android:gravity="center">
 
-            <Button
-                style="@style/button_style"
+            <ImageView
+                android:id="@+id/btn_previous"
+                style="@style/transparence"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:onClick="OnPrevious"
-                android:text="@string/lbl_btn_previous"
-                android:textAllCaps="false" />
-
+                android:src="@drawable/ic_next2" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:gravity="right">
+            android:gravity="center">
 
-
-            <Button
-
-                style="@style/button_style"
+            <ImageView
+                android:id="@+id/btn_next"
+                style="@style/transparence"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:onClick="OnNext"
-                android:text="@string/lbl_btn_next"
-                android:textAllCaps="false" />
+                android:src="@drawable/ic_previous2" />
         </LinearLayout>
 
 

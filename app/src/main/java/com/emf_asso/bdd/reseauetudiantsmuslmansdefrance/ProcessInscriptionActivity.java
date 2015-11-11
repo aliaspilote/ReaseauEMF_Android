@@ -11,7 +11,7 @@ import android.view.ViewStub;
 /**
  * Created by Omar on 04/11/2015.
  */
-public class ProcessInscription extends Activity {
+public class ProcessInscriptionActivity extends Activity {
 
 
     private static final int NUM_PAGES = 5;

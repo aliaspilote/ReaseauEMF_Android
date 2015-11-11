@@ -56,16 +56,17 @@
                         android:text="@string/lbl_password" />
                 </LinearLayout>
 
-                <Button
-                    style="@style/text_style"
+
+                <ImageView
+                    android:id="@+id/btn_connexion"
+                    style="@style/transparence"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:background="@color/accent_material_light_1"
-                    android:text="@string/btn_go"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:clickable="true"
+                    android:onClick="OnPrevious"
+                    android:src="@drawable/ic_connexion2"
+                    android:text="@string/btn_go" />
             </LinearLayout>
 
             <CheckBox
@@ -142,12 +143,10 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:background="@color/accent_material_light_1"
                     android:onClick="OnRegisterClick"
                     android:padding="25dp"
                     android:text="@string/lbl_register"
                     android:textAlignment="center"
-                    android:textColor="#FFFFFF"
                     android:textSize="25sp" />
             </LinearLayout>
         </LinearLayout>

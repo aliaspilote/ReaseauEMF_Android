@@ -1,4 +1,4 @@
-package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
+package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
@@ -7,9 +7,9 @@ import org.json.simple.JSONObject;
  * Created by Omar_Desk on 02/11/2015.
  */
 public class HttpReponse {
+    public String Action;
     JSONObject Resultat;
     Boolean Succes;
-    String Action;
     DateTime DataReponse;
     String ExceptionText = "null";
 

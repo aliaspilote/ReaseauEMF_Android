@@ -1,7 +1,8 @@
-package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
+package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import android.os.AsyncTask;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

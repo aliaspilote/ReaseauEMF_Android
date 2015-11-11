@@ -12,6 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void OnRegisterClick(View view) {
-        Intent intent = new Intent(context, ProcessInscription.class);
+        Intent intent = new Intent(context, ProcessInscriptionActivity.class);
         intent.putExtra("id", "1");
         context.startActivity(intent);
     }

@@ -11,6 +11,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <include layout="@layout/bottom_bar_processinscription" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,8 +51,8 @@
             <ImageView
                 android:id="@+id/btn_add_cursus"
                 style="@style/transparence"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:clickable="true"
                 android:src="@drawable/ic_add_icon" />
@@ -54,13 +61,6 @@
         </LinearLayout>
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
-
-        <include layout="@layout/bottom_bar_processinscription" />
     </LinearLayout>
 
 

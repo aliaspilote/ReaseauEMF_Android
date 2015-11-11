@@ -1,4 +1,4 @@
-package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
+package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.RequestBody;

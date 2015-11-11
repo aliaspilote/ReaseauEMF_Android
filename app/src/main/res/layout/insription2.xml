@@ -26,11 +26,11 @@
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <!--<LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:paddingLeft="25dp"
             android:paddingRight="25dp">
@@ -43,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/text_border"
-                android:padding="4dp"
+                android:hint="@string/lbl_nom"
                 android:inputType="textPersonName"
-                android:hint="@string/lbl_nom" />
+                android:padding="4dp" />
 
             <EditText
                 android:id="@+id/editxt_firstname"
@@ -55,14 +55,14 @@
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/text_border"
-                android:padding="4dp"
+                android:hint="@string/lbl_prenom"
                 android:inputType="textPersonName"
-                android:hint="@string/lbl_prenom" />
+                android:padding="4dp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_marginTop="30dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -76,8 +76,8 @@
 
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="fill_parent"
+                    android:layout_weight="1"
                     android:entries="@array/liste_ville"
 
                     />
@@ -92,15 +92,15 @@
                 android:layout_marginTop="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/text_border"
-                android:padding="4dp"
+                android:hint="@string/lbl_tel"
                 android:inputType="phone"
-                android:hint="@string/lbl_tel" />
+                android:padding="4dp" />
 
 
-        </LinearLayout>-->
+        </LinearLayout>
 
 
-        <LinearLayout
+        <!--<LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -120,10 +120,10 @@
                         android:spinnersShown="true"
                         android:startYear="1900" >
                     </DatePicker>
-                </LinearLayout>
+                </LinearLayout>-->
+
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

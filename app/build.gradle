@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.android.databinding'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
-
     defaultConfig {
         applicationId "com.emf_asso.bdd.reseau"
         minSdkVersion 14
@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    compile 'com.android.databinding:dataBinder:1.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.10'
     compile 'com.android.support:appcompat-v7:23.0.1'

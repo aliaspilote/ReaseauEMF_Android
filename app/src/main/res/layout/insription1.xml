@@ -11,6 +11,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
+    <!--<data></data>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,26 +47,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingTop="60dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_mail"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/lbl_requiered"
+                        android:textColor="@color/rouge"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
                 <EditText
                     android:id="@+id/editxt_ins_email"
                     style="@style/text_style"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/text_border"
                     android:hint="@string/lbl_votre_mail"
                     android:inputType="textEmailAddress"
                     android:padding="4dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_requiered"
-                    android:textColor="@color/rouge"
-                    android:textSize="15sp" />
 
             </LinearLayout>
 
@@ -128,5 +144,4 @@
 
 
     </LinearLayout>
-
 </RelativeLayout>

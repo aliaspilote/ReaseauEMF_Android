@@ -64,6 +64,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/build/data-binding-info" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
@@ -91,13 +92,53 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" exported="" name="lint-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="gradle-1.4.0-beta6" level="project" />
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
-    <orderEntry type="library" exported="" name="json-simple-1.1" level="project" />
+    <orderEntry type="library" exported="" name="builder-1.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="annotations-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="transform-api-1.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="httpcore-4.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.5.0" level="project" />
-    <orderEntry type="library" exported="" name="joda-time-2.9" level="project" />
+    <orderEntry type="library" exported="" name="asm-5.0.3" level="project" />
+    <orderEntry type="library" exported="" name="jack-api-0.9.0" level="project" />
+    <orderEntry type="library" exported="" name="dataBinder-1.0-rc4" level="project" />
+    <orderEntry type="library" exported="" name="layoutlib-api-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="builder-test-api-1.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="httpmime-4.1" level="project" />
+    <orderEntry type="library" exported="" name="ecj-4.4.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="proguard-gradle-5.2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="gradle-core-1.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="org.jacoco.core-0.7.4.201502262128" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="builder-model-1.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="manifest-merger-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="asm-debug-all-5.0.1" level="project" />
+    <orderEntry type="library" exported="" name="dvlib-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="sdk-common-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="lombok-ast-0.2.3" level="project" />
+    <orderEntry type="library" exported="" name="baseLibrary-1.0-rc4" level="project" />
+    <orderEntry type="library" exported="" name="bcprov-jdk15on-1.48" level="project" />
+    <orderEntry type="library" exported="" name="annotations-12.0" level="project" />
+    <orderEntry type="library" exported="" name="ddmlib-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="guava-17.0" level="project" />
+    <orderEntry type="library" exported="" name="commons-compress-1.8.1" level="project" />
+    <orderEntry type="library" exported="" name="asm-tree-5.0.3" level="project" />
+    <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="bcpkix-jdk15on-1.48" level="project" />
+    <orderEntry type="library" exported="" name="common-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="kxml2-2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="lint-checks-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="jill-api-0.9.0" level="project" />
+    <orderEntry type="library" exported="" name="json-simple-1.1" level="project" />
+    <orderEntry type="library" exported="" name="javawriter-2.5.0" level="project" />
+    <orderEntry type="library" exported="" name="asm-analysis-5.0.3" level="project" />
+    <orderEntry type="library" exported="" name="lint-api-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="proguard-base-5.2.1" level="project" />
+    <orderEntry type="library" exported="" name="sdklib-24.4.0-beta6" level="project" />
+    <orderEntry type="library" exported="" name="joda-time-2.9" level="project" />
   </component>
 </module>

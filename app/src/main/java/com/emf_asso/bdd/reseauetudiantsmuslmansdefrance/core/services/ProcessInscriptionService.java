@@ -1,6 +1,9 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Inscription;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 
 import java.io.Serializable;
@@ -67,6 +70,13 @@ public class ProcessInscriptionService implements Serializable {
         inscription.getUser().setPhone(Phone);
         inscription.getUser().setCity(City);
         inscription.getUser().setBirth_date(BirthDay);
+    }
+
+    public void set_data_inscription3(String involvement, Section section, List<Skill> skills, ContactPreference contactPreference) {
+        inscription.getUser().setInvolvement(involvement);
+        inscription.getUser().setSection(section);
+        inscription.getUser().setSkills(skills);
+        inscription.getUser().setStatus(contactPreference);
     }
 
     public Boolean validated_screen1(Inscription inscription) {

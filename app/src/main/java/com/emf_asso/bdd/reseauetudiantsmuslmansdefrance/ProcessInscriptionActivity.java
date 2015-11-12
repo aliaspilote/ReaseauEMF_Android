@@ -1,13 +1,21 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Omar on 04/11/2015.
@@ -33,6 +41,7 @@ public class ProcessInscriptionActivity extends Activity {
 
         //Log.d("ServiceInscription", getIntent().getExtras().getSerializable("ServiceInscription", "ServiceInscription"));
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
+        ServiceProcessInscription.onStart();
     }
 
     public void InitStubs() {
@@ -51,9 +60,18 @@ public class ProcessInscriptionActivity extends Activity {
     }
 
     public void OnNext(View view) {
+        setDataOn_ServiceByStep(current_NUM_PAGES);
         hideViewByNum(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES) {
             //Valider le formulaire
+            current_NUM_PAGES = 1;
+            displayViewByNum(current_NUM_PAGES);
+            Gson gson = new Gson();
+            String jsonUser = gson.toJson(ServiceProcessInscription.getInscription().getUser());
+            new AlertDialog.Builder(this)
+                    .setTitle("ServiceProcessInscription ")
+                    .setMessage(jsonUser)
+                    .show();
         } else {
             current_NUM_PAGES++;
             displayViewByNum(current_NUM_PAGES);
@@ -61,10 +79,10 @@ public class ProcessInscriptionActivity extends Activity {
     }
 
     public void OnPrevious(View view) {
-
+        setDataOn_ServiceByStep(current_NUM_PAGES);
         hideViewByNum(current_NUM_PAGES);
         if (current_NUM_PAGES == 1) {
-            //valider le formulaire
+            gotoMainActivity();
         } else {
             current_NUM_PAGES--;
             displayViewByNum(current_NUM_PAGES);
@@ -74,11 +92,24 @@ public class ProcessInscriptionActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (current_NUM_PAGES == 1) {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("id", "1");
-            context.startActivity(intent);
+            gotoMainActivity();
         } else {
             displayViewByNum(current_NUM_PAGES - 1);
+        }
+    }
+
+    public void setDataOn_ServiceByStep(int step) {
+        switch (step) {
+            case 1:
+                ServiceProcessInscription.set_data_inscription1("aa", "aa");
+                break;
+            case 2:
+                ServiceProcessInscription.set_data_inscription2("aa", "aa", "aa", "aa", "aa", new Date());
+                break;
+            case 3:
+                ServiceProcessInscription.set_data_inscription3("tjrs", new Section(), new ArrayList<Skill>(), new ContactPreference());
+            default:
+                break;
         }
     }
 
@@ -133,4 +164,14 @@ public class ProcessInscriptionActivity extends Activity {
                 break;
         }
     }
+
+    public void gotoMainActivity() {
+        Intent intent = new Intent(context, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+
 }

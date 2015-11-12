@@ -13,6 +13,8 @@ public class Inscription implements Serializable {
     private int count_Curriculum;
 
     public Inscription() {
+        user = new UserMember();
+        setRegistration_date(new Date());
     }
 
     public Date getRegistration_date() {

@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //ViewModel viewModel = new ViewModel();
-        //viewModel.data.set("test");
-        //ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        //binding.setViewModel(viewModel);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null)
+            if (bundle.getSerializable("ServiceInscription") != null)
+                ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnRegisterClick(View view) {
         Intent intent = new Intent(context, ProcessInscriptionActivity.class);
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
         intent.putExtras(bundle);

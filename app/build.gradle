@@ -1,13 +1,10 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.android.databinding'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "com.emf_asso.bdd.reseau"
-        //minSdkVersion 'MNC'
-        //targetSdkVersion 'MNC'
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
@@ -18,9 +15,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    dataBinding {
-        enabled = true
     }
 }
 

@@ -10,6 +10,7 @@ public class Inscription implements Serializable {
 
     private UserMember user;
     private Date registration_date;
+    private int count_Curriculum;
 
     public Inscription() {
     }
@@ -30,4 +31,12 @@ public class Inscription implements Serializable {
     public void setUser(UserMember user) {
         this.user = user;
     }
+
+    public int getCount_Curriculum() {
+        if (user != null)
+            if (user.getCurriculum() != null)
+                return user.getCurriculum().size();
+        return 0;
+    }
+
 }

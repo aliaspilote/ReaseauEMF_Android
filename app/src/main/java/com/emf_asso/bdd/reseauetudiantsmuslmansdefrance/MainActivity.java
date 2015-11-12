@@ -12,9 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ViewModel;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.io.IOException;
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     public HttpReponse LastReponse;
     private Context context = this;
+    private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ViewModel viewModel = new ViewModel();
-        viewModel.data.set("test");
+        //ViewModel viewModel = new ViewModel();
+        //viewModel.data.set("test");
         //ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         //binding.setViewModel(viewModel);
     }
@@ -111,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnRegisterClick(View view) {
         Intent intent = new Intent(context, ProcessInscriptionActivity.class);
-        intent.putExtra("id", "1");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

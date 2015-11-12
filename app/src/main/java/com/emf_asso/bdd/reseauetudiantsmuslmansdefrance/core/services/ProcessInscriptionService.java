@@ -3,16 +3,29 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Inscription;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Omar_Desk on 11/11/2015.
  */
-public class ProcessInscriptionService {
+public class ProcessInscriptionService implements Serializable {
 
     private Inscription inscription;
     private List<Inscription> multi_inscriptions;
     private String[] errors;
+    private Boolean onGoingInscr = false;
+
+
+    public void onStart() {
+        if (!onGoingInscr) {
+            inscription = new Inscription();
+            multi_inscriptions = new ArrayList<>();
+            onGoingInscr = true;
+        }
+    }
 
     public boolean submit() {
         return submit(inscription);
@@ -20,7 +33,8 @@ public class ProcessInscriptionService {
 
     public boolean submit(Inscription inscription) {
 
-        return false;
+        onGoingInscr = false;
+        return true;
     }
 
     public boolean submit_all() {
@@ -34,10 +48,25 @@ public class ProcessInscriptionService {
                 return validated_screen1(inscription);
             case 2:
                 return validated_screen2(inscription);
+            case 3:
+                return validated_screen3(inscription);
             default:
                 return false;
         }
+    }
 
+    public void set_data_inscription1(String Email, String Password) {
+        inscription.getUser().setEmail(Email);
+        inscription.getUser().setHashed_pwd(Password);
+    }
+
+    public void set_data_inscription2(String Name, String Firstname, String ZipCode, String City, String Phone, Date BirthDay) {
+        inscription.getUser().setName(Name);
+        inscription.getUser().setFirstname(Firstname);
+        inscription.getUser().setZip_code(ZipCode);
+        inscription.getUser().setPhone(Phone);
+        inscription.getUser().setCity(City);
+        inscription.getUser().setBirth_date(BirthDay);
     }
 
     public Boolean validated_screen1(Inscription inscription) {
@@ -80,4 +109,45 @@ public class ProcessInscriptionService {
         return bool;
     }
 
+    public Boolean validated_screen3(Inscription inscription) {
+        boolean bool = true;
+        errors[3] = "";
+        if (inscription.getUser().getSection() != null) {
+            bool = false;
+            errors[3] += Messages.error_section;
+        }
+        return bool;
+    }
+
+    public Inscription getInscription() {
+        return inscription;
+    }
+
+    public void setInscription(Inscription inscription) {
+        this.inscription = inscription;
+    }
+
+    public List<Inscription> getMulti_inscriptions() {
+        return multi_inscriptions;
+    }
+
+    public void setMulti_inscriptions(List<Inscription> multi_inscriptions) {
+        this.multi_inscriptions = multi_inscriptions;
+    }
+
+    public String[] getErrors() {
+        return errors;
+    }
+
+    public void setErrors(String[] errors) {
+        this.errors = errors;
+    }
+
+    public Boolean getOnGoingInscr() {
+        return onGoingInscr;
+    }
+
+    public void setOnGoingInscr(Boolean onGoingInscr) {
+        this.onGoingInscr = onGoingInscr;
+    }
 }

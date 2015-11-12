@@ -11,6 +11,7 @@ public final class Messages {
     public static String error_zipcode = " Code postal saisie incorrect. \n";
     public static String error_phone = " Telephone saisie incorrect. \n";
     public static String error_city = " Ville non saisie \n";
+    public static String error_section = " Auncune section renseignée \n";
 
     private Messages() {
     }

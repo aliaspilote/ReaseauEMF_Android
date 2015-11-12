@@ -1,7 +1,5 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
-import android.provider.ContactsContract;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 public class UserMember implements Serializable {
 
     //login
-    private ContactsContract.CommonDataKinds.Email email;
+    private String email;
     private String hashed_pwd;
     //identity
     private String name;
@@ -41,7 +39,7 @@ public class UserMember implements Serializable {
     public UserMember(String name,
                       String firstname,
                       String civility,
-                      ContactsContract.CommonDataKinds.Email email,
+                      String email,
                       String city,
                       Date birth_date,
                       String phone,
@@ -56,11 +54,11 @@ public class UserMember implements Serializable {
         setHashed_pwd(hashed_pwd);
     }
 
-    public ContactsContract.CommonDataKinds.Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(ContactsContract.CommonDataKinds.Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

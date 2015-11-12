@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 
 /**
  * Created by Omar on 04/11/2015.
@@ -18,17 +19,20 @@ public class ProcessInscriptionActivity extends Activity {
     public ViewStub stub;
     private Context context = this;
     private int current_NUM_PAGES;
+    private ProcessInscriptionService ServiceProcessInscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processinscription);
-        Log.d("test", getIntent().getExtras().getString("id", "0"));
 
-        current_NUM_PAGES = 1;
-        //stub = (ViewStub) findViewById(R.id.stub_pi1);
-        //stub.inflate();
         InitStubs();
+        current_NUM_PAGES = 1;
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
+        //Log.d("ServiceInscription", getIntent().getExtras().getSerializable("ServiceInscription", "ServiceInscription"));
+        ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
     }
 
     public void InitStubs() {
@@ -39,7 +43,6 @@ public class ProcessInscriptionActivity extends Activity {
         ((ViewStub) findViewById(R.id.stub_pi4_1)).inflate();
         ((ViewStub) findViewById(R.id.stub_pi4_2)).inflate();
 
-        // findViewById(R.id.stub_Inflated1).setVisibility(View.INVISIBLE);
         findViewById(R.id.stub_Inflated2).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
@@ -100,8 +103,6 @@ public class ProcessInscriptionActivity extends Activity {
 
                 break;
         }
-
-
     }
 
     public void displayViewByNum(int numView) {
@@ -131,8 +132,5 @@ public class ProcessInscriptionActivity extends Activity {
                 //stub = (ViewStub) findViewById(R.id.stub_pi1);
                 break;
         }
-
-        // stub.inflate();
-
     }
 }

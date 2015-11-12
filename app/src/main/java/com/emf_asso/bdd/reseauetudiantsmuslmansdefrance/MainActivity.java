@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ViewModel;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
@@ -23,8 +24,18 @@ public class MainActivity extends AppCompatActivity {
     public HttpReponse LastReponse;
     private Context context = this;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-
+        ViewModel viewModel = new ViewModel();
+        viewModel.data.set("test");
+        //ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        //binding.setViewModel(viewModel);
+    }
 
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse = Rep;
@@ -62,15 +73,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -144,3 +146,5 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 }
+
+

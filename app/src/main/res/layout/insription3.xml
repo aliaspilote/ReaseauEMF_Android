@@ -11,6 +11,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <include layout="@layout/bottom_bar_processinscription" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +32,19 @@
             android:text="@string/lbl_profil_emf"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_legend_error"
+                style="@style/lbl_style_legend_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,12 +189,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
 
-        <include layout="@layout/bottom_bar_processinscription" />
-    </LinearLayout>
 
 </RelativeLayout>

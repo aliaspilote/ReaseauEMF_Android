@@ -37,7 +37,7 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/editxt_email"
+                        android:id="@+id/editxt_auth_email"
                         style="@style/text_style"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                         android:text="@string/lbl_mail" />
 
                     <EditText
-                        android:id="@+id/editxt_pwd"
+                        android:id="@+id/editxt_auth_pwd"
                         style="@style/text_style"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"

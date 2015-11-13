@@ -41,4 +41,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="lbl_style_legend_error">
+        <item name="android:textColor">#F6CECE</item>
+        <item name="android:colorBackground">#FA5858</item>
+    </style>
 </resources>

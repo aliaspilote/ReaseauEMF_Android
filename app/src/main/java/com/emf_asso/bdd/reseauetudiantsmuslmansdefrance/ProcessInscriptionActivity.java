@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 import com.google.gson.Gson;
 
@@ -38,8 +41,6 @@ public class ProcessInscriptionActivity extends Activity {
         current_NUM_PAGES = 1;
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-
-        //Log.d("ServiceInscription", getIntent().getExtras().getSerializable("ServiceInscription", "ServiceInscription"));
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
         ServiceProcessInscription.onStart();
     }
@@ -63,7 +64,12 @@ public class ProcessInscriptionActivity extends Activity {
         setDataOn_ServiceByStep(current_NUM_PAGES);
         hideViewByNum(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES) {
+
+            //Revisualiser les infos saisies à confirmer
+
             //Valider le formulaire
+
+            //Puis afficher le profile
             current_NUM_PAGES = 1;
             displayViewByNum(current_NUM_PAGES);
             Gson gson = new Gson();
@@ -99,17 +105,36 @@ public class ProcessInscriptionActivity extends Activity {
     }
 
     public void setDataOn_ServiceByStep(int step) {
+
+        TextView lbl_error = (TextView) findViewById(R.id.lbl_legend_error);
+
         switch (step) {
             case 1:
-                ServiceProcessInscription.set_data_inscription1("aa", "aa");
+                ServiceProcessInscription.set_data_inscription1(ServiceProcessInscription.getInscription(),
+                        getTextByEditTextId(R.id.editxt_ins_email),
+                        getTextByEditTextId(R.id.editxt_ins_pwd));
+                ServiceProcessInscription.validated_screen1(ServiceProcessInscription.getInscription());
                 break;
             case 2:
-                ServiceProcessInscription.set_data_inscription2("aa", "aa", "aa", "aa", "aa", new Date());
+                ServiceProcessInscription.set_data_inscription2(ServiceProcessInscription.getInscription(),
+                        getTextByEditTextId(R.id.editxt_ins_name),
+                        getTextByEditTextId(R.id.editxt_ins_firstname),
+                        getTextByEditTextId(R.id.editxt_ins_zipcode),
+                        getTextByEditTextId(R.id.editxt_ins_city),
+                        getTextByEditTextId(R.id.editxt_ins_phone),
+                        new Date());
+                ServiceProcessInscription.validated_screen2(ServiceProcessInscription.getInscription());
                 break;
             case 3:
-                ServiceProcessInscription.set_data_inscription3("tjrs", new Section(), new ArrayList<Skill>(), new ContactPreference());
+                ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
+                        "tjrs", new Section(), new ArrayList<Skill>(), new ContactPreference());
+                ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
             default:
                 break;
+        }
+        if (ServiceProcessInscription.getErrors(step) != "") {
+            lbl_error.setText(ServiceProcessInscription.getErrors(step));
+            infoBox(Messages.error_inscription_Titre, ServiceProcessInscription.getErrors(step));
         }
     }
 
@@ -172,6 +197,18 @@ public class ProcessInscriptionActivity extends Activity {
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
+
+    public void infoBox(String Titre, String Message) {
+        new AlertDialog.Builder(this)
+                .setTitle(Titre)
+                .setMessage(Message)
+                .show();
+    }
+
+    public String getTextByEditTextId(int id_editText) {
+        return ((EditText) findViewById(id_editText)).getText().toString();
+    }
+
 
 
 }

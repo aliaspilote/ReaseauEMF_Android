@@ -13,6 +13,8 @@ public final class Messages {
     public static String error_city = " Ville non saisie \n";
     public static String error_section = " Auncune section renseignée \n";
 
+    public static String error_inscription_Titre = " Erreurs de saisies \n";
+
     private Messages() {
     }
 }

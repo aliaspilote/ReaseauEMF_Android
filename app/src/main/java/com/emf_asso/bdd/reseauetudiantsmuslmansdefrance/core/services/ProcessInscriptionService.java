@@ -18,7 +18,7 @@ public class ProcessInscriptionService implements Serializable {
 
     private Inscription inscription;
     private List<Inscription> multi_inscriptions;
-    private String[] errors;
+    private String[] errors = new String[5];
     private Boolean onGoingInscr = false;
 
 
@@ -58,12 +58,12 @@ public class ProcessInscriptionService implements Serializable {
         }
     }
 
-    public void set_data_inscription1(String Email, String Password) {
+    public void set_data_inscription1(Inscription inscription, String Email, String Password) {
         inscription.getUser().setEmail(Email);
         inscription.getUser().setHashed_pwd(Password);
     }
 
-    public void set_data_inscription2(String Name, String Firstname, String ZipCode, String City, String Phone, Date BirthDay) {
+    public void set_data_inscription2(Inscription inscription, String Name, String Firstname, String ZipCode, String City, String Phone, Date BirthDay) {
         inscription.getUser().setName(Name);
         inscription.getUser().setFirstname(Firstname);
         inscription.getUser().setZip_code(ZipCode);
@@ -72,7 +72,7 @@ public class ProcessInscriptionService implements Serializable {
         inscription.getUser().setBirth_date(BirthDay);
     }
 
-    public void set_data_inscription3(String involvement, Section section, List<Skill> skills, ContactPreference contactPreference) {
+    public void set_data_inscription3(Inscription inscription, String involvement, Section section, List<Skill> skills, ContactPreference contactPreference) {
         inscription.getUser().setInvolvement(involvement);
         inscription.getUser().setSection(section);
         inscription.getUser().setSkills(skills);
@@ -145,6 +145,9 @@ public class ProcessInscriptionService implements Serializable {
         this.multi_inscriptions = multi_inscriptions;
     }
 
+    public String getErrors(int step) {
+        return errors[step];
+    }
     public String[] getErrors() {
         return errors;
     }

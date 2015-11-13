@@ -11,7 +11,15 @@ public class Section implements Serializable {
     private int[] zipCode;
     private boolean isActive;
 
+    public Section(String lbl) {
+        setLabel(lbl);
+    }
+
     public Section() {
+    }
+
+    public String toString() {
+        return label;
     }
 
     public String getLabel() {

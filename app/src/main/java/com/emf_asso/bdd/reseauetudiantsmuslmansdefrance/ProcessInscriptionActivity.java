@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -31,6 +33,8 @@ public class ProcessInscriptionActivity extends Activity {
 
     private static final int NUM_PAGES = 5;
     public ViewStub stub;
+    public List<Involvement> involvementsList;
+    public List<Section> sectionList;
     private Context context = this;
     private int current_NUM_PAGES;
     private ProcessInscriptionService ServiceProcessInscription;
@@ -46,6 +50,19 @@ public class ProcessInscriptionActivity extends Activity {
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
         ServiceProcessInscription.onStart();
+        InitListSectionInvolvement();
+
+    }
+
+    public void InitListSectionInvolvement() {
+        involvementsList = new ArrayList<>();
+        involvementsList.add(new Involvement("Membre Actif", "Membre qui participe aux réunior", "1"));
+        involvementsList.add(new Involvement("Membre Cool", "Il est cool", "2"));
+        involvementsList.add(new Involvement("Super Actif", "Il est hyper actif", "3"));
+        sectionList = new ArrayList<>();
+        sectionList.add(new Section("Belfort"));
+        sectionList.add(new Section("Paris"));
+        sectionList.add(new Section("Lyon"));
     }
 
     public void InitStubs() {

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,187 +12,195 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
-
-        <include layout="@layout/bottom_bar_processinscription" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_votre_id"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="40dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical">
 
+
             <TextView
-                android:id="@+id/lbl_legend_error"
-                style="@style/lbl_style_legend_error"
+                style="@style/text_style"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp">
-
-
-            <EditText
-                android:id="@+id/editxt_ins_name"
-                style="@style/text_style"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/text_border"
-                android:hint="@string/lbl_lastName"
-                android:inputType="textPersonName"
-                android:padding="4dp" />
-
-            <EditText
-                android:id="@+id/editxt_ins_firstname"
-                style="@style/text_style"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/text_border"
-                android:hint="@string/lbl_firstname"
-                android:inputType="textPersonName"
-                android:padding="4dp" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-
-                <!-- <Button
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="@string/lbl_editxt_birthday"
-                     android:onClick="showDatePickerDialog" />-->
-                <EditText
-                    android:id="@+id/editxt_ins_birthday"
-                    style="@style/text_style"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/text_border"
-                    android:hint="@string/lbl_editxt_birthday"
-                    android:inputType="date"
-                    android:padding="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-
-                    android:text="@string/lbl_birthday" />
-            </LinearLayout>
+                android:text="@string/lbl_votre_id"
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
-                android:layout_weight="2"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/editxt_ins_zipcode"
-                    style="@style/text_style"
-                    android:layout_width="0dp"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="@drawable/text_border"
-                    android:hint="@string/lbl_zipcode"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:padding="4dp" />
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center">
 
-                <EditText
-                    android:id="@+id/editxt_ins_city"
-                    style="@style/text_style"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/text_border"
-                    android:hint="@string/lbl_editxt_city"
-                    android:inputType="text"
-                    android:padding="4dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
 
 
-                    />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/lbl_ins2_legend_error"
+                                style="@style/lbl_style_legend_error"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        /* Début partie Ecran 2 */
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <EditText
+                                android:id="@+id/editxt_ins_name"
+                                style="@style/text_style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/text_border"
+                                android:hint="@string/lbl_lastName"
+                                android:inputType="textPersonName"
+                                android:padding="4dp" />
+
+                            <EditText
+                                android:id="@+id/editxt_ins_firstname"
+                                style="@style/text_style"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="30dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/text_border"
+                                android:hint="@string/lbl_firstname"
+                                android:inputType="textPersonName"
+                                android:padding="4dp" />
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+
+                                <!-- <Button
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="@string/lbl_editxt_birthday"
+                                     android:onClick="showDatePickerDialog" />-->
+                                <EditText
+                                    android:id="@+id/editxt_ins_birthday"
+                                    style="@style/text_style"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/text_border"
+                                    android:hint="@string/lbl_editxt_birthday"
+                                    android:inputType="date"
+                                    android:padding="4dp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="2"
+                                    android:padding="4dp"
+
+                                    android:text="@string/lbl_birthday" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginTop="30dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/editxt_ins_zipcode"
+                                    style="@style/text_style"
+                                    android:layout_width="0dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="2"
+                                    android:background="@drawable/text_border"
+                                    android:hint="@string/lbl_zipcode"
+                                    android:inputType="number"
+                                    android:maxLength="5"
+                                    android:padding="4dp" />
+
+                                <EditText
+                                    android:id="@+id/editxt_ins_city"
+                                    style="@style/text_style"
+                                    android:layout_width="0dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/text_border"
+                                    android:hint="@string/lbl_editxt_city"
+                                    android:inputType="text"
+                                    android:padding="4dp"
+
+
+                                    />
+
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/editxt_ins_phone"
+                                style="@style/text_style"
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/text_border"
+                                android:hint="@string/lbl_editxt_phone"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:padding="4dp" />
+
+
+                        </LinearLayout>
+                        /* Fin partie Ecran 2 */
+
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/editxt_ins_phone"
-                style="@style/text_style"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/text_border"
-                android:hint="@string/lbl_editxt_phone"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:padding="4dp" />
-
-
         </LinearLayout>
+    </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-        <!--<LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lbl_datenaisance"/>
-
-
-                    <DatePicker
-                        android:id="@+id/SelectDate"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:datePickerMode="spinner"
-                        android:endYear="2100"
-                        android:spinnersShown="true"
-                        android:startYear="1900" >
-                    </DatePicker>
-                </LinearLayout>-->
-
+        <include layout="@layout/bottom_bar_processinscription" />
 
     </LinearLayout>
-
-
 </RelativeLayout>

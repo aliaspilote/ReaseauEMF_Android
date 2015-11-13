@@ -11,7 +11,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -27,8 +26,8 @@
                 style="@style/text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lbl_curriculum"
-                android:textSize="25sp"
+                android:text="Votre Titre"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -62,7 +61,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/lbl_ins4_1_legend_error"
+                                android:id="@+id/lbl_ins_legend_error"
                                 style="@style/lbl_style_legend_error"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -70,43 +69,6 @@
 
                         /* Code spécifique a cette vue ici */
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="30dp"
-                                android:layout_weight="2"
-                                android:orientation="horizontal"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="20dp">
-
-                                <Button
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:text="@string/btn_new_curriculum"
-                                    android:textAllCaps="false" />
-
-                                <ImageView
-                                    android:id="@+id/btn_add_curriculum"
-                                    style="@style/transparence"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:clickable="true"
-                                    android:src="@drawable/ic_add_icon" />
-
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
 
                         /* Jusuqu'a là */
 
@@ -126,4 +88,3 @@
 
     </LinearLayout>
 </RelativeLayout>
-

@@ -12,6 +12,7 @@ public class UserMember implements Serializable {
     //login
     private String email;
     private String hashed_pwd;
+    private String hashed_pwd2;
     //identity
     private String name;
     private String firstname;
@@ -43,7 +44,8 @@ public class UserMember implements Serializable {
                       String city,
                       Date birth_date,
                       String phone,
-                      String hashed_pwd) {
+                      String hashed_pwd,
+                      String hashed_pwd2) {
         setName(name);
         setFirstname(firstname);
         setCivility(civility);
@@ -52,6 +54,7 @@ public class UserMember implements Serializable {
         setBirth_date(birth_date);
         setPhone(phone);
         setHashed_pwd(hashed_pwd);
+        setHashed_pwd2(hashed_pwd2);
     }
 
     public String getEmail() {
@@ -68,6 +71,14 @@ public class UserMember implements Serializable {
 
     public void setHashed_pwd(String hashed_pwd) {
         this.hashed_pwd = hashed_pwd;
+    }
+
+    public String getHashed_pwd2() {
+        return hashed_pwd2;
+    }
+
+    public void setHashed_pwd2(String hashed_pwd2) {
+        this.hashed_pwd2 = hashed_pwd2;
     }
 
     public String getName() {
@@ -200,6 +211,10 @@ public class UserMember implements Serializable {
 
     public List<Curriculum> getCurriculum() {
         return curriculum;
+    }
+
+    public void setCurriculum(List<Curriculum> curriculum) {
+        this.curriculum = curriculum;
     }
 
     public void setCursuses(List<Curriculum> curriculum) {

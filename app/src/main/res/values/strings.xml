@@ -34,10 +34,7 @@
     <string name="lbl_btn_accueil">Accueil</string>
     <string name="lbl_btn_suivant">Suivant</string>
     <string name="lbl_votre_id">Votre identité</string>
-    <string name="lbl_nom">Nom</string>
-    <string name="lbl_prenom">Prénom</string>
     <string name="lbl_btn_precedent">Précédent</string>
-    <string name="lbl_cp">Code Postale</string>
     <string name="lbl_datenaisance">Date de nessaince</string>
     <string name="lbl_tel">Téléphone</string>
     <string name="lbl_profil_emf">Profil EMF</string>
@@ -58,11 +55,11 @@
     <string name="lbl_btn_ajouter">Ajouter</string>
     <string name="lbl_btn_previous">Précédent</string>
     <string name="lbl_btn_next">Suivant</string>
-    <string name="lbl_zipcode">Code Postale</string>
+    <string name="lbl_zipcode">CP</string>
     <string name="lbl_editxt_city">Ville</string>
     <string name="lbl_editxt_birthday">Date de naissance</string>
     <string name="lbl_btn_choose_birthday">Choisir</string>
-    <string name="lbl_birthday">Format dd-mm-aaaa</string>
+    <string name="lbl_birthday">JJ-MM-AAAA</string>
     <string name="lbl_lastName">Nom</string>
     <string name="lbl_editxt_phone">Téléphone</string>
     <string name="lbl_status">Vous êtes ou seriez</string>

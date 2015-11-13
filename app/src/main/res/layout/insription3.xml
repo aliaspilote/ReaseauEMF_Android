@@ -11,184 +11,213 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
-
-        <include layout="@layout/bottom_bar_processinscription" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_profil_emf"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="40dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical">
 
+
             <TextView
-                android:id="@+id/lbl_legend_error"
-                style="@style/lbl_style_legend_error"
+                style="@style/text_style"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
-
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_profil_emf"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        android:text="@string/lbl_status" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="bottom"
-
-                        android:layout_marginTop="30dp"
-                        android:layout_weight="1"
-                        android:text="@string/lbl_section" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <Spinner
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/list_status"
-                        android:spinnerMode="dialog"
-
-                        />
-
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:entries="@array/liste_section"
-                        android:spinnerMode="dialog"
-
-                        />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center">
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="@string/lbl_skills" />
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-                <ListView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lbl_ins3_legend_error"
+                        style="@style/lbl_style_legend_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                </ListView>
+                /* Code spécifique a cette vue ici */
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                android:text="@string/lbl_status" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_gravity="bottom"
+
+                                android:layout_marginTop="30dp"
+                                android:layout_weight="1"
+                                android:text="@string/lbl_section" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <Spinner
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/list_status"
+                                android:spinnerMode="dialog"
+
+                                />
+
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:entries="@array/liste_section"
+                                android:spinnerMode="dialog"
+
+                                />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="@string/lbl_skills" />
+
+                        <ListView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </ListView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="@string/lbl_contact" />
+
+                        <CheckBox
+                            android:id="@+id/checkbox_offer"
+                            style="@style/text_petite_taille"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/lbl_offer" />
+
+                        <CheckBox
+                            android:id="@+id/checkbox_info_EMFcity"
+                            style="@style/text_petite_taille"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_info_EMFcity" />
+
+                        <CheckBox
+                            android:id="@+id/checkbox_info_national"
+                            style="@style/text_petite_taille"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_info_national" />
+
+                        <CheckBox
+                            android:id="@+id/checkbox_project"
+                            style="@style/text_petite_taille"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_project" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                /* Jusuqu'a là */
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="@string/lbl_contact" />
-
-                <CheckBox
-                    android:id="@+id/checkbox_offer"
-                    style="@style/text_petite_taille"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/lbl_offer" />
-
-                <CheckBox
-                    android:id="@+id/checkbox_info_EMFcity"
-                    style="@style/text_petite_taille"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_info_EMFcity" />
-
-                <CheckBox
-                    android:id="@+id/checkbox_info_national"
-                    style="@style/text_petite_taille"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_info_national" />
-
-                <CheckBox
-                    android:id="@+id/checkbox_project"
-                    style="@style/text_petite_taille"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_project" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
+                </RelativeLayout>
     </LinearLayout>
 
+        </LinearLayout>
+    </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
+        <include layout="@layout/bottom_bar_processinscription" />
+
+    </LinearLayout>
 </RelativeLayout>

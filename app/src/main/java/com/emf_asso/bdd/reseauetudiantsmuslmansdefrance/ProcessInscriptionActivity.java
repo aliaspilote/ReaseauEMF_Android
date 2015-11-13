@@ -3,6 +3,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,8 +18,10 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Omar on 04/11/2015.
@@ -62,25 +65,41 @@ public class ProcessInscriptionActivity extends Activity {
 
     public void OnNext(View view) {
         setDataOn_ServiceByStep(current_NUM_PAGES);
-        hideViewByNum(current_NUM_PAGES);
-        if (current_NUM_PAGES == NUM_PAGES) {
-
+        if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
+        {
+            hideViewByNum(current_NUM_PAGES);
             //Revisualiser les infos saisies à confirmer
-
             //Valider le formulaire
-
             //Puis afficher le profile
             current_NUM_PAGES = 1;
             displayViewByNum(current_NUM_PAGES);
             Gson gson = new Gson();
             String jsonUser = gson.toJson(ServiceProcessInscription.getInscription().getUser());
-            new AlertDialog.Builder(this)
-                    .setTitle("ServiceProcessInscription ")
+            new AlertDialog.Builder(context)
+                    .setTitle(" Validation Inscritpion ")
                     .setMessage(jsonUser)
                     .show();
         } else {
-            current_NUM_PAGES++;
-            displayViewByNum(current_NUM_PAGES);
+            if (ServiceProcessInscription.getErrors(current_NUM_PAGES) != "") {
+                new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(ServiceProcessInscription.getErrors(current_NUM_PAGES))
+                        .setPositiveButton(Messages.error_continu, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                // Some stuff to do when ok got clicked
+                                hideViewByNum(current_NUM_PAGES);
+                                current_NUM_PAGES++;
+                                displayViewByNum(current_NUM_PAGES);
+                            }
+                        }).setNegativeButton(Messages.error_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //*Some stuff to do when cancel got clicked */
+                    }
+                })
+                        .show();
+            } else {
+                hideViewByNum(current_NUM_PAGES);
+                current_NUM_PAGES++;
+                displayViewByNum(current_NUM_PAGES);
+            }
         }
     }
 
@@ -106,14 +125,18 @@ public class ProcessInscriptionActivity extends Activity {
 
     public void setDataOn_ServiceByStep(int step) {
 
-        TextView lbl_error = (TextView) findViewById(R.id.lbl_legend_error);
+        TextView lbl_error;
 
         switch (step) {
             case 1:
                 ServiceProcessInscription.set_data_inscription1(ServiceProcessInscription.getInscription(),
                         getTextByEditTextId(R.id.editxt_ins_email),
-                        getTextByEditTextId(R.id.editxt_ins_pwd));
+                        getTextByEditTextId(R.id.editxt_ins_pwd),
+                        getTextByEditTextId(R.id.editxt_ins_repeat_pwd));
                 ServiceProcessInscription.validated_screen1(ServiceProcessInscription.getInscription());
+                lbl_error = (TextView) findViewById(R.id.lbl_ins1_legend_error);
+                if (ServiceProcessInscription.getErrors(step) != "")
+                    lbl_error.setText(ServiceProcessInscription.getErrors(step));
                 break;
             case 2:
                 ServiceProcessInscription.set_data_inscription2(ServiceProcessInscription.getInscription(),
@@ -122,19 +145,21 @@ public class ProcessInscriptionActivity extends Activity {
                         getTextByEditTextId(R.id.editxt_ins_zipcode),
                         getTextByEditTextId(R.id.editxt_ins_city),
                         getTextByEditTextId(R.id.editxt_ins_phone),
-                        new Date());
+                        getDateByEditTextId(R.id.editxt_ins_birthday));
                 ServiceProcessInscription.validated_screen2(ServiceProcessInscription.getInscription());
+                lbl_error = (TextView) findViewById(R.id.lbl_ins2_legend_error);
+                if (ServiceProcessInscription.getErrors(step) != "")
+                    lbl_error.setText(ServiceProcessInscription.getErrors(step));
                 break;
             case 3:
                 ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
                         "tjrs", new Section(), new ArrayList<Skill>(), new ContactPreference());
                 ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
+                lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
+                if (ServiceProcessInscription.getErrors(step) != "")
+                    lbl_error.setText(ServiceProcessInscription.getErrors(step));
             default:
                 break;
-        }
-        if (ServiceProcessInscription.getErrors(step) != "") {
-            lbl_error.setText(ServiceProcessInscription.getErrors(step));
-            infoBox(Messages.error_inscription_Titre, ServiceProcessInscription.getErrors(step));
         }
     }
 
@@ -209,6 +234,16 @@ public class ProcessInscriptionActivity extends Activity {
         return ((EditText) findViewById(id_editText)).getText().toString();
     }
 
+    public Date getDateByEditTextId(int id_editText) {
+        Date dt = null;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
+        try {
+            dt = dateFormatter.parse(((EditText) findViewById(id_editText)).getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dt;
+    }
 
 
 }

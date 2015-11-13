@@ -42,7 +42,6 @@
     </style>
 
     <style name="lbl_style_legend_error">
-        <item name="android:textColor">#F6CECE</item>
-        <item name="android:colorBackground">#FA5858</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
 </resources>

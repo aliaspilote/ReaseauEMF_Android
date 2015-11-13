@@ -20,6 +20,10 @@ public class Discipline implements Serializable {
         setDiscipline_id(discipline_id);
     }
 
+    public String toString() {
+        return label;
+    }
+
     public String getLabel() {
         return label;
     }

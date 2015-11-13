@@ -18,6 +18,10 @@ public class DegreeStudy {
         setOrder(order);
     }
 
+    public String toString() {
+        return label;
+    }
+
     public String getLabel() {
         return label;
     }

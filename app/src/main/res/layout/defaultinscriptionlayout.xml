@@ -67,6 +67,7 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
 
+
                         /* Code spécifique a cette vue ici */
 
 

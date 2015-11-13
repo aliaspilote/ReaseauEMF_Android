@@ -25,6 +25,10 @@ public class Skill implements Serializable {
         setDescription(description);
     }
 
+    public String toString() {
+        return label;
+    }
+
     public String getLabel() {
         return label;
     }

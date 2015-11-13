@@ -41,6 +41,82 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="style_lbl_authentification">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#747373</item>
+        <item name="android:text">@string/lbl_auth_title</item>
+    </style>
+
+    <style name="style_editxt_email">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/text_border</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:hint">@string/lbl_mail</item>
+        <item name="android:textColor">#747373</item>
+    </style>
+
+    <style name="style_editxt_pwd">
+        <item name="android:background">@drawable/text_border</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:hint">@string/lbl_password</item>
+        <item name="android:textColor">#747373</item>
+    </style>
+
+    <style name="style_imgview_cnx">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:src">@drawable/ic_connexion2</item>
+        <item name="android:text">@string/btn_go</item>
+        <item name="android:colorBackground">#00000000</item>
+    </style>
+
+    <style name="style_checkbox_remember_me">
+        <item name="android:textColor">#747373</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/lbl_souvenir</item>
+    </style>
+
+    <style name="style_lbl_forget_pwd">
+        <item name="android:textColor">#747373</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/lbl_mdp_oublie</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="style_feature">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">#FF909090</item>
+    </style>
+
+    <style name="style_lbl_inscription_via">
+        <item name="android:textColor">#747373</item>
+        <item name="android:text">@string/lbl_ins_via</item>
+    </style>
+
+    <style name="style_imgview_linkedin">
+        <item name="android:colorBackground">#00000000</item>
+        <item name="android:clickable">true</item>
+        <item name="android:src">@drawable/ic_linkedin</item>
+    </style>
+
+    <style name="style_imgview_viadeo">
+        <item name="android:colorBackground">#00000000</item>
+        <item name="android:clickable">true</item>
+        <item name="android:src">@drawable/ic_viadeo</item>
+    </style>
+
+    <style name="style_lbl_or_directly">
+        <item name="android:textColor">#747373</item>
+        <item name="android:text">@string/lbl_direct</item>
+    </style>
+
+    <style name="style_btn_registration">
+        <item name="android:padding">25dp</item>
+        <item name="android:text">@string/lbl_register</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
     <style name="lbl_style_legend_error">
         <item name="android:textColor">#F6CECE</item>
         <item name="android:colorBackground">#FA5858</item>

@@ -11,11 +11,9 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/text_style"
+            style="@style/style_lbl_authentification"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_auth_title"
-            android:textSize="15sp" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,66 +36,50 @@
 
                     <EditText
                         android:id="@+id/editxt_auth_email"
-                        style="@style/text_style"
+                        style="@style/style_editxt_email"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/text_border"
-                        android:padding="4dp"
-                        android:text="@string/lbl_mail" />
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/editxt_auth_pwd"
-                        style="@style/text_style"
+                        style="@style/style_editxt_pwd"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/text_border"
-                        android:padding="4dp"
-                        android:text="@string/lbl_password" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
 
                 <ImageView
                     android:id="@+id/btn_connexion"
-                    style="@style/transparence"
+                    style="@style/style_imgview_cnx"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:clickable="true"
-                    android:onClick="OnPrevious"
-                    android:src="@drawable/ic_connexion2"
-                    android:text="@string/btn_go" />
+                    android:onClick="OnPrevious" />
             </LinearLayout>
 
             <CheckBox
                 android:id="@+id/checkbox_remember_me"
-                style="@style/text_style"
+                style="@style/style_checkbox_remember_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/lbl_souvenir" />
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/txtview_forget_pwd"
-                style="@style/text_style"
+                style="@style/style_lbl_forget_pwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:text="@string/lbl_mdp_oublie" />
+                android:layout_gravity="center" />
 
             <View
+                style="@style/style_feature"
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#FF909090" />
+                android:layout_height="1dp" />
 
             <TextView
-                style="@style/text_style"
+                style="@style/style_lbl_inscription_via"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_ins_via" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -110,26 +92,21 @@
 
                 <ImageView
                     android:id="@+id/btn_linkedin"
-                    style="@style/transparence"
+                    style="@style/style_imgview_linkedin"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:clickable="true"
-                    android:src="@drawable/ic_linkedin" />
+                    android:layout_height="100dp" />
 
                 <ImageView
                     android:id="@+id/btn_viadeo"
-                    style="@style/transparence"
+                    style="@style/style_imgview_viadeo"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:clickable="true"
-                    android:src="@drawable/ic_viadeo" />
+                    android:layout_height="100dp" />
             </LinearLayout>
 
             <TextView
-                style="@style/text_style"
+                style="@style/style_lbl_or_directly"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_direct" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -141,13 +118,10 @@
                 >
 
                 <Button
+                    style="@style/style_btn_registration"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:onClick="OnRegisterClick"
-                    android:padding="25dp"
-                    android:text="@string/lbl_register"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
+                    android:onClick="OnRegisterClick" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

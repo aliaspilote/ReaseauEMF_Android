@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  */
 public class CheckContentService {
     private final static Pattern mail = Pattern.compile("[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[a-z0-9])?\\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?");
-    private final static Pattern names = Pattern.compile("^[a-zA-Z\\\\s]+");
+    private final static Pattern names = Pattern.compile("^[a-zA-Z\\s]+");
     private final static Pattern zipcode = Pattern.compile("\\d{5}");
     private final static Pattern phone = Pattern.compile("\\d{10}");
 
@@ -19,7 +19,7 @@ public class CheckContentService {
     }
 
     public static boolean checkConfirmation(final String str1, final String str2) {
-        if (str1 == str2)
+        if (str1.equals(str2))
             return true;
         else
             return false;

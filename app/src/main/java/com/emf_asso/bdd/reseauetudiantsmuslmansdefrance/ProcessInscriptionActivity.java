@@ -154,6 +154,8 @@ public class ProcessInscriptionActivity extends Activity {
                 lbl_error = (TextView) findViewById(R.id.lbl_ins1_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")
                     lbl_error.setText(ServiceProcessInscription.getErrors(step));
+                else
+                    lbl_error.setText("");
                 break;
             case 2:
                 ServiceProcessInscription.set_data_inscription2(ServiceProcessInscription.getInscription(),
@@ -167,6 +169,8 @@ public class ProcessInscriptionActivity extends Activity {
                 lbl_error = (TextView) findViewById(R.id.lbl_ins2_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")
                     lbl_error.setText(ServiceProcessInscription.getErrors(step));
+                else
+                    lbl_error.setText("");
                 break;
             case 3:
                 ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
@@ -175,6 +179,8 @@ public class ProcessInscriptionActivity extends Activity {
                 lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")
                     lbl_error.setText(ServiceProcessInscription.getErrors(step));
+                else
+                    lbl_error.setText("");
             default:
                 break;
         }

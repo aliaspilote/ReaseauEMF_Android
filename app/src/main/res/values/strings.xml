@@ -59,7 +59,7 @@
     <string name="lbl_editxt_city">Ville</string>
     <string name="lbl_editxt_birthday">Date de naissance</string>
     <string name="lbl_btn_choose_birthday">Choisir</string>
-    <string name="lbl_birthday">JJ-MM-AAAA</string>
+    <string name="lbl_birthday">JJMMAAAA</string>
     <string name="lbl_lastName">Nom</string>
     <string name="lbl_editxt_phone">Téléphone</string>
     <string name="lbl_status">Vous êtes ou seriez</string>

@@ -8,18 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 import com.google.gson.Gson;
@@ -27,7 +22,6 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -38,11 +32,8 @@ public class ProcessInscriptionActivity extends Activity {
 
     private static final int NUM_PAGES = 5;
     public ViewStub stub;
-    public List<Involvement> involvementsList;
-    public List<Section> sectionList;
-    public List<DegreeStudy> degreeStudyList;
-    public List<Discipline> disciplineList;
-    public List<Skill> skillList;
+
+    ListViewInit ManagerListView;
     private Context context = this;
     private int current_NUM_PAGES;
     private ProcessInscriptionService ServiceProcessInscription;
@@ -51,99 +42,15 @@ public class ProcessInscriptionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processinscription);
-
         InitStubs();
-        InitListSectionInvolvement();
-        InitListDegreeStudyDiscipline();
-        InitListSkill();
         current_NUM_PAGES = 1;
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
         ServiceProcessInscription.onStart();
-        InitListSectionInvolvement();
-
+        ManagerListView = new ListViewInit(this, this);
     }
 
-    public void InitListSectionInvolvement() {
-        involvementsList = new ArrayList<>();
-        involvementsList.add(new Involvement("Membre Actifff", "Membre qui participe aux réunior", "1"));
-        involvementsList.add(new Involvement("Membre Cool", "Il est cool", "2"));
-        involvementsList.add(new Involvement("Super Actif", "Il est hyper actif", "3"));
-        sectionList = new ArrayList<>();
-        sectionList.add(new Section("Belforttt"));
-        sectionList.add(new Section("Paris"));
-        sectionList.add(new Section("Lyon"));
-
-
-        Spinner listViewInvolvement = (Spinner) findViewById(R.id.spinner_involvement);
-        ArrayAdapter<Involvement> adapter_involvement = new ArrayAdapter<Involvement>(this,
-                android.R.layout.simple_list_item_1, involvementsList);
-        listViewInvolvement.setAdapter(adapter_involvement);
-
-        Spinner listViewSection = (Spinner) findViewById(R.id.spinner_section);
-        ArrayAdapter<Section> adapter_section = new ArrayAdapter<Section>(this,
-                android.R.layout.simple_list_item_1, sectionList);
-        listViewSection.setAdapter(adapter_section);
-    }
-
-
-    public void InitListDegreeStudyDiscipline() {
-
-        degreeStudyList = new ArrayList<>();
-        degreeStudyList.add(new DegreeStudy("Bac", 0, 0));
-        degreeStudyList.add(new DegreeStudy("Bac +2", 1, 1));
-        degreeStudyList.add(new DegreeStudy("Bac +5", 2, 2));
-
-        disciplineList = new ArrayList<>();
-        disciplineList.add(new Discipline("recherche", "recherche", 0));
-        disciplineList.add(new Discipline("info", "recherche", 1));
-        disciplineList.add(new Discipline("recherche", "recherche", 2));
-
-
-        Spinner listViewDegreeStudy = (Spinner) findViewById(R.id.spinner_degree_study);
-        ArrayAdapter<DegreeStudy> adapter_degree_study = new ArrayAdapter<DegreeStudy>(this,
-                android.R.layout.simple_list_item_1, degreeStudyList);
-        listViewDegreeStudy.setAdapter(adapter_degree_study);
-
-        Spinner listViewDiscipline = (Spinner) findViewById(R.id.spinner_discipline);
-        ArrayAdapter<Discipline> adapter_discipline = new ArrayAdapter<Discipline>(this,
-                android.R.layout.simple_list_item_1, disciplineList);
-        listViewDiscipline.setAdapter(adapter_discipline);
-    }
-
-    public void InitListSkill() {
-
-
-        skillList = new ArrayList<>();
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-
-
-        String[] GENRES = new String[]{
-                "Action", "Adventure", "Animation", "Children", "Comedy", "Documentary", "Drama",
-                "Foreign", "History", "Independent", "Romance", "Sci-Fi", "Television", "Thriller"
-        };
-
-
-        ListView listViewSkill = (ListView) findViewById(R.id.listview_skill);
-        ArrayAdapter<String> adapter_skill = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice, GENRES);
-        listViewSkill.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        listViewSkill.setAdapter(adapter_skill);
-
-
-    }
 
 
     public void InitStubs() {
@@ -340,7 +247,7 @@ public class ProcessInscriptionActivity extends Activity {
 
     public Date getDateByEditTextId(int id_editText) {
         Date dt = null;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy", Locale.FRANCE);
         try {
             dt = dateFormatter.parse(((EditText) findViewById(id_editText)).getText().toString());
         } catch (Exception e) {

@@ -156,11 +156,7 @@
                                         android:id="@+id/listview_skill"
                                         android:layout_width="match_parent"
                                         android:layout_height="fill_parent"
-
-
                                         android:choiceMode="multipleChoice"
-
-
                                         android:scrollbars="vertical" />
                                 </ScrollView>
 

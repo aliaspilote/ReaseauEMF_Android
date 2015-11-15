@@ -12,6 +12,10 @@ public class Discipline implements Serializable {
     private int discipline_id;
 
     public Discipline() {
+
+        label = "";
+        description = "";
+        discipline_id = 0;
     }
 
     public Discipline(String label, String description, int discipline_id) {

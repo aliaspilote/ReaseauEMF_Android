@@ -75,6 +75,7 @@
     <string name="lbl_date_end">Date fin</string>
     <string name="lbl_choose_date">Choisir</string>
     <string name="lbl_format">Format : mm-aaaa</string>
+    <string name="lbl_resume_submit">Validation d\'inscription</string>
 
     <string-array name="liste_ville">
         <item>Ville</item>

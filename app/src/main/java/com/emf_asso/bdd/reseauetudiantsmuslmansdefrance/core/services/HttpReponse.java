@@ -29,6 +29,13 @@ public class HttpReponse {
         DataReponse = theDate;
     }
 
+    public void setHttpReponse(JSONObject JSONobj, Boolean isSucces, String actionName, DateTime theDate) {
+        Resultat = JSONobj;
+        Succes = isSucces;
+        Action = actionName;
+        DataReponse = theDate;
+    }
+
     public JSONObject getResultat() {
         return Resultat;
     }

@@ -23,7 +23,7 @@ public class UserMember implements Serializable {
     private String phone;
     //profile EMF
     private Section section;
-    private String involvement;
+    private Involvement involvement;
     private Discipline dicipline;
     private List<Curriculum> curriculum;
     private List<Skill> skills;
@@ -35,6 +35,10 @@ public class UserMember implements Serializable {
     private Date last_update_date;
 
     public UserMember() {
+        dicipline = new Discipline();
+        status = new ContactPreference();
+        involvement = new Involvement();
+        section = new Section();
     }
 
     public UserMember(String name,
@@ -145,11 +149,11 @@ public class UserMember implements Serializable {
         this.section = section;
     }
 
-    public String getInvolvement() {
+    public Involvement getInvolvement() {
         return involvement;
     }
 
-    public void setInvolvement(String involvement) {
+    public void setInvolvement(Involvement involvement) {
         this.involvement = involvement;
     }
 

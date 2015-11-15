@@ -17,6 +17,7 @@ public class Curriculum implements Serializable {
     private DegreeStudy degree;
 
     public Curriculum() {
+        label = "";
     }
 
     public Curriculum(String label, Date start_date, Date end_date, Discipline discipline) {

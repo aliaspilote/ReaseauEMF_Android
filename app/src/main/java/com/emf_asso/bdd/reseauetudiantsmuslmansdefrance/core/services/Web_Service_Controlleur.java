@@ -2,7 +2,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import android.os.AsyncTask;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -24,11 +24,11 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     public static String  urlWB="http://www.emf-asso.com/bdd/wb/wb_android_api.php";
     public OkHttpClient client = new OkHttpClient();
     String reponse = "";
-    MainActivity mActivity;
+    ActivityConnectedWeb mActivity;
     RequestBody formBody;
     DateTime DT;
 
-    public Web_Service_Controlleur(MainActivity activity, RequestBody RequestformBody) {
+    public Web_Service_Controlleur(ActivityConnectedWeb activity, RequestBody RequestformBody) {
         mActivity = activity;
         formBody = RequestformBody;
     }
@@ -51,6 +51,7 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     }
     protected void onPostExecute(String result)
     {
+        DT = new DateTime();
         try {
             JSONObject jsonResult = (JSONObject) new JSONParser().parse(result);
             mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT));

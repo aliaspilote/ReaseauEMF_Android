@@ -21,11 +21,11 @@ import java.util.List;
 public class ListViewInit {
 
 
-    public List<Involvement> involvementsList;
-    public List<Section> sectionList;
-    public List<DegreeStudy> degreeStudyList;
-    public List<Discipline> disciplineList;
-    public List<Skill> skillList;
+    public static List<Involvement> involvementsList;
+    public static List<Section> sectionList;
+    public static List<DegreeStudy> degreeStudyList;
+    public static List<Discipline> disciplineList;
+    public static List<Skill> skillList;
 
     public ListViewInit() {
 

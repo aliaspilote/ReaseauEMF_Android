@@ -105,7 +105,8 @@
                                 android:background="@drawable/text_border"
                                 android:hint="@string/lbl_votre_mail"
                                 android:inputType="textEmailAddress"
-                                android:padding="4dp" />
+                                android:padding="4dp"
+                                android:text="testandroid@gmail.com" />
 
 
                         </LinearLayout>
@@ -127,7 +128,8 @@
                                 android:background="@drawable/text_border"
                                 android:hint="@string/lbl_votre_pwd"
                                 android:inputType="textPassword"
-                                android:padding="4dp" />
+                                android:padding="4dp"
+                                android:text="testandroid" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -154,7 +156,8 @@
                                 android:background="@drawable/text_border"
                                 android:hint="@string/lbl_votre_pwd2"
                                 android:inputType="textPassword"
-                                android:padding="4dp" />
+                                android:padding="4dp"
+                                android:text="testandroid" />
 
                             <TextView
                                 android:layout_width="wrap_content"

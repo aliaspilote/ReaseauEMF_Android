@@ -18,6 +18,7 @@ public class FormBodyManager {
     }
 
     public static RequestBody addUser(UserMember user) {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "add_user")
                 .add("mail", user.getEmail() + "")
@@ -26,18 +27,17 @@ public class FormBodyManager {
                 .add("civility", user.getCivility() + "")
                 .add("zip_code", user.getZip_code() + "")
                 .add("city", user.getCity() + "")
-                .add("section", user.getSection() + "")
-                .add("dicipline", user.getDicipline() + "")
+                .add("section", user.getSection().getLabel() + "")
+                .add("dicipline", "android")
                 .add("niveau", "")
-                .add("involvement", user.getInvolvement() + "")
+                .add("involvement", user.getInvolvement().getLabel() + "")
                 .add("phone", user.getPhone() + "")
-                .add("birth_date", user.getBirth_date() + "")
-                .add("registration_date", user.getRegistration_date() + "")
-                .add("skills", user.getSkills().get(1) + "")
-                .add("skills", user.getSkills().get(1) + "")
-                .add("skills", user.getSkills().get(1) + "")
+                .add("birth_date", sdf.format(user.getBirth_date()) + "")
+                .add("registration_date", sdf.format(user.getRegistration_date()) + "")
+                .add("skills", user.getSkills().get(1).getLabel() + "")
                 .add("hashed_pwd", user.getHashed_pwd() + "")
                 .build();
+        // .add("dicipline", user.getDicipline().getLabel() + "")
         return formBody;
     }
 }

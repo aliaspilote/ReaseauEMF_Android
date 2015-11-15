@@ -100,8 +100,6 @@ public class ListViewInit {
         skillList.add(new Skill("informatique", "recherche", 0));
         skillList.add(new Skill("santé", "recherche", 1));
         skillList.add(new Skill("énérgie", "recherche", 2));
-
-
         String[] GENRES = new String[]{
                 "Action", "Adventure", "Animation", "Children", "Comedy", "Documentary", "Drama",
                 "Foreign", "History", "Independent", "Romance", "Sci-Fi", "Television", "Thriller"

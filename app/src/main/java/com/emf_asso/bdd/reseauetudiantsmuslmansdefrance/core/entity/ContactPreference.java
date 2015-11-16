@@ -11,6 +11,11 @@ public class ContactPreference {
     private Boolean project_volontary;
 
     public ContactPreference() {
+
+        jobs_offers = false;
+        city_activities = false;
+        national_activities = false;
+        project_volontary = false;
     }
 
     public ContactPreference(Boolean jobs_offers, Boolean city_activities, Boolean national_activities, Boolean project_volontary) {

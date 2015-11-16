@@ -11,6 +11,9 @@ public class Involvement {
 
     public Involvement() {
 
+        label = "";
+        description = "";
+        involvement_id = "";
     }
 
     public Involvement(String lbl, String desc, String id) {

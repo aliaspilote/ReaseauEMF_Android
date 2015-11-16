@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
@@ -19,9 +20,10 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Servic
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
-    public HttpReponse LastReponse;
+    private static final String TAG = "MainActivity";
+    public final HttpReponse LastReponse = new HttpReponse();
     private Context context = this;
     private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
 
@@ -40,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
     }
 
+
     public void ReceptionResponse(HttpReponse Rep) {
-        LastReponse = Rep;
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse());
         String Message = "";
 
         if (!LastReponse.getSucces())
@@ -60,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-
-
         new AlertDialog.Builder(this)
                 .setTitle("Action : " + LastReponse.getAction())
                 .setMessage(Message)
@@ -106,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OnCheckMail(View  view) throws IOException {
-        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.checkmail(
-                ((EditText) findViewById(R.id.editxt_check_mail)).getText().toString()));
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.checkmail("latreche.omar@gmail.com"));
         wb_thread.execute();
     }
 

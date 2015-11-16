@@ -12,6 +12,10 @@ public class Skill implements Serializable {
     private int skill_id;
 
     public Skill() {
+
+        label = "";
+        description = "";
+        skill_id = 0;
     }
 
     public Skill(String label, String description, int skill_id) {

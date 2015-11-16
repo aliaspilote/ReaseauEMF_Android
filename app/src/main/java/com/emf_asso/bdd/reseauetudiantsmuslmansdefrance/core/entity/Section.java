@@ -16,6 +16,9 @@ public class Section implements Serializable {
     }
 
     public Section() {
+
+        label = "";
+        isActive = true;
     }
 
     public String toString() {

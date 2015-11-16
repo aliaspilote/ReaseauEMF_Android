@@ -1,7 +1,9 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Inscription;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
@@ -73,11 +75,22 @@ public class ProcessInscriptionService implements Serializable {
         inscription.getUser().setBirth_date(BirthDay);
     }
 
-    public void set_data_inscription3(Inscription inscription, String involvement, Section section, List<Skill> skills, ContactPreference contactPreference) {
-        inscription.getUser().setInvolvement(involvement);
+    public void set_data_inscription3(Inscription inscription, Involvement involvement, Section section, List<Skill> skills, ContactPreference contactPreference) {
+        /*inscription.getUser().setInvolvement(involvement);
         inscription.getUser().setSection(section);
         inscription.getUser().setSkills(skills);
-        inscription.getUser().setStatus(contactPreference);
+        inscription.getUser().setStatus(contactPreference);*/
+        inscription.getUser().setInvolvement(new Involvement());
+        inscription.getUser().setSection(new Section());
+        List<Skill> aa = new ArrayList<>();
+        aa.add(new Skill());
+        aa.add(new Skill());
+        aa.add(new Skill());
+        aa.add(new Skill());
+        inscription.getUser().setSkills(aa);
+        inscription.getUser().setStatus(new ContactPreference());
+        inscription.getUser().setDicipline(new Discipline());
+
     }
 
     public Boolean validated_screen1(Inscription inscription) {

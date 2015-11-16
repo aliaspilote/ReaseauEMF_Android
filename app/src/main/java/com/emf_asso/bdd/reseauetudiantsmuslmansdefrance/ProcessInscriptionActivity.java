@@ -6,19 +6,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
-import com.google.gson.Gson;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,14 +36,16 @@ import java.util.Locale;
 /**
  * Created by Omar on 04/11/2015.
  */
-public class ProcessInscriptionActivity extends Activity {
+public class ProcessInscriptionActivity extends Activity implements ActivityConnectedWeb {
 
 
     private static final int NUM_PAGES = 5;
     public ViewStub stub;
+    public HttpReponse LastReponse;
 
     ListViewInit ManagerListView;
     private Context context = this;
+    private Activity activity = this;
     private int current_NUM_PAGES;
     private ProcessInscriptionService ServiceProcessInscription;
 
@@ -43,11 +54,13 @@ public class ProcessInscriptionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processinscription);
         InitStubs();
-        current_NUM_PAGES = 1;
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
+
+        current_NUM_PAGES = 1;
         ServiceProcessInscription.onStart();
+
         ManagerListView = new ListViewInit(this, this);
     }
 
@@ -68,22 +81,49 @@ public class ProcessInscriptionActivity extends Activity {
 
     }
 
+    public void ReceptionResponse(HttpReponse Rep) {
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse());
+        String Message = "";
+
+        TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+        if (!LastReponse.getSucces()) {
+            Message = twError.getText() + LastReponse.getExceptionText();
+            twError.setText(Message);
+        } else {
+            switch (LastReponse.Action) {
+                case "add_user":
+                    TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+                    Message = twResult.getText() + "";
+                    Message += LastReponse.getResultat().toString();
+                    twResult.setText(Message);
+                    break;
+                default:
+                    Message = LastReponse.Action + " effectué\n";
+                    Message += "aucun post traitement défini \n";
+                    Message += LastReponse.getResultat().toString();
+                    twError.setText(Message);
+                    break;
+            }
+        }
+    }
     public void OnNext(View view) {
         setDataOn_ServiceByStep(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
         {
             hideViewByNum(current_NUM_PAGES);
             //Revisualiser les infos saisies à confirmer
+
+            setContentView(R.layout.inscriptions_resume_submit);
+            TextView twBody = (TextView) findViewById(R.id.txtview_submit_legend_viewBlock);
+            String temp = "Contenu requete Block inscription :\n" + FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()).toString();
+            twBody.setText(temp);
             //Valider le formulaire
             //Puis afficher le profile
             current_NUM_PAGES = 1;
-            displayViewByNum(current_NUM_PAGES);
+           /* displayViewByNum(current_NUM_PAGES);
             Gson gson = new Gson();
             String jsonUser = gson.toJson(ServiceProcessInscription.getInscription().getUser());
-            new AlertDialog.Builder(context)
-                    .setTitle(" Validation Inscritpion ")
-                    .setMessage(jsonUser)
-                    .show();
+            new AlertDialog.Builder(context).setTitle(" Validation Inscritpion ").setMessage(jsonUser).show();*/
         } else {
             if (ServiceProcessInscription.getErrors(current_NUM_PAGES) != "") {
                 new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(ServiceProcessInscription.getErrors(current_NUM_PAGES))
@@ -117,6 +157,21 @@ public class ProcessInscriptionActivity extends Activity {
             current_NUM_PAGES--;
             displayViewByNum(current_NUM_PAGES);
         }
+    }
+
+    /*
+        */
+    public void OnValidateInscrption(View view) throws IOException {
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
+                this, FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()));
+        wb_thread.execute();
+
+    }
+
+    public void OnCancelInscrption(View view) {
+        current_NUM_PAGES = 1;
+        setContentView(R.layout.activity_processinscription);
+        InitStubs();
     }
 
     @Override
@@ -162,7 +217,10 @@ public class ProcessInscriptionActivity extends Activity {
                 break;
             case 3:
                 ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
-                        "tjrs", new Section(), new ArrayList<Skill>(), new ContactPreference());
+                        (Involvement) getObjSelectedBySpinnerId(R.id.spinner_involvement),
+                        (Section) getObjSelectedBySpinnerId(R.id.spinner_section),
+                        getListSkillsSelected(R.id.listview_skill),
+                        getContactPreferenceSelectedByIds(R.id.checkbox_offer, R.id.checkbox_info_EMFcity, R.id.checkbox_info_national, R.id.checkbox_project));
                 ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")
@@ -239,6 +297,38 @@ public class ProcessInscriptionActivity extends Activity {
                 .setTitle(Titre)
                 .setMessage(Message)
                 .show();
+    }
+
+    public ContactPreference getContactPreferenceSelectedByIds(int id_jobs_offers, int id_city_activities, int id_national_activities, int id__project_volontary) {
+        CheckBox job = (CheckBox) findViewById(id_jobs_offers);
+        CheckBox cityacti = (CheckBox) findViewById(id_city_activities);
+        CheckBox nationalacti = (CheckBox) findViewById(id_national_activities);
+        CheckBox projet = (CheckBox) findViewById(id__project_volontary);
+
+        return new ContactPreference(job.isChecked(), cityacti.isChecked(), nationalacti.isChecked(), projet.isChecked());
+    }
+
+    public Object getObjSelectedBySpinnerId(int id_Spinner) {
+
+        return ((Spinner) findViewById(id_Spinner)).getSelectedItem();
+    }
+
+    public Object getObjSelectedByListViewId(int id_listView) {
+
+        return ((ListView) findViewById(id_listView)).getSelectedItem();
+    }
+
+    public ArrayList<Skill> getListSkillsSelected(int id_listView) {
+        SparseBooleanArray checked = ((ListView) findViewById(id_listView)).getCheckedItemPositions();
+        ArrayList<Skill> selectedItems = new ArrayList<>();
+        for (int i = 0; i < checked.size(); i++) {
+            // Item position in adapter
+            int position = checked.keyAt(i);
+            // Add sport if it is checked i.e.) == TRUE!
+            if (checked.valueAt(i))
+                selectedItems.add(ListViewInit.skillList.get(position));
+        }
+        return selectedItems;
     }
 
     public String getTextByEditTextId(int id_editText) {

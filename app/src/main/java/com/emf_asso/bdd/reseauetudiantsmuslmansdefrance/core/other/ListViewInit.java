@@ -21,11 +21,11 @@ import java.util.List;
 public class ListViewInit {
 
 
-    public List<Involvement> involvementsList;
-    public List<Section> sectionList;
-    public List<DegreeStudy> degreeStudyList;
-    public List<Discipline> disciplineList;
-    public List<Skill> skillList;
+    public static List<Involvement> involvementsList;
+    public static List<Section> sectionList;
+    public static List<DegreeStudy> degreeStudyList;
+    public static List<Discipline> disciplineList;
+    public static List<Skill> skillList;
 
     public ListViewInit() {
 
@@ -100,8 +100,6 @@ public class ListViewInit {
         skillList.add(new Skill("informatique", "recherche", 0));
         skillList.add(new Skill("santé", "recherche", 1));
         skillList.add(new Skill("énérgie", "recherche", 2));
-
-
         String[] GENRES = new String[]{
                 "Action", "Adventure", "Animation", "Children", "Comedy", "Documentary", "Drama",
                 "Foreign", "History", "Independent", "Romance", "Sci-Fi", "Television", "Thriller"

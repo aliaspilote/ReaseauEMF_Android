@@ -10,6 +10,9 @@ public class DegreeStudy {
     private int degree_id;
 
     public DegreeStudy() {
+        label = "";
+        order = 0;
+        degree_id = 0;
     }
 
     public DegreeStudy(String label, int order, int degree_id) {

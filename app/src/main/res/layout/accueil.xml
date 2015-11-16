@@ -90,11 +90,18 @@
 
                 >
 
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="15dp"
+                    android:onClick="OnCheckMail"
+                    android:text="Try" />
                 <ImageView
                     android:id="@+id/btn_linkedin"
                     style="@style/style_imgview_linkedin"
                     android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_height="100dp"
+                    android:onClick="OnRegisterClick" />
 
                 <ImageView
                     android:id="@+id/btn_viadeo"

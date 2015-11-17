@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
 
     public void ReceptionResponse(HttpReponse Rep) {
-        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse());
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
         if (!LastReponse.getSucces())
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         afficherFormInscr();
     }
 
-    public void OnCheckMail(View  view) throws IOException {
+    public void OnTry(View view) throws IOException {
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.checkmail("latreche.omar@gmail.com"));
         wb_thread.execute();
     }

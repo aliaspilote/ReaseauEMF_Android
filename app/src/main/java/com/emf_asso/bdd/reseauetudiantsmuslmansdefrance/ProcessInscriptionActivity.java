@@ -82,7 +82,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
-        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse());
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
         TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);

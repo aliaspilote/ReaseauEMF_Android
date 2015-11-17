@@ -22,18 +22,20 @@ public class HttpReponse {
         ExceptionText = Error;
     }
 
-    public HttpReponse(JSONObject JSONobj, Boolean isSucces, String actionName, DateTime theDate) {
+    public HttpReponse(JSONObject JSONobj, Boolean isSucces, String actionName, DateTime theDate, String Exp) {
         Resultat = JSONobj;
         Succes = isSucces;
         Action = actionName;
         DataReponse = theDate;
+        ExceptionText = Exp;
     }
 
-    public void setHttpReponse(JSONObject JSONobj, Boolean isSucces, String actionName, DateTime theDate) {
+    public void setHttpReponse(JSONObject JSONobj, Boolean isSucces, String actionName, DateTime theDate, String Exp) {
         Resultat = JSONobj;
         Succes = isSucces;
         Action = actionName;
         DataReponse = theDate;
+        ExceptionText = Exp;
     }
 
     public JSONObject getResultat() {

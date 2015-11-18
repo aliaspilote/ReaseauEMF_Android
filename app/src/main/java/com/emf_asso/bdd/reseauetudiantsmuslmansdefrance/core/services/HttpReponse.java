@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 public class HttpReponse {
     public String Action;
     JSONObject Resultat;
-    Boolean Succes;
+    Boolean Succes = false;
     DateTime DataReponse;
     String ExceptionText = "null";
 
@@ -47,7 +47,10 @@ public class HttpReponse {
     }
 
     public Boolean getSucces() {
-        return Succes;
+        if (Succes == null)
+            return false;
+        else
+            return Succes;
     }
 
     public void setSucces(Boolean succes) {

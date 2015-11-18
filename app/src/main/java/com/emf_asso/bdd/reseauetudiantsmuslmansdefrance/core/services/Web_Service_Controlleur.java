@@ -47,6 +47,7 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
         DT = new DateTime();
         JSONObject jsonResult = new JSONObject();
         jsonResult.put("TryParse", "false");
+        jsonResult.put("result", "false");
         try {
             jsonResult = (JSONObject) new JSONParser().parse(result);
         } catch (Exception e) {

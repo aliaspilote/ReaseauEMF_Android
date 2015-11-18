@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
-        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result") != "true")
+        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
             Message = LastReponse.getExceptionText();
         else {
             Boolean result = false;
-            if (LastReponse.getResultat().get("result") == "true")
+            if (LastReponse.getResultat().get("result").toString() == "true")
                 result = true;
             switch (LastReponse.Action) {
                 case "check_mail":
@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     Message += LastReponse.getResultat().toString();
                     break;
                 case "auth":
-                    /*Message = LastReponse.Action + " réussi\n";
-                    Message += "Contenu de la réponse : \n";
-                    Message += LastReponse.getResultat().toString();*/
                     if (result)
                         successAuth(LastReponse.getResultat());
                     else {

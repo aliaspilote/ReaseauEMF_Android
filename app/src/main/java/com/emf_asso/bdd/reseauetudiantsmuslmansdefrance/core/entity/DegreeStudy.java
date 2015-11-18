@@ -1,9 +1,11 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Omar_Desk on 11/11/2015.
  */
-public class DegreeStudy {
+public class DegreeStudy implements Serializable {
 
     private String label;
     private int order;

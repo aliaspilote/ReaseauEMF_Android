@@ -84,15 +84,21 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         String Message = "";
 
         TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
-        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result") != "true") {
+        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true") {
             Message = twError.getText() + LastReponse.getExceptionText();
             twError.setText(Message);
         } else {
+            Boolean result = false;
+            if (LastReponse.getResultat().get("result").toString() == "true")
+                result = true;
             switch (LastReponse.Action) {
                 case "add_user":
                     TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
                     Message = twResult.getText() + "";
-                    Message += LastReponse.getResultat().toString();
+                    if (result)
+                        Message += LastReponse.getResultat().toString();
+                    else
+                        Message = twError.getText() + LastReponse.getExceptionText();
                     twResult.setText(Message);
                     break;
                 default:

@@ -89,7 +89,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             twError.setText(Message);
         } else {
             Boolean result = false;
-            if (LastReponse.getResultat().get("result").toString() == "true")
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
                 result = true;
             switch (LastReponse.Action) {
                 case "add_user":

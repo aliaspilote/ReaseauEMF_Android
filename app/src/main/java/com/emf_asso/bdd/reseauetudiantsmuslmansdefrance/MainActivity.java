@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     private static final String TAG = "MainActivity";
     public final HttpReponse LastReponse = new HttpReponse();
+    SessionWsService AppSessionContext;
     private Context context = this;
     private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
 
@@ -41,9 +42,12 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle != null)
+        if (bundle != null) {
             if (bundle.getSerializable("ServiceInscription") != null)
                 ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
+            if (bundle.getSerializable("AppSessionContext") != null)
+                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
+        }
     }
 
 
@@ -55,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             Message = LastReponse.getExceptionText();
         else {
             Boolean result = false;
-            if (LastReponse.getResultat().get("result").toString() == "true")
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
                 result = true;
             switch (LastReponse.Action) {
                 case "check_mail":
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         Intent intent = new Intent(context, UsermemberProfileActivity.class);
 
         Bundle bundle = new Bundle();
-        SessionWsService AppSessionContext = new SessionWsService(object);
+        AppSessionContext = new SessionWsService(object);
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
         context.startActivity(intent);

@@ -93,9 +93,17 @@ public class UsermemberProfileActivity extends AppCompatActivity implements Acti
     }
 
     public void OnCancel(View view) {
-
+        gotoMainActivity();
     }
 
+
+    public void gotoMainActivity() {
+        Intent intent = new Intent(context, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
     public void RefreshProfile() {
         Name.setText(AppSessionContext.getUserMember().getName());
         Email.setText(AppSessionContext.getUserMember().getEmail());

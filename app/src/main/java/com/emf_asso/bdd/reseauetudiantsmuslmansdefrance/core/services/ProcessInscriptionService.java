@@ -62,8 +62,8 @@ public class ProcessInscriptionService implements Serializable {
 
     public void set_data_inscription1(Inscription inscription, String Email, String Password, String Password2) {
         inscription.getUser().setEmail(Email);
-        inscription.getUser().setHashed_pwd(Password);
-        inscription.getUser().setHashed_pwd2(Password2);
+        inscription.getUser().setHashed_pwd((Password));
+        inscription.getUser().setHashed_pwd2((Password2));
     }
 
     public void set_data_inscription2(Inscription inscription, String Name, String Firstname, String ZipCode, String City, String Phone, Date BirthDay) {

@@ -41,7 +41,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     private static final int NUM_PAGES = 5;
     public ViewStub stub;
-    public HttpReponse LastReponse;
+    public HttpReponse LastReponse = new HttpReponse();
 
     ListViewInit ManagerListView;
     private Context context = this;
@@ -64,8 +64,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         ManagerListView = new ListViewInit(this, this);
     }
 
-
-
     public void InitStubs() {
 
         ((ViewStub) findViewById(R.id.stub_pi1)).inflate();
@@ -86,7 +84,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         String Message = "";
 
         TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
-        if (!LastReponse.getSucces()) {
+        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result") != "true") {
             Message = twError.getText() + LastReponse.getExceptionText();
             twError.setText(Message);
         } else {
@@ -106,13 +104,13 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             }
         }
     }
+
     public void OnNext(View view) {
         setDataOn_ServiceByStep(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
         {
             hideViewByNum(current_NUM_PAGES);
             //Revisualiser les infos saisies à confirmer
-
             setContentView(R.layout.inscriptions_resume_submit);
             TextView twBody = (TextView) findViewById(R.id.txtview_submit_legend_viewBlock);
             String temp = "Contenu requete Block inscription :\n" + FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()).toString();
@@ -159,8 +157,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         }
     }
 
-    /*
-        */
     public void OnValidateInscrption(View view) throws IOException {
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()));

@@ -45,15 +45,14 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     protected void onPostExecute(String result)
     {
         DT = new DateTime();
-        if (tryDoProgress)
+        JSONObject jsonResult = new JSONObject();
+        jsonResult.put("TryParse", "false");
         try {
-            JSONObject jsonResult = (JSONObject) new JSONParser().parse(result);
-            mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT, null));
+            jsonResult = (JSONObject) new JSONParser().parse(result);
         } catch (Exception e) {
             mActivity.ReceptionResponse(new HttpReponse(false, e.getMessage()));
         }
-        else
-            mActivity.ReceptionResponse(new HttpReponse(false, result));
+        mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT, null));
 
     }
 
@@ -66,7 +65,8 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
                     .post(body)
                     .build();
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            String result = response.body().string();
+            return result;
         } catch (Exception e) {
             tryDoProgress = false;
             return e.getMessage();

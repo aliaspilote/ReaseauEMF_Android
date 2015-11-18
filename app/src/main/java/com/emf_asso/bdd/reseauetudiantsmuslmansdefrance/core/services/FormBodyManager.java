@@ -27,17 +27,29 @@ public class FormBodyManager {
                 .add("civility", user.getCivility() + "")
                 .add("zip_code", user.getZip_code() + "")
                 .add("city", user.getCity() + "")
-                .add("section", user.getSection().getLabel() + "")
+                .add("section", user.getSection().getLabel() + "Gaza")
                 .add("dicipline", "android")
-                .add("niveau", "")
-                .add("involvement", user.getInvolvement().getLabel() + "")
+                .add("niveau", "3")
+                .add("involvement", user.getInvolvement().getLabel() + "HyperActif")
                 .add("phone", user.getPhone() + "")
                 .add("birth_date", sdf.format(user.getBirth_date()) + "")
                 .add("registration_date", sdf.format(user.getRegistration_date()) + "")
-                .add("skills", user.getSkills().get(1).getLabel() + "")
+                .add("skills", "expert Android")
                 .add("hashed_pwd", user.getHashed_pwd() + "")
                 .build();
         // .add("dicipline", user.getDicipline().getLabel() + "")
+        // .add("skills", user.getSkills().get(1).getLabel() + "")
+        return formBody;
+    }
+
+    public static RequestBody auth(String mail, String password) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", "auth")
+                .add("mail", mail + "")
+                .add("hashed_pwd", password + "")
+                .build();
+        // .add("dicipline", user.getDicipline().getLabel() + "")
+        // .add("skills", user.getSkills().get(1).getLabel() + "")
         return formBody;
     }
 }

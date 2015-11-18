@@ -13,10 +13,14 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
+
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 
@@ -47,14 +51,29 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
-        if (!LastReponse.getSucces())
+        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result") != "true")
             Message = LastReponse.getExceptionText();
         else {
+            Boolean result = false;
+            if (LastReponse.getResultat().get("result") == "true")
+                result = true;
             switch (LastReponse.Action) {
                 case "check_mail":
                     Message = LastReponse.Action + " effectué\n";
                     Message += "Contenu de la réponse : \n";
                     Message += LastReponse.getResultat().toString();
+                    break;
+                case "auth":
+                    /*Message = LastReponse.Action + " réussi\n";
+                    Message += "Contenu de la réponse : \n";
+                    Message += LastReponse.getResultat().toString();*/
+                    if (result)
+                        successAuth(LastReponse.getResultat());
+                    else {
+                        Message += Messages.error_auth;
+                        Message += LastReponse.getExceptionText();
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
                     break;
                 default:
                     Message = LastReponse.Action + " effectué\n";
@@ -111,6 +130,31 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         wb_thread.execute();
     }
 
+    public String getTextByEditTextId(int id_editText) {
+        return ((EditText) findViewById(id_editText)).getText().toString();
+    }
+
+    public void OnConnect(View view) {
+        String mail = getTextByEditTextId(R.id.editxt_auth_email);
+        String mdp = getTextByEditTextId(R.id.editxt_auth_pwd);
+
+        if (mail.length() > 5 && mdp.length() > 6) {
+            Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
+                    this, FormBodyManager.auth(mail, mdp));
+            wb_thread.execute();
+        }
+    }
+
+    public void successAuth(JSONObject obj) {
+        JSONObject object = obj;
+        Intent intent = new Intent(context, UsermemberProfileActivity.class);
+
+        Bundle bundle = new Bundle();
+        SessionWsService AppSessionContext = new SessionWsService(object);
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
 
     public void OnRegisterClick(View view) {
         Intent intent = new Intent(context, ProcessInscriptionActivity.class);

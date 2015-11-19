@@ -12,7 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppThemeDAB">
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -22,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ProcessInscriptionActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
+        <activity android:name=".UsermemberProfileActivity"></activity>
     </application>
 
 </manifest>

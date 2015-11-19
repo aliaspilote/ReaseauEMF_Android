@@ -16,6 +16,7 @@ public final class Messages {
     public static String error_inscription_Titre = "Erreurs de saisies \n";
     public static String error_continu = "Continuer\n";
     public static String error_cancel = "Annuler\n";
+    public static String error_auth = "Authentification échouée,merci vérifier mail et mot de passe.";
 
     private Messages() {
     }

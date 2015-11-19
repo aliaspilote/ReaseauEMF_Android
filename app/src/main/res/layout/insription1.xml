@@ -106,7 +106,7 @@
                                 android:hint="@string/lbl_votre_mail"
                                 android:inputType="textEmailAddress"
                                 android:padding="4dp"
-                                android:text="testandroid@gmail.com" />
+                                android:text="latreche_omar_67@hotmail.com" />
 
 
                         </LinearLayout>

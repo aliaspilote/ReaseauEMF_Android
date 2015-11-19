@@ -1,8 +1,13 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
+
+import org.json.simple.JSONObject;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Omar_Desk on 10/11/2015.
@@ -35,6 +40,9 @@ public class UserMember implements Serializable {
     private Date last_update_date;
 
     public UserMember() {
+        name = "n/a";
+        email = "n/a";
+        hashed_pwd = "n/a";
         dicipline = new Discipline();
         status = new ContactPreference();
         involvement = new Involvement();
@@ -61,6 +69,33 @@ public class UserMember implements Serializable {
         setHashed_pwd2(hashed_pwd2);
     }
 
+    public UserMember(JSONObject jsonObject) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy", Locale.FRANCE);
+        Date BD_date = new Date();
+
+        try {
+            BD_date = dateFormatter.parse((jsonObject.get("birth_date")).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setUserfromJSON(((jsonObject.get("name"))).toString(), (jsonObject.get("firstname")).toString(),
+                (jsonObject.get("civility")).toString(), (jsonObject.get("email")).toString(),
+                (jsonObject.get("city")).toString(), BD_date,
+                (jsonObject.get("phone")).toString(), (jsonObject.get("hashed_pwd")).toString());
+
+    }
+
+    public void setUserfromJSON(String name, String firstname, String civility, String email, String city, Date birth_date, String phone, String hashed_pwd) {
+        setName(name);
+        setFirstname(firstname);
+        setCivility(civility);
+        setEmail(email);
+        setCity(city);
+        setBirth_date(birth_date);
+        setPhone(phone);
+        setHashed_pwd(hashed_pwd);
+    }
+    
     public String getEmail() {
         return email;
     }

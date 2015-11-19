@@ -1,9 +1,11 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Omar on 11/11/2015.
  */
-public class ContactPreference {
+public class ContactPreference implements Serializable {
 
     private Boolean jobs_offers;
     private Boolean city_activities;

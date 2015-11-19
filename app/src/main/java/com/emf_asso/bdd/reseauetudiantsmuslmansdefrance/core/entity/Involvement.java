@@ -1,9 +1,11 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Omar_Desk on 13/11/2015.
  */
-public class Involvement {
+public class Involvement implements Serializable {
 
     private String label;
     private String description;

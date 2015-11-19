@@ -27,6 +27,7 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     ActivityConnectedWeb mActivity;
     RequestBody formBody;
     DateTime DT;
+    Boolean tryDoProgress = true;
 
     public Web_Service_Controlleur(ActivityConnectedWeb activity, RequestBody RequestformBody) {
         mActivity = activity;
@@ -38,36 +39,39 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     }
     protected String doInBackground(String...urls)
     {
-        try {
-
-            DT = new DateTime();
             reponse = post(urlWB, formBody);
-        }
-        catch (IOException e)
-        {
-            mActivity.ReceptionResponse(new HttpReponse(false, e.toString()));
-        }
         return reponse;
     }
     protected void onPostExecute(String result)
     {
         DT = new DateTime();
+        JSONObject jsonResult = new JSONObject();
+        jsonResult.put("TryParse", "false");
+        jsonResult.put("result", "false");
         try {
-            JSONObject jsonResult = (JSONObject) new JSONParser().parse(result);
-            mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT));
+            jsonResult = (JSONObject) new JSONParser().parse(result);
         } catch (Exception e) {
-            mActivity.ReceptionResponse(new HttpReponse(false, e.toString()));
+            mActivity.ReceptionResponse(new HttpReponse(false, e.getMessage()));
         }
+        mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT, null));
 
     }
 
-    public String post(String url, RequestBody body) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+    public String post(String url, RequestBody body) {
+        try {
+
+            tryDoProgress = true;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            Response response = client.newCall(request).execute();
+            String result = response.body().string();
+            return result;
+        } catch (Exception e) {
+            tryDoProgress = false;
+            return e.getMessage();
+        }
     }
 
     protected void onProgressUpdate(String str)

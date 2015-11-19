@@ -33,6 +33,8 @@ public class UsermemberProfileActivity extends AppCompatActivity implements Acti
         setContentView(R.layout.activity_usermember_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();

@@ -26,8 +26,7 @@
             android:label="@string/app_name" />
         <activity android:name=".UsermemberProfileActivity"></activity>
         <activity
-            android:name=".AboutEmfActivity"
-            android:label="@string/app_name" />
+            android:name=".AboutEmfActivity" />
         <activity
             android:name=".EmfNetworkActivity"
             android:label="@string/app_name" />

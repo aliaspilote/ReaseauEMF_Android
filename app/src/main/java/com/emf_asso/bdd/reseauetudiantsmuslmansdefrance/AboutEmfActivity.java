@@ -27,6 +27,7 @@ public class AboutEmfActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_emf);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Intent intent = this.getIntent();
         //Bundle bundle = intent.getExtras();

@@ -131,4 +131,10 @@
     <style name="lbl_style_legend_error" parent="AppTheme">
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
+
+    <style name="style_app_name">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

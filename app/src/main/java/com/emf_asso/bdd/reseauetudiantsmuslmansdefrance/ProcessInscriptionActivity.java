@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +40,7 @@ import java.util.Locale;
 /**
  * Created by Omar on 04/11/2015.
  */
-public class ProcessInscriptionActivity extends Activity implements ActivityConnectedWeb {
+public class ProcessInscriptionActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
 
     private static final int NUM_PAGES = 5;
@@ -57,6 +58,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processinscription);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         InitStubs();
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();

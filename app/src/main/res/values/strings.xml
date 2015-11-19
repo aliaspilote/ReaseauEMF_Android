@@ -84,6 +84,20 @@
     <string name="action_admin">Adminstrateur</string>
     <string name="lbl_about_emf">A quoi ça sert :</string>
     <string name="lbl_emf_network">Réseau EMF</string>
+    <string name="lbl_profil">Votre Profil</string>
+    <string name="lbl_name_value">****************</string>
+    <string name="lbl_lastName_value">********************</string>
+    <string name="lbl_mail_value">***************</string>
+    <string name="lbl_firstname_value">************</string>
+    <string name="lbl_birthday_value">**********</string>
+    <string name="lbl_zipcode_value">*******</string>
+    <string name="lbl_city_value">**************</string>
+    <string name="lbl_phone_value">***************</string>
+    <string name="lbl_status_value">*******************************************************************************</string>
+    <string name="lbl_section_value">********</string>
+    <string name="lbl_skills_value">***************</string>
+    <string name="lbl_contact_value">********* ************ **********</string>
+    <string name="lbl_curriculum_value">*******</string>
 
     <string-array name="liste_ville">
         <item>Ville</item>

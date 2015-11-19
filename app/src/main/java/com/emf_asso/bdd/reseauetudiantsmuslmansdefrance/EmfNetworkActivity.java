@@ -27,6 +27,7 @@ public class EmfNetworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_emf_network);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Intent intent = this.getIntent();
         //Bundle bundle = intent.getExtras();

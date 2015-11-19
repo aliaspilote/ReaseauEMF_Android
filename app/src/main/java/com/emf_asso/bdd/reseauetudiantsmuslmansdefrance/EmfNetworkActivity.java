@@ -14,7 +14,7 @@ import android.view.MenuItem;
 /**
  * Created by Omar on 04/11/2015.
  */
-public class AboutEmfActivity extends AppCompatActivity {
+public class EmfNetworkActivity extends AppCompatActivity {
 
 
     private Context context = this;
@@ -24,7 +24,7 @@ public class AboutEmfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_emf);
+        setContentView(R.layout.activity_emf_network);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

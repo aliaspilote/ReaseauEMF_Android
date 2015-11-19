@@ -27,9 +27,14 @@ public class Menu_Control extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_about_emf:
-                Intent intent = new Intent(context, AboutEmfActivity.class);
+                intent = new Intent(context, AboutEmfActivity.class);
+                context.startActivity(intent);
+                return true;
+            case R.id.action_emf_network:
+                intent = new Intent(context, EmfNetworkActivity.class);
                 context.startActivity(intent);
                 return true;
             default:

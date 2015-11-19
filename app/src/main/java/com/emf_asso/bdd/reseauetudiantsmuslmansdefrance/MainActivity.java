@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     public final HttpReponse LastReponse = new HttpReponse();
     SessionWsService AppSessionContext;
     private Context context = this;
+    public Menu_Control menucontrol = new Menu_Control(context);
     private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
 
     @Override
@@ -102,25 +104,22 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return menucontrol.onOptionsItemSelected(item);
     }
+
+    /*
+
+
+     */
 
     public void OnValidateForm(View  view)
     {
@@ -167,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         context.startActivity(intent);
     }
 
+
     private void afficherFormInscr()
     {
         String message = new String();
@@ -197,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                 })
                 .show();
     }
+
+
 }
 
 

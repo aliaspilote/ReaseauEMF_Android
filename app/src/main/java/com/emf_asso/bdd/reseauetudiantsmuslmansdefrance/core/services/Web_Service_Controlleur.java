@@ -35,11 +35,10 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     }
     protected void onPreExecute()
     {
-
     }
     protected String doInBackground(String...urls)
     {
-            reponse = post(urlWB, formBody);
+        reponse = post(urlWB, formBody);
         return reponse;
     }
     protected void onPostExecute(String result)
@@ -59,7 +58,6 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
 
     public String post(String url, RequestBody body) {
         try {
-
             tryDoProgress = true;
             Request request = new Request.Builder()
                     .url(url)

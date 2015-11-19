@@ -16,7 +16,13 @@ public final class Messages {
     public static String error_inscription_Titre = "Erreurs de saisies \n";
     public static String error_continu = "Continuer\n";
     public static String error_cancel = "Annuler\n";
-    public static String error_auth = "Authentification échouée,merci vérifier mail et mot de passe.";
+    public static String error_auth = "Authentification échouée,merci de vérifier mail et mot de passe.";
+    public static String error_auth_length = "Email ou mot de passe trop court pour être valide";
+    public static String error_in_progress = "Traitement en cours";
+    public static String error_isnot_Existing = "Adresse mail déjà enregistrée";
+    public static String error_is_Existing = "Adresse mail déjà enregistrée";
+    public static String error_addUser_success = "Enregistrement dans le Réseau EMF effectué";
+    public static String error_unknow_action = "Erreur du traitement de la requête, action inconnu.";
 
     private Messages() {
     }

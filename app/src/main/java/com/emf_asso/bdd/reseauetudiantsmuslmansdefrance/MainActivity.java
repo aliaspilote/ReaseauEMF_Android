@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     private static final String TAG = "MainActivity";
     public final HttpReponse LastReponse = new HttpReponse();
     SessionWsService AppSessionContext;
+    int duration = Toast.LENGTH_SHORT;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
     private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
@@ -52,8 +55,43 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         }
     }
 
+    public void ReceptionResponse2(HttpReponse Rep) {
+        DisplayToast(Messages.error_in_progress + "2/2");
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
+        String Message = "";
+        TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true") {
+            Message = twError.getText() + LastReponse.getExceptionText();
+            twError.setText(Message);
+        } else {
+            Boolean result = false;
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
+                result = true;
+            switch (LastReponse.Action) {
+                case "add_user":
+                    TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+                    twResult.setText("Résultats :\n");
+                    if (result)
+                        Message += Messages.error_addUser_success;
+                    else if (tempResultBool.contentEquals("isExisting"))
+                        Message += Messages.error_is_Existing;
+                    else
+                        Message = twError.getText() + LastReponse.getExceptionText();
+                    twResult.setText(Message);
+                    break;
+                default:
+                    Message = Messages.error_unknow_action;
+                    Message += LastReponse.getResultat().toString();
+                    twError.setText(Message);
+                    break;
+            }
+        }
+    }
+
 
     public void ReceptionResponse(HttpReponse Rep) {
+        DisplayToast(Messages.error_in_progress + "2/2");
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
@@ -66,9 +104,13 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                 result = true;
             switch (LastReponse.Action) {
                 case "check_mail":
-                    Message = LastReponse.Action + " effectué\n";
-                    Message += "Contenu de la réponse : \n";
-                    Message += LastReponse.getResultat().toString();
+                    if (result) {
+                        if ((LastReponse.getResultat().get("isExisting").toString().contentEquals("true")))
+                            Message += Messages.error_is_Existing;
+                        else
+                            Message += Messages.error_isnot_Existing;
+                    } else
+                        Message += LastReponse.getExceptionText();
                     break;
                 case "auth":
                     if (result)
@@ -143,7 +185,10 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                     this, FormBodyManager.auth(mail, mdp));
             wb_thread.execute();
+        } else {
+            DisplayToast(Messages.error_auth_length);
         }
+
     }
 
     public void successAuth(JSONObject obj) {
@@ -164,6 +209,18 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
         intent.putExtras(bundle);
         context.startActivity(intent);
+    }
+
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 0);
     }
 
 

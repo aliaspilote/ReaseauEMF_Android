@@ -10,4 +10,8 @@ public interface ActivityConnectedWeb {
 
     void ReceptionResponse(HttpReponse Rep);
 
+    void DisplayToast(String text, int time);
+
+    void DisplayToast(String text);
+
 }

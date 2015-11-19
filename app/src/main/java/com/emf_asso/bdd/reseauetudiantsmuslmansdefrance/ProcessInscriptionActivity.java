@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
@@ -97,31 +98,34 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
+        DisplayToast(Messages.error_in_progress + "2/2");
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
-
         TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
         if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true") {
             Message = twError.getText() + LastReponse.getExceptionText();
             twError.setText(Message);
         } else {
             Boolean result = false;
+
+            //tempResultBool placer ici un test sur le tempresult dans le swutch case
             String tempResultBool = LastReponse.getResultat().get("result").toString();
             if (tempResultBool.contentEquals("true"))
                 result = true;
             switch (LastReponse.Action) {
                 case "add_user":
                     TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
-                    Message = twResult.getText() + "";
+                    twResult.setText("Résultats :\n");
                     if (result)
-                        Message += LastReponse.getResultat().toString();
+                        Message += Messages.error_addUser_success;
+                    else if (tempResultBool.contentEquals("isExisting"))
+                        Message += Messages.error_is_Existing;
                     else
                         Message = twError.getText() + LastReponse.getExceptionText();
                     twResult.setText(Message);
                     break;
                 default:
-                    Message = LastReponse.Action + " effectué\n";
-                    Message += "aucun post traitement défini \n";
+                    Message = Messages.error_unknow_action;
                     Message += LastReponse.getResultat().toString();
                     twError.setText(Message);
                     break;
@@ -182,6 +186,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnValidateInscrption(View view) throws IOException {
+
+        DisplayToast(Messages.error_in_progress + "1/2");
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()));
         wb_thread.execute();
@@ -364,6 +370,18 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             e.printStackTrace();
         }
         return dt;
+    }
+
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 0);
     }
 
 

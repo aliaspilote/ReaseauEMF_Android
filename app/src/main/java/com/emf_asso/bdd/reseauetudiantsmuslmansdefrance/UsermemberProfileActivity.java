@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
@@ -109,5 +110,16 @@ public class UsermemberProfileActivity extends AppCompatActivity implements Acti
         Email.setText(AppSessionContext.getUserMember().getEmail());
         Password.setText(AppSessionContext.getUserMember().getHashed_pwd());
         Token.setText(AppSessionContext.getToken());
+    }
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 0);
     }
 }

@@ -70,7 +70,7 @@
                         /* Début partie Ecran 2 */
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_weight="1"
@@ -82,7 +82,7 @@
                                 style="@style/text_style"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/text_border"
+
                                 android:hint="@string/lbl_lastName"
                                 android:inputType="textPersonName"
                                 android:padding="4dp"
@@ -95,7 +95,7 @@
                                 android:layout_height="0dp"
                                 android:layout_marginTop="30dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/text_border"
+
                                 android:hint="@string/lbl_firstname"
                                 android:inputType="textPersonName"
                                 android:padding="4dp"
@@ -120,7 +120,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
-                                    android:background="@drawable/text_border"
+
                                     android:hint="@string/lbl_editxt_birthday"
                                     android:inputType="date"
                                     android:padding="4dp"
@@ -132,8 +132,9 @@
                                     android:layout_gravity="bottom"
                                     android:layout_weight="2"
                                     android:padding="4dp"
+                                    android:text="@string/lbl_birthday"
 
-                                    android:text="@string/lbl_birthday" />
+                                    android:textAlignment="center" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -150,7 +151,7 @@
                                     android:layout_height="fill_parent"
                                     android:layout_gravity="bottom"
                                     android:layout_weight="2"
-                                    android:background="@drawable/text_border"
+
                                     android:hint="@string/lbl_zipcode"
                                     android:inputType="number"
                                     android:maxLength="5"
@@ -164,7 +165,7 @@
                                     android:layout_height="fill_parent"
                                     android:layout_marginLeft="5dp"
                                     android:layout_weight="3"
-                                    android:background="@drawable/text_border"
+
                                     android:hint="@string/lbl_editxt_city"
                                     android:inputType="text"
                                     android:padding="4dp"
@@ -179,7 +180,7 @@
                                 android:layout_height="0dp"
                                 android:layout_marginTop="40dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/text_border"
+
                                 android:hint="@string/lbl_editxt_phone"
                                 android:inputType="phone"
                                 android:maxLength="10"

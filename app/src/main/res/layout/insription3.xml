@@ -15,6 +15,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
         android:orientation="vertical">
     <ScrollView
         android:id="@+id/scrollView_ins3"
@@ -40,7 +41,7 @@
                 android:layout_height="fill_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal">
@@ -194,7 +195,7 @@
         <LinearLayout
             android:id="@+id/layout_ins_skils"
             android:layout_width="fill_parent"
-            android:layout_height="150dp"
+            android:layout_height="fill_parent"
             android:layout_weight="2"
             android:orientation="vertical">
 

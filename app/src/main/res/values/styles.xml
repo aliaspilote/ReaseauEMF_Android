@@ -1,12 +1,13 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemebis" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme" parent="android:Theme.Holo" />
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -22,59 +23,57 @@
         <item name="colorAccent">@color/accent_material_light_1</item>
     </style>
 
-    <style name="transparence">
+    <style name="transparence" parent="AppTheme">
         <item name="android:colorBackground">#00000000</item>
     </style>
 
-    <style name="text_style">
+    <style name="text_style" parent="AppTheme">
         <item name="android:textColor">#747373</item>
     </style>
 
-    <style name="text_petite_taille">
+    <style name="text_petite_taille" parent="AppTheme">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#000</item>
     </style>
 
-    <style name="button_style">
+    <style name="button_style" parent="AppTheme">
         <item name="android:background">@color/accent_material_light_1</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="button_style_gray">
+    <style name="button_style_gray" parent="AppTheme">
         <item name="android:background">@color/gray</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="button_style_green">
+    <style name="button_style_green" parent="AppTheme">
         <item name="android:background">@color/green</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="style_lbl_authentification">
+    <style name="style_lbl_authentification" parent="AppTheme">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">#747373</item>
         <item name="android:text">@string/lbl_auth_title</item>
     </style>
 
-    <style name="style_editxt_email">
+    <style name="style_editxt_email" parent="AppTheme">
         <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:background">@drawable/text_border</item>
         <item name="android:padding">4dp</item>
         <item name="android:hint">@string/lbl_mail</item>
         <item name="android:textColor">#747373</item>
     </style>
 
-    <style name="style_editxt_pwd">
-        <item name="android:background">@drawable/text_border</item>
+    <style name="style_editxt_pwd" parent="AppTheme">
         <item name="android:padding">4dp</item>
         <item name="android:hint">@string/lbl_password</item>
         <item name="android:textColor">#747373</item>
     </style>
 
-    <style name="style_imgview_cnx">
+    <style name="style_imgview_cnx" parent="AppTheme">
         <item name="android:layout_width">0dp</item>
         <item name="android:clickable">true</item>
         <item name="android:src">@drawable/ic_connexion2</item>
@@ -82,54 +81,54 @@
         <item name="android:colorBackground">#00000000</item>
     </style>
 
-    <style name="style_checkbox_remember_me">
+    <style name="style_checkbox_remember_me" parent="AppTheme">
         <item name="android:textColor">#747373</item>
         <item name="android:gravity">center</item>
         <item name="android:text">@string/lbl_souvenir</item>
     </style>
 
-    <style name="style_lbl_forget_pwd">
+    <style name="style_lbl_forget_pwd" parent="AppTheme">
         <item name="android:textColor">#747373</item>
         <item name="android:gravity">center</item>
         <item name="android:text">@string/lbl_mdp_oublie</item>
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="style_feature">
+    <style name="style_feature" parent="AppTheme">
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:background">#FF909090</item>
     </style>
 
-    <style name="style_lbl_inscription_via">
+    <style name="style_lbl_inscription_via" parent="AppTheme">
         <item name="android:textColor">#747373</item>
         <item name="android:text">@string/lbl_ins_via</item>
     </style>
 
-    <style name="style_imgview_linkedin">
+    <style name="style_imgview_linkedin" parent="AppTheme">
         <item name="android:colorBackground">#00000000</item>
         <item name="android:clickable">true</item>
         <item name="android:src">@drawable/ic_linkedin</item>
     </style>
 
-    <style name="style_imgview_viadeo">
+    <style name="style_imgview_viadeo" parent="AppTheme">
         <item name="android:colorBackground">#00000000</item>
         <item name="android:clickable">true</item>
         <item name="android:src">@drawable/ic_viadeo</item>
     </style>
 
-    <style name="style_lbl_or_directly">
+    <style name="style_lbl_or_directly" parent="AppTheme">
         <item name="android:textColor">#747373</item>
         <item name="android:text">@string/lbl_direct</item>
     </style>
 
-    <style name="style_btn_registration">
+    <style name="style_btn_registration" parent="AppTheme">
         <item name="android:padding">25dp</item>
         <item name="android:text">@string/lbl_register</item>
         <item name="android:textSize">25sp</item>
     </style>
 
-    <style name="lbl_style_legend_error">
+    <style name="lbl_style_legend_error" parent="AppTheme">
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
 </resources>

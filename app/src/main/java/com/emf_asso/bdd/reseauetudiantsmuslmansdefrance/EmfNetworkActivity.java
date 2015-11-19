@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 
 /**
@@ -28,10 +30,7 @@ public class EmfNetworkActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        Intent intent = this.getIntent();
-        //Bundle bundle = intent.getExtras();
-        //ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
+        ImageListener();
     }
 
     @Override
@@ -45,6 +44,20 @@ public class EmfNetworkActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return menucontrol.onOptionsItemSelected(item);
+    }
+
+    public void ImageListener() {
+        ImageView home_icon;
+        home_icon = (ImageView) this.findViewById(R.id.icon_home);
+        // set a onclick listener for when the button gets clicked
+        home_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(context, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+
     }
 
 

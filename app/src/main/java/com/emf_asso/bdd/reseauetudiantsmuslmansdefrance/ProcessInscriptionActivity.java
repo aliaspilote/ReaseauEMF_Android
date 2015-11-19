@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,6 +59,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processinscription);
         InitStubs();
+
+        ImageListener();
+
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
@@ -79,6 +83,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return menucontrol.onOptionsItemSelected(item);
+
     }
 
     public void InitStubs() {
@@ -367,4 +372,21 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
 
+    public void ImageListener() {
+        ImageView home_icon;
+        home_icon = (ImageView) this.findViewById(R.id.icon_home);
+        // set a onclick listener for when the button gets clicked
+        home_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                gotoMainActivity();
+            }
+        });
+
+    }
+
+
+
+
 }
+

@@ -2,9 +2,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_emf_network"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_emf_network"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_profil"
+        android:orderInCategory="100"
+        android:title="@string/action_profil"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_newsletter_managment"
+        android:orderInCategory="100"
+        android:title="@string/action_newsletter_managment"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_admin"
+        android:orderInCategory="100"
+        android:title="@string/action_admin"
+        app:showAsAction="never" />
+    <item
+
+        android:id="@+id/action_about_emf"
+        android:orderInCategory="100"
+        android:title="@string/action_about_emf"
+        app:showAsAction="never" />
+
 </menu>

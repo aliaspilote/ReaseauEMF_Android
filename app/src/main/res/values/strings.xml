@@ -76,6 +76,14 @@
     <string name="lbl_choose_date">Choisir</string>
     <string name="lbl_format">Format : mm-aaaa</string>
     <string name="lbl_resume_submit">Validation d\'inscription</string>
+    <string name="action_profil">Profil</string>
+    <string name="action_about_emf">A propos d\'EMF</string>
+    <string name="action_statistical">Statistiques</string>
+    <string name="action_emf_network">Réseaux EMF</string>
+    <string name="action_newsletter_managment">Gestion des newsletters</string>
+    <string name="action_admin">Adminstrateur</string>
+    <string name="lbl_about_emf">A quoi ça sert :</string>
+    <string name="lbl_emf_network">Réseau EMF</string>
 
     <string-array name="liste_ville">
         <item>Ville</item>

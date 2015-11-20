@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,6 +60,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processinscription);
         InitStubs();
+
+        ImageListener();
+
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
@@ -107,8 +111,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             twError.setText(Message);
         } else {
             Boolean result = false;
-
-            //tempResultBool placer ici un test sur le tempresult dans le swutch case
             String tempResultBool = LastReponse.getResultat().get("result").toString();
             if (tempResultBool.contentEquals("true"))
                 result = true;
@@ -383,6 +385,22 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     public void DisplayToast(String text) {
         DisplayToast(text, 0);
     }
+
+
+    public void ImageListener() {
+        ImageView home_icon;
+        home_icon = (ImageView) this.findViewById(R.id.icon_home);
+        // set a onclick listener for when the button gets clicked
+        home_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                gotoMainActivity();
+            }
+        });
+
+    }
+
+
 
 
 }

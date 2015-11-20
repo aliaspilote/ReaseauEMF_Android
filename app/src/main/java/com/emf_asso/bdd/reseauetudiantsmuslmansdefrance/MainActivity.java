@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         setSupportActionBar(toolbar);
 
 
+
+
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {

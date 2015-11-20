@@ -291,7 +291,6 @@
                                     android:text="@string/lbl_curriculum_value" />
                             </LinearLayout>
 
-
                         </LinearLayout>
 
                     </LinearLayout>

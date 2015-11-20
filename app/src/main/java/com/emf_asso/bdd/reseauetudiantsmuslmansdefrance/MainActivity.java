@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
@@ -56,41 +55,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                 AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
         }
     }
-
-    public void ReceptionResponse2(HttpReponse Rep) {
-        DisplayToast(Messages.error_in_progress + "2/2");
-        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
-        String Message = "";
-        TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
-        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true") {
-            Message = twError.getText() + LastReponse.getExceptionText();
-            twError.setText(Message);
-        } else {
-            Boolean result = false;
-            String tempResultBool = LastReponse.getResultat().get("result").toString();
-            if (tempResultBool.contentEquals("true"))
-                result = true;
-            switch (LastReponse.Action) {
-                case "add_user":
-                    TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
-                    twResult.setText("Résultats :\n");
-                    if (result)
-                        Message += Messages.error_addUser_success;
-                    else if (tempResultBool.contentEquals("isExisting"))
-                        Message += Messages.error_is_Existing;
-                    else
-                        Message = twError.getText() + LastReponse.getExceptionText();
-                    twResult.setText(Message);
-                    break;
-                default:
-                    Message = Messages.error_unknow_action;
-                    Message += LastReponse.getResultat().toString();
-                    twError.setText(Message);
-                    break;
-            }
-        }
-    }
-
 
     public void ReceptionResponse(HttpReponse Rep) {
         DisplayToast(Messages.error_in_progress + "2/2");

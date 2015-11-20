@@ -422,7 +422,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void initDate() {
-        ib = (ImageButton) findViewById(R.id.imageButton1);
+        ib = (ImageButton) findViewById(R.id.icon_choose_birthday);
         cal = Calendar.getInstance();
         day = cal.get(Calendar.DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);

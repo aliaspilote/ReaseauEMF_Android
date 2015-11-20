@@ -30,6 +30,9 @@
         <activity
             android:name=".EmfNetworkActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".ProfilActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

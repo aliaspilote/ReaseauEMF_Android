@@ -12,7 +12,7 @@
     </style>
 
     <style name="editTextStylePerso" parent="@android:style/Widget.EditText">
-        <item name="android:background">"@drawable/text_border"</item>
+        <item name="android:background">@drawable/text_border</item>
     </style>
 
 

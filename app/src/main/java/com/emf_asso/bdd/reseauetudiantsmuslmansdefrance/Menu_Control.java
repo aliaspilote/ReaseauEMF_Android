@@ -37,6 +37,10 @@ public class Menu_Control extends AppCompatActivity {
                 intent = new Intent(context, EmfNetworkActivity.class);
                 context.startActivity(intent);
                 return true;
+            case R.id.action_profil:
+                intent = new Intent(context, ProfilActivity.class);
+                context.startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
             // Bundle bundle = new Bundle();

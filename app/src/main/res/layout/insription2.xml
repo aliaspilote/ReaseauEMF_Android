@@ -121,20 +121,16 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
 
+                                    android:enabled="false"
                                     android:hint="@string/lbl_editxt_birthday"
                                     android:inputType="date"
-                                    android:padding="4dp"
-                                    android:text="31051988" />
+                                    android:padding="4dp" />
 
-                                <TextView
-                                    android:layout_width="0dp"
+                                <ImageButton
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:layout_weight="2"
-                                    android:padding="4dp"
-                                    android:text="@string/lbl_birthday"
-
-                                    android:textAlignment="center" />
+                                    android:background="@drawable/ic_calendar"
+                                    android:onClick="onChooseBirthday" />
                             </LinearLayout>
 
                             <LinearLayout

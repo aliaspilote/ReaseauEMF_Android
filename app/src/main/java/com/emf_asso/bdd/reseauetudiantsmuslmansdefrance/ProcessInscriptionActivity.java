@@ -2,6 +2,8 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -25,6 +29,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
@@ -35,6 +40,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Servic
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -55,6 +61,20 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     private int current_NUM_PAGES;
     private ProcessInscriptionService ServiceProcessInscription;
 
+    private ImageButton ib;
+    private Calendar cal;
+    private int day;
+    private int month;
+    private int year;
+    private EditText et;
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+            et.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
+                    + selectedYear);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +91,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         ServiceProcessInscription.onStart();
 
         ManagerListView = new ListViewInit(this, this);
+
+        initDate();
+
     }
 
     @Override
@@ -374,7 +397,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         return dt;
     }
 
-
     public void DisplayToast(String text, int time) {
         if (time > 0)
             time = Toast.LENGTH_SHORT;
@@ -385,7 +407,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     public void DisplayToast(String text) {
         DisplayToast(text, 0);
     }
-
 
     public void ImageListener() {
         ImageView home_icon;
@@ -398,6 +419,40 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             }
         });
 
+    }
+
+    public void initDate() {
+        ib = (ImageButton) findViewById(R.id.imageButton1);
+        cal = Calendar.getInstance();
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        month = cal.get(Calendar.MONTH);
+        year = cal.get(Calendar.YEAR);
+        et = (EditText) findViewById(R.id.editxt_ins_birthday);
+       /* ib.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                CustomDatePickerDialog dp = new CustomDatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog,  datePickerListener, year, month, day);
+
+                DatePickerDialog obj = dp.getPicker();
+
+                obj.show();
+            }
+        });*/
+
+    }
+
+    public void onChooseBirthday(View v) {
+        CustomDatePickerDialog dp = new CustomDatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog, datePickerListener, year, month, day);
+
+        DatePickerDialog obj = dp.getPicker();
+
+        obj.show();
+    }
+
+    @Override
+    @Deprecated
+    protected Dialog onCreateDialog(int id) {
+        return new DatePickerDialog(this, datePickerListener, year, month, day);
     }
 
 

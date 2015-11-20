@@ -36,7 +36,6 @@
 
                     <EditText
                         android:id="@+id/editxt_auth_email"
-                        style="@style/style_editxt_email"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content" />
 

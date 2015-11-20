@@ -7,7 +7,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme" parent="android:Theme.Holo" />
+    <style name="AppTheme" parent="android:Theme.Holo">
+        <item name="android:editTextStyle">@style/editTextStylePerso</item>
+    </style>
+
+    <style name="editTextStylePerso" parent="@android:style/Widget.EditText">
+        <item name="android:background">"@drawable/text_border"</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

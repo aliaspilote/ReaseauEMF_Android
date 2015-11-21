@@ -6,6 +6,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
@@ -13,6 +14,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +28,7 @@ public class ListViewInit {
     public static List<DegreeStudy> degreeStudyList;
     public static List<Discipline> disciplineList;
     public static List<Skill> skillList;
+    public static List<Curriculum> cursusList;
 
     public ListViewInit() {
 
@@ -37,6 +40,13 @@ public class ListViewInit {
         InitListSkill(view, ctx);
     }
 
+    public static List<Curriculum> InitListCursus() {
+        cursusList = new ArrayList<>();
+        cursusList.add(new Curriculum("Master MathInfo", new Date(2014, 5, 9), new Date(2015, 6, 8), new Discipline("Mathematique", "Recherche algorithmique", 5)));
+        cursusList.add(new Curriculum("Licence LEA", new Date(2014, 5, 9), new Date(2015, 6, 8), new Discipline("Anglais", "Recherche algorithmique", 3)));
+        cursusList.add(new Curriculum("BTS SIO", new Date(2014, 5, 9), new Date(2015, 6, 8), new Discipline("Informatique", "Recherche algorithmique", 3)));
+        return cursusList;
+    }
     public void InitListSectionInvolvement(Activity view, Activity ctx) {
         involvementsList = new ArrayList<>();
         involvementsList.add(new Involvement("Membre Actifff", "Membre qui participe aux réunior", "1"));

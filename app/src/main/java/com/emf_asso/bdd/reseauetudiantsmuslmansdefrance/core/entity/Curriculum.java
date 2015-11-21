@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Curriculum implements Serializable {
 
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
     private String label;
     private Date start_date;
     private Date end_date;

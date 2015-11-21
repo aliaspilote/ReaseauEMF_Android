@@ -7,6 +7,7 @@ import android.widget.DatePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by taha on 20/11/2015.
@@ -20,8 +21,13 @@ public class CustomDatePickerDialog extends DatePickerDialog implements DatePick
                                   int year, int monthOfYear, int dayOfMonth) {
         super(context, theme, callBack, year, monthOfYear, dayOfMonth);
         mDatePicker = new DatePickerDialog(context, theme, callBack, year, monthOfYear, dayOfMonth);
-
-        mDatePicker.getDatePicker().init(2013, 7, 16, this);
+        Date dt = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int y = cal.get(Calendar.YEAR);
+        int m = cal.get(Calendar.MONTH);
+        int d = cal.get(Calendar.DAY_OF_MONTH);
+        mDatePicker.getDatePicker().init(y, m, d, this);
 
         updateTitle(year, monthOfYear);
 

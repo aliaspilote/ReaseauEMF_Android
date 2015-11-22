@@ -42,12 +42,26 @@ public class ListViewInit {
 
     public static List<Curriculum> InitListCursus() {
         cursusList = new ArrayList<>();
-        cursusList.add(new Curriculum("Master MathInfo", new Date(2014, 5, 9), new Date(2015, 6, 8), new Discipline("Mathematique", "Recherche algorithmique", 5)));
-        cursusList.add(new Curriculum("Licence LEA", new Date(2014, 5, 9), new Date(2015, 6, 8), new Discipline("Anglais", "Recherche algorithmique", 3)));
-        cursusList.add(new Curriculum("BTS SIO", new Date(2014, 5, 9), new Date(2015, 6, 8), new Discipline("Informatique", "Recherche algorithmique", 3)));
+        cursusList.add(new Curriculum("Master MathInfo", new Date(2014, 5, 9), new Date(2015, 6, 8),
+                new Discipline("Mathematique", "Recherche algorithmique", 3),
+                "UFR MATH", "Strabourg",
+                new DegreeStudy("Bac +5", 5, 3)));
+        cursusList.add(new Curriculum("Licence LEA", new Date(2014, 5, 9), new Date(2015, 6, 8),
+                new Discipline("Anglais", "Recherche algorithmique", 3),
+                "Université Louis Paster", "Marseille",
+                new DegreeStudy("Bac +3", 3, 2)));
+        cursusList.add(new Curriculum("BTS SIO", new Date(2014, 5, 9), new Date(2015, 6, 8),
+                new Discipline("Informatique", "Recherche algorithmique", 3),
+                "UTBM", "Belfort",
+                new DegreeStudy("Bac +1", 1, 1)));
+        cursusList.add(new Curriculum("Nouveau Cursus", new Date(2014, 5, 9), new Date(2015, 6, 8),
+                new Discipline("", "", 0)
+                , "", "",
+                new DegreeStudy("", 0, 0)));
         return cursusList;
     }
-    public void InitListSectionInvolvement(Activity view, Activity ctx) {
+
+    public static void InitListSectionInvolvement(Activity view, Activity ctx) {
         involvementsList = new ArrayList<>();
         involvementsList.add(new Involvement("Membre Actifff", "Membre qui participe aux réunior", "1"));
         involvementsList.add(new Involvement("Membre Cool", "Il est cool", "2"));
@@ -70,7 +84,7 @@ public class ListViewInit {
     }
 
 
-    public void InitListDegreeStudyDiscipline(Activity view, Activity ctx) {
+    public static void InitListDegreeStudyDiscipline(Activity view, Activity ctx) {
 
         degreeStudyList = new ArrayList<>();
         degreeStudyList.add(new DegreeStudy("Bac", 0, 0));
@@ -94,7 +108,7 @@ public class ListViewInit {
         listViewDiscipline.setAdapter(adapter_discipline);
     }
 
-    public void InitListSkill(Activity view, Activity ctx) {
+    public static void InitListSkill(Activity view, Activity ctx) {
 
 
         skillList = new ArrayList<>();

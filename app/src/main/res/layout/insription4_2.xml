@@ -132,7 +132,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10sp"
                                         android:background="@drawable/text_border"
-                                        android:hint="@string/lbl_city_studies"
+                                        android:hint="@string/cursus_lbl_city_studies"
                                         android:padding="4dp" />
 
                                     <LinearLayout

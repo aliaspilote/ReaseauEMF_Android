@@ -135,8 +135,11 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void OnTry(View view) throws IOException {
+        Intent intent = new Intent(context, CurriculumListActivity.class);
+        context.startActivity(intent);
+        /*
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.checkmail("latreche.omar@gmail.com"));
-        wb_thread.execute();
+        wb_thread.execute();*/
     }
 
     public String getTextByEditTextId(int id_editText) {

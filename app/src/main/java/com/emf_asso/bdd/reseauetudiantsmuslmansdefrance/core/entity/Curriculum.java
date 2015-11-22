@@ -16,16 +16,22 @@ public class Curriculum implements Serializable {
     private String establishment;
     private int zip_code;
     private DegreeStudy degree;
+    private String City;
 
     public Curriculum() {
         label = "";
     }
 
-    public Curriculum(String label, Date start_date, Date end_date, Discipline discipline) {
+    public Curriculum(String label, Date start_date, Date end_date,
+                      Discipline discipline, String etablissement,
+                      String City, DegreeStudy DegreeStudy) {
         setLabel(label);
         setStart_date(start_date);
         setEnd_date(end_date);
         setDiscipline(discipline);
+        setCity(City);
+        setEstablishment(etablissement);
+        setDegree(DegreeStudy);
     }
 
     public String getLabel() {
@@ -82,5 +88,13 @@ public class Curriculum implements Serializable {
 
     public void setDegree(DegreeStudy degree) {
         this.degree = degree;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
     }
 }

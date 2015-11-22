@@ -86,12 +86,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
-
         current_NUM_PAGES = 1;
         ServiceProcessInscription.onStart();
-
-        ManagerListView = new ListViewInit(this, this);
-
+        ManagerListView = new ListViewInit(this);
         initDate();
 
     }

@@ -9,6 +9,7 @@ import java.util.Date;
 public class Curriculum implements Serializable {
 
     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    private int id;
     private String label;
     private Date start_date;
     private Date end_date;
@@ -96,5 +97,13 @@ public class Curriculum implements Serializable {
 
     public void setCity(String city) {
         City = city;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

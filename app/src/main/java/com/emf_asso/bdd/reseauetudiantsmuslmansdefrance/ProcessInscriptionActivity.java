@@ -67,13 +67,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     private int month;
     private int year;
     private EditText et;
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-            et.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
-                    + selectedYear);
-        }
-    };
+    private DatePickerDialog.OnDateSetListener datePickerListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +83,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         current_NUM_PAGES = 1;
         ServiceProcessInscription.onStart();
         ManagerListView = new ListViewInit(this);
+
         initDate();
 
     }
@@ -419,6 +414,13 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void initDate() {
+        datePickerListener = new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int selectedYear,
+                                  int selectedMonth, int selectedDay) {
+                et.setText(selectedDay + "/" + (selectedMonth + 1) + "/"
+                        + selectedYear);
+            }
+        };
         ib = (ImageButton) findViewById(R.id.icon_choose_birthday);
         cal = Calendar.getInstance();
         day = cal.get(Calendar.DAY_OF_MONTH);

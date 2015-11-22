@@ -96,7 +96,10 @@
                                 android:id="@+id/content_for_firstname"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"></LinearLayout>
+                                android:orientation="horizontal">
+
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/content_for_email"
@@ -196,7 +199,6 @@
                                     android:layout_weight="1"
                                     android:text="@string/lbl_curriculum_value" />
                             </LinearLayout>
-
 
                         </LinearLayout>
 

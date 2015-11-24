@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        loadListsFromWebService();
 
 
 
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
-        DisplayToast(Messages.error_in_progress + "2/2");
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
@@ -87,13 +87,54 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                         Message += LastReponse.getResultat().get("data_debug").toString();
                     }
                     break;
+                case "get_degree_study":
+                    if (result) {
+                        Message = Messages.success_load_data + "degree_study";
+                    } else {
+                        Message += Messages.error_auth;
+                        Message += LastReponse.getExceptionText();
+                    }
+                    break;
+                case "get_involvements":
+                    if (result) {
+                        Message = Messages.success_load_data + "involvements";
+                    } else {
+                        Message += Messages.error_auth;
+                        Message += LastReponse.getExceptionText();
+                    }
+                    break;
+                case "get_skills":
+                    if (result) {
+                        Message = Messages.success_load_data + "skills";
+                    } else {
+                        Message += Messages.error_auth;
+                        Message += LastReponse.getExceptionText();
+                    }
+                    break;
+                case "get_disciplines":
+                    if (result) {
+                        Message = Messages.success_load_data + "disciplines";
+                    } else {
+                        Message += Messages.error_auth;
+                        Message += LastReponse.getExceptionText();
+                    }
+                    break;
+                case "get_sections":
+                    if (result) {
+                        Message = Messages.success_load_data + "sections";
+                    } else {
+                        Message += Messages.error_auth;
+                        Message += LastReponse.getExceptionText();
+                    }
+                    break;
                 default:
                     Message = LastReponse.Action + " effectué\n";
                     Message += "aucun post traitement défini \n";
                     Message += LastReponse.getResultat().toString();
                     break;
             }
-        }
+            DisplayToast(Message);
+        }/*
         new AlertDialog.Builder(this)
                 .setTitle("Action : " + LastReponse.getAction())
                 .setMessage(Message)
@@ -107,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                         // Some stuff to do when cancel got clicked
                     }
                 })
-                .show();
+                .show();*/
     }
 
     @Override
@@ -135,12 +176,11 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void OnTry(View view) throws IOException {
-        Intent intent = new Intent(context, CursusFragment.class);
-
-        Bundle bundle = new Bundle();
-        //bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
-        //intent.putExtras(bundle);
+        Intent intent = new Intent(context, CurriculumListActivity.class);
         context.startActivity(intent);
+        /*
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_sections"));
+        wb_thread.execute();*/
     }
 
     public String getTextByEditTextId(int id_editText) {
@@ -181,6 +221,24 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         context.startActivity(intent);
     }
 
+    public void loadListsFromWebService() {
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_sections"));
+        wb_thread.execute();
+
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_disciplines"));
+        wb_thread.execute();
+
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_involvements"));
+        wb_thread.execute();
+
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_skills"));
+        wb_thread.execute();
+
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_degree_study"));
+        wb_thread.execute();
+
+    }
 
     public void DisplayToast(String text, int time) {
         if (time > 0)

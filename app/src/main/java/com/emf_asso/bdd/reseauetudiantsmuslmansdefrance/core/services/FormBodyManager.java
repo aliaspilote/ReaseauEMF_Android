@@ -27,10 +27,10 @@ public class FormBodyManager {
                 .add("civility", user.getCivility() + "")
                 .add("zip_code", user.getZip_code() + "")
                 .add("city", user.getCity() + "")
-                .add("section", user.getSection().getLabel() + "Gaza")
-                .add("dicipline", "android")
-                .add("niveau", "3")
-                .add("involvement", user.getInvolvement().getLabel() + "HyperActif")
+                .add("section", user.getSection().getLabel())
+                .add("dicipline", user.getDicipline().getLabel())
+                .add("niveau", "")
+                .add("involvement", user.getInvolvement().getInvolvement_id().toString())
                 .add("phone", user.getPhone() + "")
                 .add("birth_date", sdf.format(user.getBirth_date()) + "")
                 .add("registration_date", sdf.format(user.getRegistration_date()) + "")
@@ -48,8 +48,14 @@ public class FormBodyManager {
                 .add("mail", mail + "")
                 .add("hashed_pwd", password + "")
                 .build();
-        // .add("dicipline", user.getDicipline().getLabel() + "")
-        // .add("skills", user.getSkills().get(1).getLabel() + "")
         return formBody;
     }
+
+    public static RequestBody getAction(String actionName) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", actionName)
+                .build();
+        return formBody;
+    }
+
 }

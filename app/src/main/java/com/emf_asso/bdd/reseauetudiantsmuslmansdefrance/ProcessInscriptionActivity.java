@@ -3,7 +3,6 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +27,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
@@ -40,40 +39,38 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Servic
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 /**
  * Created by Omar on 04/11/2015.
  */
+
 public class ProcessInscriptionActivity extends Activity implements ActivityConnectedWeb {
 
 
     private static final int NUM_PAGES = 5;
     public ViewStub stub;
     public HttpReponse LastReponse = new HttpReponse();
-
-    ListViewInit ManagerListView;
-    private Context context = this;
-    public Menu_Control menucontrol = new Menu_Control(context);
-    private Activity activity = this;
-    private int current_NUM_PAGES;
-    private ProcessInscriptionService ServiceProcessInscription;
-
+    /*
     private ImageButton ib;
     private Calendar cal;
     private int day;
     private int month;
     private int year;
     private EditText et;
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-            et.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
-                    + selectedYear);
-        }
-    };
+    private DatePickerDialog.OnDateSetListener datePickerListener;
+    */
+    public CreateDate birthday_date;
+    public CreateDate start_curriculum_date;
+    public CreateDate end_curriculum_date;
+    public String tag;
+    ListViewInit ManagerListView;
+    private Context context = this;
+    public Menu_Control menucontrol = new Menu_Control(context);
+    private Activity activity = this;
+    private int current_NUM_PAGES;
+    private ProcessInscriptionService ServiceProcessInscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,13 +83,11 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
-
         current_NUM_PAGES = 1;
         ServiceProcessInscription.onStart();
+        ManagerListView = new ListViewInit(this);
 
-        ManagerListView = new ListViewInit(this, this);
-
-        initDate();
+        //initDate();
 
     }
 
@@ -420,8 +415,15 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         });
 
     }
-
+    /*
     public void initDate() {
+        datePickerListener = new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int selectedYear,
+                                  int selectedMonth, int selectedDay) {
+                et.setText(selectedDay + "/" + (selectedMonth + 1) + "/"
+                        + selectedYear);
+            }
+        };
         ib = (ImageButton) findViewById(R.id.icon_choose_birthday);
         cal = Calendar.getInstance();
         day = cal.get(Calendar.DAY_OF_MONTH);
@@ -437,25 +439,58 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
                 obj.show();
             }
-        });*/
+        });
+
+    }*/
+
+    public void onChooseBirthday(View v) {
+        showDate(birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);
 
     }
 
-    public void onChooseBirthday(View v) {
-        CustomDatePickerDialog dp = new CustomDatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog, datePickerListener, year, month, day);
+
+    public void onChooseCurriculumDateBegin(View v) {
+        showDate(start_curriculum_date, R.id.icon_choose_curriculumDateBegin, R.id.editxt_date_begin);
+
+    }
+
+    public void onChooseCurriculumDateEnd(View v) {
+        showDate(end_curriculum_date, R.id.icon_choose_birthday, R.id.editxt_date_end);
+
+    }
+
+    public void showDate(CreateDate cr, int img, int txt) {
+        cr = new CreateDate();
+        cr.initDate();
+        cr.setIb((ImageButton) findViewById(img));
+        cr.setEt((EditText) findViewById(txt));
+        CustomDatePickerDialog dp = new CustomDatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog,
+                cr.getDatePickerListener(),
+                cr.getYear(),
+                cr.getMonth(),
+                cr.getDay());
 
         DatePickerDialog obj = dp.getPicker();
 
         obj.show();
-    }
 
+    }
+/*
     @Override
     @Deprecated
     protected Dialog onCreateDialog(int id) {
-        return new DatePickerDialog(this, datePickerListener, year, month, day);
+        if(tag=="birthdayaa")
+        {
+            return new DatePickerDialog(this, birthday_date.getDatePickerListener(),
+                    birthday_date.getYear(),
+                    birthday_date.getMonth(),
+                    birthday_date.getDay());
+        }
+        else
+            return  null;
     }
 
-
+*/
 
 
 }

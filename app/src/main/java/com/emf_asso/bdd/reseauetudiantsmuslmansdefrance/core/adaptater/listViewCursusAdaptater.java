@@ -1,3 +1,4 @@
+/*
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater;
 
 import android.content.Context;
@@ -12,9 +13,11 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 
 import java.util.List;
 
+*/
 /**
  * Created by Omar on 20/11/2015.
- */
+ *//*
+
 public class listViewCursusAdaptater extends ArrayAdapter<Curriculum> {
     public listViewCursusAdaptater(Context context, List<Curriculum> items) {
         super(context, R.layout.fragment_cursus_list, items);
@@ -54,4 +57,4 @@ public class listViewCursusAdaptater extends ArrayAdapter<Curriculum> {
         TextView labelCursusTextView;
         TextView descrCursusTextView;
     }
-}
+}*/

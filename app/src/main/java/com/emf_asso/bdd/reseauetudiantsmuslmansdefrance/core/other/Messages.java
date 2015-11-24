@@ -23,6 +23,8 @@ public final class Messages {
     public static String error_is_Existing = "Adresse mail déjà enregistrée";
     public static String error_addUser_success = "Enregistrement dans le Réseau EMF effectué";
     public static String error_unknow_action = "Erreur du traitement de la requête, action inconnu.";
+    public static String success_load_data = "Chargement données réussi : ";
+
 
     private Messages() {
     }

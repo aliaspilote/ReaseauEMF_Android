@@ -29,20 +29,20 @@ public class CustomDatePickerDialog extends DatePickerDialog implements DatePick
         int d = cal.get(Calendar.DAY_OF_MONTH);
         mDatePicker.getDatePicker().init(y, m, d, this);
 
-        updateTitle(year, monthOfYear);
+        updateTitle(year, monthOfYear, dayOfMonth);
 
     }
 
     public void onDateChanged(DatePicker view, int year,
                               int month, int day) {
-        updateTitle(year, month);
+        updateTitle(year, month, day);
     }
 
-    private void updateTitle(int year, int month) {
+    private void updateTitle(int year, int month, int day) {
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.set(Calendar.YEAR, year);
         mCalendar.set(Calendar.MONTH, month);
-//       mCalendar.set(Calendar.DAY_OF_MONTH, day);
+        mCalendar.set(Calendar.DAY_OF_MONTH, day);
         mDatePicker.setTitle(getFormat().format(mCalendar.getTime()));
 
     }
@@ -56,7 +56,7 @@ public class CustomDatePickerDialog extends DatePickerDialog implements DatePick
      * the format for dialog tile,and you can override this method
      */
     public SimpleDateFormat getFormat() {
-        return new SimpleDateFormat("MMM, yyyy");
+        return new SimpleDateFormat("dd/MM/yyyy");
     }
 
     ;

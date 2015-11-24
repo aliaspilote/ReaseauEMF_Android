@@ -15,14 +15,17 @@ public class SessionWsService implements Serializable {
     private UserMember userMember;
     private DateTime timeOut;
     private String token;
+    private Boolean isConnected;
 
     public SessionWsService() {
+        setIsConnected(false);
     }
 
     public SessionWsService(JSONObject jsonObject) {
         token = (jsonObject.get("token")).toString();
         userMember = new UserMember();
         userMember.setEmail((jsonObject.get("mail")).toString());
+        setIsConnected(true);
     }
 
 
@@ -48,6 +51,14 @@ public class SessionWsService implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Boolean getIsConnected() {
+        return isConnected;
+    }
+
+    public void setIsConnected(Boolean isConnected) {
+        this.isConnected = isConnected;
     }
 }
 

@@ -50,7 +50,6 @@
     <string name="lbl_cursus">Vos Cursus</string>
     <string name="btn_new_cursus">Nouveau cursus</string>
     <string name="lbl_init_diplome">Intitulé du diplome</string>
-    <string name="lbl_ville_etude">Ville d\'étude</string>
     <string name="lbl_btn_annuler">Annuler</string>
     <string name="lbl_btn_ajouter">Ajouter</string>
     <string name="lbl_btn_previous">Précédent</string>
@@ -70,7 +69,7 @@
     <string name="btn_new_curriculum">Ajouter un nouveau cursus</string>
     <string name="lbl_curriculum">Vos cursus</string>
     <string name="lbl_entiled_diploma">Intitulé du diplôme</string>
-    <string name="lbl_city_studies">Ville d\'études</string>
+    <string name="cursus_lbl_city_studies">Ville d\'études</string>
     <string name="lbl_date_begin">Date début</string>
     <string name="lbl_date_end">Date fin</string>
     <string name="lbl_choose_date">Choisir</string>
@@ -112,6 +111,9 @@
         <item>EMF Paris</item>
         <item>EMF Marseille</item>
     </string-array>
+    <string name="title_curriculum_list">Curriculums</string>
+    <string name="title_curriculum_detail">Curriculum Detail</string>
+    <string name="lbl_entiled_establishment">Etablissement</string>
 
 
 </resources>

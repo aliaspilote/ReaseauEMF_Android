@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
@@ -43,9 +44,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         loadListsFromWebService();
-
-
-
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
@@ -97,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_involvements":
                     if (result) {
-                        Message = Messages.success_load_data + "involvements";
+                        {
+                            Message = Messages.success_load_data + "involvements";
+                            DataContext.setInvolvementsList(LastReponse.getResultat());
+                        }
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();

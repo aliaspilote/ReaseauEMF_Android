@@ -24,6 +24,7 @@ public class Involvement implements Serializable {
         setInvolvement_id(id);
     }
 
+
     public String toString() {
         return label;
     }

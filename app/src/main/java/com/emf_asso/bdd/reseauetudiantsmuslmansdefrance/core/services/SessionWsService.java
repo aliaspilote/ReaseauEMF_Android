@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 
 import org.joda.time.DateTime;
@@ -16,6 +17,7 @@ public class SessionWsService implements Serializable {
     private DateTime timeOut;
     private String token;
     private Boolean isConnected;
+    private DataContext dataContext;
 
     public SessionWsService() {
         setIsConnected(false);

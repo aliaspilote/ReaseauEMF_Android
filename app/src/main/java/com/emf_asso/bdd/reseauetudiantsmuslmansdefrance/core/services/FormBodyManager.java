@@ -48,8 +48,14 @@ public class FormBodyManager {
                 .add("mail", mail + "")
                 .add("hashed_pwd", password + "")
                 .build();
-        // .add("dicipline", user.getDicipline().getLabel() + "")
-        // .add("skills", user.getSkills().get(1).getLabel() + "")
         return formBody;
     }
+
+    public static RequestBody getAction(String actionName) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", actionName)
+                .build();
+        return formBody;
+    }
+
 }

@@ -266,7 +266,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                         (Involvement) getObjSelectedBySpinnerId(R.id.spinner_involvement),
                         (Section) getObjSelectedBySpinnerId(R.id.spinner_section),
                         getListSkillsSelected(R.id.listview_skill),
-                        getContactPreferenceSelectedByIds(R.id.checkbox_offer, R.id.checkbox_info_EMFcity, R.id.checkbox_info_national, R.id.checkbox_project));
+                        getContactPreferenceSelectedByIds(R.id.switch_offer, R.id.switch_info_EMFcity, R.id.switch_info_national, R.id.switch_project));
                 ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")

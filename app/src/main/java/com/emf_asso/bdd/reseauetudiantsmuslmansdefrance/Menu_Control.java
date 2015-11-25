@@ -41,6 +41,10 @@ public class Menu_Control extends AppCompatActivity {
                 intent = new Intent(context, ProfilActivity.class);
                 context.startActivity(intent);
                 return true;
+            case R.id.testprofil:
+                intent = new Intent(context, UserMemberProfilActivity.class);
+                context.startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
             // Bundle bundle = new Bundle();

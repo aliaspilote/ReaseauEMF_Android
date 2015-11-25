@@ -114,6 +114,7 @@
     <string name="title_curriculum_list">Curriculums</string>
     <string name="title_curriculum_detail">Curriculum Detail</string>
     <string name="lbl_entiled_establishment">Etablissement</string>
-
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 </resources>

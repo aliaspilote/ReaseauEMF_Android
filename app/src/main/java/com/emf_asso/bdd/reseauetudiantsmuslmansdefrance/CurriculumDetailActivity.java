@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 
 /**
  * An activity representing a single Curriculum detail screen. This
@@ -20,6 +26,8 @@ import android.view.View;
  * more than a {@link CurriculumDetailFragment}.
  */
 public class CurriculumDetailActivity extends AppCompatActivity {
+    public CreateDate start_curriculum_date;
+    public CreateDate end_curriculum_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,5 +86,32 @@ public class CurriculumDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onChooseCurriculumDateBegin(View view) {
+        showDate(start_curriculum_date, R.id.icon_choose_curriculumDateBegin, R.id.editxt_date_begin);
+
+    }
+
+    public void onChooseCurriculumDateEnd(View view) {
+        showDate(end_curriculum_date, R.id.icon_choose_birthday, R.id.editxt_date_end);
+
+    }
+
+    public void showDate(CreateDate cr, int img, int txt) {
+        cr = new CreateDate();
+        cr.initDate();
+        cr.setIb((ImageButton) findViewById(img));
+        cr.setEt((EditText) findViewById(txt));
+        CustomDatePickerDialog dp = new CustomDatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog,
+                cr.getDatePickerListener(),
+                cr.getYear(),
+                cr.getMonth(),
+                cr.getDay());
+
+        DatePickerDialog obj = dp.getPicker();
+
+        obj.show();
+
     }
 }

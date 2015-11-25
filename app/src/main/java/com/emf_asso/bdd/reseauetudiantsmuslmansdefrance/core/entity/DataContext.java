@@ -2,35 +2,113 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Omar_Desk on 24/11/2015.
  */
-public class DataContext {
+public class DataContext implements Serializable {
 
-    public static List<Involvement> involvementsList;
-    public static List<Section> sectionList;
-    public static List<DegreeStudy> degreeStudyList;
-    public static List<Discipline> disciplineList;
-    public static List<Skill> skillList;
-    public static List<Curriculum> cursusList;
+    public List<Involvement> involvementsList = new ArrayList<>();
+    public List<Section> sectionList = new ArrayList<>();
+    public List<DegreeStudy> degreeStudyList = new ArrayList<>();
+    public List<Discipline> disciplineList = new ArrayList<>();
+    public List<Skill> skillList = new ArrayList<>();
+    public List<Curriculum> cursusList = new ArrayList<>();
 
-    public static void setInvolvementsList(JSONObject obj) {
+    public DataContext() {
+
+    }
+
+    public void setDisciplineList(JSONObject obj) {
+        String count = obj.get("count").toString();
+        int c = Integer.parseInt(count);
+
+        disciplineList = new ArrayList<>();
+        Object resultJSON = obj.get("list");
+        Object item = "";
+        for (int i = 1; i <= c; i++) {
+            item = ((JSONObject) resultJSON).get(Integer.toString(i));
+            disciplineList.add(
+                    new Discipline(
+                            ((JSONObject) item).get("label").toString(),
+                            ((JSONObject) item).get("description").toString(),
+                            Integer.parseInt(((JSONObject) item).get("discipline_id").toString()))
+            );
+        }
+    }
+
+    public void setDegreeStudyList(JSONObject obj) {
+        String count = obj.get("count").toString();
+        int c = Integer.parseInt(count);
+
+        degreeStudyList = new ArrayList<>();
+        Object resultJSON = obj.get("list");
+        Object item = "";
+        for (int i = 1; i <= c; i++) {
+            item = ((JSONObject) resultJSON).get(Integer.toString(i));
+            degreeStudyList.add(
+                    new DegreeStudy(
+                            ((JSONObject) item).get("label").toString(),
+                            1,
+                            //Integer.parseInt(((JSONObject) item).get("order").toString()),
+                            Integer.parseInt(((JSONObject) item).get("degree_id").toString()))
+            );
+        }
+    }
+
+    public void setInvolvementsList(JSONObject obj) {
         String count = obj.get("count").toString();
         int c = Integer.parseInt(count);
 
         involvementsList = new ArrayList<>();
-        Object InvolJSON = obj.get("list");
-        Object invol = "";
+        Object resultJSON = obj.get("list");
+        Object item = "";
         for (int i = 1; i <= c; i++) {
-            invol = ((JSONObject) InvolJSON).get(Integer.toString(i));
+            item = ((JSONObject) resultJSON).get(Integer.toString(i));
             involvementsList.add(
                     new Involvement(
-                            ((JSONObject) invol).get("label").toString(),
-                            "",
-                            ((JSONObject) invol).get("involvement_id").toString())
+                            ((JSONObject) item).get("label").toString(),
+                            ((JSONObject) item).get("description").toString(),
+                            ((JSONObject) item).get("involvement_id").toString())
+            );
+        }
+    }
+
+    public void setSkillList(JSONObject obj) {
+        String count = obj.get("count").toString();
+        int c = Integer.parseInt(count);
+
+        skillList = new ArrayList<>();
+        Object resultJSON = obj.get("list");
+        Object item = "";
+        for (int i = 1; i <= c; i++) {
+            item = ((JSONObject) resultJSON).get(Integer.toString(i));
+            skillList.add(
+                    new Skill(
+                            ((JSONObject) item).get("label").toString(),
+                            ((JSONObject) item).get("description").toString(),
+                            Integer.parseInt(((JSONObject) item).get("skill_id").toString()))
+            );
+        }
+    }
+
+    public void setSectionList(JSONObject obj) {
+        String count = obj.get("count").toString();
+        int c = Integer.parseInt(count);
+
+        sectionList = new ArrayList<>();
+        Object resultJSON = obj.get("list");
+        Object item = "";
+        for (int i = 1; i <= c; i++) {
+            item = ((JSONObject) resultJSON).get(Integer.toString(i));
+            sectionList.add(
+                    new Section(
+                            ((JSONObject) item).get("label").toString(),
+                            Integer.parseInt(((JSONObject) item).get("section_id").toString()),
+                            Boolean.parseBoolean(((JSONObject) item).get("isActive").toString()))
             );
         }
     }

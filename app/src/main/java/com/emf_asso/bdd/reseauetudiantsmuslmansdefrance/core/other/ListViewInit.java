@@ -1,7 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other;
 
 import android.app.Activity;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -13,6 +12,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,19 +33,11 @@ public class ListViewInit {
 
     public ListViewInit() {
 
+
     }
 
-    public ListViewInit(View view, Activity ctx) {
-        InitListSectionInvolvement(view, ctx);
-        InitListDegreeStudyDiscipline(view, ctx);
-        InitListSkill(ctx);
-    }
-
-
-    public ListViewInit(Activity ctx) {
-        InitListSectionInvolvement(ctx);
-        InitListDegreeStudyDiscipline(ctx);
-        InitListSkill(ctx);
+    public ListViewInit(Activity ctx, SessionWsService AppContext) {
+        loadListStaticPI_View(ctx, AppContext);
     }
 
     public static List<Curriculum> InitListCursus() {
@@ -69,121 +61,37 @@ public class ListViewInit {
         return cursusList;
     }
 
-    public static void InitListSectionInvolvement(View view, Activity ctx) {
-        involvementsList = new ArrayList<>();
-        involvementsList.add(new Involvement("Membre Actifff", "Membre qui participe aux réunior", "1"));
-        involvementsList.add(new Involvement("Membre Cool", "Il est cool", "2"));
-        involvementsList.add(new Involvement("Super Actif", "Il est hyper actif", "3"));
-        sectionList = new ArrayList<>();
-        sectionList.add(new Section("Belfort"));
-        sectionList.add(new Section("Paris"));
-        sectionList.add(new Section("Lyon"));
+    public static void loadListStaticPI_View(Activity ctx, SessionWsService AppContext) {
 
-
-        Spinner listViewInvolvement = (Spinner) view.findViewById(R.id.spinner_involvement);
-        ArrayAdapter<Involvement> adapter_involvement = new ArrayAdapter<Involvement>(ctx,
-                android.R.layout.simple_list_item_1, involvementsList);
-        listViewInvolvement.setAdapter(adapter_involvement);
-
-        Spinner listViewSection = (Spinner) view.findViewById(R.id.spinner_section);
-        ArrayAdapter<Section> adapter_section = new ArrayAdapter<Section>(ctx,
-                android.R.layout.simple_list_item_1, sectionList);
-        listViewSection.setAdapter(adapter_section);
-    }
-
-    public static void InitListSectionInvolvement(Activity ctx) {
-        involvementsList = new ArrayList<>();
-        involvementsList.add(new Involvement("Membre Actifff", "Membre qui participe aux réunior", "1"));
-        involvementsList.add(new Involvement("Membre Cool", "Il est cool", "2"));
-        involvementsList.add(new Involvement("Super Actif", "Il est hyper actif", "3"));
-        sectionList = new ArrayList<>();
-        sectionList.add(new Section("Belfort"));
-        sectionList.add(new Section("Paris"));
-        sectionList.add(new Section("Lyon"));
-
+        involvementsList = AppContext.getDataContext().involvementsList;
+        sectionList = AppContext.getDataContext().sectionList;
+        degreeStudyList = AppContext.getDataContext().degreeStudyList;
+        disciplineList = AppContext.getDataContext().disciplineList;
+        skillList = AppContext.getDataContext().skillList;
 
         Spinner listViewInvolvement = (Spinner) ctx.findViewById(R.id.spinner_involvement);
-        ArrayAdapter<Involvement> adapter_involvement = new ArrayAdapter<Involvement>(ctx,
-                android.R.layout.simple_list_item_1, involvementsList);
-        listViewInvolvement.setAdapter(adapter_involvement);
-
         Spinner listViewSection = (Spinner) ctx.findViewById(R.id.spinner_section);
-        ArrayAdapter<Section> adapter_section = new ArrayAdapter<Section>(ctx,
-                android.R.layout.simple_list_item_1, sectionList);
-        listViewSection.setAdapter(adapter_section);
-    }
-
-
-    public static void InitListDegreeStudyDiscipline(View view, Activity ctx) {
-
-        degreeStudyList = new ArrayList<>();
-        degreeStudyList.add(new DegreeStudy("Bac", 0, 0));
-        degreeStudyList.add(new DegreeStudy("Bac +2", 1, 1));
-        degreeStudyList.add(new DegreeStudy("Bac +5", 2, 2));
-
-        disciplineList = new ArrayList<>();
-        disciplineList.add(new Discipline("recherche", "recherche", 0));
-        disciplineList.add(new Discipline("info", "recherche", 1));
-        disciplineList.add(new Discipline("recherche", "recherche", 2));
-
-
-        Spinner listViewDegreeStudy = (Spinner) view.findViewById(R.id.spinner_degree_study);
-        ArrayAdapter<DegreeStudy> adapter_degree_study = new ArrayAdapter<DegreeStudy>(ctx,
-                android.R.layout.simple_list_item_1, degreeStudyList);
-        listViewDegreeStudy.setAdapter(adapter_degree_study);
-
-        Spinner listViewDiscipline = (Spinner) view.findViewById(R.id.spinner_discipline);
-        ArrayAdapter<Discipline> adapter_discipline = new ArrayAdapter<Discipline>(ctx,
-                android.R.layout.simple_list_item_1, disciplineList);
-        listViewDiscipline.setAdapter(adapter_discipline);
-    }
-
-    public static void InitListDegreeStudyDiscipline(Activity ctx) {
-
-        degreeStudyList = new ArrayList<>();
-        degreeStudyList.add(new DegreeStudy("Bac", 0, 0));
-        degreeStudyList.add(new DegreeStudy("Bac +2", 1, 1));
-        degreeStudyList.add(new DegreeStudy("Bac +5", 2, 2));
-
-        disciplineList = new ArrayList<>();
-        disciplineList.add(new Discipline("recherche", "recherche", 0));
-        disciplineList.add(new Discipline("info", "recherche", 1));
-        disciplineList.add(new Discipline("recherche", "recherche", 2));
-
-
         Spinner listViewDegreeStudy = (Spinner) ctx.findViewById(R.id.spinner_degree_study);
-        ArrayAdapter<DegreeStudy> adapter_degree_study = new ArrayAdapter<DegreeStudy>(ctx,
-                android.R.layout.simple_list_item_1, degreeStudyList);
-        listViewDegreeStudy.setAdapter(adapter_degree_study);
-
         Spinner listViewDiscipline = (Spinner) ctx.findViewById(R.id.spinner_discipline);
-        ArrayAdapter<Discipline> adapter_discipline = new ArrayAdapter<Discipline>(ctx,
-                android.R.layout.simple_list_item_1, disciplineList);
-        listViewDiscipline.setAdapter(adapter_discipline);
-    }
-
-    public static void InitListSkill(Activity ctx) {
-        skillList = new ArrayList<>();
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        skillList.add(new Skill("informatique", "recherche", 0));
-        skillList.add(new Skill("santé", "recherche", 1));
-        skillList.add(new Skill("énérgie", "recherche", 2));
-        String[] GENRES = new String[]{
-                "Action", "Adventure", "Animation", "Children", "Comedy", "Documentary", "Drama",
-                "Foreign", "History", "Independent", "Romance", "Sci-Fi", "Television", "Thriller"
-        };
         ListView listViewSkill = (ListView) ctx.findViewById(R.id.listview_skill);
-        ArrayAdapter<String> adapter_skill = new ArrayAdapter<String>(ctx,
-                android.R.layout.simple_list_item_multiple_choice, GENRES);
-        listViewSkill.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+
+        ArrayAdapter<Involvement> adapter_involvement =
+                new ArrayAdapter<Involvement>(ctx, android.R.layout.simple_list_item_1, involvementsList);
+        ArrayAdapter<Section> adapter_section =
+                new ArrayAdapter<Section>(ctx, android.R.layout.simple_list_item_1, sectionList);
+        ArrayAdapter<DegreeStudy> adapter_degree_study =
+                new ArrayAdapter<DegreeStudy>(ctx, android.R.layout.simple_list_item_1, degreeStudyList);
+        ArrayAdapter<Discipline> adapter_discipline =
+                new ArrayAdapter<Discipline>(ctx, android.R.layout.simple_list_item_1, disciplineList);
+        ArrayAdapter<Skill> adapter_skill =
+                new ArrayAdapter<Skill>(ctx, android.R.layout.simple_list_item_multiple_choice, skillList);
+
+        listViewInvolvement.setAdapter(adapter_involvement);
+        listViewSection.setAdapter(adapter_section);
+        listViewDegreeStudy.setAdapter(adapter_degree_study);
+        listViewDiscipline.setAdapter(adapter_discipline);
         listViewSkill.setAdapter(adapter_skill);
+        listViewSkill.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 }

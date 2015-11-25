@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
 
 /**
@@ -61,7 +60,7 @@ public class CurriculumDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_curriculum_detail, container, false);
-        ListViewInit.InitListDegreeStudyDiscipline(rootView, this.getActivity());
+        //ListViewInit.InitListDegreeStudyDiscipline(rootView, this.getActivity());
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             // ((TextView) rootView.findViewById(R.id.curriculum_detail)).setText(mItem.details);

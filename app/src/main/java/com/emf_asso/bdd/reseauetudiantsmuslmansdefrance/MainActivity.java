@@ -14,12 +14,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
@@ -29,13 +27,10 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
-    private static final String TAG = "MainActivity";
     public final HttpReponse LastReponse = new HttpReponse();
-    SessionWsService AppSessionContext;
-    int duration = Toast.LENGTH_SHORT;
+    private SessionWsService AppSessionContext;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
-    private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            if (bundle.getSerializable("ServiceInscription") != null)
-                ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
             if (bundle.getSerializable("AppSessionContext") != null)
                 AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
         }
+        if (AppSessionContext == null)
+            AppSessionContext = new SessionWsService();
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
@@ -87,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_degree_study":
                     if (result) {
-                        Message = Messages.success_load_data + "degree_study";
+                        //Message = Messages.success_load_data + "degree_study";
+                        AppSessionContext.getDataContext().setDegreeStudyList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
@@ -96,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                 case "get_involvements":
                     if (result) {
                         {
-                            Message = Messages.success_load_data + "involvements";
-                            DataContext.setInvolvementsList(LastReponse.getResultat());
+                            //Message = Messages.success_load_data + "involvements";
+                            AppSessionContext.getDataContext().setInvolvementsList(LastReponse.getResultat());
                         }
                     } else {
                         Message += Messages.error_auth;
@@ -106,7 +102,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_skills":
                     if (result) {
-                        Message = Messages.success_load_data + "skills";
+                        //Message = Messages.success_load_data + "skills";
+                        AppSessionContext.getDataContext().setSkillList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
@@ -114,7 +111,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_disciplines":
                     if (result) {
-                        Message = Messages.success_load_data + "disciplines";
+                        //Message = Messages.success_load_data + "disciplines";
+                        AppSessionContext.getDataContext().setDisciplineList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
@@ -122,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_sections":
                     if (result) {
-                        Message = Messages.success_load_data + "sections";
+                        //Message = Messages.success_load_data + "sections";
+                        AppSessionContext.getDataContext().setSectionList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
@@ -134,7 +133,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     Message += LastReponse.getResultat().toString();
                     break;
             }
-            DisplayToast(Message);
+            if (Message.length() > 2)
+                DisplayToast(Message);
         }/*
         new AlertDialog.Builder(this)
                 .setTitle("Action : " + LastReponse.getAction())
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         Intent intent = new Intent(context, ProcessInscriptionActivity.class);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

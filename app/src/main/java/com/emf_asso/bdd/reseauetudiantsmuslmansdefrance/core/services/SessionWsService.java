@@ -17,7 +17,8 @@ public class SessionWsService implements Serializable {
     private DateTime timeOut;
     private String token;
     private Boolean isConnected;
-    private DataContext dataContext;
+    private DataContext dataContext = new DataContext();
+    private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
 
     public SessionWsService() {
         setIsConnected(false);
@@ -30,6 +31,13 @@ public class SessionWsService implements Serializable {
         setIsConnected(true);
     }
 
+    public ProcessInscriptionService getServiceProcessInscription() {
+        return ServiceProcessInscription;
+    }
+
+    public void setServiceProcessInscription(ProcessInscriptionService serviceProcessInscription) {
+        ServiceProcessInscription = serviceProcessInscription;
+    }
 
     public UserMember getUserMember() {
         return userMember;
@@ -62,6 +70,15 @@ public class SessionWsService implements Serializable {
     public void setIsConnected(Boolean isConnected) {
         this.isConnected = isConnected;
     }
+
+    public DataContext getDataContext() {
+        return dataContext;
+    }
+
+    public void setDataContext(DataContext dataContext) {
+        this.dataContext = dataContext;
+    }
+
 }
 
 

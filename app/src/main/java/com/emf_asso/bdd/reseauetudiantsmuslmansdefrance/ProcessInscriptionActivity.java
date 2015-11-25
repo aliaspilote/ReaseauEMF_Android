@@ -13,12 +13,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +34,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.io.IOException;
@@ -52,15 +53,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     private static final int NUM_PAGES = 5;
     public ViewStub stub;
     public HttpReponse LastReponse = new HttpReponse();
-    /*
-    private ImageButton ib;
-    private Calendar cal;
-    private int day;
-    private int month;
-    private int year;
-    private EditText et;
-    private DatePickerDialog.OnDateSetListener datePickerListener;
-    */
     public CreateDate birthday_date;
     public CreateDate start_curriculum_date;
     public CreateDate end_curriculum_date;
@@ -71,6 +63,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     private Activity activity = this;
     private int current_NUM_PAGES;
     private ProcessInscriptionService ServiceProcessInscription;
+    private SessionWsService AppSessionContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +75,16 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        ServiceProcessInscription = (ProcessInscriptionService) bundle.getSerializable("ServiceInscription");
-        current_NUM_PAGES = 1;
+        if (bundle != null) {
+            if (bundle.getSerializable("AppSessionContext") != null) {
+                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
+                ServiceProcessInscription = AppSessionContext.getServiceProcessInscription();
+                ListViewInit.loadListStaticPI_View(this, AppSessionContext);
+            }
+            current_NUM_PAGES = 1;
+        }
+
         ServiceProcessInscription.onStart();
-        ManagerListView = new ListViewInit(this);
-
-        //initDate();
-
     }
 
     @Override
@@ -266,7 +262,11 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                         (Involvement) getObjSelectedBySpinnerId(R.id.spinner_involvement),
                         (Section) getObjSelectedBySpinnerId(R.id.spinner_section),
                         getListSkillsSelected(R.id.listview_skill),
-                        getContactPreferenceSelectedByIds(R.id.switch_offer, R.id.switch_info_EMFcity, R.id.switch_info_national, R.id.switch_project));
+                        getContactPreferenceSelectedByIds(
+                                R.id.switch_offer,
+                                R.id.switch_info_EMFcity,
+                                R.id.switch_info_national,
+                                R.id.switch_project));
                 ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")
@@ -346,12 +346,12 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public ContactPreference getContactPreferenceSelectedByIds(int id_jobs_offers, int id_city_activities, int id_national_activities, int id__project_volontary) {
-        CheckBox job = (CheckBox) findViewById(id_jobs_offers);
-        CheckBox cityacti = (CheckBox) findViewById(id_city_activities);
-        CheckBox nationalacti = (CheckBox) findViewById(id_national_activities);
-        CheckBox projet = (CheckBox) findViewById(id__project_volontary);
+        Switch job = (Switch) findViewById(id_jobs_offers);
+        Switch cityacti = (Switch) findViewById(id_city_activities);
+        Switch nationalacti = (Switch) findViewById(id_national_activities);
+        Switch projet = (Switch) findViewById(id__project_volontary);
 
-        return new ContactPreference(job.isChecked(), cityacti.isChecked(), nationalacti.isChecked(), projet.isChecked());
+        return new ContactPreference(job.isActivated(), cityacti.isActivated(), nationalacti.isActivated(), projet.isActivated());
     }
 
     public Object getObjSelectedBySpinnerId(int id_Spinner) {
@@ -415,34 +415,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         });
 
     }
-    /*
-    public void initDate() {
-        datePickerListener = new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int selectedYear,
-                                  int selectedMonth, int selectedDay) {
-                et.setText(selectedDay + "/" + (selectedMonth + 1) + "/"
-                        + selectedYear);
-            }
-        };
-        ib = (ImageButton) findViewById(R.id.icon_choose_birthday);
-        cal = Calendar.getInstance();
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
-        year = cal.get(Calendar.YEAR);
-        et = (EditText) findViewById(R.id.editxt_ins_birthday);
-       /* ib.setOnClickListener(new View.OnClickListener() {
-            // Start new list activity
-            public void onClick(View v) {
-                CustomDatePickerDialog dp = new CustomDatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog,  datePickerListener, year, month, day);
-
-                DatePickerDialog obj = dp.getPicker();
-
-                obj.show();
-            }
-        });
-
-    }*/
-
     public void onChooseBirthday(View v) {
         showDate(birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);
 
@@ -475,22 +447,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         obj.show();
 
     }
-/*
-    @Override
-    @Deprecated
-    protected Dialog onCreateDialog(int id) {
-        if(tag=="birthdayaa")
-        {
-            return new DatePickerDialog(this, birthday_date.getDatePickerListener(),
-                    birthday_date.getYear(),
-                    birthday_date.getMonth(),
-                    birthday_date.getDay());
-        }
-        else
-            return  null;
-    }
-
-*/
 
 
 }

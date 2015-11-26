@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
@@ -258,6 +259,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                     lbl_error.setText("");
                 break;
             case 3:
+                Section test = (Section) getObjSelectedBySpinnerId(R.id.spinner_section);
                 ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
                         (Involvement) getObjSelectedBySpinnerId(R.id.spinner_involvement),
                         (Section) getObjSelectedBySpinnerId(R.id.spinner_section),
@@ -266,7 +268,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                                 R.id.switch_offer,
                                 R.id.switch_info_EMFcity,
                                 R.id.switch_info_national,
-                                R.id.switch_project));
+                                R.id.switch_project),
+                        (Discipline) getObjSelectedBySpinnerId(R.id.spinner_discipline));
                 ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
                 if (ServiceProcessInscription.getErrors(step) != "")

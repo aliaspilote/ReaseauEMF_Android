@@ -75,21 +75,20 @@ public class ProcessInscriptionService implements Serializable {
         inscription.getUser().setBirth_date(BirthDay);
     }
 
-    public void set_data_inscription3(Inscription inscription, Involvement involvement, Section section, List<Skill> skills, ContactPreference contactPreference) {
-        /*inscription.getUser().setInvolvement(involvement);
+    public void set_data_inscription3(Inscription inscription,
+                                      Involvement involvement,
+                                      Section section,
+                                      List<Skill> skills,
+                                      ContactPreference contactPreference,
+                                      Discipline discipline) {
+        inscription.getUser().setInvolvement(involvement);
         inscription.getUser().setSection(section);
         inscription.getUser().setSkills(skills);
-        inscription.getUser().setStatus(contactPreference);*/
-        inscription.getUser().setInvolvement(new Involvement());
-        inscription.getUser().setSection(new Section());
-        List<Skill> aa = new ArrayList<>();
-        aa.add(new Skill());
-        aa.add(new Skill());
-        aa.add(new Skill());
-        aa.add(new Skill());
-        inscription.getUser().setSkills(aa);
-        inscription.getUser().setStatus(new ContactPreference());
-        inscription.getUser().setDicipline(new Discipline());
+        inscription.getUser().setStatus(contactPreference);
+        inscription.getUser().setInvolvement(involvement);
+        inscription.getUser().setSection(section);
+        inscription.getUser().setSkills(skills);
+        inscription.getUser().setDicipline(discipline);
 
     }
 
@@ -140,7 +139,7 @@ public class ProcessInscriptionService implements Serializable {
     public Boolean validated_screen3(Inscription inscription) {
         boolean bool = true;
         errors[3] = "";
-        if (inscription.getUser().getSection() != null) {
+        if (!(inscription.getUser().getSection() != null)) {
             bool = false;
             errors[3] += Messages.error_section;
         }

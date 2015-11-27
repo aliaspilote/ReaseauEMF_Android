@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ConnectionDetector;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 
 /**
@@ -7,6 +8,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpRepons
  */
 public interface ActivityConnectedWeb {
 
+    public ConnectionDetector testInternetConnection = new ConnectionDetector();
 
     void ReceptionResponse(HttpReponse Rep);
 

@@ -32,14 +32,16 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        loadListsFromWebService();
+        this.testInternetConnection.setContext(context);
 
+        loadListsFromWebService();
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         String Message = "";
 
         if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
-            Message = LastReponse.getExceptionText();
+            DisplayToast(LastReponse.getExceptionText());
         else {
             Boolean result = false;
             String tempResultBool = LastReponse.getResultat().get("result").toString();
@@ -136,20 +138,20 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             if (Message.length() > 2)
                 DisplayToast(Message);
         }/*
-        new AlertDialog.Builder(this)
-                .setTitle("Action : " + LastReponse.getAction())
-                .setMessage(Message)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Some stuff to do when ok got clicked
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Some stuff to do when cancel got clicked
-                    }
-                })
-                .show();*/
+            new AlertDialog.Builder(this)
+                    .setTitle("Action : " + LastReponse.getAction())
+                    .setMessage(Message)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            // Some stuff to do when ok got clicked
+                        }
+                    })
+                    .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            // Some stuff to do when cancel got clicked
+                        }
+                    })
+                    .show();*/
     }
 
     @Override

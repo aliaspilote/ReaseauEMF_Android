@@ -3,6 +3,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 import android.os.AsyncTask;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -27,7 +28,7 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     ActivityConnectedWeb mActivity;
     RequestBody formBody;
     DateTime DT;
-    Boolean tryDoProgress = true;
+    Boolean tryInternet = true;
 
     public Web_Service_Controlleur(ActivityConnectedWeb activity, RequestBody RequestformBody) {
         mActivity = activity;
@@ -38,8 +39,16 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
     }
     protected String doInBackground(String...urls)
     {
-        reponse = post(urlWB, formBody);
-        return reponse;
+        tryInternet = mActivity.testInternetConnection.isConnectingToInternet();
+        if (tryInternet) {
+            reponse = post(urlWB, formBody);
+            return reponse;
+        } else {
+            JSONObject jsonResult = new JSONObject();
+            jsonResult.put("TryParse", "false");
+            jsonResult.put("result", "false");
+            return jsonResult.toString();
+        }
     }
     protected void onPostExecute(String result)
     {
@@ -47,18 +56,21 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
         JSONObject jsonResult = new JSONObject();
         jsonResult.put("TryParse", "false");
         jsonResult.put("result", "false");
-        try {
-            jsonResult = (JSONObject) new JSONParser().parse(result);
-        } catch (Exception e) {
-            mActivity.ReceptionResponse(new HttpReponse(false, e.getMessage()));
-        }
-        mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT, null));
+        if (!tryInternet)
+            mActivity.ReceptionResponse(new HttpReponse(false, Messages.error_no_internet));
+        else {
+            try {
+                jsonResult = (JSONObject) new JSONParser().parse(result);
+            } catch (Exception e) {
 
+                mActivity.ReceptionResponse(new HttpReponse(false, e.getMessage()));
+            }
+            mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT, null));
+        }
     }
 
     public String post(String url, RequestBody body) {
         try {
-            tryDoProgress = true;
             Request request = new Request.Builder()
                     .url(url)
                     .post(body)
@@ -67,7 +79,6 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
             String result = response.body().string();
             return result;
         } catch (Exception e) {
-            tryDoProgress = false;
             return e.getMessage();
         }
     }

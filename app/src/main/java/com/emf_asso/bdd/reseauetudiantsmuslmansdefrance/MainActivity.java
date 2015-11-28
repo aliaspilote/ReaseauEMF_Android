@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
 
-        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
+        if (LastReponse.getResultat() == null)
+            DisplayToast(LastReponse.getExceptionText());
+        else if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
             DisplayToast(LastReponse.getExceptionText());
         else {
             Boolean result = false;

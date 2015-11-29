@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.widget.DatePicker;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,7 +58,7 @@ public class CustomDatePickerDialog extends DatePickerDialog implements DatePick
      * the format for dialog tile,and you can override this method
      */
     public SimpleDateFormat getFormat() {
-        return new SimpleDateFormat("dd/MM/yyyy");
+        return new SimpleDateFormat(DataContext.dateDisplayFormat);
     }
 
     ;

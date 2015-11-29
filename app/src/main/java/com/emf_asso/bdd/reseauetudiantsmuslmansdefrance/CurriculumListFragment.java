@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
 
 /**
@@ -35,6 +37,12 @@ public class CurriculumListFragment extends ListFragment {
         }
     };
     /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+
+    public SessionWsService AppSessionContext;
+    /**
      * The fragment's current callback object, which is notified of list item
      * clicks.
      */
@@ -43,11 +51,6 @@ public class CurriculumListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public CurriculumListFragment() {
     }
 
@@ -55,12 +58,25 @@ public class CurriculumListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //    Intent intent = this.getIntent();
+        AppSessionContext = (SessionWsService) getActivity().getIntent().getSerializableExtra("AppSessionContext");
+        if (AppSessionContext != null) {
+            ListViewInit.loadListStaticCursus_View(AppSessionContext);
+            loadCursus();
+        } else
+            AppSessionContext = new SessionWsService();
+
         // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 DummyContent.ITEMS));
+    }
+
+
+    public void loadCursus() {
+        DummyContent.setCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
     }
 
     @Override

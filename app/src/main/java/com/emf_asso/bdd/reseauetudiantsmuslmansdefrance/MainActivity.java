@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             String tempResultBool = LastReponse.getResultat().get("result").toString();
             if (tempResultBool.contentEquals("true"))
                 result = true;
+
+            // code personaliser pour cette activité
             switch (LastReponse.Action) {
                 case "check_mail":
                     if (result) {
@@ -179,11 +181,13 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void OnTry(View view) throws IOException {
+
         Intent intent = new Intent(context, CurriculumListActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
+        intent.putExtras(bundle);
         context.startActivity(intent);
-        /*
-        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_sections"));
-        wb_thread.execute();*/
     }
 
     public String getTextByEditTextId(int id_editText) {

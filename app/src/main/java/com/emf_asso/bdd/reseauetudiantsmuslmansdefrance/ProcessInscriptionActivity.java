@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
@@ -51,7 +52,7 @@ import java.util.Locale;
 public class ProcessInscriptionActivity extends Activity implements ActivityConnectedWeb {
 
 
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 3;
     public ViewStub stub;
     public HttpReponse LastReponse = new HttpReponse();
     public CreateDate birthday_date;
@@ -107,29 +108,32 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         ((ViewStub) findViewById(R.id.stub_pi1)).inflate();
         ((ViewStub) findViewById(R.id.stub_pi2)).inflate();
         ((ViewStub) findViewById(R.id.stub_pi3)).inflate();
-        ((ViewStub) findViewById(R.id.stub_pi4_1)).inflate();
-        ((ViewStub) findViewById(R.id.stub_pi4_2)).inflate();
+        //((ViewStub) findViewById(R.id.stub_pi4_1)).inflate();
+        //((ViewStub) findViewById(R.id.stub_pi4_2)).inflate();
 
         findViewById(R.id.stub_Inflated2).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
-        findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
-        findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
+        //findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
+        //findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
 
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
-        DisplayToast(Messages.error_in_progress + "2/2");
+
+        TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
-        TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
-        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true") {
-            Message = twError.getText() + LastReponse.getExceptionText();
-            twError.setText(Message);
-        } else {
+
+        if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
+            DisplayToast(LastReponse.getExceptionText());
+        else {
             Boolean result = false;
             String tempResultBool = LastReponse.getResultat().get("result").toString();
             if (tempResultBool.contentEquals("true"))
                 result = true;
+
+            // code personaliser pour cette
             switch (LastReponse.Action) {
                 case "add_user":
                     TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
@@ -148,6 +152,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                     twError.setText(Message);
                     break;
             }
+            if (Message.length() > 2)
+                DisplayToast(Message);
         }
     }
 
@@ -155,19 +161,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         setDataOn_ServiceByStep(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
         {
-            hideViewByNum(current_NUM_PAGES);
-            //Revisualiser les infos saisies à confirmer
-            setContentView(R.layout.inscriptions_resume_submit);
-            TextView twBody = (TextView) findViewById(R.id.txtview_submit_legend_viewBlock);
-            String temp = "Contenu requete Block inscription :\n" + FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()).toString();
-            twBody.setText(temp);
-            //Valider le formulaire
-            //Puis afficher le profile
+            gotoCursusActivity();
             current_NUM_PAGES = 1;
-           /* displayViewByNum(current_NUM_PAGES);
-            Gson gson = new Gson();
-            String jsonUser = gson.toJson(ServiceProcessInscription.getInscription().getUser());
-            new AlertDialog.Builder(context).setTitle(" Validation Inscritpion ").setMessage(jsonUser).show();*/
         } else {
             if (ServiceProcessInscription.getErrors(current_NUM_PAGES) != "") {
                 new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(ServiceProcessInscription.getErrors(current_NUM_PAGES))
@@ -205,7 +200,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     public void OnValidateInscrption(View view) throws IOException {
 
-        DisplayToast(Messages.error_in_progress + "1/2");
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()));
         wb_thread.execute();
@@ -260,7 +254,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                     lbl_error.setText("");
                 break;
             case 3:
-                Section test = (Section) getObjSelectedBySpinnerId(R.id.spinner_section);
+                //Section test = (Section) getObjSelectedBySpinnerId(R.id.spinner_section);
                 ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
                         (Involvement) getObjSelectedBySpinnerId(R.id.spinner_involvement),
                         (Section) getObjSelectedBySpinnerId(R.id.spinner_section),
@@ -337,7 +331,15 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     public void gotoMainActivity() {
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("ServiceInscription", ServiceProcessInscription);
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public void gotoCursusActivity() {
+        Intent intent = new Intent(context, CurriculumListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
@@ -359,8 +361,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public Object getObjSelectedBySpinnerId(int id_Spinner) {
-
-        return ((Spinner) findViewById(id_Spinner)).getSelectedItem();
+        if (((Spinner) findViewById(id_Spinner)) != null)
+            return ((Spinner) findViewById(id_Spinner)).getSelectedItem();
+        else return null;
     }
 
     public Object getObjSelectedByListViewId(int id_listView) {
@@ -387,7 +390,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     public Date getDateByEditTextId(int id_editText) {
         Date dt = null;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy", Locale.FRANCE);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DataContext.dateDisplayFormat, Locale.FRANCE);
         try {
             dt = dateFormatter.parse(((EditText) findViewById(id_editText)).getText().toString());
         } catch (Exception e) {

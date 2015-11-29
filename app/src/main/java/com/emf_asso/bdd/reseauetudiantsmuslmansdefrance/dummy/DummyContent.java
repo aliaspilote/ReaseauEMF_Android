@@ -1,7 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,17 +26,20 @@ public class DummyContent {
      */
     public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    static {
+    public static void setCursusList(List<Curriculum> cursusList) {
         // Add some sample items.
         int id = 1;
-        for (Iterator<Curriculum> i = ListViewInit.InitListCursus().iterator(); i.hasNext(); ) {
+        for (Iterator<Curriculum> i = cursusList.iterator(); i.hasNext(); ) {
             Curriculum Cursus = i.next();
             addItem(new DummyItem(Integer.toString(id), Cursus));
             id++;
         }
-
     }
 
+    private static void addItem(Curriculum cursus) {
+        addItem(new DummyItem(Integer.toString(cursus.getId()), cursus));
+
+    }
     private static void addItem(DummyItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);

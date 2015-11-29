@@ -11,13 +11,14 @@ import java.util.List;
  */
 public class DataContext implements Serializable {
 
+    public static String dateDisplayFormat = "dd/MM/yyyy";
+    public static String dateMysqlFormat = "yyyy-MM-dd";
     public List<Involvement> involvementsList = new ArrayList<>();
     public List<Section> sectionList = new ArrayList<>();
     public List<DegreeStudy> degreeStudyList = new ArrayList<>();
     public List<Discipline> disciplineList = new ArrayList<>();
     public List<Skill> skillList = new ArrayList<>();
     public List<Curriculum> cursusList = new ArrayList<>();
-
     public DataContext() {
 
     }

@@ -71,8 +71,8 @@ public class ListViewInit {
 
         Spinner listViewInvolvement = (Spinner) ctx.findViewById(R.id.spinner_involvement);
         Spinner listViewSection = (Spinner) ctx.findViewById(R.id.spinner_section);
-        Spinner listViewDegreeStudy = (Spinner) ctx.findViewById(R.id.spinner_degree_study);
-        Spinner listViewDiscipline = (Spinner) ctx.findViewById(R.id.spinner_discipline);
+        //   Spinner listViewDegreeStudy = (Spinner) ctx.findViewById(R.id.spinner_degree_study);
+        //  Spinner listViewDiscipline = (Spinner) ctx.findViewById(R.id.spinner_discipline);
         ListView listViewSkill = (ListView) ctx.findViewById(R.id.listview_skill);
 
 
@@ -80,18 +80,23 @@ public class ListViewInit {
                 new ArrayAdapter<Involvement>(ctx, android.R.layout.simple_list_item_1, involvementsList);
         ArrayAdapter<Section> adapter_section =
                 new ArrayAdapter<Section>(ctx, android.R.layout.simple_list_item_1, sectionList);
-        ArrayAdapter<DegreeStudy> adapter_degree_study =
-                new ArrayAdapter<DegreeStudy>(ctx, android.R.layout.simple_list_item_1, degreeStudyList);
-        ArrayAdapter<Discipline> adapter_discipline =
-                new ArrayAdapter<Discipline>(ctx, android.R.layout.simple_list_item_1, disciplineList);
+        //  ArrayAdapter<DegreeStudy> adapter_degree_study = new ArrayAdapter<DegreeStudy>(ctx, android.R.layout.simple_list_item_1, degreeStudyList);
+        //  ArrayAdapter<Discipline> adapter_discipline = new ArrayAdapter<Discipline>(ctx, android.R.layout.simple_list_item_1, disciplineList);
         ArrayAdapter<Skill> adapter_skill =
                 new ArrayAdapter<Skill>(ctx, android.R.layout.simple_list_item_multiple_choice, skillList);
 
         listViewInvolvement.setAdapter(adapter_involvement);
         listViewSection.setAdapter(adapter_section);
-        listViewDegreeStudy.setAdapter(adapter_degree_study);
-        listViewDiscipline.setAdapter(adapter_discipline);
+        //listViewDegreeStudy.setAdapter(adapter_degree_study);
+        //listViewDiscipline.setAdapter(adapter_discipline);
         listViewSkill.setAdapter(adapter_skill);
         listViewSkill.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+    }
+
+    public static void loadListStaticCursus_View(SessionWsService appSessionContext) {
+        // TO DO For test :
+        appSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(InitListCursus());
+
+
     }
 }

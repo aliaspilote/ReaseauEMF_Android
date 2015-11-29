@@ -10,6 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
+
 /**
  * An activity representing a list of Curriculums. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -29,6 +33,7 @@ import android.view.View;
 public class CurriculumListActivity extends AppCompatActivity
         implements CurriculumListFragment.Callbacks {
 
+    public SessionWsService AppSessionContext;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -69,8 +74,22 @@ public class CurriculumListActivity extends AppCompatActivity
                     .setActivateOnItemClick(true);
         }
 
-        // TODO: If exposing deep links into your app, handle intents here.
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            if (bundle.getSerializable("AppSessionContext") != null) {
+                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
+                ListViewInit.loadListStaticCursus_View(AppSessionContext);
+                loadCursus();
+            } else
+                AppSessionContext = new SessionWsService();
+        }
     }
+
+    public void loadCursus() {
+        DummyContent.setCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,6 +131,7 @@ public class CurriculumListActivity extends AppCompatActivity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, CurriculumDetailActivity.class);
             detailIntent.putExtra(CurriculumDetailFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra("AppSessionContext", AppSessionContext);
             startActivity(detailIntent);
         }
     }

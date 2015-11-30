@@ -61,7 +61,7 @@ public class CurriculumListFragment extends ListFragment {
         //    Intent intent = this.getIntent();
         AppSessionContext = (SessionWsService) getActivity().getIntent().getSerializableExtra("AppSessionContext");
         if (AppSessionContext != null) {
-            ListViewInit.loadListStaticCursus_View(AppSessionContext);
+            ListViewInit.loadListStaticCursus_View(null, null, AppSessionContext);
             loadCursus();
         } else
             AppSessionContext = new SessionWsService();
@@ -76,7 +76,7 @@ public class CurriculumListFragment extends ListFragment {
 
 
     public void loadCursus() {
-        DummyContent.setCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
+        DummyContent.setNewCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
     }
 
     @Override

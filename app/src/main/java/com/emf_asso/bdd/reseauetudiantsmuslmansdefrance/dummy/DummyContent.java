@@ -26,7 +26,9 @@ public class DummyContent {
      */
     public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    public static void setCursusList(List<Curriculum> cursusList) {
+    public static void setNewCursusList(List<Curriculum> cursusList) {
+        ITEMS = new ArrayList<DummyItem>();
+        ITEM_MAP = new HashMap<String, DummyItem>();
         // Add some sample items.
         int id = 1;
         for (Iterator<Curriculum> i = cursusList.iterator(); i.hasNext(); ) {

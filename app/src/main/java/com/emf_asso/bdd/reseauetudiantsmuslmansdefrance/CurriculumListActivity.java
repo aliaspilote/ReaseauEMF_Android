@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
 
@@ -79,15 +78,15 @@ public class CurriculumListActivity extends AppCompatActivity
         if (bundle != null) {
             if (bundle.getSerializable("AppSessionContext") != null) {
                 AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
-                ListViewInit.loadListStaticCursus_View(AppSessionContext);
-                loadCursus();
+                //ListViewInit.loadListStaticCursus_View(AppSessionContext);
+                //loadCursus();
             } else
                 AppSessionContext = new SessionWsService();
         }
     }
 
     public void loadCursus() {
-        DummyContent.setCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
+        DummyContent.setNewCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
     }
 
 

@@ -55,10 +55,6 @@ public class ListViewInit {
                 new Discipline("Informatique", "Recherche algorithmique", 1),
                 "UTBM", "Belfort",
                 new DegreeStudy("Bac +1", 1, 1)));
-        cursusList.add(new Curriculum("Nouveau Cursus", new Date(2014, 5, 9), new Date(2015, 6, 8),
-                new Discipline("", "", 0)
-                , "", "",
-                new DegreeStudy("", 0, 0)));
         return cursusList;
     }
 

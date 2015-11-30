@@ -38,9 +38,15 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(Curriculum cursus) {
-        addItem(new DummyItem(Integer.toString(cursus.getId()), cursus));
+    public static void addItem(Curriculum cursus) {
+        int id = cursus.getId();
+        String idItem = Integer.toString(id);
+        addItem(new DummyItem(idItem, cursus));
 
+    }
+
+    public static int getMaxID() {
+        return ITEMS.size();
     }
     private static void addItem(DummyItem item) {
         ITEMS.add(item);
@@ -65,7 +71,7 @@ public class DummyContent {
      */
     public static class DummyItem extends Curriculum {
         public String id;
-        public String content;
+        public String content = "Nouveau";
         public String details;
 
         public Curriculum Cursus;

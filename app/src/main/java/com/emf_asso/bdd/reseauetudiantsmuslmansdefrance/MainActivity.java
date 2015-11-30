@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
@@ -24,6 +23,9 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Servic
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
+
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.auth;
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.getAction;
 
 public class MainActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
@@ -202,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
         if (mail.length() > 5 && mdp.length() > 6) {
             Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
-                    this, FormBodyManager.auth(mail, mdp));
+                    this, auth(mail, mdp));
             wb_thread.execute();
         } else {
             DisplayToast(Messages.error_auth_length);
@@ -232,19 +234,19 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void loadListsFromWebService() {
         Web_Service_Controlleur wb_thread;
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_sections"));
+        wb_thread = new Web_Service_Controlleur(this, getAction("get_sections"));
         wb_thread.execute();
 
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_disciplines"));
+        wb_thread = new Web_Service_Controlleur(this, getAction("get_disciplines"));
         wb_thread.execute();
 
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_involvements"));
+        wb_thread = new Web_Service_Controlleur(this, getAction("get_involvements"));
         wb_thread.execute();
 
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_skills"));
+        wb_thread = new Web_Service_Controlleur(this, getAction("get_skills"));
         wb_thread.execute();
 
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.getAction("get_degree_study"));
+        wb_thread = new Web_Service_Controlleur(this, getAction("get_degree_study"));
         wb_thread.execute();
 
     }

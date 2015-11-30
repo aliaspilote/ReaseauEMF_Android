@@ -3,15 +3,19 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
+
+import java.util.Date;
 
 /**
  * An activity representing a list of Curriculums. This activity
@@ -52,8 +56,10 @@ public class CurriculumListActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                        */
+                ActionOpenNewCursus();
             }
         });
         // Show the Up button in the action bar.
@@ -83,6 +89,16 @@ public class CurriculumListActivity extends AppCompatActivity
             } else
                 AppSessionContext = new SessionWsService();
         }
+    }
+
+    public void ActionOpenNewCursus() {
+        Curriculum newCursus = new Curriculum("Nouveau Cursus", new Date(), new Date(),
+                new Discipline("", "", 0)
+                , "", "",
+                new DegreeStudy("", 0, 0));
+        newCursus.setId(DummyContent.getMaxID() + 1);
+        DummyContent.addItem(newCursus);
+        onItemSelected((Integer.toString(DummyContent.getMaxID())));
     }
 
     public void loadCursus() {

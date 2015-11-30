@@ -66,7 +66,6 @@ public class CurriculumListFragment extends ListFragment {
         } else
             AppSessionContext = new SessionWsService();
 
-        // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,

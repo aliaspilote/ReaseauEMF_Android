@@ -45,8 +45,8 @@
     </style>
 
     <style name="button_style" parent="AppTheme">
-        <item name="android:background">@color/accent_material_light_1</item>
-        <item name="android:textColor">#FFF</item>
+        <item name="android:background">@color/gray_opac</item>
+        <item name="android:textColor">@color/accent_material_light_1</item>
         <item name="android:textStyle">bold</item>
     </style>
 

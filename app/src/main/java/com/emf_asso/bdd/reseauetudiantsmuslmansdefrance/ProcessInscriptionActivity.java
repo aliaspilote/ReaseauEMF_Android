@@ -52,7 +52,7 @@ import java.util.Locale;
 public class ProcessInscriptionActivity extends Activity implements ActivityConnectedWeb {
 
 
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 4;
     public ViewStub stub;
     public HttpReponse LastReponse = new HttpReponse();
     public CreateDate birthday_date;
@@ -118,11 +118,14 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         ((ViewStub) findViewById(R.id.stub_pi1)).inflate();
         ((ViewStub) findViewById(R.id.stub_pi2)).inflate();
         ((ViewStub) findViewById(R.id.stub_pi3)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pi4)).inflate();
         //((ViewStub) findViewById(R.id.stub_pi4_1)).inflate();
         //((ViewStub) findViewById(R.id.stub_pi4_2)).inflate();
 
         findViewById(R.id.stub_Inflated2).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated4).setVisibility(View.GONE);
+
         //findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
         //findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
 
@@ -297,7 +300,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 findViewById(R.id.stub_Inflated3).setVisibility(View.GONE);
                 break;
             case 4:
-                findViewById(R.id.stub_Inflated4_1).setVisibility(View.GONE);
+                findViewById(R.id.stub_Inflated4).setVisibility(View.GONE);
                 break;
             case 5:
                 findViewById(R.id.stub_Inflated4_2).setVisibility(View.GONE);
@@ -323,7 +326,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 // stub = (ViewStub) findViewById(R.id.stub_pi3);
                 break;
             case 4:
-                findViewById(R.id.stub_Inflated4_1).setVisibility(View.VISIBLE);
+                findViewById(R.id.stub_Inflated4).setVisibility(View.VISIBLE);
                 // stub = (ViewStub) findViewById(R.id.stub_pi4_1);
                 break;
             case 5:

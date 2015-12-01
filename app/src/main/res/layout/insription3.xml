@@ -173,6 +173,10 @@
                                         android:checked="true"
                                         android:textOff="OFF"
                                         android:textOn="ON" />
+                                    android:textOn=""
+                                    android:textOff=""
+
+                                    />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -218,8 +222,7 @@
                                         android:layout_height="fill_parent"
                                         android:layout_weight="2"
                                         android:checked="true"
-                                        android:textOff="OFF"
-                                        android:textOn="ON"
+
                                         />
                                 </LinearLayout>
 
@@ -230,9 +233,9 @@
 
                                     <TextView
                                         style="@style/text_petite_taille"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="5"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
                                         android:text="@string/lbl_project" />
 
                                     <Switch
@@ -284,13 +287,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:text="@string/lbl_skills" />
-
-            <ListView
-                android:id="@+id/listview_skill"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:fillViewport="true" />
 
 
         </LinearLayout>

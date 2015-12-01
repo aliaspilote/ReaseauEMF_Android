@@ -56,9 +56,6 @@ public class CurriculumListActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
                 ActionOpenNewCursus();
             }
         });
@@ -122,6 +119,7 @@ public class CurriculumListActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * Callback method from {@link CurriculumListFragment.Callbacks}

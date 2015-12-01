@@ -16,7 +16,6 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +42,7 @@ public class ListViewInit {
 
     public static List<Curriculum> InitListCursus() {
         cursusList = new ArrayList<>();
-        cursusList.add(new Curriculum("Master MathInfo", new Date(2014, 5, 9), new Date(2015, 6, 8),
+        /*cursusList.add(new Curriculum("Master MathInfo", new Date(2014, 5, 9), new Date(2015, 6, 8),
                 new Discipline("Mathematique", "Recherche algorithmique", 3),
                 "UFR MATH", "Strabourg",
                 new DegreeStudy("Bac +5", 5, 3)));
@@ -54,7 +53,7 @@ public class ListViewInit {
         cursusList.add(new Curriculum("BTS SIO", new Date(2014, 5, 9), new Date(2015, 6, 8),
                 new Discipline("Informatique", "Recherche algorithmique", 1),
                 "UTBM", "Belfort",
-                new DegreeStudy("Bac +1", 1, 1)));
+                new DegreeStudy("Bac +1", 1, 1)));*/
         return cursusList;
     }
 

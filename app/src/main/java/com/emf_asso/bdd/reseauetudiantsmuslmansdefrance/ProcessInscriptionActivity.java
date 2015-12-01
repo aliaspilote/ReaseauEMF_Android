@@ -162,7 +162,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
         {
             gotoCursusActivity();
-            current_NUM_PAGES = 1;
         } else {
             if (ServiceProcessInscription.getErrors(current_NUM_PAGES) != "") {
                 new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(ServiceProcessInscription.getErrors(current_NUM_PAGES))

@@ -154,6 +154,17 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
 
+    <style name="style_txt_upd" parent="AppTheme">
+        <item name="android:textColor">@color/accent_material_light_1</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="text_style_upd" parent="text_style">
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
     <style name="AppThemeDAB.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppThemeDAB.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="40dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                style="@style/text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_info_perso"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/lbl_ins1_legend_error"
+                                style="@style/lbl_style_legend_error"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        /* Début partie Ecran 1 */
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+
+                                style="@style/style_txt_upd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="@string/lbl_name" />
+
+                            <EditText
+                                android:id="@+id/editxt_upd_name"
+                                style="@style/text_style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:inputType="textPersonName"
+                                android:padding="4dp" />
+
+                            <TextView
+
+                                style="@style/style_txt_upd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="@string/lbl_firstname" />
+
+                            <EditText
+                                android:id="@+id/editxt_upd_firstname"
+                                style="@style/text_style_upd"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginBottom="20dp"
+                                android:layout_weight="1"
+                                android:inputType="textPersonName"
+                                android:padding="4dp" />
+
+                            <TextView
+
+                                style="@style/style_txt_upd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="@string/lbl_editxt_birthday" />
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+
+                                <EditText
+                                    android:id="@+id/editxt_upd_birthday"
+                                    style="@style/text_style"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+
+                                    android:enabled="false"
+                                    android:inputType="date"
+                                    android:padding="4dp" />
+
+                                <ImageButton
+                                    android:id="@+id/icon_choose_birthday"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ic_calendar"
+                                    android:onClick="onChooseBirthday"
+                                    android:tag="birthday" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        style="@style/style_txt_upd"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="4dp"
+                                        android:text="@string/lbl_zipcode_label" />
+
+                                    <EditText
+                                        android:id="@+id/editxt_upd_zipcode"
+                                        style="@style/text_style"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:layout_gravity="bottom"
+                                        android:layout_weight="2"
+
+                                        android:inputType="number"
+                                        android:maxLength="5"
+                                        android:padding="4dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        style="@style/style_txt_upd"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="4dp"
+                                        android:text="@string/lbl_city" />
+
+                                    <EditText
+                                        android:id="@+id/editxt_upd_city"
+                                        style="@style/text_style"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_weight="3"
+                                        android:inputType="text"
+                                        android:padding="4dp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                style="@style/style_txt_upd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="@string/lbl_phone" />
+
+                            <EditText
+                                android:id="@+id/editxt_upd_phone"
+                                style="@style/text_style"
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginBottom="20dp"
+                                android:layout_weight="1"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:padding="4dp"
+
+                                />
+
+
+                        </LinearLayout>
+                        /* Fin partie Ecran 1 */
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+
+    </LinearLayout>
+</RelativeLayout>

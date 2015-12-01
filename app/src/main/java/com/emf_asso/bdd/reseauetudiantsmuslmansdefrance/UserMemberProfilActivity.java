@@ -1,6 +1,8 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
-import android.app.AlertDialog;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -11,37 +13,56 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by taha on 24/11/2015.
  */
 
 public class UserMemberProfilActivity extends AppCompatActivity {
+
+    public int Current_Position = -1;
+    private UserMember usermember;
+    private Context context = this;
+    public Menu_Control menucontrol = new Menu_Control(context);
+    private Activity activity = this;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
-
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
-
-
     private ListView maListViewPerso;
 
+    public UserMember getUsermember() {
+        return usermember;
+    }
 
-
-
+    public void setUsermember(UserMember usermember) {
+        this.usermember = usermember;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usermember_profil);
+        InitStubs();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -58,6 +79,73 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
         setupDrawer();
 
+
+        ImageListener();
+
+        // juste pour le test
+        fillUserMember();
+        // fin test
+
+        CreateProfil();
+
+        fillInfoPerso();
+
+
+    }
+
+    public void fillUserMember() {
+        UserMember usertemp = new UserMember();
+        usertemp.setCity("Fes");
+        usertemp.setFirstname("Taha");
+        usertemp.setName("Merrika");
+        usertemp.setPhone("9999999999");
+        usertemp.setBirth_date(new Date(1991, 06, 01));
+        Section sec = new Section();
+        sec.setLabel("Belfort");
+        usertemp.setSection(sec);
+        Involvement inv = new Involvement();
+        inv.setLabel("Actif");
+        usertemp.setInvolvement(inv);
+        List<Skill> listeskills = new ArrayList<Skill>();
+        listeskills.add(new Skill("info", "info", 1));
+        listeskills.add(new Skill("info", "info", 1));
+        listeskills.add(new Skill("info", "info", 1));
+        listeskills.add(new Skill("info", "info", 1));
+        listeskills.add(new Skill("info", "info", 1));
+        listeskills.add(new Skill("info", "info", 1));
+        usertemp.setSkills(listeskills);
+        usertemp.setZip_code("90000");
+
+        setUsermember(usertemp);
+    }
+
+    public void fillInfoPerso() {
+
+
+        if (usermember.getName() != null)
+            fillInfoPersoByStep(usermember.getName(), R.id.editxt_upd_name);
+
+        if (usermember.getFirstname() != null)
+            fillInfoPersoByStep(usermember.getFirstname(), R.id.editxt_upd_firstname);
+
+        if (usermember.getBirth_date() != null)
+            fillInfoPersoByStep(usermember.getBirth_date().toString(), R.id.editxt_upd_birthday);
+
+        if (usermember.getZip_code() != null)
+            fillInfoPersoByStep(usermember.getZip_code(), R.id.editxt_upd_zipcode);
+
+        if (usermember.getCity() != null)
+            fillInfoPersoByStep(usermember.getCity(), R.id.editxt_upd_city);
+
+        if (usermember.getPhone() != null)
+            fillInfoPersoByStep(usermember.getPhone(), R.id.editxt_upd_phone);
+
+
+    }
+
+    public void fillInfoPersoByStep(String value, int content) {
+        TextView textview = (TextView) findViewById(content);
+        textview.setText(value);
 
     }
 
@@ -102,12 +190,16 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         map.put("img", String.valueOf(R.drawable.ic_profil_emf));
         listItem.add(map);
         map = new HashMap<String, String>();
+        map.put("title", "Changer mot de passe");
+        map.put("img", String.valueOf(R.drawable.ic_change_pwd));
+        listItem.add(map);
+        map = new HashMap<String, String>();
         map.put("title", "Mes Cursus");
         map.put("img", String.valueOf(R.drawable.ic_cursus));
         listItem.add(map);
         map = new HashMap<String, String>();
-        map.put("title", "Changer mot de passe");
-        map.put("img", String.valueOf(R.drawable.ic_change_pwd));
+        map.put("title", "Désactiver le compte");
+        map.put("img", String.valueOf(R.drawable.ic_disable_profil));
         listItem.add(map);
         map = new HashMap<String, String>();
         map.put("title", "Déconnexion");
@@ -124,15 +216,90 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-                AlertDialog.Builder adb = new AlertDialog.Builder(UserMemberProfilActivity.this);
-                adb.setTitle("Sélection Item");
-                adb.setMessage("Votre choix : " + "aaaaaaaa");
-                adb.setPositiveButton("Ok", null);
-                adb.show();
+
+                MenuAction(position);
+                mDrawerLayout.closeDrawers();
+
             }
         });
 
     }
+
+    public void InitStubs() {
+
+        ((ViewStub) findViewById(R.id.stub_pup)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup0)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup1)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup2)).inflate();
+
+        findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
+
+    }
+
+    public void hideStubByPosition(int position) {
+        switch (position) {
+            case -1:
+                findViewById(R.id.stub_Inflated_pup).setVisibility(View.GONE);
+                break;
+            case 0:
+                findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
+                break;
+            case 1:
+                findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
+                break;
+            case 2:
+                findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
+                break;
+
+
+            default:
+
+                break;
+        }
+    }
+
+    public void displayStubByPosition(int position) {
+        switch (position) {
+            case 0:
+                findViewById(R.id.stub_Inflated_pup0).setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                findViewById(R.id.stub_Inflated_pup2).setVisibility(View.VISIBLE);
+                break;
+
+
+            default:
+                // findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    public void MenuAction(int position) {
+       /* if(Current_Position==-1)
+        {
+            hideStubByPosition(0);
+
+        }
+        ListView list=(ListView)findViewById(R.id.navList);
+        int count=list.getAdapter().getCount();
+        for(int i=0;i<count;i++)
+        {
+            if(i!=position)
+            hideStubByPosition(position);
+        }*/
+        hideStubByPosition(Current_Position);
+        displayStubByPosition(position);
+        Current_Position = position;
+        // Toast.makeText(getApplicationContext(), " number of Item" + position, Toast.LENGTH_LONG).show();
+
+
+    }
+
 
 
     @Override
@@ -172,6 +339,87 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+    public void ImageListener() {
+        ImageView home_icon;
+        home_icon = (ImageView) this.findViewById(R.id.icon_home);
+        // set a onclick listener for when the button gets clicked
+        home_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(context, UserMemberProfilActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+
+    }
+
+    public void CreateProfil() {
+        if (usermember.getRegistration_date() != null)
+            CreateProfilByStep("Date d'inscription :", usermember.getRegistration_date().toString(), R.id.content_for_registrationdate);
+
+        if (usermember.getEmail() != null)
+            CreateProfilByStep("Email :", usermember.getEmail(), R.id.content_for_email);
+
+        if (usermember.getName() != null)
+            CreateProfilByStep("Nom :", usermember.getName(), R.id.content_for_name);
+
+        if (usermember.getFirstname() != null)
+            CreateProfilByStep("Prénom :", usermember.getFirstname(), R.id.content_for_firstname);
+
+        if (usermember.getBirth_date() != null)
+            CreateProfilByStep("Date de naissance :", usermember.getBirth_date().toString(), R.id.content_for_birthday);
+
+        if (usermember.getZip_code() != null)
+            CreateProfilByStep("Code Postale :", usermember.getZip_code(), R.id.content_for_zipcode);
+
+        if (usermember.getCity() != null)
+            CreateProfilByStep("Ville :", usermember.getCity(), R.id.content_for_city);
+
+        if (usermember.getInvolvement() != null)
+            CreateProfilByStep("Engagement :", usermember.getInvolvement().toString(), R.id.content_for_involevment);
+
+        if (usermember.getSection() != null)
+            CreateProfilByStep("Section :", usermember.getSection().toString(), R.id.content_for_section);
+
+        if (usermember.getSkills() != null) {
+            String listString = "";
+            int i = 0;
+
+            for (Skill s : usermember.getSkills()) {
+                listString += s;
+                i++;
+                if (i < usermember.getSkills().size()) {
+                    listString += ",\n";
+                }
+
+            }
+
+
+            CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
+        }
+
+        // il faut mettre une liste
+        if (usermember.getStatus() != null)
+            CreateProfilByStep("Contact pour :", usermember.getStatus().toString(), R.id.content_for_contact);
+
+
+    }
+
+    public void CreateProfilByStep(String label, String value, int content) {
+        TextView Label = new TextView(this);
+        Label.setText(label);
+        TextView Value = new TextView(this);
+        Value.setText(value);
+
+        Label.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+        Value.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+
+        LinearLayout linearlayout = (LinearLayout) findViewById(content);
+        linearlayout.addView(Label);
+        linearlayout.addView(Value);
     }
 
 

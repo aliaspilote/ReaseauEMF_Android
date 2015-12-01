@@ -65,7 +65,7 @@
     <string name="lbl_skills">Vos compétences/talents :</string>
     <string name="lbl_offer">Offre de stage/emploi</string>
     <string name="lbl_info_EMFcity">Info sur les activités EMF dans votre ville</string>
-    <string name="lbl_project">Participer à des projets selon vos comPétences</string>
+    <string name="lbl_project">Participer à des projets selon vos compétences</string>
     <string name="btn_new_curriculum">Ajouter un nouveau cursus</string>
     <string name="lbl_curriculum">Vos cursus</string>
     <string name="lbl_entiled_diploma">Intitulé du diplôme</string>
@@ -116,5 +116,11 @@
     <string name="lbl_entiled_establishment">Etablissement</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="lbl_info_perso">Informations Personnelles</string>
+    <string name="lbl_zipcode_label">Code Postal</string>
+    <string name="lbl_change_pwd">Changer le mot de passe</string>
+    <string name="lbl_current_pwd">Mot de passe actuel</string>
+    <string name="lbl_new_pwd">Nouveau mot de passe</string>
+    <string name="lbl_confirmation_pwd">Confirmer le mot de passe</string>
 
 </resources>

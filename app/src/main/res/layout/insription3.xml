@@ -108,6 +108,7 @@
 
                                 </LinearLayout>
 
+
                                 <LinearLayout
                                     android:layout_width="fill_parent"
                                     android:layout_height="30dp"
@@ -131,14 +132,20 @@
 
                                 </LinearLayout>
 
+                                <View
+                                    style="@style/style_feature"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="1dp" />
+
                             </LinearLayout>
 
                             <TextView
+                                style="@style/style_txt_upd"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_marginBottom="10dp"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="3dp"
                                 android:text="@string/lbl_contact" />
                             <LinearLayout
                                 android:layout_width="fill_parent"
@@ -244,6 +251,11 @@
 
                             </LinearLayout>
 
+                            <View
+                                style="@style/style_feature"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp" />
+
 
 
                         </LinearLayout>
@@ -262,13 +274,20 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <TextView
+                style="@style/style_txt_upd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="@string/lbl_skills" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/lbl_skills"
+
+                />
 
             <ListView
                 android:id="@+id/listview_skill"

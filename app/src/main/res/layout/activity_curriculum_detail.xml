@@ -42,25 +42,5 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_save"
-        app:layout_anchor="@+id/curriculum_detail_container"
-        app:layout_anchorGravity="top|end" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_delete"
-        app:backgroundTint="@color/gray_opac"
-        app:layout_anchor="@+id/curriculum_detail_container"
-        app:layout_anchorGravity="top|end" />
 
 </android.support.design.widget.CoordinatorLayout>

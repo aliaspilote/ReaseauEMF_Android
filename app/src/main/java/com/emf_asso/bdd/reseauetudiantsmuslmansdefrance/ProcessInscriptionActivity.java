@@ -84,6 +84,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 ServiceProcessInscription = AppSessionContext.getServiceProcessInscription();
                 ListViewInit.loadListStaticPI_View(this, AppSessionContext);
             }
+            if (!(current_NUM_PAGES>1)) // au cas ou l'on revient de l'activité Cursus
             current_NUM_PAGES = 1;
         }
 

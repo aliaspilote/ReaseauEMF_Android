@@ -122,5 +122,7 @@
     <string name="lbl_current_pwd">Mot de passe actuel</string>
     <string name="lbl_new_pwd">Nouveau mot de passe</string>
     <string name="lbl_confirmation_pwd">Confirmer le mot de passe</string>
+    <string name="lbl_btn_save">Enregistrer</string>
+    <string name="lbl_btn_delete">Supprimer</string>
 
 </resources>

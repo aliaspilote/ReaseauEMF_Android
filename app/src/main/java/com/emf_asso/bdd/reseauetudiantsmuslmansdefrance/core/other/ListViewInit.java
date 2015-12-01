@@ -73,6 +73,12 @@ public class ListViewInit {
 
         ArrayAdapter<Involvement> adapter_involvement =
                 new ArrayAdapter<Involvement>(ctx, android.R.layout.simple_list_item_1, involvementsList);
+
+       /* SeparatedListAdapter _sla = new SeparatedListAdapter(this);
+        _sla.addSection("Input Data", _adapter);*/
+
+
+
         ArrayAdapter<Section> adapter_section =
                 new ArrayAdapter<Section>(ctx, android.R.layout.simple_list_item_1, sectionList);
         ArrayAdapter<Skill> adapter_skill =

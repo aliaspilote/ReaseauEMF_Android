@@ -146,6 +146,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+    <style name="MySpinnerLook" parent="android:Widget.Holo.Spinner">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="style_menu_item" parent="AppTheme">
         <item name="android:textColor">@color/accent_material_light_1</item>
         <item name="android:textSize">15sp</item>

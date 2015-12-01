@@ -89,6 +89,15 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         }
 
         ServiceProcessInscription.onStart();
+
+
+/*
+
+        Spinner food = (Spinner) findViewById(R.id.spinner1);
+        ArrayAdapter<CharSequence> foodadapter = ArrayAdapter.createFromResource(
+                this, R.array.item_array, R.layout.spinner_layout);
+        foodadapter.setDropDownViewResource(R.layout.spinner_layout);
+        food.setAdapter(foodadapter);*/
     }
 
     @Override

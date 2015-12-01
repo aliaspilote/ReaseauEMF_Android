@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -89,7 +90,9 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         CreateProfil();
 
         fillInfoPerso();
+        //mDrawerToggle.onDrawerOpened(mDrawerLayout);
 
+        mDrawerLayout.openDrawer(GravityCompat.START);
 
     }
 
@@ -172,6 +175,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
     }
 
 
@@ -211,6 +215,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                 new String[]{"img", "title"}, new int[]{R.id.img_menu_item, R.id.title_menu_item});
         maListViewPerso.setAdapter(mSchedule);
 
+
         maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             @SuppressWarnings("unchecked")
@@ -219,6 +224,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
                 MenuAction(position);
                 mDrawerLayout.closeDrawers();
+
 
             }
         });
@@ -305,6 +311,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        Menu untruc = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/curriculum_detail"
     style="?android:attr/textAppearanceLarge"
@@ -6,190 +6,190 @@
 
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="6dp"
     android:textIsSelectable="true"
     tools:context="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CurriculumDetailFragment">
 
-    <Spinner
-        android:id="@+id/spinner_discipline"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/liste_domaines_etude"
-        android:padding="4dp" />
-
-    <Spinner
-        android:id="@+id/spinner_degree_study"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/liste_diplome"
-        android:padding="4dp" />
-
-    <EditText
-        android:id="@+id/cursus_editxt_entiled_diploma"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_border"
-        android:hint="@string/lbl_entiled_diploma"
-        android:inputType="text"
-        android:padding="4dp" />
-
-    <EditText
-        android:id="@+id/cursus_editxt_establishment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
-        android:background="@drawable/text_border"
-        android:hint="@string/lbl_entiled_establishment"
-        android:inputType="text"
-        android:padding="4dp" />
-
-
-    <EditText
-        android:id="@+id/cursus_editxt_city_study"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
-        android:background="@drawable/text_border"
-        android:hint="@string/cursus_lbl_city_studies"
-        android:padding="4dp" />
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-
-            android:orientation="horizontal">
-
-
-            <EditText
-                android:id="@+id/editxt_date_begin"
-                style="@style/text_style"
-
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-
-                android:layout_marginTop="3dp"
-                android:layout_weight="3"
-                android:background="@drawable/text_border"
-                android:enabled="false"
-
-                android:hint="@string/lbl_date_begin"
-                android:inputType="date"
-                android:padding="4dp" />
-
-
-            <ImageButton
-                android:id="@+id/icon_choose_curriculumDateBegin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_calendar"
-                android:onClick="onChooseCurriculumDateBegin" />
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-
-            android:orientation="horizontal">
-
-
-            <EditText
-                android:id="@+id/editxt_date_end"
-                style="@style/text_style"
-
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-
-                android:layout_marginTop="3dp"
-                android:layout_weight="3"
-                android:background="@drawable/text_border"
-                android:enabled="false"
-
-                android:hint="@string/lbl_date_end"
-                android:inputType="date"
-                android:padding="4dp" />
-
-
-            <ImageButton
-                android:id="@+id/icon_choose_curriculumDateEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_calendar"
-                android:onClick="onChooseCurriculumDateEnd" />
-
-
-        </LinearLayout>
+        android:orientation="vertical"
+        android:padding="6dp">
 
         <TextView
+            style="@style/text_petite_taille"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_format"
-            android:textSize="10sp" />
+            android:text="@string/lbl_discipline" />
+
+        <Spinner
+            android:id="@+id/spinner_discipline"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/liste_domaines_etude"
+            android:padding="4dp" />
+
+        <TextView
+            style="@style/text_petite_taille"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_degree_study" />
+
+        <Spinner
+            android:id="@+id/spinner_degree_study"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/liste_diplome"
+            android:padding="4dp" />
+
+        <TextView
+            style="@style/text_petite_taille"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_entiled_diploma" />
+
+        <EditText
+            android:id="@+id/cursus_editxt_entiled_diploma"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_border"
+            android:hint="@string/lbl_entiled_diploma"
+            android:inputType="text"
+            android:padding="4dp" />
+
+        <TextView
+            style="@style/text_petite_taille"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/lbl_entiled_establishment" />
+
+        <EditText
+            android:id="@+id/cursus_editxt_establishment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_border"
+            android:hint="@string/lbl_entiled_establishment"
+            android:inputType="text"
+            android:padding="4dp" />
 
 
-    </LinearLayout>
+        <TextView
+            style="@style/text_petite_taille"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="@string/cursus_lbl_city_studies" />
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/cursus_editxt_city_study"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_border"
+            android:hint="@string/cursus_lbl_city_studies"
+            android:padding="4dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
-            <Button
+            <TextView
+                style="@style/text_petite_taille"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_date_begin" />
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="@string/lbl_btn_delete"
-                android:textAllCaps="false"
-                android:textColor="@color/rouge"
-                android:textSize="15sp" />
+
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/editxt_date_begin"
+                    style="@style/text_style"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/text_border"
+                    android:enabled="false"
+
+                    android:hint="@string/lbl_date_begin"
+                    android:inputType="date"
+                    android:padding="4dp" />
+
+
+                <ImageButton
+                    android:id="@+id/icon_choose_curriculumDateBegin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_calendar"
+                    android:onClick="onChooseCurriculumDateBegin" />
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
 
-            android:orientation="horizontal">
+            <TextView
+                style="@style/text_petite_taille"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_date_end" />
 
-            <Button
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="@string/lbl_btn_save"
-                android:textAllCaps="false"
-                android:textColor="@color/accent_material_light_1"
-                android:textSize="15sp" />
-        </LinearLayout>
 
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/editxt_date_end"
+                    style="@style/text_style"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/text_border"
+                    android:enabled="false"
+
+                    android:hint="@string/lbl_date_end"
+                    android:inputType="date"
+                    android:padding="4dp" />
+
+
+                <ImageButton
+                    android:id="@+id/icon_choose_curriculumDateEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_calendar"
+                    android:onClick="onChooseCurriculumDateEnd" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

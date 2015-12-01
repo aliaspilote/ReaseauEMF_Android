@@ -124,5 +124,7 @@
     <string name="lbl_confirmation_pwd">Confirmer le mot de passe</string>
     <string name="lbl_btn_save">Enregistrer</string>
     <string name="lbl_btn_delete">Supprimer</string>
+    <string name="lbl_degree_study">Niveau d\'étude</string>
+    <string name="lbl_discipline">Domaine d\'étude</string>
 
 </resources>

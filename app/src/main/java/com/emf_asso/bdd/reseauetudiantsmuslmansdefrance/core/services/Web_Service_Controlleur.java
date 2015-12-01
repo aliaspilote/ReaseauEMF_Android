@@ -56,7 +56,7 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
         JSONObject jsonResult = new JSONObject();
         jsonResult.put("TryParse", "false");
         jsonResult.put("result", "false");
-        if (!tryInternet)
+        if (!tryInternet || result == null)
             mActivity.ReceptionResponse(new HttpReponse(false, Messages.error_no_internet));
         else {
             try {

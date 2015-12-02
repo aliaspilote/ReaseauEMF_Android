@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
@@ -79,13 +80,24 @@ public class CurriculumListActivity extends AppCompatActivity
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            if (bundle.getSerializable("AppSessionContext") != null) {
+            if (bundle.getSerializable("AppContextFromDetails") != null) {
+                AppSessionContext = (SessionWsService) bundle.getSerializable("AppContextFromDetails");
+                loadCursus();
+            } else if (bundle.getSerializable("AppSessionContext") != null) {
                 AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
-                //ListViewInit.loadListStaticCursus_View(AppSessionContext);
                 loadCursus();
             } else
                 AppSessionContext = new SessionWsService();
+            if (bundle.getString("test") != null)
+                DisplayToast(bundle.getString("test") + "cool", 2000);
         }
+    }
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this, text, time);
+        toast.show();
     }
 
     public void ActionOpenNewCursus() {
@@ -115,7 +127,7 @@ public class CurriculumListActivity extends AppCompatActivity
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-
+            //AppSessionContext.getServiceProcessInscription().getInscription().getUser().setEmail("azertyuytrez");
             super.getIntent().putExtra("AppSessionContext", AppSessionContext);
             NavUtils.navigateUpFromSameTask(this);
             return true;

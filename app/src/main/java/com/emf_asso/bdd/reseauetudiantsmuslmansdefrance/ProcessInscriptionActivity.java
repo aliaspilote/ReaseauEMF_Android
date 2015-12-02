@@ -171,6 +171,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnNext(View view) {
+        AppSessionContext = AppSessionContext;
         setDataOn_ServiceByStep(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
         {
@@ -200,6 +201,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnPrevious(View view) {
+        AppSessionContext = AppSessionContext;
         setDataOn_ServiceByStep(current_NUM_PAGES);
         hideViewByNum(current_NUM_PAGES);
         if (current_NUM_PAGES == 1) {

@@ -2,6 +2,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -69,9 +70,9 @@ public class DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DummyItem extends Curriculum {
+    public static class DummyItem implements Serializable {
         public String id;
-        public String content = "Nouveau";
+        public String content;
         public String details;
 
         public Curriculum Cursus;

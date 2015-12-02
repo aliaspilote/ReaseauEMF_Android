@@ -38,7 +38,8 @@ public class CurriculumDetailActivity extends AppCompatActivity {
     public Context context;
     public SessionWsService AppSessionContext;
     CurriculumDetailFragment fragment;
-    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateMysqlFormat);
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateDisplayFormat);
+    //SimpleDateFormat dateFormatter = new SimpleDateFormat(DataContext.dateDisplayFormat, Locale.FRANCE);
     private DummyContent.DummyItem selectedItem;
 
     @Override
@@ -92,12 +93,6 @@ public class CurriculumDetailActivity extends AppCompatActivity {
         DisplayToast(text, 100);
     }
 
-/*
-            ((TextView)view.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.Cursus.getLabel());
-            ((TextView)view.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.Cursus.getEstablishment());
-            ((TextView)view.findViewById(R.id.cursus_editxt_city_study)).setText(mItem.Cursus.getCity());
- */
-
     public void OnSave(View view) {
         Spinner sp = ((Spinner) fragment.getView().findViewById(R.id.spinner_discipline));
 
@@ -110,8 +105,10 @@ public class CurriculumDetailActivity extends AppCompatActivity {
             selectedItem.Cursus.setDegree((DegreeStudy) degree_study_selected);
 
         String label_diploma = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_entiled_diploma)).getText().toString();
-        if (label_diploma != null)
+        if (label_diploma != null) {
             selectedItem.Cursus.setLabel(label_diploma);
+            selectedItem.content = label_diploma;
+        }
 
         String cursus_city = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_city_study)).getText().toString();
         if (cursus_city != null)
@@ -136,10 +133,10 @@ public class CurriculumDetailActivity extends AppCompatActivity {
 
         DisplayToast(selectedItem.Cursus.getLabel() + " ajouter");
 
-        AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().add(selectedItem.Cursus);
 
+        AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().add(selectedItem.Cursus);
         Intent intent = new Intent(this, CurriculumListActivity.class);
-        intent.putExtra("AppSessionContext", AppSessionContext);
+        intent.putExtra("AppContextFromDetails", AppSessionContext);
         NavUtils.navigateUpTo(this, intent);
     }
 
@@ -151,10 +148,9 @@ public class CurriculumDetailActivity extends AppCompatActivity {
         AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().remove(selectedItem.Cursus);
 
         Intent intent = new Intent(this, CurriculumListActivity.class);
-        intent.putExtra("AppSessionContext", AppSessionContext);
+        intent.putExtra("AppContextFromDetails", AppSessionContext);
         NavUtils.navigateUpTo(this, intent);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -168,12 +164,12 @@ public class CurriculumDetailActivity extends AppCompatActivity {
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
             Intent intent = new Intent(this, CurriculumListActivity.class);
-            intent.putExtra("AppSessionContext", AppSessionContext);
+            intent.putExtra("AppContextFromDetails", AppSessionContext);
             NavUtils.navigateUpTo(this, intent);
             return true;
         }
 
-        super.getIntent().putExtra("AppSessionContext", AppSessionContext);
+        super.getIntent().putExtra("AppContextFromDetails", AppSessionContext);
         return super.onOptionsItemSelected(item);
     }
 

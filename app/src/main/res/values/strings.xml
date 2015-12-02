@@ -44,9 +44,9 @@
     <string name="lbl_competence">Vos compétences:talents</string>
     <string name="lbl_contact">Vous souhaitez être contacté pour :</string>
     <string name="lbl_offre">Offre de stage:emploi</string>
-    <string name="lbl_info_ville">info sur les activités EMF dans votre ville</string>
-    <string name="lbl_info_national">Info sur les activités EMF National</string>
-    <string name="lbl_projet">Participer à des projets selon vos compétences</string>
+    <string name="lbl_info_ville">Activités EMF dans votre ville</string>
+    <string name="lbl_info_national">Activités EMF National</string>
+    <string name="lbl_projet">Projets selon vos compétences</string>
     <string name="lbl_cursus">Vos Cursus</string>
     <string name="btn_new_cursus">Nouveau cursus</string>
     <string name="lbl_init_diplome">Intitulé du diplome</string>
@@ -64,8 +64,8 @@
     <string name="lbl_status">Engagement</string>
     <string name="lbl_skills">Vos compétences/talents :</string>
     <string name="lbl_offer">Offre de stage/emploi</string>
-    <string name="lbl_info_EMFcity">Info sur les activités EMF dans votre ville</string>
-    <string name="lbl_project">Participer à des projets selon vos compétences</string>
+    <string name="lbl_info_EMFcity">Activités EMF dans ma ville</string>
+    <string name="lbl_project">Projets liés à compétences</string>
     <string name="btn_new_curriculum">Ajouter un nouveau cursus</string>
     <string name="lbl_curriculum">Vos cursus</string>
     <string name="lbl_entiled_diploma">Intitulé du diplôme</string>

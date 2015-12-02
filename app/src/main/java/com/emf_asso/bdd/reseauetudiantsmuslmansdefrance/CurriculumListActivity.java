@@ -82,7 +82,7 @@ public class CurriculumListActivity extends AppCompatActivity
             if (bundle.getSerializable("AppSessionContext") != null) {
                 AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
                 //ListViewInit.loadListStaticCursus_View(AppSessionContext);
-                //loadCursus();
+                loadCursus();
             } else
                 AppSessionContext = new SessionWsService();
         }
@@ -99,6 +99,7 @@ public class CurriculumListActivity extends AppCompatActivity
     }
 
     public void loadCursus() {
+        if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().size() > 0)
         DummyContent.setNewCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
     }
 

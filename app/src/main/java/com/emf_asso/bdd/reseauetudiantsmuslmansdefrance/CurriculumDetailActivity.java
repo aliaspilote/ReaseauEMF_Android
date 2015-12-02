@@ -115,11 +115,11 @@ public class CurriculumDetailActivity extends AppCompatActivity {
 
         String cursus_city = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_city_study)).getText().toString();
         if (cursus_city != null)
-            selectedItem.Cursus.setLabel(cursus_city);
+            selectedItem.Cursus.setCity(cursus_city);
 
         String establi = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_establishment)).getText().toString();
         if (establi != null)
-            selectedItem.Cursus.setLabel(establi);
+            selectedItem.Cursus.setEstablishment(establi);
 
         try {
             String date_begin = ((TextView) fragment.getView().findViewById(R.id.editxt_date_begin)).getText().toString();
@@ -136,6 +136,8 @@ public class CurriculumDetailActivity extends AppCompatActivity {
 
         DisplayToast(selectedItem.Cursus.getLabel() + " ajouter");
 
+        AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().add(selectedItem.Cursus);
+
         Intent intent = new Intent(this, CurriculumListActivity.class);
         intent.putExtra("AppSessionContext", AppSessionContext);
         NavUtils.navigateUpTo(this, intent);
@@ -146,6 +148,7 @@ public class CurriculumDetailActivity extends AppCompatActivity {
         DummyContent.ITEMS.remove(selectedItem);
         DisplayToast(selectedItem.Cursus.getLabel() + " supprimé");
 
+        AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().remove(selectedItem.Cursus);
 
         Intent intent = new Intent(this, CurriculumListActivity.class);
         intent.putExtra("AppSessionContext", AppSessionContext);

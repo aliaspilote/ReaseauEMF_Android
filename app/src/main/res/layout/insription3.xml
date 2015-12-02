@@ -10,287 +10,262 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="42dp"
+        android:layout_height="fill_parent"
         android:orientation="vertical">
-    <ScrollView
-        android:id="@+id/scrollView_ins3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollView_ins3"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <TextView
-                style="@style/text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/lbl_profil_emf"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <RelativeLayout
+
+                <TextView
+                    style="@style/text_style"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/lbl_profil_emf"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center">
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/lbl_ins3_legend_error"
-                                style="@style/lbl_style_legend_error"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <!--    Code spécifique a cette vue ici -->
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp">
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
-                                <LinearLayout
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_weight="2"
-                                        android:text="@string/lbl_status" />
-
-                                    <Spinner
-                                        android:id="@+id/spinner_involvement"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="5"
-                                        android:padding="0dp"
-                                        android:spinnerMode="dialog" />
-
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_weight="2"
-                                        android:text="@string/lbl_section" />
-
-                                    <Spinner
-                                        android:id="@+id/spinner_section"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="5"
-                                        android:padding="0dp"
-                                        android:spinnerMode="dialog"
-
-                                        />
-
-                                </LinearLayout>
-
-                                <View
-                                    style="@style/style_feature"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="1dp" />
-
+                                <TextView
+                                    android:id="@+id/lbl_ins3_legend_error"
+                                    style="@style/lbl_style_legend_error"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
 
-                            <TextView
-                                style="@style/style_txt_upd"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="3dp"
-                                android:text="@string/lbl_contact" />
+                            <!--    Code spécifique a cette vue ici -->
+
                             <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:orientation="vertical">
-
-
-                                <LinearLayout
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/text_petite_taille"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="5"
-                                        android:text="@string/lbl_offer" />
-
-                                    <Switch
-                                        android:id="@+id/switch_offer"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="2"
-                                        android:checked="true"
-                                        android:textOff="OFF"
-                                        android:textOn="ON" />
-                                    android:textOn=""
-                                    android:textOff=""
-
-                                    />
-                                </LinearLayout>
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
 
                                 <LinearLayout
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:orientation="horizontal">
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
 
-                                    <TextView
-                                        style="@style/text_petite_taille"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="5"
-                                        android:text="@string/lbl_info_EMFcity" />
-
-                                    <Switch
-                                        android:id="@+id/switch_info_EMFcity"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="2"
-                                        android:checked="true"
-                                        android:textOff="OFF"
-                                        android:textOn="ON"
-                                        />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:layout_weight="2"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/text_petite_taille"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="5"
-                                        android:text="@string/lbl_info_national" />
-
-                                    <Switch
-                                        android:id="@+id/switch_info_national"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="2"
-                                        android:checked="true"
-
-                                        />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/text_petite_taille"
+                                    <LinearLayout
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/lbl_project" />
+                                        android:orientation="horizontal">
 
-                                    <Switch
-                                        android:id="@+id/switch_project"
-                                        android:layout_width="0dp"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="2"
-                                        android:checked="true"
-                                        android:textOff="OFF"
-                                        android:textOn="ON"
-                                        />
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="2"
+                                            android:text="@string/lbl_status" />
+
+                                        <Spinner
+                                            android:id="@+id/spinner_involvement"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="5"
+                                            android:padding="0dp"
+                                            android:spinnerMode="dialog" />
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="2"
+                                            android:text="@string/lbl_section" />
+
+                                        <Spinner
+                                            android:id="@+id/spinner_section"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="5"
+                                            android:padding="0dp"
+                                            android:spinnerMode="dialog"
+
+                                            />
+
+                                    </LinearLayout>
+
+                                    <View
+                                        style="@style/style_feature"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="1dp" />
+
                                 </LinearLayout>
 
+                                <TextView
+                                    style="@style/style_txt_upd"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginTop="3dp"
+                                    android:text="@string/lbl_contact" />
+
+                                <LinearLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:orientation="vertical">
+
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/text_petite_taille"
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="5"
+                                            android:text="@string/lbl_offer" />
+
+                                        <Switch
+                                            android:id="@+id/switch_offer"
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="2"
+                                            android:checked="true"
+                                            android:textOff="OFF"
+                                            android:textOn="ON" />
+                                        android:textOn=""
+                                        android:textOff=""
+
+                                        />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="2"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/text_petite_taille"
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="5"
+                                            android:text="@string/lbl_info_EMFcity" />
+
+                                        <Switch
+                                            android:id="@+id/switch_info_EMFcity"
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="2"
+                                            android:checked="true"
+                                            android:textOff="OFF"
+                                            android:textOn="ON" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:layout_weight="2"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/text_petite_taille"
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="5"
+                                            android:text="@string/lbl_info_national" />
+
+                                        <Switch
+                                            android:id="@+id/switch_info_national"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="2"
+                                            android:checked="true"
+
+                                            />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:layout_weight="2"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/text_petite_taille"
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="5"
+                                            android:text="@string/lbl_project" />
+
+                                        <Switch
+                                            android:id="@+id/switch_project"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="2"
+                                            android:checked="true"
+
+                                            />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
-                            <View
-                                style="@style/style_feature"
-                                android:layout_width="fill_parent"
-                                android:layout_height="1dp" />
-
-
+                            <!-- Jusuqu'a là -->
 
                         </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
 
-                        <!-- Jusuqu'a là -->
-
-                    </LinearLayout>
-                </RelativeLayout>
             </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/layout_ins_skils"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                style="@style/style_txt_upd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:text="@string/lbl_skills" />
-
-
-        </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

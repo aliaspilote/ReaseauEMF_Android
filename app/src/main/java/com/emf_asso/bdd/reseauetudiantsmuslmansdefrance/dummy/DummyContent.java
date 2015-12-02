@@ -76,6 +76,8 @@ public class DummyContent {
 
         public Curriculum Cursus;
 
+        public DummyItem() {
+        }
 
         public DummyItem(String id, Curriculum Cursus) {
             this.id = id;

@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_degree_study":
                     if (result) {
-                        //Message = Messages.success_load_data + "degree_study";
+                        Message = Messages.success_w8_load_data;
                         AppSessionContext.getDataContext().setDegreeStudyList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                 case "get_involvements":
                     if (result) {
                         {
-                            //Message = Messages.success_load_data + "involvements";
+                            Message = Messages.success_w8_load_data;
                             AppSessionContext.getDataContext().setInvolvementsList(LastReponse.getResultat());
                         }
                     } else {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_skills":
                     if (result) {
-                        //Message = Messages.success_load_data + "skills";
+                        Message = Messages.success_w8_load_data;
                         AppSessionContext.getDataContext().setSkillList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_disciplines":
                     if (result) {
-                        //Message = Messages.success_load_data + "disciplines";
+                        Message = Messages.success_w8_load_data;
                         AppSessionContext.getDataContext().setDisciplineList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_sections":
                     if (result) {
-                        //Message = Messages.success_load_data + "sections";
+                        Message = Messages.success_w8_load_data;
                         AppSessionContext.getDataContext().setSectionList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void DisplayToast(String text) {
-        DisplayToast(text, 0);
+        DisplayToast(text, 100);
     }
 
 

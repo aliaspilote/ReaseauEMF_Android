@@ -3,9 +3,10 @@
     android:id="@+id/curriculum_detail"
     style="?android:attr/textAppearanceLarge"
     android:layout_width="fill_parent"
-
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:textIsSelectable="true"
     tools:context="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CurriculumDetailFragment">
 
@@ -25,8 +26,7 @@
             android:id="@+id/spinner_discipline"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/liste_domaines_etude"
-            android:padding="4dp" />
+            android:entries="@array/liste_domaines_etude" />
 
         <TextView
             style="@style/text_petite_taille"
@@ -38,8 +38,7 @@
             android:id="@+id/spinner_degree_study"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/liste_diplome"
-            android:padding="4dp" />
+            android:entries="@array/liste_diplome" />
 
         <TextView
             style="@style/text_petite_taille"

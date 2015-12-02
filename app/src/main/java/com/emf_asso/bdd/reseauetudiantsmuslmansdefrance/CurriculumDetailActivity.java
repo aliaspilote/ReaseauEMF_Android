@@ -1,6 +1,7 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -10,9 +11,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
 
 /**
  * An activity representing a single Curriculum detail screen. This
@@ -26,6 +35,11 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePic
 public class CurriculumDetailActivity extends AppCompatActivity {
     public CreateDate start_curriculum_date;
     public CreateDate end_curriculum_date;
+    public Context context;
+    public SessionWsService AppSessionContext;
+    CurriculumDetailFragment fragment;
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateMysqlFormat);
+    private DummyContent.DummyItem selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,40 +47,111 @@ public class CurriculumDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_curriculum_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+        context = this;
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-       /* fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-        // Show the Up button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
+
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
             Bundle arguments = new Bundle();
             arguments.putString(CurriculumDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(CurriculumDetailFragment.ARG_ITEM_ID));
-            CurriculumDetailFragment fragment = new CurriculumDetailFragment();
+            fragment = new CurriculumDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.curriculum_detail_container, fragment)
                     .commit();
         }
+
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            if (bundle.getSerializable("AppSessionContext") != null) {
+                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
+            } else
+                AppSessionContext = new SessionWsService();
+
+            if (bundle.getSerializable("selectedItem") != null) {
+                selectedItem = (DummyContent.DummyItem) bundle.getSerializable("selectedItem");
+            } else
+                selectedItem = new DummyContent.DummyItem();
+        }
+
+
     }
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 100);
+    }
+
+/*
+            ((TextView)view.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.Cursus.getLabel());
+            ((TextView)view.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.Cursus.getEstablishment());
+            ((TextView)view.findViewById(R.id.cursus_editxt_city_study)).setText(mItem.Cursus.getCity());
+ */
+
+    public void OnSave(View view) {
+        Spinner sp = ((Spinner) fragment.getView().findViewById(R.id.spinner_discipline));
+
+        Object discipline_selected = sp.getSelectedItem();
+        if (discipline_selected != null)
+            selectedItem.Cursus.setDiscipline((Discipline) discipline_selected);
+
+        Object degree_study_selected = ((Spinner) fragment.getView().findViewById(R.id.spinner_degree_study)).getSelectedItem();
+        if (degree_study_selected != null)
+            selectedItem.Cursus.setDegree((DegreeStudy) degree_study_selected);
+
+        String label_diploma = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_entiled_diploma)).getText().toString();
+        if (label_diploma != null)
+            selectedItem.Cursus.setLabel(label_diploma);
+
+        String cursus_city = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_city_study)).getText().toString();
+        if (cursus_city != null)
+            selectedItem.Cursus.setLabel(cursus_city);
+
+        String establi = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_establishment)).getText().toString();
+        if (establi != null)
+            selectedItem.Cursus.setLabel(establi);
+
+        try {
+            String date_begin = ((TextView) fragment.getView().findViewById(R.id.editxt_date_begin)).getText().toString();
+            if (date_begin != null)
+                selectedItem.Cursus.setStart_date(sdf.parse(date_begin));
+
+            String date_end = ((TextView) fragment.getView().findViewById(R.id.editxt_date_end)).getText().toString();
+            if (date_end != null)
+                selectedItem.Cursus.setEnd_date(sdf.parse(date_end));
+        } catch (Exception e) {
+            selectedItem.Cursus.setEnd_date(null);
+            selectedItem.Cursus.setStart_date(null);
+        }
+
+        DisplayToast(selectedItem.Cursus.getLabel() + " ajouter");
+
+        Intent intent = new Intent(this, CurriculumListActivity.class);
+        intent.putExtra("AppSessionContext", AppSessionContext);
+        NavUtils.navigateUpTo(this, intent);
+    }
+
+    public void OnDelete(View view) {
+        DummyContent.ITEM_MAP.remove(selectedItem.id);
+        DummyContent.ITEMS.remove(selectedItem);
+        DisplayToast(selectedItem.Cursus.getLabel() + " supprimé");
+
+
+        Intent intent = new Intent(this, CurriculumListActivity.class);
+        intent.putExtra("AppSessionContext", AppSessionContext);
+        NavUtils.navigateUpTo(this, intent);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,9 +164,13 @@ public class CurriculumDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, CurriculumListActivity.class));
+            Intent intent = new Intent(this, CurriculumListActivity.class);
+            intent.putExtra("AppSessionContext", AppSessionContext);
+            NavUtils.navigateUpTo(this, intent);
             return true;
         }
+
+        super.getIntent().putExtra("AppSessionContext", AppSessionContext);
         return super.onOptionsItemSelected(item);
     }
 

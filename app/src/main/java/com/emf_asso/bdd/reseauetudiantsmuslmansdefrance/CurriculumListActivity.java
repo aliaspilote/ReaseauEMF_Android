@@ -114,9 +114,15 @@ public class CurriculumListActivity extends AppCompatActivity
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
+
+            super.getIntent().putExtra("AppSessionContext", AppSessionContext);
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
+
+        DummyContent.DummyItem selectedItem = DummyContent.ITEM_MAP.get(id);
+        super.getIntent().putExtra("selectedItem", selectedItem);
+        super.getIntent().putExtra("AppSessionContext", AppSessionContext);
         return super.onOptionsItemSelected(item);
     }
 
@@ -133,6 +139,8 @@ public class CurriculumListActivity extends AppCompatActivity
             // fragment transaction.
             Bundle arguments = new Bundle();
             arguments.putString(CurriculumDetailFragment.ARG_ITEM_ID, id);
+            arguments.putSerializable("AppSessionContext", AppSessionContext);
+
             CurriculumDetailFragment fragment = new CurriculumDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -144,6 +152,9 @@ public class CurriculumListActivity extends AppCompatActivity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, CurriculumDetailActivity.class);
             detailIntent.putExtra(CurriculumDetailFragment.ARG_ITEM_ID, id);
+
+            DummyContent.DummyItem selectedItem = DummyContent.ITEM_MAP.get(id);
+            detailIntent.putExtra("selectedItem", selectedItem);
             detailIntent.putExtra("AppSessionContext", AppSessionContext);
             startActivity(detailIntent);
         }

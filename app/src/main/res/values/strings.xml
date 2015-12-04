@@ -126,5 +126,7 @@
     <string name="lbl_btn_delete">Supprimer</string>
     <string name="lbl_degree_study">Niveau d\'étude</string>
     <string name="lbl_discipline">Domaine d\'étude</string>
+    <string name="title_cursus_list">LesCursus</string>
+    <string name="title_cursus_detail">Cursus Detail</string>
 
 </resources>

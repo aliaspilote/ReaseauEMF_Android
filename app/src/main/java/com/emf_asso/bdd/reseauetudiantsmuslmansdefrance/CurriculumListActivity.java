@@ -53,7 +53,7 @@ public class CurriculumListActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_cursus_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,9 +69,6 @@ public class CurriculumListActivity extends AppCompatActivity
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
-
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
             ((CurriculumListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.curriculum_list))
                     .setActivateOnItemClick(true);
@@ -104,15 +101,15 @@ public class CurriculumListActivity extends AppCompatActivity
         Curriculum newCursus = new Curriculum("Nouveau Cursus", new Date(), new Date(),
                 new Discipline("", "", 0)
                 , "", "",
-                new DegreeStudy("", 0, 0));
+                new DegreeStudy("", 0, 0));/*
         newCursus.setId(DummyContent.getMaxID() + 1);
         DummyContent.addItem(newCursus);
-        onItemSelected((Integer.toString(DummyContent.getMaxID())));
+        onItemSelected((Integer.toString(DummyContent.getMaxID())));*/
     }
 
     public void loadCursus() {
-        if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().size() > 0)
-        DummyContent.setNewCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
+        // if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().size() > 0)
+        // DummyContent.setNewCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
     }
 
 
@@ -120,21 +117,13 @@ public class CurriculumListActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            //AppSessionContext.getServiceProcessInscription().getInscription().getUser().setEmail("azertyuytrez");
             super.getIntent().putExtra("AppSessionContext", AppSessionContext);
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
 
         DummyContent.DummyItem selectedItem = DummyContent.ITEM_MAP.get(id);
-        super.getIntent().putExtra("selectedItem", selectedItem);
+        // super.getIntent().putExtra("selectedItem", selectedItem);
         super.getIntent().putExtra("AppSessionContext", AppSessionContext);
         return super.onOptionsItemSelected(item);
     }
@@ -167,7 +156,7 @@ public class CurriculumListActivity extends AppCompatActivity
             detailIntent.putExtra(CurriculumDetailFragment.ARG_ITEM_ID, id);
 
             DummyContent.DummyItem selectedItem = DummyContent.ITEM_MAP.get(id);
-            detailIntent.putExtra("selectedItem", selectedItem);
+            //detailIntent.putExtra("selectedItem", selectedItem);
             detailIntent.putExtra("AppSessionContext", AppSessionContext);
             startActivity(detailIntent);
         }

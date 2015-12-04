@@ -89,11 +89,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         }
 
         ServiceProcessInscription.onStart();
-
-
-/*
-
-        Spinner food = (Spinner) findViewById(R.id.spinner1);
+/*      Spinner food = (Spinner) findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> foodadapter = ArrayAdapter.createFromResource(
                 this, R.array.item_array, R.layout.spinner_layout);
         foodadapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -345,13 +341,15 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     public void gotoMainActivity() {
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
+
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
     public void gotoCursusActivity() {
-        Intent intent = new Intent(context, CurriculumListActivity.class);
+
+        Intent intent = new Intent(context, CursusListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);

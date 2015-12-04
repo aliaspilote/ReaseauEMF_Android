@@ -7,20 +7,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy.DummyContent;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 
 /**
- * A list fragment representing a list of Curriculums. This fragment
+ * A list fragment representing a list of LesCursus. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link CurriculumDetailFragment}.
+ * currently being viewed in a {@link CursusDetailFragment}.
  * <p/>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class CurriculumListFragment extends ListFragment {
+public class CursusListFragment extends ListFragment {
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -37,12 +36,6 @@ public class CurriculumListFragment extends ListFragment {
         }
     };
     /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-
-    public SessionWsService AppSessionContext;
-    /**
      * The fragment's current callback object, which is notified of list item
      * clicks.
      */
@@ -51,32 +44,23 @@ public class CurriculumListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
-    public CurriculumListFragment() {
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public CursusListFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //    Intent intent = this.getIntent();
-        AppSessionContext = (SessionWsService) getActivity().getIntent().getSerializableExtra("AppSessionContext");
-        if (AppSessionContext != null) {
-            ListViewInit.loadListStaticCursus_View(null, null, AppSessionContext);
-            loadCursus();
-        } else
-            AppSessionContext = new SessionWsService();
-
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+        setListAdapter(new ArrayAdapter<Curriculum>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                DummyContent.ITEMS));
-    }
-
-
-    public void loadCursus() {
-        // if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().size() > 0)
-        //   DummyContent.setNewCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
+                CursusContent.ITEMS));
     }
 
     @Override
@@ -116,7 +100,7 @@ public class CurriculumListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(CursusContent.ITEMS.get(position).id);
     }
 
     @Override

@@ -8,8 +8,8 @@ import java.util.Date;
  */
 public class Curriculum implements Serializable {
 
+    public String id;
     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-    private int id;
     private String label;
     private Date start_date;
     private Date end_date;
@@ -26,6 +26,19 @@ public class Curriculum implements Serializable {
     public Curriculum(String label, Date start_date, Date end_date,
                       Discipline discipline, String etablissement,
                       String City, DegreeStudy DegreeStudy) {
+        setLabel(label);
+        setStart_date(start_date);
+        setEnd_date(end_date);
+        setDiscipline(discipline);
+        setCity(City);
+        setEstablishment(etablissement);
+        setDegree(DegreeStudy);
+    }
+
+    public Curriculum(String id, String label, Date start_date, Date end_date,
+                      Discipline discipline, String etablissement,
+                      String City, DegreeStudy DegreeStudy) {
+        setId(id);
         setLabel(label);
         setStart_date(start_date);
         setEnd_date(end_date);
@@ -99,11 +112,17 @@ public class Curriculum implements Serializable {
         City = city;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return getLabel();
     }
 }

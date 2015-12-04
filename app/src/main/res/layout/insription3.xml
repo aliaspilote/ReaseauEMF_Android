@@ -222,8 +222,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="2"
                                             android:checked="true"
-
-                                            />
+                                            android:textOff="OFF"
+                                            android:textOn="ON" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -245,8 +245,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="2"
                                             android:checked="true"
-
-                                            />
+                                            android:textOff="OFF"
+                                            android:textOn="ON" />
                                     </LinearLayout>
 
 

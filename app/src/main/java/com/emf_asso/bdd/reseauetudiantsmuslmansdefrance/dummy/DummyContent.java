@@ -2,10 +2,8 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.dummy;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,37 +25,22 @@ public class DummyContent {
      */
     public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    public static void setNewCursusList(List<Curriculum> cursusList) {
-        ITEMS = new ArrayList<DummyItem>();
-        ITEM_MAP = new HashMap<String, DummyItem>();
+    static {
         // Add some sample items.
-        int id = 1;
-        for (Iterator<Curriculum> i = cursusList.iterator(); i.hasNext(); ) {
-            Curriculum Cursus = i.next();
-            addItem(new DummyItem(Integer.toString(id), Cursus));
-            id++;
+        for (int i = 1; i <= COUNT; i++) {
+            addItem(createDummyItem(i));
         }
     }
 
-    public static void addItem(Curriculum cursus) {
-        int id = cursus.getId();
-        String idItem = Integer.toString(id);
-        addItem(new DummyItem(idItem, cursus));
-
-    }
-
-    public static int getMaxID() {
-        return ITEMS.size();
-    }
     private static void addItem(DummyItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
-/*
+
     private static DummyItem createDummyItem(int position) {
         return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }*/
-/*
+    }
+
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
         builder.append("Details about Item: ").append(position);
@@ -65,26 +48,16 @@ public class DummyContent {
             builder.append("\nMore details information here.");
         }
         return builder.toString();
-    }*/
+    }
 
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DummyItem implements Serializable {
+    public static class DummyItem {
         public String id;
         public String content;
         public String details;
-
         public Curriculum Cursus;
-
-        public DummyItem() {
-        }
-
-        public DummyItem(String id, Curriculum Cursus) {
-            this.id = id;
-            this.Cursus = Cursus;
-            this.content = Cursus.getLabel() + " " + Cursus.getDiscipline();
-        }
 
         public DummyItem(String id, String content, String details) {
             this.id = id;
@@ -92,9 +65,12 @@ public class DummyContent {
             this.details = details;
         }
 
+        public DummyItem() {
+        }
+
         @Override
         public String toString() {
-            return Cursus.getLabel();
+            return content;
         }
     }
 }

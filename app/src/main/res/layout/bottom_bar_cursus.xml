@@ -18,9 +18,9 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_delete"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:onClick="OnDelete"
                 android:text="@string/lbl_btn_delete"
                 android:textAllCaps="false"
                 android:textColor="@color/rouge"
@@ -37,9 +37,9 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_save"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:onClick="OnSave"
                 android:text="@string/lbl_btn_save"
                 android:textAllCaps="false"
                 android:textColor="@color/accent_material_light_1"

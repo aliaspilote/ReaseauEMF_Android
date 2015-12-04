@@ -20,5 +20,14 @@ public class CursusContent {
         ITEM_MAP.put(item.getId(), item);
     }
 
+    public static void removeItem(String cursus_id) {
+        ITEMS.clear();
+        ITEM_MAP.remove(cursus_id);
+        for (Map.Entry<String, Curriculum> entry : ITEM_MAP.entrySet()) {
+            Curriculum item = entry.getValue();
+            item.setId(entry.getKey());
+            addItem(item);
+        }
+    }
 
 }

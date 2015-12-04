@@ -6,6 +6,10 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 
 /**
  * An activity representing a single Cursus detail screen. This
@@ -17,6 +21,8 @@ import android.view.MenuItem;
  * more than a {@link CursusDetailFragment}.
  */
 public class CursusDetailActivity extends AppCompatActivity {
+
+    private String current_ARG_ITEM_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +52,29 @@ public class CursusDetailActivity extends AppCompatActivity {
         //
         // http://developer.android.com/guide/components/fragments.html
         //
+
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
+            current_ARG_ITEM_ID = getIntent().getStringExtra(CursusDetailFragment.ARG_ITEM_ID);
+            //getIntent().getStringExtra(CursusDetailFragment.ARG_ITEM_ID)
             Bundle arguments = new Bundle();
-            arguments.putString(CursusDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(CursusDetailFragment.ARG_ITEM_ID));
+            arguments.putString(CursusDetailFragment.ARG_ITEM_ID, current_ARG_ITEM_ID);
             CursusDetailFragment fragment = new CursusDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.cursus_detail_container, fragment)
                     .commit();
         }
+
+        Button deleteBtn = (Button) findViewById(R.id.btn_delete);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CursusContent.removeItem(current_ARG_ITEM_ID);
+                backToListCursus();
+                //recreate();
+            }
+        });
+
     }
 
     @Override
@@ -75,5 +92,9 @@ public class CursusDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void backToListCursus() {
+        NavUtils.navigateUpTo(this, new Intent(this, CursusListActivity.class));
     }
 }

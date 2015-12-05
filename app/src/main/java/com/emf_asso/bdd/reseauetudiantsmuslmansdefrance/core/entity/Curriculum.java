@@ -1,5 +1,7 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
+import org.joda.time.DateTime;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,6 +23,13 @@ public class Curriculum implements Serializable {
 
     public Curriculum() {
         label = "";
+    }
+
+    public Curriculum(String label) {
+        this((new DateTime()).toString(), label, new Date(), new Date(),
+                new Discipline("", "", 1)
+                , "", "",
+                new DegreeStudy("", 1, 1));
     }
 
     public Curriculum(String label, Date start_date, Date end_date,

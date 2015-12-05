@@ -7,10 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 
 /**
  * A fragment representing a single Cursus detail screen.
@@ -25,6 +28,7 @@ public class CursusDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "cursus_id";
 
+    public java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateDisplayFormat);
     /**
      * The dummy content this fragment is presenting.
      */
@@ -59,10 +63,16 @@ public class CursusDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cursus_detail, container, false);
-
+        ListViewInit.loadListStaticCursus_View(rootView, getActivity(), null);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.cursus_detail)).setText(mItem.getEstablishment());
+            ((TextView) rootView.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.getLabel());
+            ((TextView) rootView.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.getEstablishment());
+            ((Spinner) rootView.findViewById(R.id.spinner_discipline)).setSelection(mItem.getDiscipline().getDiscipline_id());
+            ((Spinner) rootView.findViewById(R.id.spinner_degree_study)).setSelection(mItem.getDegree().getDegree_id());
+            ((TextView) rootView.findViewById(R.id.editxt_date_begin)).setText(sdf.format(mItem.getStart_date()));
+            ((TextView) rootView.findViewById(R.id.editxt_date_end)).setText(sdf.format(mItem.getEnd_date()));
+            ((TextView) rootView.findViewById(R.id.cursus_editxt_city_study)).setText(mItem.getCity());
         }
 
         return rootView;

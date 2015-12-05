@@ -67,18 +67,11 @@ public class ListViewInit {
 
         Spinner listViewInvolvement = (Spinner) ctx.findViewById(R.id.spinner_involvement);
         Spinner listViewSection = (Spinner) ctx.findViewById(R.id.spinner_section);
-
         ListView listViewSkill = (ListView) ctx.findViewById(R.id.listview_skill);
 
 
         ArrayAdapter<Involvement> adapter_involvement =
                 new ArrayAdapter<Involvement>(ctx, android.R.layout.simple_list_item_1, involvementsList);
-
-       /* SeparatedListAdapter _sla = new SeparatedListAdapter(this);
-        _sla.addSection("Input Data", _adapter);*/
-
-
-
         ArrayAdapter<Section> adapter_section =
                 new ArrayAdapter<Section>(ctx, android.R.layout.simple_list_item_1, sectionList);
         ArrayAdapter<Skill> adapter_skill =
@@ -86,18 +79,17 @@ public class ListViewInit {
 
         listViewInvolvement.setAdapter(adapter_involvement);
         listViewSection.setAdapter(adapter_section);
-
         listViewSkill.setAdapter(adapter_skill);
         listViewSkill.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
     public static void loadListStaticCursus_View(View view, Activity ctx, SessionWsService appSessionContext) {
         // TO DO For test :
-        if (appSessionContext != null) {
+        /*if (appSessionContext != null) {
             if (appSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum() != null)
                 appSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum().clear();
             appSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(InitListCursus());
-        }
+        }*/
         if (ctx != null) {
             Spinner listViewDegreeStudy = (Spinner) view.findViewById(R.id.spinner_degree_study);
             Spinner listViewDiscipline = (Spinner) view.findViewById(R.id.spinner_discipline);

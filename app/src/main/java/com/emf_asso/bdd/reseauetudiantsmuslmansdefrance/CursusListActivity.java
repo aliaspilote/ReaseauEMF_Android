@@ -9,13 +9,7 @@ import android.view.View;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
-
-import org.joda.time.DateTime;
-
-import java.util.Date;
 
 /**
  * An activity representing a list of LesCursus. This activity
@@ -56,12 +50,10 @@ public class CursusListActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Curriculum newCursus = new Curriculum((new DateTime()).toString(), "Salam Choucouf", new Date(), new Date(),
-                        new Discipline("", "", 0)
-                        , "C'est Chez Baba et ma", "",
-                        new DegreeStudy("", 0, 0));
+                Curriculum newCursus = new Curriculum(getResources().getString(R.string.label_new_cursus));
                 CursusContent.addItem(newCursus);
                 recreate();
+                onItemSelected(newCursus.id);
             }
         });
 

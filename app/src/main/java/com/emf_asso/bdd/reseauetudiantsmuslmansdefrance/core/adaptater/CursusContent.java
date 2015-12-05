@@ -30,4 +30,14 @@ public class CursusContent {
         }
     }
 
+    public static void updateItem(Curriculum cursus) {
+        ITEMS.clear();
+        ITEM_MAP.remove(cursus.id);
+        addItem(cursus);
+        for (Map.Entry<String, Curriculum> entry : ITEM_MAP.entrySet()) {
+            Curriculum item = entry.getValue();
+            item.setId(entry.getKey());
+            addItem(item);
+        }
+    }
 }

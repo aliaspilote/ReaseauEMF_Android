@@ -94,9 +94,7 @@ public class CurriculumDetailActivity extends AppCompatActivity {
     }
 
     public void OnSave(View view) {
-        Spinner sp = ((Spinner) fragment.getView().findViewById(R.id.spinner_discipline));
-
-        Object discipline_selected = sp.getSelectedItem();
+        Object discipline_selected = ((Spinner) fragment.getView().findViewById(R.id.spinner_discipline)).getSelectedItem();
         if (discipline_selected != null)
             selectedItem.Cursus.setDiscipline((Discipline) discipline_selected);
 

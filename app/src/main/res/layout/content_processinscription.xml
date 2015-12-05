@@ -35,17 +35,11 @@
         android:layout="@layout/insription4" />
 
     <ViewStub
-        android:id="@+id/stub_pi4_1"
+        android:id="@+id/stub_pi5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inflatedId="@+id/stub_Inflated4_1"
-        android:layout="@layout/insription4_1" />
+        android:inflatedId="@+id/stub_Inflated5"
+        android:layout="@layout/insription5" />
 
-    <ViewStub
-        android:id="@+id/stub_pi4_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inflatedId="@+id/stub_Inflated4_2"
-        android:layout="@layout/insription4_2" />
 
 </LinearLayout>

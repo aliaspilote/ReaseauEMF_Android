@@ -1,6 +1,7 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Inscription;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
@@ -78,18 +79,24 @@ public class ProcessInscriptionService implements Serializable {
     public void set_data_inscription3(Inscription inscription,
                                       Involvement involvement,
                                       Section section,
-                                      List<Skill> skills,
                                       ContactPreference contactPreference,
                                       Discipline discipline) {
         inscription.getUser().setInvolvement(involvement);
         inscription.getUser().setSection(section);
-        inscription.getUser().setSkills(skills);
         inscription.getUser().setStatus(contactPreference);
         inscription.getUser().setInvolvement(involvement);
         inscription.getUser().setSection(section);
-        inscription.getUser().setSkills(skills);
         inscription.getUser().setDicipline(discipline);
+    }
 
+    public void set_data_inscription4(Inscription inscription, List<Skill> skills) {
+        inscription.getUser().setSkills(skills);
+    }
+
+    public void set_data_inscription5(Inscription inscription, List<Curriculum> cursus) {
+        if (cursus != null)
+            if (cursus.size() > 0)
+                inscription.getUser().setCursuses(cursus);
     }
 
     public Boolean validated_screen1(Inscription inscription) {
@@ -143,6 +150,22 @@ public class ProcessInscriptionService implements Serializable {
             bool = false;
             errors[3] += Messages.error_section;
         }
+        if (!(inscription.getUser().getInvolvement() != null)) {
+            bool = false;
+            errors[3] += Messages.error_involvement;
+        }
+        return bool;
+    }
+
+    public Boolean validated_screen4(Inscription inscription) {
+        boolean bool = true;
+        errors[4] = "";
+        return bool;
+    }
+
+    public Boolean validated_screen5(Inscription inscription) {
+        boolean bool = true;
+        errors[5] = "";
         return bool;
     }
 

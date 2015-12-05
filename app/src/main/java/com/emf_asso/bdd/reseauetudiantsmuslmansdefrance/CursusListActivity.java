@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +36,7 @@ public class CursusListActivity extends AppCompatActivity
      * device.
      */
     private boolean mTwoPane;
+    private Context context;
     private SessionWsService AppSessionContext;
 
     @Override
@@ -45,6 +47,7 @@ public class CursusListActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+        context = this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_cursus_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -103,5 +106,21 @@ public class CursusListActivity extends AppCompatActivity
             detailIntent.putExtra(CursusDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
+    }
+
+    public void OnNext(View view) {
+        gotoProcessInscrActivity();
+    }
+
+    public void OnPrevious(View view) {
+        this.onBackPressed();
+    }
+
+    public void gotoProcessInscrActivity() {
+        Intent intent = new Intent();
+        intent.putExtra("ProcessStep", "FinalStep");
+        //this.onBackPressed();
+        // context.startActivity(intent);
+        setResult(1, intent);
     }
 }

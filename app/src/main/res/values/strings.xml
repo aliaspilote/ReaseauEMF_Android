@@ -129,5 +129,6 @@
     <string name="title_cursus_list">Vos Cursus</string>
     <string name="title_cursus_detail">Cursus détails</string>
     <string name="label_new_cursus">Nouveau cursus</string>
+    <string name="lbl_ins_recap">Validation de l\'inscription</string>
 
 </resources>

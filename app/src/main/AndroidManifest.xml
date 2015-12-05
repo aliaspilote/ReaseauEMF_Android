@@ -39,24 +39,6 @@
             android:name=".ProfilActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".CurriculumListActivity"
-            android:label="@string/title_curriculum_list"
-            android:parentActivityName=".ProcessInscriptionActivity"
-            android:theme="@style/AppThemeDAB">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.ProcessInscriptionActivity" />
-        </activity>
-        <activity
-            android:name=".CurriculumDetailActivity"
-            android:label="@string/title_curriculum_detail"
-            android:parentActivityName=".CurriculumListActivity"
-            android:theme="@style/AppThemeDAB">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CurriculumListActivity" />
-        </activity>
-        <activity
             android:name=".CursusListActivity"
             android:label="@string/title_cursus_list"
             android:theme="@style/AppThemeDAB"></activity>

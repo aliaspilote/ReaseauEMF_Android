@@ -13,6 +13,7 @@ public final class Messages {
     public static String error_phone = "Telephone saisi incorrect. \n";
     public static String error_city = "Ville non saisie \n";
     public static String error_section = "Auncune section renseignée \n";
+    public static String error_involvement = "Auncune Engagement renseignée \n";
     public static String error_inscription_Titre = "Erreurs de saisies \n";
     public static String error_continu = "Continuer\n";
     public static String error_cancel = "Annuler\n";

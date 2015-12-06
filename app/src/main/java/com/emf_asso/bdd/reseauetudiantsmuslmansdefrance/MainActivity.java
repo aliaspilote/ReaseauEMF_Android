@@ -1,8 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -174,16 +172,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         return menucontrol.onOptionsItemSelected(item);
     }
 
-    /*
-
-
-     */
-
-    public void OnValidateForm(View  view)
-    {
-        afficherFormInscr();
-    }
-
     public void OnTry(View view) throws IOException {
 
         Intent intent = new Intent(context, CursusListActivity.class);
@@ -260,38 +248,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void DisplayToast(String text) {
         DisplayToast(text, 100);
-    }
-
-
-    private void afficherFormInscr()
-    {
-        String message = new String();
-        EditText Inputs = (EditText)findViewById(R.id.editxt_name);
-        message += Inputs.getText()+"\n";
-
-        Inputs = (EditText)findViewById(R.id.editxt_firstname);
-        message += Inputs.getText()+"\n";
-
-
-        Inputs = (EditText)findViewById(R.id.editxt_city);
-        message += Inputs.getText()+"\n";
-
-        new AlertDialog.Builder(this)
-                .setTitle("Confirmation Saisie")
-                .setMessage(message)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Some stuff to do when ok got clicked
-
-
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // Some stuff to do when cancel got clicked
-                    }
-                })
-                .show();
     }
 
 

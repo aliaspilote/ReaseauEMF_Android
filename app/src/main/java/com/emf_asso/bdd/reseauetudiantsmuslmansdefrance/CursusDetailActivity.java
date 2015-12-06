@@ -21,6 +21,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DegreeStudy;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
  * An activity representing a single Cursus detail screen. This
@@ -39,6 +40,7 @@ public class CursusDetailActivity extends AppCompatActivity {
     private CursusDetailFragment fragment;
     private Curriculum currentCursus;
     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateDisplayFormat);
+    private SessionWsService AppCtx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +58,14 @@ public class CursusDetailActivity extends AppCompatActivity {
             }
         });
 */
+        Intent intent = this.getIntent();
+        if (intent.getSerializableExtra("AppSessionContext") != null)
+            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+        else
+            AppCtx = new SessionWsService();
+
         // Show the Up button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
 
         if (savedInstanceState == null) {
             current_ARG_ITEM_ID = getIntent().getStringExtra(CursusDetailFragment.ARG_ITEM_ID);
@@ -118,7 +116,9 @@ public class CursusDetailActivity extends AppCompatActivity {
     }
 
     public void backToListCursus() {
-        NavUtils.navigateUpTo(this, new Intent(this, CursusListActivity.class));
+        Intent intent = new Intent(this, CursusListActivity.class);
+        intent.putExtra("AppSessionContext", AppCtx);
+        NavUtils.navigateUpTo(this, intent);
     }
 
     public void deleteCursus(String current_ARG_ITEM_ID) {

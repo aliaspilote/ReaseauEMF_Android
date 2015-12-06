@@ -9,7 +9,7 @@
     <string name="lbl_domainstudy">Domain Etude</string>
     <string name="lbl_city">Ville</string>
     <string name="lbl_phone">Telephone</string>
-    <string name="lbl_btn_validate">Valider</string>
+    <string name="lbl_btn_validate">Finaliser votre inscription</string>
     <string name="lbl_btn_cancel">Annuler</string>
     <string name="lbl_btn_check_mail">Test mail</string>
     <string name="lbl_btn_check">Control</string>
@@ -130,5 +130,6 @@
     <string name="title_cursus_detail">Cursus détails</string>
     <string name="label_new_cursus">Nouveau cursus</string>
     <string name="lbl_ins_recap">Validation de l\'inscription</string>
+    <string name="lbl_modify_ins">Modifier votre formulaire</string>
 
 </resources>

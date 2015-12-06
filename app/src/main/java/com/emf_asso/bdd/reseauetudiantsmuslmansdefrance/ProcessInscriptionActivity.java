@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Discipline;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
@@ -36,11 +37,8 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.ProcessInscriptionService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -56,21 +54,17 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
 
     static final int PICK_REQUEST_CURSUS = 1;
+    static final int PICK_REQUEST_BackCURSUS = 2;
     private static final int NUM_PAGES = 5;
-    public ViewStub stub;
     public HttpReponse LastReponse = new HttpReponse();
     public CreateDate birthday_date;
     public CreateDate start_curriculum_date;
     public CreateDate end_curriculum_date;
-    public String tag;
     public java.text.SimpleDateFormat sdfdisplay = new java.text.SimpleDateFormat(DataContext.dateDisplayFormat);
-    private ListViewInit ManagerListView;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
-    private Activity activity = this;
-    private int current_NUM_PAGES;
-    private ProcessInscriptionService ServiceProcessInscription;
-    private SessionWsService AppSessionContext;
+    private int current_NUM_PAGES = 1;
+    private SessionWsService AppCtx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,18 +73,25 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         this.testInternetConnection.setContext(context);
         InitStubs();
         ImageListener();
+        Boolean intentExtrat = false;
         Intent intent = this.getIntent();
+        if (intent.getSerializableExtra("AppSessionContext") != null) {
+            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+            intentExtrat = true;
+        }
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             if (bundle.getSerializable("AppSessionContext") != null) {
-                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
-                ServiceProcessInscription = AppSessionContext.getServiceProcessInscription();
-                ListViewInit.loadListStaticPI_View(this, AppSessionContext);
+                AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
+                intentExtrat = true;
             }
+        }
+        if (intentExtrat)
+            ListViewInit.loadListStaticPI_View(this, AppCtx);
+        else
             if (!(current_NUM_PAGES>1)) // au cas ou l'on revient de l'activité Cursus
                 current_NUM_PAGES = 1;
-        }
-        ServiceProcessInscription.onStart();
+        AppCtx.getServiceProcessInscription().onStart();
     }
 
     @Override
@@ -159,13 +160,18 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnNext(View view) {
+        if (current_NUM_PAGES > NUM_PAGES)
+            current_NUM_PAGES = NUM_PAGES;
+        else if (current_NUM_PAGES < 0)
+            current_NUM_PAGES = 1;
+
         setDataOn_ServiceByStep(current_NUM_PAGES);
         if (current_NUM_PAGES == NUM_PAGES - 1) // Si nous somme a la dernière page du formulaire d'inscription
         {
             gotoCursusActivity();
         } else {
-            if (ServiceProcessInscription.getErrors(current_NUM_PAGES) != "") {
-                new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(ServiceProcessInscription.getErrors(current_NUM_PAGES))
+            if (AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES) != "") {
+                new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES))
                         .setPositiveButton(Messages.error_continu, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
                                 // Some stuff to do when ok got clicked
@@ -188,10 +194,18 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnPrevious(View view) {
+        if (current_NUM_PAGES > NUM_PAGES)
+            current_NUM_PAGES = NUM_PAGES;
+        else if (current_NUM_PAGES < 0)
+            current_NUM_PAGES = 1;
+
         setDataOn_ServiceByStep(current_NUM_PAGES);
         hideViewByNum(current_NUM_PAGES);
         if (current_NUM_PAGES == 1) {
             gotoMainActivity();
+        } else if (current_NUM_PAGES == NUM_PAGES) // Si nous somme a la dernière page du formulaire d'inscription
+        {
+            gotoCursusActivity();
         } else {
             current_NUM_PAGES--;
             displayViewByNum(current_NUM_PAGES);
@@ -199,10 +213,10 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnValidateInscrption(View view) throws IOException {
-
-        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
-                this, FormBodyManager.addUser(ServiceProcessInscription.getInscription().getUser()));
-        wb_thread.execute();
+        /*Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
+                this, FormBodyManager.addUser( AppCtx.getServiceProcessInscription().getInscription().getUser()));
+        wb_thread.execute();*/
+        DisplayToast("Ici doit avoir lieu l'enregistrement en base");
 
     }
 
@@ -214,11 +228,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     @Override
     public void onBackPressed() {
-        if (current_NUM_PAGES == 1) {
-            gotoMainActivity();
-        } else {
-            displayViewByNum(current_NUM_PAGES - 1);
-        }
+        OnPrevious(null);
     }
 
     public void setDataOn_ServiceByStep(int step) {
@@ -227,50 +237,55 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
         switch (step) {
             case 1:
-                ServiceProcessInscription.set_data_inscription1(ServiceProcessInscription.getInscription(),
+                AppCtx.getServiceProcessInscription().set_data_inscription1(AppCtx.getServiceProcessInscription().getInscription(),
                         getTextByEditTextId(R.id.editxt_ins_email),
                         getTextByEditTextId(R.id.editxt_ins_pwd),
                         getTextByEditTextId(R.id.editxt_ins_repeat_pwd));
-                ServiceProcessInscription.validated_screen1(ServiceProcessInscription.getInscription());
+                AppCtx.getServiceProcessInscription().validated_screen1(AppCtx.getServiceProcessInscription().getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins1_legend_error);
-                if (ServiceProcessInscription.getErrors(step) != "")
-                    lbl_error.setText(ServiceProcessInscription.getErrors(step));
+                if (AppCtx.getServiceProcessInscription().getErrors(step) != "")
+                    lbl_error.setText(AppCtx.getServiceProcessInscription().getErrors(step));
                 else
                     lbl_error.setText("");
                 break;
             case 2:
-                ServiceProcessInscription.set_data_inscription2(ServiceProcessInscription.getInscription(),
+                AppCtx.getServiceProcessInscription().set_data_inscription2(AppCtx.getServiceProcessInscription().getInscription(),
                         getTextByEditTextId(R.id.editxt_ins_name),
                         getTextByEditTextId(R.id.editxt_ins_firstname),
                         getTextByEditTextId(R.id.editxt_ins_zipcode),
                         getTextByEditTextId(R.id.editxt_ins_city),
                         getTextByEditTextId(R.id.editxt_ins_phone),
                         getDateByEditTextId(R.id.editxt_ins_birthday));
-                ServiceProcessInscription.validated_screen2(ServiceProcessInscription.getInscription());
+                AppCtx.getServiceProcessInscription().validated_screen2(AppCtx.getServiceProcessInscription().getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins2_legend_error);
-                if (ServiceProcessInscription.getErrors(step) != "")
-                    lbl_error.setText(ServiceProcessInscription.getErrors(step));
+                if (AppCtx.getServiceProcessInscription().getErrors(step) != "")
+                    lbl_error.setText(AppCtx.getServiceProcessInscription().getErrors(step));
                 else
                     lbl_error.setText("");
                 break;
             case 3:
-                ServiceProcessInscription.set_data_inscription3(ServiceProcessInscription.getInscription(),
+                AppCtx.getServiceProcessInscription().set_data_inscription3(AppCtx.getServiceProcessInscription().getInscription(),
                         (Involvement) getObjSelectedBySpinnerId(R.id.spinner_involvement),
                         (Section) getObjSelectedBySpinnerId(R.id.spinner_section),
                         getContactPreferenceSelectedByIds(R.id.switch_offer, R.id.switch_info_EMFcity, R.id.switch_info_national, R.id.switch_project),
                         (Discipline) getObjSelectedBySpinnerId(R.id.spinner_discipline));
-                ServiceProcessInscription.validated_screen3(ServiceProcessInscription.getInscription());
+                AppCtx.getServiceProcessInscription().validated_screen3(AppCtx.getServiceProcessInscription().getInscription());
                 lbl_error = (TextView) findViewById(R.id.lbl_ins3_legend_error);
-                if (ServiceProcessInscription.getErrors(step) != "")
-                    lbl_error.setText(ServiceProcessInscription.getErrors(step));
+                if (AppCtx.getServiceProcessInscription().getErrors(step) != "")
+                    lbl_error.setText(AppCtx.getServiceProcessInscription().getErrors(step));
                 else
                     lbl_error.setText("");
+                break;
             case 4:
-                ServiceProcessInscription.set_data_inscription4(ServiceProcessInscription.getInscription(),
+                AppCtx.getServiceProcessInscription().set_data_inscription4(AppCtx.getServiceProcessInscription().getInscription(),
                         getListSkillsSelected(R.id.listview_skill));
+                AppCtx.getServiceProcessInscription().validated_screen4(AppCtx.getServiceProcessInscription().getInscription());
+                break;
             case 5:
-                ServiceProcessInscription.set_data_inscription5(ServiceProcessInscription.getInscription(),
+                AppCtx.getServiceProcessInscription().set_data_inscription5(AppCtx.getServiceProcessInscription().getInscription(),
                         CursusContent.ITEMS);
+                AppCtx.getServiceProcessInscription().validated_screen5(AppCtx.getServiceProcessInscription().getInscription());
+                break;
             default:
                 break;
         }
@@ -315,7 +330,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 break;
             case 5:
                 findViewById(R.id.stub_Inflated5).setVisibility(View.VISIBLE);
-                CreateProfil(AppSessionContext.getServiceProcessInscription().getInscription().getUser());
+                CreateProfil(AppCtx.getServiceProcessInscription().getInscription().getUser());
                 break;
             default:
                 findViewById(R.id.stub_Inflated1).setVisibility(View.VISIBLE);
@@ -327,30 +342,41 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("AppSessionContext", AppSessionContext);
+        bundle.putSerializable("AppSessionContext", AppCtx);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
     public void gotoCursusActivity() {
-
         Intent intent = new Intent(context, CursusListActivity.class);
-        //Bundle bundle = new Bundle();
-        //bundle.putSerializable("AppSessionContext", AppSessionContext);
-        //intent.putExtras(bundle);
+        intent.putExtra("AppSessionContext", AppCtx);
         startActivityForResult(intent, 1);
-        //context.startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == PICK_REQUEST_CURSUS) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
+        if (resultCode == PICK_REQUEST_CURSUS) {
+            Intent intent = this.getIntent();
+            if (intent.getSerializableExtra("AppSessionContext") != null)
+                AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+            if (!(AppCtx.getServiceProcessInscription().getInscription().getUser().getCurriculum() != null))
+                AppCtx.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
+            else {
+                if (AppCtx.getServiceProcessInscription().getInscription().getUser().getCurriculum().size() < 1) {
+                    if (CursusContent.ITEMS.size() > 0)
+                        AppCtx.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
+                }
             }
+            current_NUM_PAGES = 4;
             hideViewByNum(current_NUM_PAGES);
             current_NUM_PAGES++;
+            displayViewByNum(current_NUM_PAGES);
+        }
+        if (resultCode == PICK_REQUEST_BackCURSUS) {
+            current_NUM_PAGES = 5;
+            hideViewByNum(current_NUM_PAGES);
+            current_NUM_PAGES--;
             displayViewByNum(current_NUM_PAGES);
         }
     }
@@ -469,18 +495,20 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         Label.setText(label);
         TextView Value = new TextView(this);
         Value.setText(value);
-
-        Label.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-        Value.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+        LinearLayout.LayoutParams lbl_layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 7f);
+        lbl_layout_params.setMargins(5, 0, 0, 0);
+        Label.setLayoutParams(lbl_layout_params);
+        Value.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 3f));
 
         LinearLayout linearlayout = (LinearLayout) findViewById(content);
+        linearlayout.removeAllViews();
         linearlayout.addView(Label);
         linearlayout.addView(Value);
     }
 
     public void CreateProfil(UserMember usermember) {
         if (usermember.getRegistration_date() != null)
-            CreateProfilByStep("Date d'inscription :", sdfdisplay.format(usermember.getRegistration_date()), R.id.content_for_registrationdate);
+            CreateProfilByStep("Date inscription :", sdfdisplay.format(usermember.getRegistration_date()), R.id.content_for_registrationdate);
 
         if (usermember.getEmail() != null)
             CreateProfilByStep("Email :", usermember.getEmail(), R.id.content_for_email);
@@ -492,7 +520,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             CreateProfilByStep("Prénom :", usermember.getFirstname(), R.id.content_for_firstname);
 
         if (usermember.getBirth_date() != null)
-            CreateProfilByStep("Date de naissance :", sdfdisplay.format(usermember.getBirth_date()), R.id.content_for_birthday);
+            CreateProfilByStep("Date naissance :", sdfdisplay.format(usermember.getBirth_date()), R.id.content_for_birthday);
 
         if (usermember.getZip_code() != null)
             CreateProfilByStep("Code Postale :", usermember.getZip_code(), R.id.content_for_zipcode);
@@ -509,21 +537,36 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         if (usermember.getSkills() != null) {
             String listString = "";
             int i = 0;
-
             for (Skill s : usermember.getSkills()) {
                 listString += s;
                 i++;
                 if (i < usermember.getSkills().size()) {
                     listString += ",\n";
                 }
-
             }
             CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
         }
+        if (usermember.getCurriculum() != null) {
+            String listCursus = "";
+            int i = 0;
+            for (Curriculum c : usermember.getCurriculum()) {
+                listCursus += c.getLabel() + " " + c.getDiscipline().getLabel() + " " + c.getEstablishment() + " " + sdfdisplay.format(c.getStart_date());
+                i++;
+                if (i < usermember.getCurriculum().size()) {
+                    listCursus += ",\n";
+                }
+            }
+            CreateProfilByStep("Cursus :", listCursus, R.id.content_for_cursus);
+        }
 
-        // il faut mettre une liste
-        if (usermember.getStatus() != null)
-            CreateProfilByStep("Contact pour :", usermember.getStatus().toString(), R.id.content_for_contact);
+        if (usermember.getStatus() != null) {
+            String temp = "";
+            temp += "Offres d'emploi : " + (usermember.getStatus().getJobs_offers() ? "Ok" : "Non Ok") + "\n";
+            temp += "Activités dans ma ville : " + (usermember.getStatus().getCity_activities() ? "Ok" : "Non Ok") + "\n";
+            temp += "Activités nationales : " + (usermember.getStatus().getNational_activities() ? "Ok" : "Non Ok") + "\n";
+            temp += "Appel à projet : " + (usermember.getStatus().getProject_volontary() ? "Ok" : "Non Ok") + "\n";
+            CreateProfilByStep("Contact pour :", temp, R.id.content_for_contact);
+        }
 
 
     }

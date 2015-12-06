@@ -75,10 +75,8 @@ public class CursusListActivity extends AppCompatActivity
         }
 
         Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null)
-            if (bundle.getSerializable("AppSessionContext") != null)
-                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
+        if (intent.getSerializableExtra("AppSessionContext") != null)
+            AppSessionContext = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
     }
 
     /**
@@ -104,23 +102,24 @@ public class CursusListActivity extends AppCompatActivity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, CursusDetailActivity.class);
             detailIntent.putExtra(CursusDetailFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra("AppSessionContext", AppSessionContext);
             startActivity(detailIntent);
         }
     }
 
     public void OnNext(View view) {
-        gotoProcessInscrActivity();
+        gotoProcessInscrActivity(1);
     }
 
     public void OnPrevious(View view) {
-        this.onBackPressed();
+        gotoProcessInscrActivity(2);
     }
 
-    public void gotoProcessInscrActivity() {
-        Intent intent = new Intent();
-        intent.putExtra("ProcessStep", "FinalStep");
-        //this.onBackPressed();
-        // context.startActivity(intent);
-        setResult(1, intent);
+    public void gotoProcessInscrActivity(int resutlInt) {
+        AppSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
+        Intent intent = new Intent(this, ProcessInscriptionActivity.class);
+        intent.putExtra("AppSessionContext", AppSessionContext);
+        setResult(resutlInt, intent);
+        finish();
     }
 }

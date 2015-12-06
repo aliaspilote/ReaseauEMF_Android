@@ -21,7 +21,7 @@ public class ProcessInscriptionService implements Serializable {
 
     private Inscription inscription;
     private List<Inscription> multi_inscriptions;
-    private String[] errors = new String[5];
+    private String[] errors = new String[6];
     private Boolean onGoingInscr = false;
 
 
@@ -186,7 +186,10 @@ public class ProcessInscriptionService implements Serializable {
     }
 
     public String getErrors(int step) {
+        if(step<6)
         return errors[step];
+        else
+            return "";
     }
     public String[] getErrors() {
         return errors;

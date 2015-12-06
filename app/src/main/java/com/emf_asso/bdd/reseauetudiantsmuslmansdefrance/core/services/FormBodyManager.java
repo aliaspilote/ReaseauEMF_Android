@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -20,6 +21,29 @@ public class FormBodyManager {
 
     public static RequestBody addUser(UserMember user) {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateMysqlFormat);
+        String lesCursusJson = "";
+        if (user.getCurriculum() != null) {
+            lesCursusJson = "{\n" + "  \"cursus\":[";
+            int i = 0;
+            for (Curriculum c : user.getCurriculum()) {
+                lesCursusJson += "\n" + "    {";
+                lesCursusJson += '"' + "label" + '"' + ':' + '"' + c.getLabel() + '"' + ',' + "/n";
+                lesCursusJson += '"' + "establishment" + '"' + ':' + '"' + c.getEstablishment() + '"' + ',' + "/n";
+                lesCursusJson += '"' + "city" + '"' + ':' + '"' + c.getCity() + '"' + ',' + "/n";
+                lesCursusJson += '"' + "degree_id" + '"' + ':' + '"' + c.getDegree().getDegree_id() + '"' + ',' + "/n";
+                lesCursusJson += '"' + "discipline_id" + '"' + ':' + '"' + c.getDiscipline().getDiscipline_id() + '"' + ',' + "/n";
+                lesCursusJson += '"' + "start_date" + '"' + ':' + '"' + sdf.format(c.getStart_date()) + '"' + ',' + "/n";
+                lesCursusJson += '"' + "end_date" + '"' + ':' + '"' + sdf.format(c.getEnd_date()) + '"' + ',' + "/n";
+                lesCursusJson += '"' + "end_date" + '"' + ':' + '"' + c.getId() + '"' + "/n";
+                i++;
+                lesCursusJson += "\n" + "    }";
+                if (i < user.getCurriculum().size())
+                    lesCursusJson += ",";
+            }
+            lesCursusJson += "\n" + "  ]" + ",";
+            lesCursusJson += '"' + "count" + '"' + ':' + '"' + Integer.toString(i) + '"' + "/n";
+            lesCursusJson += "\n" + "}";
+        }
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "add_user")
                 .add("mail", user.getEmail() + "")
@@ -37,6 +61,7 @@ public class FormBodyManager {
                 .add("registration_date", sdf.format(user.getRegistration_date()) + "")
                 .add("skills", "expert Android")
                 .add("hashed_pwd", user.getHashed_pwd() + "")
+                .add("listCursus", lesCursusJson)
                 .build();
         // .add("dicipline", user.getDicipline().getLabel() + "")
         // .add("skills", user.getSkills().get(1).getLabel() + "")

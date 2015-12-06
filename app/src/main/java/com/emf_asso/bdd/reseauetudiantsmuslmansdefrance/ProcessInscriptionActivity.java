@@ -216,8 +216,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         /*Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser( AppCtx.getServiceProcessInscription().getInscription().getUser()));
         wb_thread.execute();*/
-        DisplayToast("Ici doit avoir lieu l'enregistrement en base");
-
+        DisplayToast("Réaliser de la Requet en cours de rédaction");//FormBodyManager.addUser(AppCtx.getServiceProcessInscription().getInscription().getUser()).toString(),30000);
     }
 
     public void OnCancelInscrption(View view) {

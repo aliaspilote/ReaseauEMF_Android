@@ -5,6 +5,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
+import com.google.gson.Gson;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.RequestBody;
 
@@ -17,6 +18,10 @@ public class FormBodyManager {
 
     public static java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateMysqlFormat);
 
+    private static String deuxPts = ":";
+    private static String quotes = "\"";
+    private static String virgule = ",";
+
     public static RequestBody checkmail(String mail) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "check_mail")
@@ -26,6 +31,9 @@ public class FormBodyManager {
     }
 
     public static RequestBody addUser(UserMember user) {
+
+        Gson gson = new Gson();
+        //gson.toJson
 
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "try")
@@ -40,7 +48,7 @@ public class FormBodyManager {
                 .add("birth_date", (user.getBirth_date() != null ? sdf.format(user.getBirth_date()) : ""))
                 .add("registration_date", (user.getBirth_date() != null ? sdf.format(user.getRegistration_date()) : ""))
                 .add("involvement", (user.getInvolvement() != null ? user.getInvolvement().getInvolvement_id() : ""))
-                .add("skills", listSkillsTojson(user.getSkills()))
+                .add("listSkills", listSkillsTojson(user.getSkills()))
                 .add("listCursus", listCursusTojson(user.getCurriculum()))
                 .build();
         //.add("civility", user.getCivility() + "") à ajouter dans le formulaire
@@ -68,53 +76,52 @@ public class FormBodyManager {
     private static String listCursusTojson(List<Curriculum> listCursus) {
         String lesCursusJson = "";
         if (listCursus != null) {
-            lesCursusJson = "{\n" + "  \"cursus\":[";
+            lesCursusJson = "{cursus:[";
             int i = 0;
             for (Curriculum c : listCursus) {
-                lesCursusJson += "\n" + "    {";
-                lesCursusJson += '"' + "label" + '"' + ':' + '"' + c.getLabel() + '"' + ',' + "\n";
-                lesCursusJson += '"' + "establishment" + '"' + ':' + '"' + c.getEstablishment() + '"' + ',' + "\n";
-                lesCursusJson += '"' + "city" + '"' + ':' + '"' + c.getCity() + '"' + ',' + "\n";
-                lesCursusJson += '"' + "degree_id" + '"' + ':' + '"' + c.getDegree().getDegree_id() + '"' + ',' + "\n";
-                lesCursusJson += '"' + "discipline_id" + '"' + ':' + '"' + c.getDiscipline().getDiscipline_id() + '"' + ',' + "\n";
-                lesCursusJson += '"' + "start_date" + '"' + ':' + '"' + sdf.format(c.getStart_date()) + '"' + ',' + "\n";
-                lesCursusJson += '"' + "end_date" + '"' + ':' + '"' + sdf.format(c.getEnd_date()) + '"' + ',' + "\n";
-                lesCursusJson += '"' + "end_date" + '"' + ':' + '"' + c.getId() + '"' + "\n";
+                lesCursusJson += "{";
+                lesCursusJson += quotes + "label" + quotes + deuxPts + quotes + c.getLabel() + quotes + virgule;
+                lesCursusJson += quotes + "establishment" + quotes + deuxPts + quotes + c.getEstablishment() + quotes + virgule;
+                lesCursusJson += quotes + "city" + quotes + deuxPts + quotes + c.getCity() + quotes + virgule;
+                lesCursusJson += quotes + "degree_id" + quotes + deuxPts + quotes + c.getDegree().getDegree_id() + quotes + virgule;
+                lesCursusJson += quotes + "discipline_id" + quotes + deuxPts + quotes + c.getDiscipline().getDiscipline_id() + quotes + virgule;
+                lesCursusJson += quotes + "start_date" + quotes + deuxPts + quotes + sdf.format(c.getStart_date()) + quotes + virgule;
+                lesCursusJson += quotes + "end_date" + quotes + deuxPts + quotes + sdf.format(c.getEnd_date()) + quotes + virgule;
+                lesCursusJson += quotes + "end_date" + quotes + deuxPts + quotes + c.getId() + quotes;
                 i++;
-                lesCursusJson += "\n" + "    }";
+                lesCursusJson += "}";
                 if (i < listCursus.size())
                     lesCursusJson += ",";
             }
-            lesCursusJson += "\n" + "  ]" + ",";
-            lesCursusJson += '"' + "count" + '"' + ':' + '"' + Integer.toString(i) + '"' + "\n";
-            lesCursusJson += "\n" + "}";
+            lesCursusJson += "],";
+            lesCursusJson += quotes + "count" + quotes + deuxPts + quotes + Integer.toString(i) + quotes;
+            lesCursusJson += "}";
         }
-        return lesCursusJson;
+        return lesCursusJson.replace("\\", "");
     }
 
     private static String listContactPreferenceTojson(ContactPreference contectPreference) {
         String ContactPreferenceJson = "";
 
-        return ContactPreferenceJson;
+        return ContactPreferenceJson.replace("\\", "");
     }
 
     private static String listSkillsTojson(List<Skill> listSkills) {
         String lesSkillsJson = "";
         if (lesSkillsJson != null) {
-            lesSkillsJson = "{\n" + "  \"cursus\":[";
+            lesSkillsJson = "{skills:[";
             int i = 0;
             for (Skill s : listSkills) {
-                lesSkillsJson += "\n" + "    {";
-                lesSkillsJson += '"' + "skill_id" + '"' + ':' + '"' + s.getSkill_id() + '"' + "\n";
+                lesSkillsJson += "{" + quotes + "skill_id" + quotes + deuxPts + quotes + s.getSkill_id() + quotes;
                 i++;
-                lesSkillsJson += "\n" + "    }";
+                lesSkillsJson += "}";
                 if (i < listSkills.size())
                     lesSkillsJson += ",";
             }
-            lesSkillsJson += "\n" + "  ]" + ",";
-            lesSkillsJson += '"' + "count" + '"' + ':' + '"' + Integer.toString(i) + '"' + "\n";
-            lesSkillsJson += "\n" + "}";
+            lesSkillsJson += "]" + ",";
+            lesSkillsJson += quotes + "count" + quotes + deuxPts + quotes + Integer.toString(i) + quotes;
+            lesSkillsJson += "}";
         }
-        return lesSkillsJson;
+        return lesSkillsJson.replace("\\", "");
     }
 }

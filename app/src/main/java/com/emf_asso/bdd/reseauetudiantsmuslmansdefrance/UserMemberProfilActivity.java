@@ -110,12 +110,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         inv.setLabel("Actif");
         usertemp.setInvolvement(inv);
         List<Skill> listeskills = new ArrayList<Skill>();
-        listeskills.add(new Skill("info", "info", 1));
-        listeskills.add(new Skill("info", "info", 1));
-        listeskills.add(new Skill("info", "info", 1));
-        listeskills.add(new Skill("info", "info", 1));
-        listeskills.add(new Skill("info", "info", 1));
-        listeskills.add(new Skill("info", "info", 1));
+        listeskills.add(new Skill("info", "info", "1"));
         usertemp.setSkills(listeskills);
         usertemp.setZip_code("90000");
 

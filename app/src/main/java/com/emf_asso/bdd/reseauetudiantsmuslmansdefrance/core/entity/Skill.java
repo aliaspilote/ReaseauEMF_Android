@@ -9,16 +9,16 @@ public class Skill implements Serializable {
 
     private String label;
     private String description;
-    private int skill_id;
+    private String skill_id;
 
     public Skill() {
 
         label = "";
         description = "";
-        skill_id = 0;
+        skill_id = "0";
     }
 
-    public Skill(String label, String description, int skill_id) {
+    public Skill(String label, String description, String skill_id) {
         setLabel(label);
         setDescription(description);
         setSkill_id(skill_id);
@@ -49,11 +49,11 @@ public class Skill implements Serializable {
         this.description = description;
     }
 
-    public int getSkill_id() {
+    public String getSkill_id() {
         return skill_id;
     }
 
-    public void setSkill_id(int skill_id) {
+    public void setSkill_id(String skill_id) {
         this.skill_id = skill_id;
     }
 }

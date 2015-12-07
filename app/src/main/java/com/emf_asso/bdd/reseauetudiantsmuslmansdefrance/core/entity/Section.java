@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Section implements Serializable {
 
     private String label;
-    private int section_id;
+    private String section_id;
     private int[] zipCode;
     private boolean isActive;
 
@@ -22,7 +22,7 @@ public class Section implements Serializable {
         isActive = true;
     }
 
-    public Section(String lbl, int id, boolean active) {
+    public Section(String lbl, String id, boolean active) {
         setLabel(lbl);
         setSection_id(id);
         setIsActive(active);
@@ -56,11 +56,11 @@ public class Section implements Serializable {
         this.isActive = isActive;
     }
 
-    public int getSection_id() {
+    public String getSection_id() {
         return section_id;
     }
 
-    public void setSection_id(int section_id) {
+    public void setSection_id(String section_id) {
         this.section_id = section_id;
     }
 }

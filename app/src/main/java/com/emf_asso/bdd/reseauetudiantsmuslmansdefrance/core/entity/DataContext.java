@@ -36,7 +36,7 @@ public class DataContext implements Serializable {
                     new Discipline(
                             ((JSONObject) item).get("label").toString(),
                             ((JSONObject) item).get("description").toString(),
-                            Integer.parseInt(((JSONObject) item).get("discipline_id").toString()))
+                            ((JSONObject) item).get("discipline_id").toString())
             );
         }
     }
@@ -91,7 +91,7 @@ public class DataContext implements Serializable {
                     new Skill(
                             ((JSONObject) item).get("label").toString(),
                             ((JSONObject) item).get("description").toString(),
-                            Integer.parseInt(((JSONObject) item).get("skill_id").toString()))
+                            ((JSONObject) item).get("skill_id").toString())
             );
         }
     }
@@ -108,7 +108,7 @@ public class DataContext implements Serializable {
             sectionList.add(
                     new Section(
                             ((JSONObject) item).get("label").toString(),
-                            Integer.parseInt(((JSONObject) item).get("section_id").toString()),
+                            ((JSONObject) item).get("section_id").toString(),
                             Boolean.parseBoolean(((JSONObject) item).get("isActive").toString()))
             );
         }

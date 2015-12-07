@@ -27,7 +27,7 @@ public class Curriculum implements Serializable {
 
     public Curriculum(String label) {
         this((new DateTime()).toString(), label, new Date(), new Date(),
-                new Discipline("", "", 1)
+                new Discipline("", "", "1")
                 , "", "",
                 new DegreeStudy("", 1, 1));
     }

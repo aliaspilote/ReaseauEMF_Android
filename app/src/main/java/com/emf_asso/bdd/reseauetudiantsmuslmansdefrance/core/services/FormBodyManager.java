@@ -28,7 +28,7 @@ public class FormBodyManager {
     public static RequestBody addUser(UserMember user) {
 
         RequestBody formBody = new FormEncodingBuilder()
-                .add("action", "add_user")
+                .add("action", "try")
                 .add("mail", user.getEmail() + "")
                 .add("name", user.getName() + "")
                 .add("firstname", user.getFirstname() + "")

@@ -40,6 +40,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -124,7 +125,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     public void ReceptionResponse(HttpReponse Rep) {
 
-        TextView twError = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+        TextView twError = (TextView) findViewById(R.id.lbl_ins5_legend_error);
 
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
@@ -139,7 +140,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
             switch (LastReponse.Action) {
                 case "add_user":
-                    TextView twResult = (TextView) findViewById(R.id.txtview_submit_legend_viewResult);
+                    TextView twResult = (TextView) findViewById(R.id.lbl_ins5_legend_error);
                     twResult.setText("Résultats :\n");
                     if (result)
                         Message += Messages.error_addUser_success;
@@ -148,6 +149,14 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                     else
                         Message = twError.getText() + LastReponse.getExceptionText();
                     twResult.setText(Message);
+                    break;
+                case "try":
+                    TextView TryResult = (TextView) findViewById(R.id.lbl_ins5_legend_error);
+                    if (result)
+                        Message += LastReponse.getResultat().toString();
+                    else
+                        Message = twError.getText() + LastReponse.getExceptionText();
+                    TryResult.setText(Message);
                     break;
                 default:
                     Message = Messages.error_unknow_action;
@@ -214,12 +223,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnValidateInscrption(View view) throws IOException {
-        /*Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser( AppCtx.getServiceProcessInscription().getInscription().getUser()));
-        wb_thread.execute();*/
-        DisplayToast("test");
-        DisplayToast("Réaliser de la Requet en cours de rédaction" + "\n" + FormBodyManager.addUser(AppCtx.getServiceProcessInscription().getInscription().getUser()).toString());
-        DisplayToast("test2");
+        wb_thread.execute();
     }
 
     public void OnCancelInscrption(View view) {
@@ -395,7 +401,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         Switch nationalacti = (Switch) findViewById(id_national_activities);
         Switch projet = (Switch) findViewById(id__project_volontary);
 
-        return new ContactPreference(job.isActivated(), cityacti.isActivated(), nationalacti.isActivated(), projet.isActivated());
+        return new ContactPreference(job.isChecked(), cityacti.isChecked(), nationalacti.isChecked(), projet.isChecked());
     }
 
     public Object getObjSelectedBySpinnerId(int id_Spinner) {

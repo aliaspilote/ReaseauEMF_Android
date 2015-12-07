@@ -37,6 +37,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
@@ -216,7 +217,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         /*Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser( AppCtx.getServiceProcessInscription().getInscription().getUser()));
         wb_thread.execute();*/
-        DisplayToast("Réaliser de la Requet en cours de rédaction");//FormBodyManager.addUser(AppCtx.getServiceProcessInscription().getInscription().getUser()).toString(),30000);
+        DisplayToast("Réaliser de la Requet en cours de rédaction" + "\n" +
+                FormBodyManager.addUser(AppCtx.getServiceProcessInscription().getInscription().getUser()).toString(), 30000);
     }
 
     public void OnCancelInscrption(View view) {

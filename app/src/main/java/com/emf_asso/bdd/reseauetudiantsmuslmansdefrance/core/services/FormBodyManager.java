@@ -53,7 +53,6 @@ public class FormBodyManager {
                 .add("zip_code", user.getZip_code() + "")
                 .add("city", user.getCity() + "")
                 .add("section", user.getSection().getLabel())
-                .add("dicipline", user.getDicipline().getLabel())
                 .add("niveau", "")
                 .add("involvement", user.getInvolvement().getInvolvement_id().toString())
                 .add("phone", user.getPhone() + "")
@@ -63,6 +62,8 @@ public class FormBodyManager {
                 .add("hashed_pwd", user.getHashed_pwd() + "")
                 .add("listCursus", lesCursusJson)
                 .build();
+
+        //add("dicipline", user.getDicipline().getDiscipline_id()) Disciple n'est pas implémanté ici mais dans les cursus
         // .add("dicipline", user.getDicipline().getLabel() + "")
         // .add("skills", user.getSkills().get(1).getLabel() + "")
         return formBody;

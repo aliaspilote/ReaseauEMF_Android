@@ -68,7 +68,8 @@ public class CursusDetailFragment extends Fragment {
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.getLabel());
             ((TextView) rootView.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.getEstablishment());
-            ((Spinner) rootView.findViewById(R.id.spinner_discipline)).setSelection(mItem.getDiscipline().getDiscipline_id());
+            // TODO placé un object MAP dans la classe Discipline entre id_DB et id_Spinner
+            //((Spinner) rootView.findViewById(R.id.spinner_discipline)).setSelection(mItem.getDiscipline().getDiscipline_id());
             ((Spinner) rootView.findViewById(R.id.spinner_degree_study)).setSelection(mItem.getDegree().getDegree_id());
             ((TextView) rootView.findViewById(R.id.editxt_date_begin)).setText(sdf.format(mItem.getStart_date()));
             ((TextView) rootView.findViewById(R.id.editxt_date_end)).setText(sdf.format(mItem.getEnd_date()));

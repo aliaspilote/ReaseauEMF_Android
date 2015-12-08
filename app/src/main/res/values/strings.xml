@@ -131,5 +131,8 @@
     <string name="label_new_cursus">Nouveau cursus</string>
     <string name="lbl_ins_recap">Validation de l\'inscription</string>
     <string name="lbl_modify_ins">Modifier votre formulaire</string>
+    <string name="Accueil_admin">Admin</string>
+    <string name="List_managment">Gestion des listes</string>
+    <string name="send_message">Envoyer un message</string>
 
 </resources>

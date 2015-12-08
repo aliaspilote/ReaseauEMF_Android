@@ -363,8 +363,10 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (resultCode == PICK_REQUEST_CURSUS) {
+        if (data != null) {
+            resultCode = data.getIntExtra("Result", 1);
+        }
+        if (resultCode != PICK_REQUEST_BackCURSUS) {
             Intent intent = this.getIntent();
             if (intent.getSerializableExtra("AppSessionContext") != null)
                 AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");

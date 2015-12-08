@@ -22,7 +22,8 @@
             style="@style/style_menu_item"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:elevation="10dp" />
     </LinearLayout>
 
 

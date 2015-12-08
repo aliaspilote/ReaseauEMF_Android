@@ -117,7 +117,6 @@ public class CursusDetailActivity extends AppCompatActivity {
 
     public void backToListCursus() {
         Intent intent = new Intent(this, CursusListActivity.class);
-        intent = this.getIntent();
         intent.putExtra("AppSessionContext", AppCtx);
         NavUtils.navigateUpTo(this, intent);
     }

@@ -54,6 +54,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:elevation="5dp"
                     android:onClick="OnConnect" />
             </LinearLayout>
 
@@ -86,9 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:orientation="horizontal"
-
-                >
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="70dp"
@@ -120,14 +119,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:elevation="10dp"
                 android:orientation="horizontal"
-
                 >
 
                 <Button
                     style="@style/style_btn_registration"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
+                    android:elevation="150dp"
                     android:onClick="OnRegisterClick" />
             </LinearLayout>
         </LinearLayout>

@@ -51,6 +51,9 @@
             android:name=".AdminCrudListActivity"
             android:label="@string/Accueil_admin"></activity>
         <activity
+            android:name=".SendMessageActivity"
+            android:label="@string/Accueil_admin"></activity>
+        <activity
             android:name=".CursusDetailActivity"
             android:label="@string/title_cursus_detail"
             android:parentActivityName=".CursusListActivity"

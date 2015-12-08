@@ -10,8 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
@@ -330,10 +328,8 @@ public class AdminActivity extends AppCompatActivity {
                 intent = new Intent(context, SendMessageActivity.class);
                 context.startActivity(intent);
                 break;
-            case 7:
-                intent = new Intent(context, AdminActivity.class);
-                context.startActivity(intent);
-                break;
+            default:
+                ;
         }
 
         // Toast.makeText(getApplicationContext(), " number of Item" + position, Toast.LENGTH_LONG).show();
@@ -341,14 +337,6 @@ public class AdminActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

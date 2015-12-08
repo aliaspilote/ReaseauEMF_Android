@@ -45,6 +45,12 @@
             android:label="@string/title_cursus_list"
             android:theme="@style/AppThemeDAB"></activity>
         <activity
+            android:name=".AdminActivity"
+            android:label="@string/Accueil_admin"></activity>
+        <activity
+            android:name=".AdminCrudListActivity"
+            android:label="@string/Accueil_admin"></activity>
+        <activity
             android:name=".CursusDetailActivity"
             android:label="@string/title_cursus_detail"
             android:parentActivityName=".CursusListActivity"

@@ -103,7 +103,7 @@ public class CursusListActivity extends AppCompatActivity
             Intent detailIntent = new Intent(this, CursusDetailActivity.class);
             detailIntent.putExtra(CursusDetailFragment.ARG_ITEM_ID, id);
             detailIntent.putExtra("AppSessionContext", AppSessionContext);
-            startActivity(detailIntent);
+            startActivityForResult(detailIntent, 1);
         }
     }
 
@@ -117,7 +117,8 @@ public class CursusListActivity extends AppCompatActivity
 
     public void gotoProcessInscrActivity(int resutlInt) {
         AppSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
-        Intent intent = new Intent(this, ProcessInscriptionActivity.class);
+        Intent intent = new Intent();
+        intent.putExtra("Result", resutlInt);
         intent.putExtra("AppSessionContext", AppSessionContext);
         setResult(resutlInt, intent);
         finish();

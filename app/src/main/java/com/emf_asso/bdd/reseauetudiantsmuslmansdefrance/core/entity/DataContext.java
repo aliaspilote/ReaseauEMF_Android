@@ -19,6 +19,13 @@ public class DataContext implements Serializable {
     public List<Discipline> disciplineList = new ArrayList<>();
     public List<Skill> skillList = new ArrayList<>();
     public List<Curriculum> cursusList = new ArrayList<>();
+
+    public Boolean involvementDL_OK = false;
+    public Boolean sectionDL_OK = false;
+    public Boolean degreeStudyDL_OK = false;
+    public Boolean disciplineDL_OK = false;
+    public Boolean skillLDL_OK = false;
+
     public DataContext() {
 
     }
@@ -39,6 +46,8 @@ public class DataContext implements Serializable {
                             ((JSONObject) item).get("discipline_id").toString())
             );
         }
+        if (disciplineList.size() > 0)
+            disciplineDL_OK = true;
     }
 
     public void setDegreeStudyList(JSONObject obj) {
@@ -58,6 +67,8 @@ public class DataContext implements Serializable {
                             Integer.parseInt(((JSONObject) item).get("degree_id").toString()))
             );
         }
+        if (degreeStudyList.size() > 0)
+            degreeStudyDL_OK = true;
     }
 
     public void setInvolvementsList(JSONObject obj) {
@@ -76,6 +87,8 @@ public class DataContext implements Serializable {
                             ((JSONObject) item).get("involvement_id").toString())
             );
         }
+        if (involvementsList.size() > 0)
+            involvementDL_OK = true;
     }
 
     public void setSkillList(JSONObject obj) {
@@ -94,6 +107,8 @@ public class DataContext implements Serializable {
                             ((JSONObject) item).get("skill_id").toString())
             );
         }
+        if (skillList.size() > 0)
+            skillLDL_OK = true;
     }
 
     public void setSectionList(JSONObject obj) {
@@ -112,5 +127,7 @@ public class DataContext implements Serializable {
                             Boolean.parseBoolean(((JSONObject) item).get("isActive").toString()))
             );
         }
+        if (sectionList.size() > 0)
+            sectionDL_OK = true;
     }
 }

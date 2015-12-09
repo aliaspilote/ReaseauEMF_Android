@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     private SessionWsService AppSessionContext;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
+    private ProgressDialog progress;
+    private int progressVal = 0;
+    private int progressValMax = 5;
 
 
     @Override
@@ -41,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         setSupportActionBar(toolbar);
         this.testInternetConnection.setContext(context);
 
-        loadListsFromWebService();
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         }
         if (AppSessionContext == null)
             AppSessionContext = new SessionWsService();
+
+
+        loadListsFromWebService();
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
@@ -88,49 +94,52 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     break;
                 case "get_degree_study":
                     if (result) {
-                        Message = Messages.success_w8_load_data;
+                        loadListProgressBar(1);
                         AppSessionContext.getDataContext().setDegreeStudyList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
+                        progress.cancel();
                     }
                     break;
                 case "get_involvements":
                     if (result) {
-                        {
-                            Message = Messages.success_w8_load_data;
-                            AppSessionContext.getDataContext().setInvolvementsList(LastReponse.getResultat());
-                        }
+                        loadListProgressBar(1);
+                        AppSessionContext.getDataContext().setInvolvementsList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
+                        progress.cancel();
                     }
                     break;
                 case "get_skills":
                     if (result) {
-                        Message = Messages.success_w8_load_data;
+                        loadListProgressBar(1);
                         AppSessionContext.getDataContext().setSkillList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
+                        progress.cancel();
                     }
                     break;
                 case "get_disciplines":
                     if (result) {
-                        Message = Messages.success_w8_load_data;
+                        loadListProgressBar(1);
                         AppSessionContext.getDataContext().setDisciplineList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
+                        progress.cancel();
                     }
                     break;
                 case "get_sections":
                     if (result) {
-                        Message = Messages.success_w8_load_data;
+                        loadListProgressBar(1);
                         AppSessionContext.getDataContext().setSectionList(LastReponse.getResultat());
                     } else {
                         Message += Messages.error_auth;
                         Message += LastReponse.getExceptionText();
+                        progress.cancel();
                     }
                     break;
                 default:
@@ -141,21 +150,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             }
             if (Message.length() > 2)
                 DisplayToast(Message);
-        }/*
-            new AlertDialog.Builder(this)
-                    .setTitle("Action : " + LastReponse.getAction())
-                    .setMessage(Message)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            // Some stuff to do when ok got clicked
-                        }
-                    })
-                    .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            // Some stuff to do when cancel got clicked
-                        }
-                    })
-                    .show();*/
+        }
     }
 
     @Override
@@ -221,21 +216,70 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void loadListsFromWebService() {
+
+        progressValMax = 0;
+
+        if (!AppSessionContext.getDataContext().involvementDL_OK)
+            progressValMax++;
+
+        if (!AppSessionContext.getDataContext().sectionDL_OK)
+            progressValMax++;
+
+        if (!AppSessionContext.getDataContext().skillLDL_OK)
+            progressValMax++;
+
+        if (!AppSessionContext.getDataContext().degreeStudyDL_OK)
+            progressValMax++;
+
+        if (!AppSessionContext.getDataContext().disciplineDL_OK)
+            progressValMax++;
+
+
+        loadListProgressBar(0);
         Web_Service_Controlleur wb_thread;
-        wb_thread = new Web_Service_Controlleur(this, getAction("get_sections"));
-        wb_thread.execute();
 
-        wb_thread = new Web_Service_Controlleur(this, getAction("get_disciplines"));
-        wb_thread.execute();
+        if (!AppSessionContext.getDataContext().sectionDL_OK) {
+            wb_thread = new Web_Service_Controlleur(this, getAction("get_sections"));
+            wb_thread.execute();
+        }
 
-        wb_thread = new Web_Service_Controlleur(this, getAction("get_involvements"));
-        wb_thread.execute();
+        if (!AppSessionContext.getDataContext().disciplineDL_OK) {
+            wb_thread = new Web_Service_Controlleur(this, getAction("get_disciplines"));
+            wb_thread.execute();
+        }
+        if (!AppSessionContext.getDataContext().involvementDL_OK) {
+            wb_thread = new Web_Service_Controlleur(this, getAction("get_involvements"));
+            wb_thread.execute();
+        }
+        if (!AppSessionContext.getDataContext().skillLDL_OK) {
+            wb_thread = new Web_Service_Controlleur(this, getAction("get_skills"));
+            wb_thread.execute();
+        }
+        if (!AppSessionContext.getDataContext().degreeStudyDL_OK) {
+            wb_thread = new Web_Service_Controlleur(this, getAction("get_degree_study"));
+            wb_thread.execute();
+        }
+    }
 
-        wb_thread = new Web_Service_Controlleur(this, getAction("get_skills"));
-        wb_thread.execute();
-
-        wb_thread = new Web_Service_Controlleur(this, getAction("get_degree_study"));
-        wb_thread.execute();
+    public void loadListProgressBar(int progressJump) {
+        if (progressValMax > 0) {
+            if (progressJump == 0) {
+                progressVal = 0;
+                progress = new ProgressDialog(this);
+                progress.setMessage(Messages.success_w8_load_data);
+                progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progress.setMax(progressValMax);
+                progress.setProgress(progressVal);
+                progress.show();
+            } else {
+                progressVal++;
+                progress.setProgress(progressVal);
+            }
+            if (progressVal >= progressValMax) {
+                progress.cancel();
+                progressValMax = 0;
+            }
+        }
 
     }
 

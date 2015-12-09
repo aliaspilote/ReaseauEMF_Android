@@ -118,17 +118,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:elevation="10dp"
-                android:orientation="horizontal"
-                >
+                android:orientation="vertical">
 
-                <Button
-                    style="@style/style_btn_registration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:elevation="150dp"
-                    android:onClick="OnRegisterClick" />
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="1dp"
+                    android:onClick="OnRegisterClick"
+                    android:src="@drawable/ic_add_user" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

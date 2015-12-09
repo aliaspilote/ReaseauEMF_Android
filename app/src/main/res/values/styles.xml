@@ -130,11 +130,6 @@
         <item name="android:text">@string/lbl_direct</item>
     </style>
 
-    <style name="style_btn_registration" parent="AppTheme">
-        <item name="android:padding">25dp</item>
-        <item name="android:text">@string/lbl_register</item>
-        <item name="android:textSize">25sp</item>
-    </style>
 
     <style name="lbl_style_legend_error" parent="AppTheme">
         <item name="android:textColor">@android:color/holo_red_light</item>

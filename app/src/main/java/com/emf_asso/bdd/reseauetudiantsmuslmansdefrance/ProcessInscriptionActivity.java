@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
@@ -142,13 +141,17 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 case "add_user":
                     TextView twResult = (TextView) findViewById(R.id.lbl_ins5_legend_error);
                     twResult.setText("Résultats :\n");
-                    if (result)
+                    if (result) {
                         Message += Messages.error_addUser_success;
-                    else if (tempResultBool.contentEquals("isExisting"))
+                        CloseInscription();
+                    } else if (tempResultBool.contentEquals("isExisting")) {
                         Message += Messages.error_is_Existing;
-                    else
+                        twResult.setText(Message);
+                    }
+                    else {
                         Message = twError.getText() + LastReponse.getExceptionText();
-                    twResult.setText(Message);
+                        twResult.setText(Message);
+                    }
                     break;
                 case "try":
                     TextView TryResult = (TextView) findViewById(R.id.lbl_ins5_legend_error);
@@ -165,7 +168,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                     break;
             }
             if (Message.length() > 2)
-                DisplayToast(Message);
+                DisplayToast(Message, 3000);
         }
     }
 
@@ -181,20 +184,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             gotoCursusActivity();
         } else {
             if (AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES) != "") {
-                new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES))
-                        .setPositiveButton(Messages.error_continu, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                // Some stuff to do when ok got clicked
-                                hideViewByNum(current_NUM_PAGES);
-                                current_NUM_PAGES++;
-                                displayViewByNum(current_NUM_PAGES);
-                            }
-                        }).setNegativeButton(Messages.error_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        //*Some stuff to do when cancel got clicked */
-                    }
-                })
-                        .show();
+                DisplayToast(AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES));
             } else {
                 hideViewByNum(current_NUM_PAGES);
                 current_NUM_PAGES++;
@@ -226,6 +216,11 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, FormBodyManager.addUser( AppCtx.getServiceProcessInscription().getInscription().getUser()));
         wb_thread.execute();
+    }
+
+    public void CloseInscription() {
+        AppCtx.getServiceProcessInscription().setOnGoingInscr(false);
+        gotoMainActivity();
     }
 
     public void OnCancelInscrption(View view) {
@@ -583,3 +578,16 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
 
 }
+/*
+new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES))
+                        .setPositiveButton(Messages.error_continu, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                // Some stuff to do when ok got clicked
+                                hideViewByNum(current_NUM_PAGES);
+                                current_NUM_PAGES++;
+                                displayViewByNum(current_NUM_PAGES);
+                            }
+                        }).setNegativeButton(Messages.error_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {}})
+                    .show();
+ */

@@ -5,7 +5,6 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
-import com.google.gson.Gson;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.RequestBody;
 
@@ -18,9 +17,15 @@ public class FormBodyManager {
 
     public static java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateMysqlFormat);
 
-    private static String deuxPts = ":";
-    private static Character quotes = '"';
-    private static String virgule = ",";
+    public static RequestBody get_user(String mail, String token) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", "get_user")
+                .add("mail", mail)
+                .add("token", token)
+                .build();
+        return formBody;
+
+    }
 
     public static RequestBody checkmail(String mail) {
         RequestBody formBody = new FormEncodingBuilder()
@@ -31,11 +36,6 @@ public class FormBodyManager {
     }
 
     public static RequestBody addUser(UserMember user) {
-
-        Gson gson = new Gson();
-        //gson.toJson
-
-        //RequestBody formBody = new FormEncodingBuilder()
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "add_user")
                 .add("mail", user.getEmail() + "")
@@ -49,16 +49,11 @@ public class FormBodyManager {
                 .add("birth_date", (user.getBirth_date() != null ? sdf.format(user.getBirth_date()) : ""))
                 .add("registration_date", (user.getBirth_date() != null ? sdf.format(user.getRegistration_date()) : ""))
                 .add("involvement", (user.getInvolvement() != null ? user.getInvolvement().getLabel() : ""));
-
         formBody = addCursusToFormBody(user.getCurriculum(), formBody);
         formBody = addSkillsToFormBody(user.getSkills(), formBody);
-
         //.add("civility", user.getCivility() + "") à ajouter dans le formulaire
-        //.add("dicipline", user.getDicipline().getDiscipline_id()) Disciple n'est pas implémanté ici mais dans les cursus
-        //.add("niveau", "")Implémanté dans le cursus
         return formBody.build();
     }
-
     public static RequestBody auth(String mail, String password) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "auth")
@@ -67,14 +62,12 @@ public class FormBodyManager {
                 .build();
         return formBody;
     }
-
     public static RequestBody getAction(String actionName) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", actionName)
                 .build();
         return formBody;
     }
-
     private static FormEncodingBuilder addCursusToFormBody(List<Curriculum> listCursus, FormEncodingBuilder form) {
         if (listCursus != null) {
             form.add("cursus_count", listCursus.size() + "");
@@ -94,14 +87,6 @@ public class FormBodyManager {
             form.add("cursus_count", "0");
         return form;
     }
-
-
-    private static String listContactPreferenceTojson(ContactPreference contectPreference) {
-        String ContactPreferenceJson = "";
-
-        return ContactPreferenceJson.replace("\\", "");
-    }
-
     private static FormEncodingBuilder addSkillsToFormBody(List<Skill> listSkills, FormEncodingBuilder form) {
         if (listSkills != null) {
             form.add("skills_count",listSkills.size()+"" );
@@ -113,5 +98,11 @@ public class FormBodyManager {
         } else
             form.add("skills_count", "0");
         return form;
+    }
+
+    private static String listContactPreferenceTojson(ContactPreference contectPreference) {
+        String ContactPreferenceJson = "";
+
+        return ContactPreferenceJson.replace("\\", "");
     }
 }

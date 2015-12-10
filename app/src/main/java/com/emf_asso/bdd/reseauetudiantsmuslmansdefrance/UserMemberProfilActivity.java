@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,11 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +44,7 @@ import java.util.List;
 public class UserMemberProfilActivity extends AppCompatActivity {
 
     public int Current_Position = -1;
+    public SessionWsService AppCtx;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -68,6 +73,21 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (intent.getSerializableExtra("AppSessionContext") != null)
+            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+        if (bundle != null)
+            if (bundle.getSerializable("AppSessionContext") != null)
+                AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
+        if (AppCtx == null) {
+            DisplayToast(Messages.error_load_profil, 3000);
+            SystemClock.sleep(3000);
+            gotoMainActivity();
+        }
+
+        usermember = AppCtx.getUserMember();
 
         // mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
@@ -216,11 +236,8 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-
                 MenuAction(position);
                 mDrawerLayout.closeDrawers();
-
-
             }
         });
 
@@ -302,11 +319,9 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        Menu untruc = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
@@ -424,5 +439,22 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         linearlayout.addView(Value);
     }
 
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
 
+    public void DisplayToast(String text) {
+        DisplayToast(text, 0);
+    }
+
+    public void gotoMainActivity() {
+        Intent intent = new Intent(context, MainActivity.class);
+        //Bundle bundle = new Bundle();
+        //bundle.putSerializable("AppSessionContext", AppCtx);
+        //intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
 }

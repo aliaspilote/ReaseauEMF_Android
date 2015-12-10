@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.auth;
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.getAction;
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_user;
 
 public class MainActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
@@ -74,6 +75,18 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
             // code personaliser pour cette activité
             switch (LastReponse.Action) {
+                case "get_user":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                            //Message += Messages.error_is_Existing;
+                            //startProfileActivity();
+                            Message += LastReponse.getResultat().toString();
+                        }
+                        else
+                            Message += Messages.error_load_profil;
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
                 case "check_mail":
                     if (result) {
                         if ((LastReponse.getResultat().get("isExisting").toString().contentEquals("true")))
@@ -181,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         return ((EditText) findViewById(id_editText)).getText().toString();
     }
 
-    public void OnConnect(View view) {
+    public void OnTryConnect(View view) {
         String mail = getTextByEditTextId(R.id.editxt_auth_email);
         String mdp = getTextByEditTextId(R.id.editxt_auth_pwd);
 
@@ -197,10 +210,15 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void successAuth(JSONObject obj) {
         JSONObject object = obj;
-        Intent intent = new Intent(context, UsermemberProfileActivity.class);
-
-        Bundle bundle = new Bundle();
         AppSessionContext = new SessionWsService(object);
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
+                this, get_user(AppSessionContext.getUserMember().getEmail(), AppSessionContext.getToken()));
+        wb_thread.execute();
+    }
+
+    public void startProfileActivity() {
+        Intent intent = new Intent(context, UserMemberProfilActivity.class);
+        Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
         context.startActivity(intent);

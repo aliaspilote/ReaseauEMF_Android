@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,7 +59,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:elevation="5dp"
-                    android:onClick="OnConnect" />
+                    android:onClick="OnTryConnect" />
             </LinearLayout>
 
             <CheckBox
@@ -86,7 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -119,19 +122,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:elevation="10dp"
-                android:orientation="vertical">
-
-
+                android:orientation="horizontal">
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="1dp"
                     android:onClick="OnRegisterClick"
-                    android:src="@drawable/ic_add_user" />
+                    android:src="@drawable/ic_action_name2" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:onClick="OnRegisterClick"
+                    android:src="@drawable/ic_action_name3" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+    </ScrollView>
+</RelativeLayout>

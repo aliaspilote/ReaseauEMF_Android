@@ -58,9 +58,9 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     static final int PICK_REQUEST_BackCURSUS = 2;
     private static final int NUM_PAGES = 5;
     public HttpReponse LastReponse = new HttpReponse();
-    public CreateDate birthday_date;
-    public CreateDate start_curriculum_date;
-    public CreateDate end_curriculum_date;
+    public CreateDate default_birthday_date;
+    public CreateDate default_start_curriculum_date;
+    public CreateDate default_end_curriculum_date;
     public java.text.SimpleDateFormat sdfdisplay = new java.text.SimpleDateFormat(DataContext.dateDisplayFormat);
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -464,18 +464,18 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     }
     public void onChooseBirthday(View v) {
-        showDate(birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);
+        showDate(default_birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);
 
     }
 
 
     public void onChooseCurriculumDateBegin(View v) {
-        showDate(start_curriculum_date, R.id.icon_choose_curriculumDateBegin, R.id.editxt_date_begin);
+        showDate(default_start_curriculum_date, R.id.icon_choose_curriculumDateBegin, R.id.editxt_date_begin);
 
     }
 
     public void onChooseCurriculumDateEnd(View v) {
-        showDate(end_curriculum_date, R.id.icon_choose_birthday, R.id.editxt_date_end);
+        showDate(default_end_curriculum_date, R.id.icon_choose_birthday, R.id.editxt_date_end);
 
     }
 

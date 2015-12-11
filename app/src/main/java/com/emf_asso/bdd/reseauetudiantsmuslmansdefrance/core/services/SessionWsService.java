@@ -24,7 +24,8 @@ public class SessionWsService implements Serializable {
         setIsConnected(false);
     }
 
-    public SessionWsService(JSONObject jsonObject) {
+
+    public void setSession(JSONObject jsonObject) {
         token = (jsonObject.get("token")).toString();
         userMember = new UserMember();
         userMember.setEmail((jsonObject.get("mail")).toString());

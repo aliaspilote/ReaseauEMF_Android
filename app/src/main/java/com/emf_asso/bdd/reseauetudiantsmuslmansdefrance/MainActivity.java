@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             //Message += Messages.error_is_Existing;
-                            //startProfileActivity();
+                            //startProfileActivity(LastReponse.getResultat());
                             Message += LastReponse.getResultat().toString();
                         }
                         else
@@ -210,13 +210,14 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void successAuth(JSONObject obj) {
         JSONObject object = obj;
-        AppSessionContext = new SessionWsService(object);
+        AppSessionContext.setSession(object);
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, get_user(AppSessionContext.getUserMember().getEmail(), AppSessionContext.getToken()));
         wb_thread.execute();
     }
 
-    public void startProfileActivity() {
+    public void startProfileActivity(JSONObject obj) {
+        AppSessionContext.setUser_From_DB(obj);
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);

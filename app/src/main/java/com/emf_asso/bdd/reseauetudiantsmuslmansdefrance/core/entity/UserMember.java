@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +48,8 @@ public class UserMember implements Serializable {
         status = new ContactPreference();
         involvement = new Involvement();
         section = new Section();
+        curriculum = new ArrayList<>();
+        skills = new ArrayList<Skill>();
     }
 
     public UserMember(String name,

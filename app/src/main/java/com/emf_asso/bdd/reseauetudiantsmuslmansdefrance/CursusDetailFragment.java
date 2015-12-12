@@ -64,18 +64,17 @@ public class CursusDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cursus_detail, container, false);
         ListViewInit.loadListStaticCursus_View(rootView, getActivity(), null);
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.getLabel());
             ((TextView) rootView.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.getEstablishment());
-            // TODO placé un object MAP dans la classe Discipline entre id_DB et id_Spinner
-            //((Spinner) rootView.findViewById(R.id.spinner_discipline)).setSelection(mItem.getDiscipline().getDiscipline_id());
-            ((Spinner) rootView.findViewById(R.id.spinner_degree_study)).setSelection(mItem.getDegree().getDegree_id());
+            ((Spinner) rootView.findViewById(R.id.spinner_discipline)).
+                    setSelection(ListViewInit.adapter_discipline.getPosition(mItem.getDiscipline()));
+            ((Spinner) rootView.findViewById(R.id.spinner_degree_study)).
+                    setSelection(ListViewInit.adapter_degree_study.getPosition(mItem.getDegree()));
             ((TextView) rootView.findViewById(R.id.editxt_date_begin)).setText(sdf.format(mItem.getStart_date()));
             ((TextView) rootView.findViewById(R.id.editxt_date_end)).setText(sdf.format(mItem.getEnd_date()));
             ((TextView) rootView.findViewById(R.id.cursus_editxt_city_study)).setText(mItem.getCity());
         }
-
         return rootView;
     }
 }

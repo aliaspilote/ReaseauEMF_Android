@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             //Message += Messages.error_is_Existing;
-                            //startProfileActivity(LastReponse.getResultat());
+                            //AppSessionContext.setUser_From_DB(LastReponse.getResultat());
+                            startProfileActivity(LastReponse.getResultat());
                             Message += LastReponse.getResultat().toString();
                         }
                         else
@@ -217,6 +218,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void startProfileActivity(JSONObject obj) {
+        AppSessionContext.resetLocationAllView();
+        AppSessionContext.inProfileView = true;
         AppSessionContext.setUser_From_DB(obj);
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();
@@ -226,8 +229,9 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void OnRegisterClick(View view) {
+        AppSessionContext.resetLocationAllView();
+        AppSessionContext.inProssInscrView = true;
         Intent intent = new Intent(context, ProcessInscriptionActivity.class);
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
@@ -235,9 +239,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void loadListsFromWebService() {
-
         progressValMax = 0;
-
         if (!AppSessionContext.getDataContext().involvementDL_OK)
             progressValMax++;
 
@@ -252,7 +254,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
         if (!AppSessionContext.getDataContext().disciplineDL_OK)
             progressValMax++;
-
 
         loadListProgressBar(0);
         Web_Service_Controlleur wb_thread;

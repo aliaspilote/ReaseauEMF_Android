@@ -116,7 +116,10 @@ public class CursusListActivity extends AppCompatActivity
     }
 
     public void gotoProcessInscrActivity(int resutlInt) {
-        AppSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
+        if (AppSessionContext.inProssInscrView)
+            AppSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
+        if (AppSessionContext.inProfileView)
+            AppSessionContext.getUserMember().setCursuses(CursusContent.ITEMS);
         Intent intent = new Intent();
         intent.putExtra("Result", resutlInt);
         intent.putExtra("AppSessionContext", AppSessionContext);

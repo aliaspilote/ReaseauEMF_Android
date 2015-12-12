@@ -64,7 +64,7 @@ public class DataContext implements Serializable {
                             ((JSONObject) item).get("label").toString(),
                             1,
                             //Integer.parseInt(((JSONObject) item).get("order").toString()),
-                            Integer.parseInt(((JSONObject) item).get("degree_id").toString()))
+                            ((JSONObject) item).get("degree_id").toString())
             );
         }
         if (degreeStudyList.size() > 0)
@@ -114,7 +114,6 @@ public class DataContext implements Serializable {
     public void setSectionList(JSONObject obj) {
         String count = obj.get("count").toString();
         int c = Integer.parseInt(count);
-
         sectionList = new ArrayList<>();
         Object resultJSON = obj.get("list");
         Object item = "";
@@ -130,4 +129,118 @@ public class DataContext implements Serializable {
         if (sectionList.size() > 0)
             sectionDL_OK = true;
     }
+
+    public Section getSectionById(String id) {
+        for (Section s : sectionList) {
+            if (id.contentEquals(s.getSection_id()))
+                return s;
+        }
+        return null;
+    }
+
+    public Involvement getInvolvementById(String id) {
+        for (Involvement v : involvementsList) {
+            if (id.contentEquals(v.getInvolvement_id()))
+                return v;
+        }
+        return null;
+    }
+
+    public DegreeStudy getDegreeStudyById(String id) {
+        for (DegreeStudy ds : degreeStudyList) {
+            if (id.contentEquals(ds.getDegree_id()))
+                return ds;
+        }
+        return null;
+    }
+
+    public Discipline getDisciplineById(String id) {
+        for (Discipline d : disciplineList) {
+            if (id.contentEquals(d.getDiscipline_id()))
+                return d;
+        }
+        return null;
+    }
+
+    public Skill getSkillById(String id) {
+        for (Skill s : skillList) {
+            if (id.contentEquals(s.getSkill_id()))
+                return s;
+        }
+        return null;
+    }
+
+    public Section getSectionByLabel(String label) {
+        for (Section s : sectionList) {
+            if (label.contentEquals(s.getLabel()))
+                return s;
+        }
+        return null;
+    }
+
+    public Involvement getInvolvementByLabel(String label) {
+        for (Involvement v : involvementsList) {
+            if (label.contentEquals(v.getLabel()))
+                return v;
+        }
+        return null;
+    }
+
+    public DegreeStudy getDegreeStudyByLabel(String label) {
+        for (DegreeStudy ds : degreeStudyList) {
+            if (label.contentEquals(ds.getLabel()))
+                return ds;
+        }
+        return null;
+    }
+
+    public Discipline getDisciplineByLabel(String label) {
+        for (Discipline d : disciplineList) {
+            if (label.contentEquals(d.getLabel()))
+                return d;
+        }
+        return null;
+    }
+
+    public int getPositionSectionById(String id) {
+        int pos = 0;
+        for (Section s : sectionList) {
+            if (id.contentEquals(s.getSection_id()))
+                return pos;
+            pos++;
+        }
+        return 0;
+    }
+
+    public int getPositionDisciplineById(String id) {
+        int pos = 0;
+        for (Discipline d : disciplineList) {
+            if (id.contentEquals(d.getDiscipline_id()))
+                return pos;
+            pos++;
+        }
+        return 0;
+    }
+
+    public int getPositionInvolvementById(String id) {
+        int pos = 0;
+        for (Involvement v : involvementsList) {
+            if (id.contentEquals(v.getInvolvement_id()))
+                return pos;
+            pos++;
+        }
+        return 0;
+    }
+
+    public int getPositionDegreeStudyById(String id) {
+        int pos = 0;
+        for (DegreeStudy ds : degreeStudyList) {
+            if (id.contentEquals(ds.getDegree_id()))
+                return pos;
+            pos++;
+        }
+        return 0;
+    }
+    
+
 }

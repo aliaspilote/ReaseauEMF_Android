@@ -25,17 +25,13 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by taha on 24/11/2015.
@@ -86,55 +82,20 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             SystemClock.sleep(3000);
             gotoMainActivity();
         }
-
-        usermember = AppCtx.getUserMember();
-
+        setUsermember(AppCtx.getUserMember());
         // mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-
         setupDrawer();
-
-
         ImageListener();
 
-        // juste pour le test
-        fillUserMember();
-        // fin test
-
         CreateProfil();
-
         fillInfoPerso();
         //mDrawerToggle.onDrawerOpened(mDrawerLayout);
-
         mDrawerLayout.openDrawer(GravityCompat.START);
-
-    }
-
-    public void fillUserMember() {
-        UserMember usertemp = new UserMember();
-        usertemp.setCity("Fes");
-        usertemp.setFirstname("Taha");
-        usertemp.setName("Merrika");
-        usertemp.setPhone("9999999999");
-        usertemp.setBirth_date(new Date(1991, 06, 01));
-        Section sec = new Section();
-        sec.setLabel("Belfort");
-        usertemp.setSection(sec);
-        Involvement inv = new Involvement();
-        inv.setLabel("Actif");
-        usertemp.setInvolvement(inv);
-        List<Skill> listeskills = new ArrayList<Skill>();
-        listeskills.add(new Skill("info", "info", "1"));
-        usertemp.setSkills(listeskills);
-        usertemp.setZip_code("90000");
-
-        setUsermember(usertemp);
     }
 
     public void fillInfoPerso() {
@@ -157,22 +118,17 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
         if (usermember.getPhone() != null)
             fillInfoPersoByStep(usermember.getPhone(), R.id.editxt_upd_phone);
-
-
     }
 
     public void fillInfoPersoByStep(String value, int content) {
         TextView textview = (TextView) findViewById(content);
         textview.setText(value);
-
     }
-
 
     private void setupDrawer() {
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
-
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -187,19 +143,14 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
     }
-
 
     private void addDrawerItems() {
         maListViewPerso = (ListView) findViewById(R.id.navList);
-
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
-
         map = new HashMap<String, String>();
         map.put("title", "Informations Personnelles");
         map.put("img", String.valueOf(R.drawable.ic_info_perso));
@@ -225,11 +176,9 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         map.put("img", String.valueOf(R.drawable.ic_disconnect));
         listItem.add(map);
 
-
         SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.listview_item,
                 new String[]{"img", "title"}, new int[]{R.id.img_menu_item, R.id.title_menu_item});
         maListViewPerso.setAdapter(mSchedule);
-
 
         maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -240,11 +189,9 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
             }
         });
-
     }
 
     public void InitStubs() {
-
         ((ViewStub) findViewById(R.id.stub_pup)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup0)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup1)).inflate();
@@ -253,7 +200,6 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
-
     }
 
     public void hideStubByPosition(int position) {
@@ -270,8 +216,6 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             case 2:
                 findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
                 break;
-
-
             default:
 
                 break;
@@ -289,8 +233,6 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             case 2:
                 findViewById(R.id.stub_Inflated_pup2).setVisibility(View.VISIBLE);
                 break;
-
-
             default:
                 // findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
                 break;
@@ -298,26 +240,10 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
     public void MenuAction(int position) {
-       /* if(Current_Position==-1)
-        {
-            hideStubByPosition(0);
-
-        }
-        ListView list=(ListView)findViewById(R.id.navList);
-        int count=list.getAdapter().getCount();
-        for(int i=0;i<count;i++)
-        {
-            if(i!=position)
-            hideStubByPosition(position);
-        }*/
         hideStubByPosition(Current_Position);
         displayStubByPosition(position);
         Current_Position = position;
-        // Toast.makeText(getApplicationContext(), " number of Item" + position, Toast.LENGTH_LONG).show();
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -333,16 +259,13 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about_emf) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -404,24 +327,18 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         if (usermember.getSkills() != null) {
             String listString = "";
             int i = 0;
-
             for (Skill s : usermember.getSkills()) {
                 listString += s;
                 i++;
                 if (i < usermember.getSkills().size()) {
                     listString += ",\n";
                 }
-
             }
-
-
             CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
         }
-
         // il faut mettre une liste
         if (usermember.getStatus() != null)
             CreateProfilByStep("Contact pour :", usermember.getStatus().toString(), R.id.content_for_contact);
-
 
     }
 

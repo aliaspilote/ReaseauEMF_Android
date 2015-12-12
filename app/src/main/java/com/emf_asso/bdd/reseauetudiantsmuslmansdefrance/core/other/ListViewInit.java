@@ -30,6 +30,11 @@ public class ListViewInit {
     public static List<Discipline> disciplineList;
     public static List<Skill> skillList;
     public static List<Curriculum> cursusList;
+    public static ArrayAdapter<Involvement> adapter_involvement;
+    public static ArrayAdapter<Section> adapter_section;
+    public static ArrayAdapter<Skill> adapter_skill;
+    public static ArrayAdapter<DegreeStudy> adapter_degree_study;
+    public static ArrayAdapter<Discipline> adapter_discipline;
 
     public ListViewInit() {
 
@@ -70,11 +75,11 @@ public class ListViewInit {
         ListView listViewSkill = (ListView) ctx.findViewById(R.id.listview_skill);
 
 
-        ArrayAdapter<Involvement> adapter_involvement =
+        adapter_involvement =
                 new ArrayAdapter<Involvement>(ctx, android.R.layout.simple_list_item_1, involvementsList);
-        ArrayAdapter<Section> adapter_section =
+        adapter_section =
                 new ArrayAdapter<Section>(ctx, android.R.layout.simple_list_item_1, sectionList);
-        ArrayAdapter<Skill> adapter_skill =
+        adapter_skill =
                 new ArrayAdapter<Skill>(ctx, android.R.layout.simple_list_item_multiple_choice, skillList);
 
         listViewInvolvement.setAdapter(adapter_involvement);
@@ -83,6 +88,7 @@ public class ListViewInit {
         listViewSkill.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
+    //adapter.getPosition(compareValue)
     public static void loadListStaticCursus_View(View view, Activity ctx, SessionWsService appSessionContext) {
         // TO DO For test :
         /*if (appSessionContext != null) {
@@ -94,8 +100,8 @@ public class ListViewInit {
             Spinner listViewDegreeStudy = (Spinner) view.findViewById(R.id.spinner_degree_study);
             Spinner listViewDiscipline = (Spinner) view.findViewById(R.id.spinner_discipline);
 
-            ArrayAdapter<DegreeStudy> adapter_degree_study = new ArrayAdapter<DegreeStudy>(ctx, android.R.layout.simple_list_item_1, degreeStudyList);
-            ArrayAdapter<Discipline> adapter_discipline = new ArrayAdapter<Discipline>(ctx, android.R.layout.simple_list_item_1, disciplineList);
+            adapter_degree_study = new ArrayAdapter<DegreeStudy>(ctx, android.R.layout.simple_list_item_1, degreeStudyList);
+            adapter_discipline = new ArrayAdapter<Discipline>(ctx, android.R.layout.simple_list_item_1, disciplineList);
 
             listViewDegreeStudy.setAdapter(adapter_degree_study);
             listViewDiscipline.setAdapter(adapter_discipline);

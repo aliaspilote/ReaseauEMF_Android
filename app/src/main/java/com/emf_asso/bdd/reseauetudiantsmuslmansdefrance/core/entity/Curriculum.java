@@ -29,7 +29,7 @@ public class Curriculum implements Serializable {
         this((new DateTime()).toString(), label, new Date(), new Date(),
                 new Discipline("", "", "1")
                 , "", "",
-                new DegreeStudy("", 1, 1));
+                new DegreeStudy("", 1, "1"));
     }
 
     public Curriculum(String label, Date start_date, Date end_date,

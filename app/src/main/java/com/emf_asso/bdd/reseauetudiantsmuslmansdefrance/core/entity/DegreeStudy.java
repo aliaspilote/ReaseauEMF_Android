@@ -9,15 +9,15 @@ public class DegreeStudy implements Serializable {
 
     private String label;
     private int order;
-    private int degree_id;
+    private String degree_id;
 
     public DegreeStudy() {
         label = "";
         order = 0;
-        degree_id = 0;
+        degree_id = "0";
     }
 
-    public DegreeStudy(String label, int order, int degree_id) {
+    public DegreeStudy(String label, int order, String degree_id) {
         setLabel(label);
         setDegree_id(degree_id);
         setOrder(order);
@@ -43,11 +43,11 @@ public class DegreeStudy implements Serializable {
         this.order = order;
     }
 
-    public int getDegree_id() {
+    public String getDegree_id() {
         return degree_id;
     }
 
-    public void setDegree_id(int degree_id) {
+    public void setDegree_id(String degree_id) {
         this.degree_id = degree_id;
     }
 }

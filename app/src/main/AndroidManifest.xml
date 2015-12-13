@@ -51,6 +51,10 @@
         <activity
             android:name=".SendMessageActivity"
             android:label="@string/Accueil_admin" />
+
+        <activity
+            android:name=".UpdateCurusuListActivity"
+            android:label="@string/Accueil_admin" />
         <activity
             android:name=".CursusDetailActivity"
             android:label="@string/title_cursus_detail"

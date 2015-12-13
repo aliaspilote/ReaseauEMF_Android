@@ -29,8 +29,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_home"
                     android:clickable="true"
-                    android:contextClickable="true"
-                    android:onClick="OnHome" />
+                    android:contextClickable="true" />
 
                 <TextView
                     style="@style/style_app_name"

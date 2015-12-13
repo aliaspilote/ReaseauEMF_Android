@@ -99,6 +99,7 @@
     <string name="lbl_curriculum_value">*******</string>
     <string name="lbl_btn_disable">Désactiver</string>
     <string name="lbl_btn_update">Modifier</string>
+    <string name="title_activity_ldfdetail">Détails</string>
 
     <string-array name="liste_ville">
         <item>Ville</item>

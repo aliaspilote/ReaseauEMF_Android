@@ -134,5 +134,6 @@
     <string name="Accueil_admin">Admin</string>
     <string name="List_managment">Gestion des listes</string>
     <string name="send_message">Envoyer un message</string>
+    <string name="title_activity_ldfdetail">Liste de diffusion</string>
 
 </resources>

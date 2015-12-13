@@ -8,15 +8,13 @@
 
     <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_emflogo_2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppThemeDAB">
-
-    <activity
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
@@ -43,16 +41,16 @@
         <activity
             android:name=".CursusListActivity"
             android:label="@string/title_cursus_list"
-            android:theme="@style/AppThemeDAB"></activity>
+            android:theme="@style/AppThemeDAB" />
         <activity
             android:name=".AdminActivity"
-            android:label="@string/Accueil_admin"></activity>
+            android:label="@string/Accueil_admin" />
         <activity
             android:name=".AdminCrudListActivity"
-            android:label="@string/Accueil_admin"></activity>
+            android:label="@string/Accueil_admin" />
         <activity
             android:name=".SendMessageActivity"
-            android:label="@string/Accueil_admin"></activity>
+            android:label="@string/Accueil_admin" />
         <activity
             android:name=".CursusDetailActivity"
             android:label="@string/title_cursus_detail"
@@ -61,6 +59,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity" />
+        </activity>
+        <activity
+            android:name=".LDFDetailActivity"
+            android:label="@string/title_activity_ldfdetail"
+            android:theme="@style/AppThemeDAB">
         </activity>
     </application>
 

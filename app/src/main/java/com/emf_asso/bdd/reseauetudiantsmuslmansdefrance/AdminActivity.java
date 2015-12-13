@@ -37,7 +37,7 @@ import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
 
-    public int Current_Position = -1;
+    public int Current_Position = 0;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -61,7 +61,7 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        //InitStubs();
+        InitStubs();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -82,10 +82,10 @@ public class AdminActivity extends AppCompatActivity {
         ImageListener();
 
         // juste pour le test
-        // fillUserMember();
+        fillUserMember();
         // fin test
 
-        //CreateProfil();
+        CreateProfil();
 
         //fillInfoPerso();
         //mDrawerToggle.onDrawerOpened(mDrawerLayout);
@@ -178,6 +178,12 @@ public class AdminActivity extends AppCompatActivity {
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
 
+
+        map = new HashMap<String, String>();
+        map.put("title", "Informations Générales");
+        map.put("img", String.valueOf(R.drawable.ic_info_perso));
+        listItem.add(map);
+
         map = new HashMap<String, String>();
         map.put("title", "Informations Personnelles");
         map.put("img", String.valueOf(R.drawable.ic_info_perso));
@@ -243,22 +249,22 @@ public class AdminActivity extends AppCompatActivity {
 
     public void InitStubs() {
 
-        ((ViewStub) findViewById(R.id.stub_pup)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup0)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup1)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup2)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup3)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup4)).inflate();
 
-        findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated_pup3).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated_pup4).setVisibility(View.GONE);
 
     }
 
+
     public void hideStubByPosition(int position) {
         switch (position) {
-            case -1:
-                findViewById(R.id.stub_Inflated_pup).setVisibility(View.GONE);
-                break;
             case 0:
                 findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
                 break;
@@ -268,8 +274,12 @@ public class AdminActivity extends AppCompatActivity {
             case 2:
                 findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
                 break;
-
-
+            case 3:
+                findViewById(R.id.stub_Inflated_pup3).setVisibility(View.GONE);
+                break;
+            case 4:
+                findViewById(R.id.stub_Inflated_pup4).setVisibility(View.GONE);
+                break;
             default:
 
                 break;
@@ -287,7 +297,12 @@ public class AdminActivity extends AppCompatActivity {
             case 2:
                 findViewById(R.id.stub_Inflated_pup2).setVisibility(View.VISIBLE);
                 break;
-
+            case 3:
+                findViewById(R.id.stub_Inflated_pup3).setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                findViewById(R.id.stub_Inflated_pup4).setVisibility(View.VISIBLE);
+                break;
 
             default:
                 // findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
@@ -296,21 +311,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void MenuAction(int position) {
-       /* if(Current_Position==-1)
-        {
-            hideStubByPosition(0);
 
-        }
-        ListView list=(ListView)findViewById(R.id.navList);
-        int count=list.getAdapter().getCount();
-        for(int i=0;i<count;i++)
-        {
-            if(i!=position)
-            hideStubByPosition(position);
-        }*/
-        //hideStubByPosition(Current_Position);
-        //displayStubByPosition(position);
-        //Current_Position = position;
 
         Intent intent;
         switch (position) {
@@ -329,10 +330,9 @@ public class AdminActivity extends AppCompatActivity {
                 context.startActivity(intent);
                 break;
             default:
-                ;
+
         }
 
-        // Toast.makeText(getApplicationContext(), " number of Item" + position, Toast.LENGTH_LONG).show();
 
 
     }

@@ -11,16 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 
 import java.util.ArrayList;
@@ -123,6 +119,10 @@ public class SendMessageActivity extends AppCompatActivity {
         HashMap<String, String> map;
 
         map = new HashMap<String, String>();
+        map.put("title", "Informations Générales");
+        map.put("img", String.valueOf(R.drawable.ic_info_perso));
+        listItem.add(map);
+        map = new HashMap<String, String>();
         map.put("title", "Informations Personnelles");
         map.put("img", String.valueOf(R.drawable.ic_info_perso));
         listItem.add(map);
@@ -185,76 +185,11 @@ public class SendMessageActivity extends AppCompatActivity {
 
     }
 
-    public void InitStubs() {
-
-        ((ViewStub) findViewById(R.id.stub_pup)).inflate();
-        ((ViewStub) findViewById(R.id.stub_pup0)).inflate();
-        ((ViewStub) findViewById(R.id.stub_pup1)).inflate();
-        ((ViewStub) findViewById(R.id.stub_pup2)).inflate();
-
-        findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
-        findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
-        findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
-
-    }
-
-    public void hideStubByPosition(int position) {
-        switch (position) {
-            case -1:
-                findViewById(R.id.stub_Inflated_pup).setVisibility(View.GONE);
-                break;
-            case 0:
-                findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
-                break;
-            case 1:
-                findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
-                break;
-            case 2:
-                findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
-                break;
 
 
-            default:
-
-                break;
-        }
-    }
-
-    public void displayStubByPosition(int position) {
-        switch (position) {
-            case 0:
-                findViewById(R.id.stub_Inflated_pup0).setVisibility(View.VISIBLE);
-                break;
-            case 1:
-                findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                findViewById(R.id.stub_Inflated_pup2).setVisibility(View.VISIBLE);
-                break;
-
-
-            default:
-                // findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
-                break;
-        }
-    }
 
     public void MenuAction(int position) {
-       /* if(Current_Position==-1)
-        {
-            hideStubByPosition(0);
 
-        }
-        ListView list=(ListView)findViewById(R.id.navList);
-        int count=list.getAdapter().getCount();
-        for(int i=0;i<count;i++)
-        {
-            if(i!=position)
-            hideStubByPosition(position);
-        }*/
-        // hideStubByPosition(Current_Position);
-        //  displayStubByPosition(position);
-        // Current_Position = position;
 
         Intent intent;
         switch (position) {
@@ -273,9 +208,8 @@ public class SendMessageActivity extends AppCompatActivity {
                 context.startActivity(intent);
                 break;
             default:
-                ;
+
         }
-        // Toast.makeText(getApplicationContext(), " number of Item" + position, Toast.LENGTH_LONG).show();
 
 
     }
@@ -328,71 +262,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
     }
 
-    public void CreateProfil() {
-        if (usermember.getRegistration_date() != null)
-            CreateProfilByStep("Date d'inscription :", usermember.getRegistration_date().toString(), R.id.content_for_registrationdate);
 
-        if (usermember.getEmail() != null)
-            CreateProfilByStep("Email :", usermember.getEmail(), R.id.content_for_email);
-
-        if (usermember.getName() != null)
-            CreateProfilByStep("Nom :", usermember.getName(), R.id.content_for_name);
-
-        if (usermember.getFirstname() != null)
-            CreateProfilByStep("Prénom :", usermember.getFirstname(), R.id.content_for_firstname);
-
-        if (usermember.getBirth_date() != null)
-            CreateProfilByStep("Date de naissance :", usermember.getBirth_date().toString(), R.id.content_for_birthday);
-
-        if (usermember.getZip_code() != null)
-            CreateProfilByStep("Code Postale :", usermember.getZip_code(), R.id.content_for_zipcode);
-
-        if (usermember.getCity() != null)
-            CreateProfilByStep("Ville :", usermember.getCity(), R.id.content_for_city);
-
-        if (usermember.getInvolvement() != null)
-            CreateProfilByStep("Engagement :", usermember.getInvolvement().toString(), R.id.content_for_involevment);
-
-        if (usermember.getSection() != null)
-            CreateProfilByStep("Section :", usermember.getSection().toString(), R.id.content_for_section);
-
-        if (usermember.getSkills() != null) {
-            String listString = "";
-            int i = 0;
-
-            for (Skill s : usermember.getSkills()) {
-                listString += s;
-                i++;
-                if (i < usermember.getSkills().size()) {
-                    listString += ",\n";
-                }
-
-            }
-
-
-            CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
-        }
-
-        // il faut mettre une liste
-        if (usermember.getStatus() != null)
-            CreateProfilByStep("Contact pour :", usermember.getStatus().toString(), R.id.content_for_contact);
-
-
-    }
-
-    public void CreateProfilByStep(String label, String value, int content) {
-        TextView Label = new TextView(this);
-        Label.setText(label);
-        TextView Value = new TextView(this);
-        Value.setText(value);
-
-        Label.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-        Value.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-
-        LinearLayout linearlayout = (LinearLayout) findViewById(content);
-        linearlayout.addView(Label);
-        linearlayout.addView(Value);
-    }
 
 
 }

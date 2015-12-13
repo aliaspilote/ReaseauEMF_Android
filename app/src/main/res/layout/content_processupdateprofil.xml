@@ -7,32 +7,39 @@
     android:orientation="vertical">
 
     <ViewStub
-        android:id="@+id/stub_pup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inflatedId="@+id/stub_Inflated_pup"
-        android:layout="@layout/content_profil" />
-
-    <ViewStub
         android:id="@+id/stub_pup0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inflatedId="@+id/stub_Inflated_pup0"
-        android:layout="@layout/update_profil_info_perso" />
+        android:layout="@layout/update0" />
 
     <ViewStub
         android:id="@+id/stub_pup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inflatedId="@+id/stub_Inflated_pup1"
-        android:layout="@layout/update_profil_emf_profil" />
+        android:layout="@layout/update1" />
 
     <ViewStub
         android:id="@+id/stub_pup2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inflatedId="@+id/stub_Inflated_pup2"
-        android:layout="@layout/update_profil_change_pwd" />
+        android:layout="@layout/update2" />
+
+    <ViewStub
+        android:id="@+id/stub_pup3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated_pup3"
+        android:layout="@layout/update3" />
+
+    <ViewStub
+        android:id="@+id/stub_pup4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/stub_Inflated_pup4"
+        android:layout="@layout/update4" />
 
 
 </LinearLayout>

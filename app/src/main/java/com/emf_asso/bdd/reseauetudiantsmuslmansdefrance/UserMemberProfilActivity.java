@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
@@ -39,8 +40,9 @@ import java.util.HashMap;
 
 public class UserMemberProfilActivity extends AppCompatActivity {
 
-    public int Current_Position = -1;
+    public int Current_Position = 0;
     public SessionWsService AppCtx;
+    public MenuDrawer menu;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -64,7 +66,10 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usermember_profil);
-        InitStubs();
+
+        menu = new MenuDrawer();
+        menu.InitStubs();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -102,22 +107,22 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
 
         if (usermember.getName() != null)
-            fillInfoPersoByStep(usermember.getName(), R.id.editxt_upd_name);
+            fillInfoPersoByStep(usermember.getName(), R.id.editxt_ins_name);
 
         if (usermember.getFirstname() != null)
-            fillInfoPersoByStep(usermember.getFirstname(), R.id.editxt_upd_firstname);
+            fillInfoPersoByStep(usermember.getFirstname(), R.id.editxt_ins_firstname);
 
         if (usermember.getBirth_date() != null)
-            fillInfoPersoByStep(usermember.getBirth_date().toString(), R.id.editxt_upd_birthday);
+            fillInfoPersoByStep(usermember.getBirth_date().toString(), R.id.editxt_ins_birthday);
 
         if (usermember.getZip_code() != null)
-            fillInfoPersoByStep(usermember.getZip_code(), R.id.editxt_upd_zipcode);
+            fillInfoPersoByStep(usermember.getZip_code(), R.id.editxt_ins_zipcode);
 
         if (usermember.getCity() != null)
-            fillInfoPersoByStep(usermember.getCity(), R.id.editxt_upd_city);
+            fillInfoPersoByStep(usermember.getCity(), R.id.editxt_ins_city);
 
         if (usermember.getPhone() != null)
-            fillInfoPersoByStep(usermember.getPhone(), R.id.editxt_upd_phone);
+            fillInfoPersoByStep(usermember.getPhone(), R.id.editxt_ins_phone);
     }
 
     public void fillInfoPersoByStep(String value, int content) {
@@ -152,12 +157,20 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
         map = new HashMap<String, String>();
+        map.put("title", "Informations Générales");
+        map.put("img", String.valueOf(R.drawable.ic_info_perso));
+        listItem.add(map);
+        map = new HashMap<String, String>();
         map.put("title", "Informations Personnelles");
         map.put("img", String.valueOf(R.drawable.ic_info_perso));
         listItem.add(map);
         map = new HashMap<String, String>();
         map.put("title", "Profil EMF");
         map.put("img", String.valueOf(R.drawable.ic_profil_emf));
+        listItem.add(map);
+        map = new HashMap<String, String>();
+        map.put("title", "Compétences/Talents");
+        map.put("img", String.valueOf(R.drawable.ic_skills));
         listItem.add(map);
         map = new HashMap<String, String>();
         map.put("title", "Changer mot de passe");
@@ -192,21 +205,20 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
     public void InitStubs() {
-        ((ViewStub) findViewById(R.id.stub_pup)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup0)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup1)).inflate();
         ((ViewStub) findViewById(R.id.stub_pup2)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup3)).inflate();
+        ((ViewStub) findViewById(R.id.stub_pup4)).inflate();
 
-        findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup1).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated_pup3).setVisibility(View.GONE);
+        findViewById(R.id.stub_Inflated_pup4).setVisibility(View.GONE);
     }
 
     public void hideStubByPosition(int position) {
         switch (position) {
-            case -1:
-                findViewById(R.id.stub_Inflated_pup).setVisibility(View.GONE);
-                break;
             case 0:
                 findViewById(R.id.stub_Inflated_pup0).setVisibility(View.GONE);
                 break;
@@ -215,6 +227,12 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                 break;
             case 2:
                 findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
+                break;
+            case 3:
+                findViewById(R.id.stub_Inflated_pup3).setVisibility(View.GONE);
+                break;
+            case 4:
+                findViewById(R.id.stub_Inflated_pup4).setVisibility(View.GONE);
                 break;
             default:
 
@@ -233,6 +251,13 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             case 2:
                 findViewById(R.id.stub_Inflated_pup2).setVisibility(View.VISIBLE);
                 break;
+            case 3:
+                findViewById(R.id.stub_Inflated_pup3).setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                findViewById(R.id.stub_Inflated_pup4).setVisibility(View.VISIBLE);
+                break;
+
             default:
                 // findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
                 break;

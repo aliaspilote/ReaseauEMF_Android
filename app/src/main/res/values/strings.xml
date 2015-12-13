@@ -33,7 +33,7 @@
     <string name="lbl_accueil">Accueil</string>
     <string name="lbl_btn_accueil">Accueil</string>
     <string name="lbl_btn_suivant">Suivant</string>
-    <string name="lbl_votre_id">Votre identité</string>
+    <string name="lbl_votre_id">Informations Personnelles</string>
     <string name="lbl_btn_precedent">Précédent</string>
     <string name="lbl_datenaisance">Date de naissance</string>
     <string name="lbl_tel">Téléphone</string>
@@ -134,6 +134,9 @@
     <string name="Accueil_admin">Admin</string>
     <string name="List_managment">Gestion des listes</string>
     <string name="send_message">Envoyer un message</string>
-    <string name="title_activity_ldfdetail">Liste de diffusion</string>
+    <string name="lbl_send_alias">Envoyer en tant que</string>
+    <string name="lbl_destination">Destination</string>
+    <string name="lbl_subject">Objet :</string>
+    <string name="lbl_skill">Compétences/Talents</string>
 
 </resources>

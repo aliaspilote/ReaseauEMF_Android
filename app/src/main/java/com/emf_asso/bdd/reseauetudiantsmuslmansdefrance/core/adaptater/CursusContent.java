@@ -15,6 +15,13 @@ public class CursusContent {
 
     public static Map<String, Curriculum> ITEM_MAP = new HashMap<String, Curriculum>();
 
+    public static void pushCursusList(List<Curriculum> lc) {
+        ITEM_MAP.clear();
+        ITEM_MAP.clear();
+        for (Curriculum c : lc)
+            addItem(c);
+    }
+
     public static void addItem(Curriculum item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.getId(), item);

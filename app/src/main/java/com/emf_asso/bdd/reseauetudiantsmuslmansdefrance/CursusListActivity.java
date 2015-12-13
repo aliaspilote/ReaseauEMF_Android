@@ -75,8 +75,12 @@ public class CursusListActivity extends AppCompatActivity
         }
 
         Intent intent = this.getIntent();
-        if (intent.getSerializableExtra("AppSessionContext") != null)
+        if (intent.getSerializableExtra("AppSessionContext") != null) {
             AppSessionContext = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+           /* if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum()!=null)
+                CursusContent.pushCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
+                */
+        }
     }
 
     /**

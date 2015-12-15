@@ -28,7 +28,6 @@
             android:label="@string/app_name"
             android:launchMode="singleTop" />
         <activity android:name=".UsermemberProfileActivity" />
-        <activity android:name=".AboutEmfActivity" />
         <activity
             android:name=".EmfNetworkActivity"
             android:label="@string/app_name" />
@@ -51,9 +50,8 @@
         <activity
             android:name=".SendMessageActivity"
             android:label="@string/Accueil_admin" />
-
         <activity
-            android:name=".UpdateCurusuListActivity"
+            android:name=".UpdateCursusListActivity"
             android:label="@string/Accueil_admin" />
         <activity
             android:name=".CursusDetailActivity"
@@ -68,7 +66,11 @@
             android:name=".LDFDetailActivity"
             android:label="@string/title_activity_ldfdetail"
             android:theme="@style/AppThemeDAB">
+
         </activity>
+        <activity
+            android:name=".AboutEmfActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

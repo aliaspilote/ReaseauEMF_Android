@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AdminActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.SendMessageActivity;
@@ -64,7 +65,7 @@ public class MenuDrawerAdmin extends AppCompatActivity {
         HashMap<String, String> map;
         map = new HashMap<String, String>();
         map.put("title", "Informations Générales");
-        map.put("img", String.valueOf(R.drawable.ic_info_perso));
+        map.put("img", String.valueOf(R.drawable.ic_info_g));
         listItem.add(map);
 
         map = new HashMap<String, String>();
@@ -106,6 +107,10 @@ public class MenuDrawerAdmin extends AppCompatActivity {
         map = new HashMap<String, String>();
         map.put("title", "Gestion des admins");
         map.put("img", String.valueOf(R.drawable.ic_admin));
+        listItem.add(map);
+        map = new HashMap<String, String>();
+        map.put("title", "A propos");
+        map.put("img", String.valueOf(R.drawable.ic_propos));
         listItem.add(map);
 
         map = new HashMap<String, String>();
@@ -180,7 +185,7 @@ public class MenuDrawerAdmin extends AppCompatActivity {
         }
     }
 
-    public void startActivityByPosition(int position, int Current_Position) {
+    public void startActivityByPosition(int position) {
         Intent intent;
         Bundle b;
         switch (position) {
@@ -224,6 +229,13 @@ public class MenuDrawerAdmin extends AppCompatActivity {
                 intent.putExtras(b);
                 this.context.startActivity(intent);
                 break;
+            case 11:
+                intent = new Intent(this.context, AboutEmfActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                break;
 
             default:
                 intent = new Intent(this.context, AdminActivity.class);
@@ -239,7 +251,7 @@ public class MenuDrawerAdmin extends AppCompatActivity {
             hideStubByPosition(Current_Position);
             displayStubByPosition(position);
         } else
-            startActivityByPosition(position, Current_Position);
+            startActivityByPosition(position);
 
         DisplayToast("Current = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
         Current_Position = position;

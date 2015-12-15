@@ -1,4 +1,5 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +20,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
@@ -61,13 +66,17 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usermember_profil);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        int a = bundle.getInt("p");
+        Current_Position = a;
         menu = new MenuDrawer(this, Current_Position);
         InitStubs();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
+        //Intent intent = this.getIntent();
+        //Bundle bundle = intent.getExtras();
 
         if (intent.getSerializableExtra("AppSessionContext") != null)
             AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
@@ -94,6 +103,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         ImageListener();
         CreateProfil();
         fillInfoPerso();
+        //selectSpinner();
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
@@ -293,5 +303,47 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     public void gotoMainActivity() {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+    }
+
+    public void selectSpinner() {
+        selectInvolvement();
+        selectSection();
+
+    }
+
+    public void selectInvolvement() {
+        Spinner mSpinner = (Spinner) findViewById(R.id.spinner_involvement);
+        Involvement in1 = AppCtx.getUserMember().getInvolvement();
+        Involvement in2;
+
+
+        if (in1 != null) {
+            String compareValue = in1.getInvolvement_id();
+            SpinnerAdapter adapter = mSpinner.getAdapter();
+            for (int i = 0; i < adapter.getCount(); i++) {
+                in2 = (Involvement) adapter.getItem(i);
+                if (in2.getInvolvement_id() == compareValue) {
+                    mSpinner.setSelection(i);
+                }
+            }
+        }
+    }
+
+    public void selectSection() {
+        Spinner mSpinner = (Spinner) findViewById(R.id.spinner_section);
+        Section sec1 = AppCtx.getUserMember().getSection();
+        Section sec2;
+
+
+        if (sec1 != null) {
+            String compareValue = sec1.getSection_id();
+            SpinnerAdapter adapter = mSpinner.getAdapter();
+            for (int i = 0; i < adapter.getCount(); i++) {
+                sec2 = (Section) adapter.getItem(i);
+                if (sec2.getSection_id() == compareValue) {
+                    mSpinner.setSelection(i);
+                }
+            }
+        }
     }
 }

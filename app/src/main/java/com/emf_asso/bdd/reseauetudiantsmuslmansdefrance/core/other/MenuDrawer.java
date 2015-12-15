@@ -3,6 +3,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,8 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UpdateCurusuListActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UpdateCursusListActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UserMemberProfilActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
@@ -57,7 +61,7 @@ public class MenuDrawer extends AppCompatActivity {
         HashMap<String, String> map;
         map = new HashMap<String, String>();
         map.put("title", "Informations Générales");
-        map.put("img", String.valueOf(R.drawable.ic_info_perso));
+        map.put("img", String.valueOf(R.drawable.ic_info_g));
         listItem.add(map);
         map = new HashMap<String, String>();
         map.put("title", "Informations Personnelles");
@@ -86,7 +90,7 @@ public class MenuDrawer extends AppCompatActivity {
 
         map = new HashMap<String, String>();
         map.put("title", "A propos");
-        map.put("img", String.valueOf(R.drawable.ic_disable_profil));
+        map.put("img", String.valueOf(R.drawable.ic_propos));
         listItem.add(map);
 
         map = new HashMap<String, String>();
@@ -127,12 +131,7 @@ public class MenuDrawer extends AppCompatActivity {
             case 4:
                 this.activity.findViewById(R.id.stub_Inflated_pup4).setVisibility(View.GONE);
                 break;
-            case 5:
-                Intent intent = new Intent(context, UpdateCurusuListActivity.class);
-                // context.startActivity(intent);
-
             default:
-
                 break;
         }
     }
@@ -154,17 +153,80 @@ public class MenuDrawer extends AppCompatActivity {
             case 4:
                 this.activity.findViewById(R.id.stub_Inflated_pup4).setVisibility(View.VISIBLE);
                 break;
-
             default:
-                // findViewById(R.id.stub_Inflated_pup1).setVisibility(View.VISIBLE);
                 break;
         }
     }
 
+    public void startActivityByPosition(int position) {
+        Intent intent;
+        Bundle b;
+        switch (position) {
+            case 0:
+                intent = new Intent(this.context, UserMemberProfilActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                break;
+            case 1:
+                intent = new Intent(this.context, UserMemberProfilActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+
+
+                break;
+            case 2:
+                intent = new Intent(this.context, UserMemberProfilActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+
+                break;
+            case 3:
+                intent = new Intent(this.context, UserMemberProfilActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                this.hideStubByPosition(0);
+                displayStubByPosition(3);
+                break;
+            case 5:
+                intent = new Intent(this.context, UpdateCursusListActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                break;
+            case 7:
+                intent = new Intent(this.context, AboutEmfActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                break;
+
+            default:
+                intent = new Intent(this.context, MainActivity.class);
+                this.context.startActivity(intent);
+                break;
+        }
+
+    }
+
 
     public void MenuAction(int position) {
-        hideStubByPosition(Current_Position);
-        displayStubByPosition(position);
+        if (Current_Position < 5 && position < 5) {
+            hideStubByPosition(Current_Position);
+            displayStubByPosition(position);
+        } else
+            startActivityByPosition(position);
+
+        // DisplayToast("Current = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
         Current_Position = position;
     }
 

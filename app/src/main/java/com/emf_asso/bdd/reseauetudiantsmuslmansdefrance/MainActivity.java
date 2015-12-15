@@ -223,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         AppSessionContext.setUser_From_DB(obj);
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putInt("p", -1);
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
         context.startActivity(intent);

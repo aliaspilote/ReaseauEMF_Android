@@ -90,7 +90,6 @@ public class AdminActivity extends AppCompatActivity {
             AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
             intentExtrat = true;
         }
-
         if (bundle != null) {
             if (bundle.getSerializable("AppSessionContext") != null) {
                 AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");

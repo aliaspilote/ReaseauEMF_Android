@@ -43,7 +43,7 @@ public class Menu_Control extends AppCompatActivity {
                 context.startActivity(intent);
                 return true;
             case R.id.testprofil:
-                intent = new Intent(context, UserMemberProfilActivity.class);
+                intent = new Intent(context, UpdateCursusListActivity.class);
                 context.startActivity(intent);
                 return true;
             case R.id.action_admin:

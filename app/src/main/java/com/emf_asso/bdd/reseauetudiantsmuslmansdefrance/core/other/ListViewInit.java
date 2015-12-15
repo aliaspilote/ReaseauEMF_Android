@@ -36,6 +36,7 @@ public class ListViewInit {
     public static ArrayAdapter<DegreeStudy> adapter_degree_study;
     public static ArrayAdapter<Discipline> adapter_discipline;
 
+
     public ListViewInit() {
 
 

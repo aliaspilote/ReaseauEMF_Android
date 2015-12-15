@@ -111,6 +111,22 @@
         <item>EMF Lille</item>
         <item>EMF Paris</item>
         <item>EMF Marseille</item>
+
+        <item>EMF Lille</item>
+        <item>EMF Paris</item>
+        <item>EMF Marseille</item>
+
+        <item>EMF Lille</item>
+        <item>EMF Paris</item>
+        <item>EMF Marseille</item>
+
+        <item>EMF Lille</item>
+        <item>EMF Paris</item>
+        <item>EMF Marseille</item>
+
+        <item>EMF Lille</item>
+        <item>EMF Paris</item>
+        <item>EMF Marseille</item>
     </string-array>
     <string name="title_curriculum_list">Curriculums</string>
     <string name="title_curriculum_detail">Curriculum Detail</string>
@@ -139,5 +155,8 @@
     <string name="lbl_destination">Destination</string>
     <string name="lbl_subject">Objet :</string>
     <string name="lbl_skill">Compétences/Talents</string>
+    <string name="lbl_write_message">Entrez votre message</string>
+    <string name="subject">Objet</string>
+    <string name="lbl_btn_send">Envoyer</string>
 
 </resources>

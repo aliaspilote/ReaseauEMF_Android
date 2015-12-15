@@ -2,6 +2,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -46,7 +47,11 @@ public class Menu_Control extends AppCompatActivity {
                 context.startActivity(intent);
                 return true;
             case R.id.action_admin:
+                Bundle b;
                 intent = new Intent(context, AdminActivity.class);
+                b = new Bundle();
+                b.putInt("p", -1);
+                intent.putExtras(b);
                 context.startActivity(intent);
                 return true;
             default:

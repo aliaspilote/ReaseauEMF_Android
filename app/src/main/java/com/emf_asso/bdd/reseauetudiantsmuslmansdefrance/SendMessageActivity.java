@@ -11,16 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawerAdmin;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
  * Created by taha on 24/11/2015.
@@ -28,7 +26,9 @@ import java.util.HashMap;
 
 public class SendMessageActivity extends AppCompatActivity {
 
-    public int Current_Position = -1;
+    public int Current_Position;
+    public SessionWsService AppCtx;
+    public MenuDrawerAdmin menu;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -52,16 +52,37 @@ public class SendMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
-        // InitStubs();
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        int a = bundle.getInt("p");
+        Current_Position = a;
+        menu = new MenuDrawerAdmin(this, Current_Position);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        //mDrawerList = (ListView) findViewById(R.id.navList);
-        addDrawerItems();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        menu.setMaListViewPerso(maListViewPerso);
+        menu.setmDrawerLayout(mDrawerLayout);
+        menu.setAppCtx(AppCtx);
+        menu.setContext(context);
+        menu.addDrawerItems();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        Boolean intentExtrat = false;
+        if (intent.getSerializableExtra("AppSessionContext") != null) {
+            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+            intentExtrat = true;
+        }
+        if (bundle != null) {
+            if (bundle.getSerializable("AppSessionContext") != null) {
+                AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
+                intentExtrat = true;
+            }
+        }
+
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -72,16 +93,10 @@ public class SendMessageActivity extends AppCompatActivity {
 
         ImageListener();
 
-        // juste pour le test
-        // fillUserMember();
-        // fin test
 
-        // CreateProfil();
 
-        //fillInfoPerso();
-        //mDrawerToggle.onDrawerOpened(mDrawerLayout);
 
-        //mDrawerLayout.openDrawer(GravityCompat.START);
+
 
     }
 
@@ -112,107 +127,11 @@ public class SendMessageActivity extends AppCompatActivity {
     }
 
 
-    private void addDrawerItems() {
-        maListViewPerso = (ListView) findViewById(R.id.navList);
-
-        ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> map;
-
-        map = new HashMap<String, String>();
-        map.put("title", "Informations Générales");
-        map.put("img", String.valueOf(R.drawable.ic_info_perso));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Informations Personnelles");
-        map.put("img", String.valueOf(R.drawable.ic_info_perso));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Profil EMF");
-        map.put("img", String.valueOf(R.drawable.ic_profil_emf));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Changer mot de passe");
-        map.put("img", String.valueOf(R.drawable.ic_change_pwd));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Mes Cursus");
-        map.put("img", String.valueOf(R.drawable.ic_cursus));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Désactiver le compte");
-        map.put("img", String.valueOf(R.drawable.ic_disable_profil));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Gestion des listes");
-        map.put("img", String.valueOf(R.drawable.ic_list));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Envoyer un message");
-        map.put("img", String.valueOf(R.drawable.ic_message));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Rechercher un profil");
-        map.put("img", String.valueOf(R.drawable.ic_search));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Gestion des admins");
-        map.put("img", String.valueOf(R.drawable.ic_admin));
-        listItem.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("title", "Déconnexion");
-        map.put("img", String.valueOf(R.drawable.ic_disconnect));
-        listItem.add(map);
-
-
-        SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.listview_item,
-                new String[]{"img", "title"}, new int[]{R.id.img_menu_item, R.id.title_menu_item});
-        maListViewPerso.setAdapter(mSchedule);
-
-
-        maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            @SuppressWarnings("unchecked")
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-
-                MenuAction(position);
-                mDrawerLayout.closeDrawers();
-
-
-            }
-        });
-
-    }
 
 
 
 
-    public void MenuAction(int position) {
 
-
-        Intent intent;
-        switch (position) {
-            case 0:
-                intent = new Intent(context, AdminActivity.class);
-                context.startActivity(intent);
-                break;
-
-            case 5:
-                intent = new Intent(context, AdminCrudListActivity.class);
-                context.startActivity(intent);
-                break;
-
-            case 6:
-                intent = new Intent(context, SendMessageActivity.class);
-                context.startActivity(intent);
-                break;
-            default:
-
-        }
-
-
-    }
 
 
 
@@ -255,14 +174,28 @@ public class SendMessageActivity extends AppCompatActivity {
         home_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent mainIntent = new Intent(context, SendMessageActivity.class);
-                startActivity(mainIntent);
+                Intent intent = new Intent(context, AdminActivity.class);
+                context.startActivity(intent);
             }
         });
 
     }
 
 
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
 
+    public void DisplayToast(String text) {
+        DisplayToast(text, 0);
+    }
+
+    public void gotoMainActivity() {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
 }

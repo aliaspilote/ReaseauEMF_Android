@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
 
         loadListsFromWebService();
+
+        menucontrol.setAppSessionContext(AppSessionContext);
     }
 
     public void ReceptionResponse(HttpReponse Rep) {
@@ -172,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
         return true;
     }
 

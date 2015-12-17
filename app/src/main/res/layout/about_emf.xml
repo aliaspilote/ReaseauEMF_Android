@@ -31,6 +31,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtview_emf_fonction"
                 style="@style/text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,6 +55,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txtview_emf_network"
                     style="@style/text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

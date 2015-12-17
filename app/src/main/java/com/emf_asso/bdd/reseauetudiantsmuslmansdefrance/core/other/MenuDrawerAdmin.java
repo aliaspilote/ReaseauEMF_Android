@@ -248,7 +248,10 @@ public class MenuDrawerAdmin extends AppCompatActivity {
     public void MenuAction(int position) {
 
         if (Current_Position < 5 && position < 5) {
-            hideStubByPosition(Current_Position);
+            if (Current_Position < 0)
+                hideStubByPosition(0);
+            else
+                hideStubByPosition(Current_Position);
             displayStubByPosition(position);
         } else
             startActivityByPosition(position);

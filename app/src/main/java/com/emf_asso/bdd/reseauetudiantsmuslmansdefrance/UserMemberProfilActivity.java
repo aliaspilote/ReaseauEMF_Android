@@ -180,7 +180,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
     public void fillInfoPerso() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         if (usermember.getName() != null)
             fillInfoPersoByStep(usermember.getName(), R.id.editxt_ins_name);
         if (usermember.getFirstname() != null)
@@ -214,7 +214,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
     public void CreateProfil() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         if (usermember.getRegistration_date() != null)
             CreateProfilByStep("Date d'inscription :", sdf.format(usermember.getRegistration_date()), R.id.content_for_registrationdate);

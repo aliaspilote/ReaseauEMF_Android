@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
  * Created by taha on 24/11/2015.
  */
 
-public class SendMessageActivity extends AppCompatActivity {
+public class CursusUpdateActivity extends AppCompatActivity {
 
     public int Current_Position;
     public SessionWsService AppCtx;
@@ -51,7 +52,7 @@ public class SendMessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_message);
+        setContentView(R.layout.activity_update_cursus_list);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
@@ -72,6 +73,7 @@ public class SendMessageActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         Boolean intentExtrat = false;
+
         if (intent.getSerializableExtra("AppSessionContext") != null) {
             AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
             intentExtrat = true;
@@ -82,6 +84,9 @@ public class SendMessageActivity extends AppCompatActivity {
                 intentExtrat = true;
             }
         }
+        //
+
+
         menu.setAppCtx(AppCtx);
 
 
@@ -94,9 +99,10 @@ public class SendMessageActivity extends AppCompatActivity {
         ImageListener();
 
 
+        //mDrawerToggle.onDrawerOpened(mDrawerLayout);
 
-
-
+        if (Current_Position == -1)
+            mDrawerLayout.openDrawer(GravityCompat.START);
 
     }
 
@@ -125,14 +131,6 @@ public class SendMessageActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
     }
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -174,7 +172,7 @@ public class SendMessageActivity extends AppCompatActivity {
         home_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent intent = new Intent(context, AdminActivity.class);
+                Intent intent = new Intent(context, CursusUpdateActivity.class);
                 context.startActivity(intent);
             }
         });

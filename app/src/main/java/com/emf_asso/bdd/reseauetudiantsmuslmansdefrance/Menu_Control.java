@@ -59,7 +59,6 @@ public class Menu_Control extends AppCompatActivity {
                 intent = new Intent(context, AdminActivity.class);
                 b = new Bundle();
                 b.putSerializable("AppSessionContext", AppSessionContext);
-
                 b.putInt("p", -1);
                 intent.putExtras(b);
                 context.startActivity(intent);

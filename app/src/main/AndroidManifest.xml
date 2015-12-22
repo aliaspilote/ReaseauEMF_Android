@@ -71,6 +71,11 @@
         <activity
             android:name=".AboutEmfActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".CursusUpdateActivity"
+            android:label="@string/app_name">
+
+        </activity>
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AdminActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusUpdateActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.SendMessageActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
@@ -193,6 +194,7 @@ public class MenuDrawerAdmin extends AppCompatActivity {
                 intent = new Intent(this.context, AdminActivity.class);
                 b = new Bundle();
                 b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
                 break;
@@ -200,15 +202,15 @@ public class MenuDrawerAdmin extends AppCompatActivity {
                 intent = new Intent(this.context, AdminActivity.class);
                 b = new Bundle();
                 b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
-
-
                 break;
             case 2:
                 intent = new Intent(this.context, AdminActivity.class);
                 b = new Bundle();
                 b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
 
@@ -217,16 +219,39 @@ public class MenuDrawerAdmin extends AppCompatActivity {
                 intent = new Intent(this.context, AdminActivity.class);
                 b = new Bundle();
                 b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
-                this.hideStubByPosition(0);
-                displayStubByPosition(3);
+
+                break;
+
+            case 4:
+                intent = new Intent(this.context, AdminActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
+                intent.putExtras(b);
+
+                this.context.startActivity(intent);
+
+                break;
+            case 5:
+                intent = new Intent(this.context, CursusUpdateActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+
                 break;
             case 8:
+
                 intent = new Intent(this.context, SendMessageActivity.class);
                 b = new Bundle();
                 b.putInt("p", position);
+                b.putSerializable("AppSessionContext", AppCtx);
                 intent.putExtras(b);
+
                 this.context.startActivity(intent);
                 break;
             case 11:
@@ -234,11 +259,16 @@ public class MenuDrawerAdmin extends AppCompatActivity {
                 b = new Bundle();
                 b.putInt("p", position);
                 intent.putExtras(b);
+                b.putSerializable("AppSessionContext", AppCtx);
                 this.context.startActivity(intent);
                 break;
 
             default:
                 intent = new Intent(this.context, AdminActivity.class);
+                b = new Bundle();
+                b.putInt("p", position);
+                intent.putExtras(b);
+                b.putSerializable("AppSessionContext", AppCtx);
                 this.context.startActivity(intent);
                 break;
         }

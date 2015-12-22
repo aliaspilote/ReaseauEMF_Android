@@ -28,6 +28,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawerAdmin;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,9 +97,14 @@ public class AdminActivity extends AppCompatActivity {
                 intentExtrat = true;
             }
         }
-        if (intentExtrat)
-            ListViewInit.loadListStaticPI_View(this, AppCtx);
 
+        if (intentExtrat) {
+            ListViewInit.loadListStaticPI_View(this, AppCtx);
+            this.setUsermember(AppCtx.getUserMember());
+        }
+
+
+        menu.setAppCtx(AppCtx);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -145,7 +151,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void fillInfoPerso() {
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         if (usermember.getName() != null)
             fillInfoPersoByStep(usermember.getName(), R.id.editxt_ins_name);
@@ -154,7 +160,7 @@ public class AdminActivity extends AppCompatActivity {
             fillInfoPersoByStep(usermember.getFirstname(), R.id.editxt_ins_firstname);
 
         if (usermember.getBirth_date() != null)
-            fillInfoPersoByStep(usermember.getBirth_date().toString(), R.id.editxt_ins_birthday);
+            fillInfoPersoByStep(sdf.format(usermember.getBirth_date()), R.id.editxt_ins_birthday);
 
         if (usermember.getZip_code() != null)
             fillInfoPersoByStep(usermember.getZip_code(), R.id.editxt_ins_zipcode);
@@ -232,12 +238,15 @@ public class AdminActivity extends AppCompatActivity {
             case 2:
                 menu.hideStubByPosition(0);
                 menu.displayStubByPosition(2);
-                //mDrawerLayout.closeDrawers();
                 break;
             case 3:
                 menu.hideStubByPosition(0);
                 menu.displayStubByPosition(3);
-                //mDrawerLayout.closeDrawers();
+                break;
+            case 4:
+                menu.hideStubByPosition(0);
+                menu.displayStubByPosition(4);
+                break;
             default:
                 break;
         }
@@ -296,8 +305,9 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void CreateProfil() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         if (usermember.getRegistration_date() != null)
-            CreateProfilByStep("Date d'inscription :", usermember.getRegistration_date().toString(), R.id.content_for_registrationdate);
+            CreateProfilByStep("Date d'inscription :", sdf.format(usermember.getRegistration_date()), R.id.content_for_registrationdate);
 
         if (usermember.getEmail() != null)
             CreateProfilByStep("Email :", usermember.getEmail(), R.id.content_for_email);
@@ -309,7 +319,7 @@ public class AdminActivity extends AppCompatActivity {
             CreateProfilByStep("Prénom :", usermember.getFirstname(), R.id.content_for_firstname);
 
         if (usermember.getBirth_date() != null)
-            CreateProfilByStep("Date de naissance :", usermember.getBirth_date().toString(), R.id.content_for_birthday);
+            CreateProfilByStep("Date de naissance :", sdf.format(usermember.getBirth_date()), R.id.content_for_birthday);
 
         if (usermember.getZip_code() != null)
             CreateProfilByStep("Code Postale :", usermember.getZip_code(), R.id.content_for_zipcode);

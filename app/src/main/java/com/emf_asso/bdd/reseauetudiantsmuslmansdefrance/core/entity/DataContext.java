@@ -19,6 +19,7 @@ public class DataContext implements Serializable {
     public List<Discipline> disciplineList = new ArrayList<>();
     public List<Skill> skillList = new ArrayList<>();
     public List<Curriculum> cursusList = new ArrayList<>();
+    public List<CriteriaType> criteriaTypeList = new ArrayList<>();
 
     public Boolean involvementDL_OK = false;
     public Boolean sectionDL_OK = false;

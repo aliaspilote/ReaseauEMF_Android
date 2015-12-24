@@ -158,5 +158,9 @@
     <string name="lbl_write_message">Entrez votre message</string>
     <string name="subject">Objet</string>
     <string name="lbl_btn_send">Envoyer</string>
+    <string name="title_activity_diffusion_criterias">DiffusionCriteriasActivity</string>
+    <string name="lbl_diffusion_criterias">Critères de la liste</string>
+    <string name="lbl_val_criteria">Saisir le mots clés</string>
+    <string name="lbl_list_criteria">Choix critère</string>
 
 </resources>

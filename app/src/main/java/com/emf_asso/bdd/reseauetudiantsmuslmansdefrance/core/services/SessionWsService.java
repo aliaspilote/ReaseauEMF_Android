@@ -43,6 +43,12 @@ public class SessionWsService implements Serializable {
         setIsConnected(true);
     }
 
+    public void killSession() {
+        token = null;
+        userMember = null;
+        setIsConnected(false);
+    }
+
     public void setUser_From_DB(JSONObject JsonResult) {
 
         try {

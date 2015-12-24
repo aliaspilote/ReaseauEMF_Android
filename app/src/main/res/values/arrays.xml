@@ -24,5 +24,11 @@
         <item>Gestion des cursus</item>
         <item>Changer le mot de passe</item>
     </string-array>
+    <string-array name="list_criterias_choices">
+        <item>Nom et prenom</item>
+        <item>Code postal</item>
+        <item>Domaine</item>
+        <item>Etablissement</item>
+    </string-array>
 
 </resources>

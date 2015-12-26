@@ -4,20 +4,30 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/spin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:prompt="@string/lbl_list_criteria" />
-
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/lbl_row_diffusion_criteria_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:gravity="center"
+        android:text="Nom critère" />
+
+
+    <EditText
+        android:id="@+id/editxt_diffusion_criteria_value"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:hint="@string/lbl_val_criteria" />
+
+    <Spinner
+        android:id="@+id/spin_diffusion_criteria_value"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:prompt="@string/lbl_list_criteria"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="0dp"

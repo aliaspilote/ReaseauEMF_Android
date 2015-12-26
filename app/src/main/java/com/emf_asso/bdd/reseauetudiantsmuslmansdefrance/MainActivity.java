@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void OnTry(View view) throws IOException {
 
-        Intent intent = new Intent(context, CursusListActivity.class);
+        Intent intent = new Intent(context, DiffusionCriteriasActivity.class);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);

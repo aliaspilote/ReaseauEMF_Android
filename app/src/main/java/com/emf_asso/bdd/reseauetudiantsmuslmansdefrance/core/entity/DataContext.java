@@ -28,7 +28,6 @@ public class DataContext implements Serializable {
     public Boolean skillLDL_OK = false;
 
     public DataContext() {
-
     }
 
     public void setDisciplineList(JSONObject obj) {

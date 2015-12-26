@@ -63,8 +63,8 @@
                 android:value="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity" />
         </activity>
         <activity
-            android:name=".LDFDetailActivity"
-            android:label="@string/title_activity_ldfdetail"
+            android:name=".DiffusionCriteriasActivity"
+            android:label="@string/title_activity_ldf"
             android:theme="@style/AppThemeDAB">
 
         </activity>

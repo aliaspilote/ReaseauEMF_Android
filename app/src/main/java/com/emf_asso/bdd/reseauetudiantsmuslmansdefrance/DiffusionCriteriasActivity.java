@@ -2,23 +2,24 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.DiffusionCriteriaRowContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
 
 public class DiffusionCriteriasActivity extends AppCompatActivity {
 
-    public DiffusionCriteriasActivity DiffusionCriteriaRowContentListView = null;
+    public DiffusionCriteriasActivity DiffusionCriteriaCtx = null;
     public ArrayList<DiffusionCriteria> DiffusionCriteriaListViewValuesArr = new ArrayList<DiffusionCriteria>();
     ListView list;
     DiffusionCriteriaRowContent adapter;
@@ -31,12 +32,16 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        Button fab = (Button) findViewById(R.id.btn_add_diff_crit);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                DiffusionCriteria dc_to_add = (DiffusionCriteria) ((Spinner) findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
+
+                DiffusionCriteriaListViewValuesArr.add(dc_to_add);
+                adapter.notifyDataSetChanged();
+                Snackbar.make(view, "Critère \'" + dc_to_add.toString() + "\' ajouté.", Snackbar.LENGTH_LONG)
+                        .setAction("Ajouter", null).show();
             }
         });
 
@@ -51,16 +56,16 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             }
         }
 
-        DiffusionCriteriaRowContentListView = this;
+        DiffusionCriteriaCtx = this;
+        ListViewInit.loadListStaticData(AppCtx);
+        ListViewInit.loadCriteriaType_List_View(DiffusionCriteriaCtx);
 
         /******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
-        setListData();
-
-        //Resources res =getResources();
+        //setListData();
         list = (ListView) findViewById(R.id.listview_diffusion_criterias);  // List defined in XML ( See Below )
-
+        list.setItemsCanFocus(true);
         /**************** Create Custom Adapter *********/
-        adapter = new DiffusionCriteriaRowContent(DiffusionCriteriaRowContentListView, DiffusionCriteriaListViewValuesArr);
+        adapter = new DiffusionCriteriaRowContent(DiffusionCriteriaCtx, DiffusionCriteriaListViewValuesArr);
         list.setAdapter(adapter);
     }
 
@@ -82,12 +87,15 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
     }
 
     public void onItemClick(int mPosition) {
-        DiffusionCriteria tempValues = (DiffusionCriteria) DiffusionCriteriaListViewValuesArr.get(mPosition);
-
-        Toast.makeText(DiffusionCriteriaRowContentListView,
-                "" + tempValues.getCriteria_Name() + " " + tempValues.getValue().toString(),
-                Toast.LENGTH_LONG)
-                .show();
+        if (mPosition >= 0) {
+            DiffusionCriteria dc_to_delete = DiffusionCriteriaListViewValuesArr.get(mPosition);
+            DiffusionCriteriaListViewValuesArr.remove(dc_to_delete);
+            adapter.notifyDataSetChanged();
+        }
+        /*final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+        Snackbar.make(viewGroup ,tempValues.getCriteria_Name() + " " +tempValues.getValue()!= null ? tempValues.getValue().toString() : ""+" supprimmé", Snackbar.LENGTH_LONG)
+                .setAction("Ajouter", null).show();*/
     }
 
 

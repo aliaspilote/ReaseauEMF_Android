@@ -65,8 +65,8 @@
         <activity
             android:name=".DiffusionCriteriasActivity"
             android:label="@string/title_activity_ldf"
-            android:theme="@style/AppThemeDAB">
-
+            android:theme="@style/AppThemeDAB"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".AboutEmfActivity"

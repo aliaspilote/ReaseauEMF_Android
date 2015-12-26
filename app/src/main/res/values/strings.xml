@@ -162,5 +162,9 @@
     <string name="lbl_diffusion_criterias">Critères de la liste</string>
     <string name="lbl_val_criteria">Saisir le mots clés</string>
     <string name="lbl_list_criteria">Choix critère</string>
+    <string name="lbl_diffusion_criterias_name">Nom liste :</string>
+    <string name="lbl_diffusion_criterias_count">Nb resultats:</string>
+    <string name="int_null">-</string>
+    <string name="lbl_add_criteria">Ajouter un cirtère à la liste:</string>
 
 </resources>

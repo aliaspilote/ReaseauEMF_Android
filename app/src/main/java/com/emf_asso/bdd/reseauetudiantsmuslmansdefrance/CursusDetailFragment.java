@@ -63,7 +63,7 @@ public class CursusDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cursus_detail, container, false);
-        ListViewInit.loadListStaticCursus_View(rootView, getActivity(), null);
+        ListViewInit.loadEmptyCursusList_View(rootView, getActivity());
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.getLabel());
             ((TextView) rootView.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.getEstablishment());

@@ -88,7 +88,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             SystemClock.sleep(3000);
             gotoMainActivity();
         }
-        ListViewInit.loadListStaticPI_View(this, AppCtx);
+        ListViewInit.loadListStaticPI(this, AppCtx);
         setUsermember(AppCtx.getUserMember());
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         menu.setMaListViewPerso(maListViewPerso);

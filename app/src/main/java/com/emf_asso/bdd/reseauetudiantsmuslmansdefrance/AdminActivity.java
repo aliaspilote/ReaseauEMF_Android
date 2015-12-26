@@ -99,7 +99,7 @@ public class AdminActivity extends AppCompatActivity {
         }
 
         if (intentExtrat) {
-            ListViewInit.loadListStaticPI_View(this, AppCtx);
+            ListViewInit.loadListStaticPI(this, AppCtx);
             this.setUsermember(AppCtx.getUserMember());
         }
 

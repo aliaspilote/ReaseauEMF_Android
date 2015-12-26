@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.DiffusionCriteriasActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
 
@@ -96,23 +98,24 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
             holder = (ViewHolder) vi.getTag();
 
         if (data.size() <= 0) {
-            holder.diff_crit_name.setText("No Data");
-            holder.diff_crit_text_value.setText("No Data");
-            holder.diff_crit_spin_value.setContentDescription("No Data");
-
+            holder.diff_crit_name.setText("pas de critères ajoutés");
+            holder.diff_crit_spin_value.setContentDescription("pas de critères ajoutés");
+            holder.diff_crit_text_value.setVisibility(View.GONE);
+            holder.diff_critt_delete.setVisibility(View.GONE);
         } else {
             /***** Get each Model object from Arraylist ********/
             tempValues = null;
             tempValues = (DiffusionCriteria) data.get(position);
-
             /************  Set Model values in Holder elements ***********/
-
             holder.diff_crit_name.setText(tempValues.getCriteria_Name());
+            holder.diff_critt_delete.setVisibility(View.VISIBLE);
+            holder.diff_crit_text_value.setVisibility(View.VISIBLE);
+
             if (tempValues.isSpinner_type()) {
                 holder.diff_crit_text_value.setVisibility(View.GONE);
                 holder.diff_crit_spin_value.setVisibility(View.VISIBLE);
                 holder.diff_crit_spin_value.setAdapter(
-                        new ArrayAdapter<Object>(vi.getContext(), android.R.layout.simple_list_item_multiple_choice, tempValues.getValues_List())
+                        new ArrayAdapter<Object>(vi.getContext(), android.R.layout.simple_list_item_1, tempValues.getValues_List())
                 );
             } else {
                 holder.diff_crit_spin_value.setVisibility(View.GONE);
@@ -134,6 +137,29 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
         return vi;
     }
 
+    public void onItemSelected(AdapterView<?> listView, View view, int position, long id) {
+        if (position == 1) {
+            // listView.setItemsCanFocus(true);
+
+            // Use afterDescendants, because I don't want the ListView to steal focus
+            listView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+            ((EditText) view.findViewById(R.id.editxt_diffusion_criteria_value)).requestFocus();
+        } else {
+            if (!listView.isFocused()) {
+                // listView.setItemsCanFocus(false);
+
+                // Use beforeDescendants so that the EditText doesn't re-take focus
+                listView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+                listView.requestFocus();
+            }
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> listView) {
+        // This happens when you start scrolling, so we need to prevent it from staying
+        // in the afterDescendants mode if the EditText was focused
+        listView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+    }
     @Override
     public void onClick(View v) {
         Log.v("CustomAdapter", "=====Row button clicked=====");
@@ -167,12 +193,12 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
         public void onClick(View arg0) {
 
 
-            //DiffusionCriteriasActivity sct = (DiffusionCriteriasActivity)activity;
+            DiffusionCriteriasActivity sct = (DiffusionCriteriasActivity) activity;
 
             /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
 
             Log.v("Diff_Crit", "=====Delete button clicked====="+mPosition);
-            //sct.onItemClick(mPosition);
+            sct.onItemClick(mPosition);
         }
     }
 

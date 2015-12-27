@@ -1,10 +1,10 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 
-import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
@@ -21,14 +21,26 @@ public class SessionWsService implements Serializable {
     public boolean inProfileView = false;
     public boolean inProssInscrView = false;
     private UserMember userMember;
-    private DateTime timeOut;
     private String token;
     private Boolean isConnected;
     private DataContext dataContext = new DataContext();
     private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
+    private LdfService ServiceLDF = new LdfService();
 
     public SessionWsService() {
         setIsConnected(false);
+    }
+
+    public void BeInProfileView() {
+        CursusContent.clearCursus();
+        inProfileView = true;
+        inProssInscrView = false;
+    }
+
+    public void BeInProssInscrView() {
+        CursusContent.clearCursus();
+        inProfileView = false;
+        inProssInscrView = true;
     }
 
     public void resetLocationAllView() {
@@ -47,6 +59,7 @@ public class SessionWsService implements Serializable {
         token = null;
         userMember = null;
         setIsConnected(false);
+        CursusContent.clearCursus();
     }
 
     public void setUser_From_DB(JSONObject JsonResult) {
@@ -119,6 +132,14 @@ public class SessionWsService implements Serializable {
         }
     }
 
+    public LdfService getServiceLDF() {
+        return ServiceLDF;
+    }
+
+    public void setServiceLDF(LdfService serviceAdministration) {
+        ServiceLDF = serviceAdministration;
+    }
+
     public ProcessInscriptionService getServiceProcessInscription() {
         return ServiceProcessInscription;
     }
@@ -135,13 +156,6 @@ public class SessionWsService implements Serializable {
         this.userMember = userMember;
     }
 
-    public DateTime getTimeOut() {
-        return timeOut;
-    }
-
-    public void setTimeOut(DateTime timeOut) {
-        this.timeOut = timeOut;
-    }
 
     public String getToken() {
         return token;

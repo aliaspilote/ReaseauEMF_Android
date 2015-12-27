@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusUpdateActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UserMemberProfilActivity;
@@ -33,9 +33,21 @@ public class MenuDrawer extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView maListViewPerso;
 
+    public MenuDrawer() {
+    }
+
     public MenuDrawer(Activity activity, int Current_Position) {
         this.activity = activity;
         this.Current_Position = Current_Position;
+    }
+
+    public MenuDrawer(Activity act, Context ctx, SessionWsService AppCtx, DrawerLayout dLayout, ListView navList, int currtPos) {
+        Current_Position = currtPos;
+        activity = act;
+        context = ctx;
+        this.AppCtx = AppCtx;
+        mDrawerLayout = dLayout;
+        maListViewPerso = navList;
     }
 
     public void setContext(Context context) {
@@ -113,7 +125,6 @@ public class MenuDrawer extends AppCompatActivity {
         });
     }
 
-
     public void hideStubByPosition(int position) {
         switch (position) {
             case 0:
@@ -186,9 +197,10 @@ public class MenuDrawer extends AppCompatActivity {
                 this.context.startActivity(intent);
                 break;
             case 5:
-                intent = new Intent(this.context, CursusUpdateActivity.class);
+                intent = new Intent(this.context, CursusListActivity.class);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
+                break;
             case 7:
                 intent = new Intent(this.context, AboutEmfActivity.class);
                 intent.putExtras(b);
@@ -202,7 +214,6 @@ public class MenuDrawer extends AppCompatActivity {
         }
 
     }
-
 
     public void MenuAction(int position) {
         if (Current_Position < 5 && position < 5) {

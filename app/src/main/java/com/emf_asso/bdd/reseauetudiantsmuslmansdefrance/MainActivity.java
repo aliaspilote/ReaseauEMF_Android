@@ -194,6 +194,16 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         context.startActivity(intent);
     }
 
+    public void OnTryTaha(View view) throws IOException {
+
+        Intent intent = new Intent(context, DiffusionCriteriasActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AppSessionContext", AppSessionContext);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
     public String getTextByEditTextId(int id_editText) {
         return ((EditText) findViewById(id_editText)).getText().toString();
     }
@@ -221,14 +231,11 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void startProfileActivity(JSONObject obj) {
-        AppSessionContext.resetLocationAllView();
-        AppSessionContext.inProfileView = true;
+        AppSessionContext.BeInProfileView();
         AppSessionContext.setUser_From_DB(obj);
-
-
         // user ou admin
         AppSessionContext.getUserMember().setIsAdmin(false);
-
+        AppSessionContext.BeInProfileView();
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("p", -1);

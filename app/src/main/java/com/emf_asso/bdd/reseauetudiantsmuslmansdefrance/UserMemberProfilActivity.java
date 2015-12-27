@@ -54,6 +54,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private ListView maListViewPerso;
+
     public UserMember getUsermember() {
         return usermember;
     }
@@ -91,6 +92,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         ListViewInit.loadListStaticPI(this, AppCtx);
         setUsermember(AppCtx.getUserMember());
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        maListViewPerso = (ListView) findViewById(R.id.navList);
         menu.setMaListViewPerso(maListViewPerso);
         menu.setmDrawerLayout(mDrawerLayout);
         menu.setAppCtx(AppCtx);

@@ -42,6 +42,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btn_PI_previous"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
@@ -50,7 +51,7 @@
 
 
             <Button
-
+                android:id="@+id/btn_PI_next"
                 style="@style/button_style"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

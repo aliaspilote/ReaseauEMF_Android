@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
@@ -31,6 +35,8 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
 public class CursusListActivity extends AppCompatActivity
         implements CursusListFragment.Callbacks {
 
+    MenuDrawer menu;
+    int Current_Position;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -38,16 +44,39 @@ public class CursusListActivity extends AppCompatActivity
     private boolean mTwoPane;
     private Context context;
     private SessionWsService AppSessionContext;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private ListView mnavList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        Intent intent = this.getIntent();
+        if (intent.getSerializableExtra("AppSessionContext") != null) {
+            AppSessionContext = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+            if (AppSessionContext.inProfileView) {
+                if (AppSessionContext.getUserMember() != null)
+                    if (AppSessionContext.getUserMember().getCurriculum() != null)
+                        CursusContent.pushCursusList(AppSessionContext.getUserMember().getCurriculum());
+                Bundle bundle = intent.getExtras();
+                Current_Position = bundle.getInt("p");
+            }
+        }
         setContentView(R.layout.activity_cursus_app_bar);
-
+        if (AppSessionContext != null)
+            if (AppSessionContext.inProfileView) {
+                mnavList = (ListView) findViewById(R.id.navList);
+                findViewById(R.id.btn_PI_next).setVisibility(View.GONE);
+                mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+                mDrawerLayout.setVisibility(View.VISIBLE);
+                menu = new MenuDrawer(this, context, AppSessionContext, mDrawerLayout, mnavList, Current_Position);
+                menu.addDrawerItems();
+                setupDrawer();
+            }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-        context = this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_add_cursus_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,13 +103,6 @@ public class CursusListActivity extends AppCompatActivity
                     .setActivateOnItemClick(true);
         }
 
-        Intent intent = this.getIntent();
-        if (intent.getSerializableExtra("AppSessionContext") != null) {
-            AppSessionContext = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
-           /* if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum()!=null)
-                CursusContent.pushCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
-                */
-        }
     }
 
     /**
@@ -112,22 +134,60 @@ public class CursusListActivity extends AppCompatActivity
     }
 
     public void OnNext(View view) {
-        gotoProcessInscrActivity(1);
+        goBackPreviousActivity(1);
     }
 
     public void OnPrevious(View view) {
-        gotoProcessInscrActivity(2);
+        goBackPreviousActivity(2);
     }
 
-    public void gotoProcessInscrActivity(int resutlInt) {
-        if (AppSessionContext.inProssInscrView)
+    public void goBackPreviousActivity(int resutlInt) {
+
+        Intent intent;
+        if (AppSessionContext.inProssInscrView) {
             AppSessionContext.getServiceProcessInscription().getInscription().getUser().setCursuses(CursusContent.ITEMS);
-        if (AppSessionContext.inProfileView)
+            intent = new Intent();
+            intent.putExtra("Result", resutlInt);
+            intent.putExtra("AppSessionContext", AppSessionContext);
+            setResult(resutlInt, intent);
+            finish();
+        } else if (AppSessionContext.inProfileView) {
+            Bundle bundle = new Bundle();
             AppSessionContext.getUserMember().setCursuses(CursusContent.ITEMS);
-        Intent intent = new Intent();
-        intent.putExtra("Result", resutlInt);
-        intent.putExtra("AppSessionContext", AppSessionContext);
-        setResult(resutlInt, intent);
-        finish();
+            if (AppSessionContext.getUserMember().isAdmin())
+                intent = new Intent(context, AdminActivity.class);
+            else
+                intent = new Intent(context, UserMemberProfilActivity.class);
+            bundle.putSerializable("AppSessionContext", AppSessionContext);
+            bundle.putInt("p", -1);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+
+    private void setupDrawer() {
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+            /**
+             * Called when a drawer has settled in a completely open state.
+             */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /**
+             * Called when a drawer has settled in a completely closed state.
+             */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(getTitle().toString());
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 }

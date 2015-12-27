@@ -99,7 +99,14 @@
                     android:layout_height="75dp"
                     android:layout_marginTop="15dp"
                     android:onClick="OnTry"
-                    android:text="Try" />
+                    android:text="Test Omar" />
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="15dp"
+                    android:onClick="OnTryTaha"
+                    android:text="Test Taha" />
                 <ImageView
                     android:id="@+id/btn_linkedin"
                     style="@style/style_imgview_linkedin"

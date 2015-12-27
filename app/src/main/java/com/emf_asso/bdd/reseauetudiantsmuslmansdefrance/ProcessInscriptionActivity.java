@@ -93,6 +93,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             if (!(current_NUM_PAGES>1)) // au cas ou l'on revient de l'activité Cursus
                 current_NUM_PAGES = 1;
         AppCtx.getServiceProcessInscription().onStart();
+        AppCtx.BeInProssInscrView();
     }
 
     @Override
@@ -220,6 +221,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
     public void CloseInscription() {
         AppCtx.getServiceProcessInscription().setOnGoingInscr(false);
+        CursusContent.clearCursus();
         gotoMainActivity();
     }
 

@@ -343,18 +343,12 @@ public class AdminActivity extends AppCompatActivity {
                 if (i < usermember.getSkills().size()) {
                     listString += ",\n";
                 }
-
             }
-
-
             CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
         }
-
         // il faut mettre une liste
         if (usermember.getStatus() != null)
             CreateProfilByStep("Contact pour :", usermember.getStatus().toString(), R.id.content_for_contact);
-
-
     }
 
     public void CreateProfilByStep(String label, String value, int content) {

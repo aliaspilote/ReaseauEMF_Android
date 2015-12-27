@@ -15,12 +15,9 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCri
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
-import java.util.ArrayList;
-
 public class DiffusionCriteriasActivity extends AppCompatActivity {
 
     public DiffusionCriteriasActivity DiffusionCriteriaCtx = null;
-    public ArrayList<DiffusionCriteria> DiffusionCriteriaListViewValuesArr = new ArrayList<DiffusionCriteria>();
     ListView list;
     DiffusionCriteriaRowContent adapter;
     private SessionWsService AppCtx;
@@ -38,23 +35,29 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DiffusionCriteria dc_to_add = (DiffusionCriteria) ((Spinner) findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
 
-                DiffusionCriteriaListViewValuesArr.add(dc_to_add);
+                AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc_to_add);
                 adapter.notifyDataSetChanged();
                 Snackbar.make(view, "Critère \'" + dc_to_add.toString() + "\' ajouté.", Snackbar.LENGTH_LONG)
                         .setAction("Ajouter", null).show();
             }
         });
 
-        Intent intent = this.getIntent();
-        if (intent.getSerializableExtra("AppSessionContext") != null) {
-            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+        if (savedInstanceState != null) {
+            AppCtx = (SessionWsService) savedInstanceState.getSerializable("AppSessionContext");
         }
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            if (bundle.getSerializable("AppSessionContext") != null) {
-                AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
+        if (!(AppCtx != null)) {
+            Intent intent = this.getIntent();
+            if (intent.getSerializableExtra("AppSessionContext") != null) {
+                AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+            }
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                if (bundle.getSerializable("AppSessionContext") != null) {
+                    AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
+                }
             }
         }
+        AppCtx.getServiceLDF().onStart();
 
         DiffusionCriteriaCtx = this;
         ListViewInit.loadListStaticData(AppCtx);
@@ -65,7 +68,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.listview_diffusion_criterias);  // List defined in XML ( See Below )
         list.setItemsCanFocus(true);
         /**************** Create Custom Adapter *********/
-        adapter = new DiffusionCriteriaRowContent(DiffusionCriteriaCtx, DiffusionCriteriaListViewValuesArr);
+        adapter = new DiffusionCriteriaRowContent(DiffusionCriteriaCtx, AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr);
         list.setAdapter(adapter);
     }
 
@@ -75,27 +78,33 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
     public void setListData() {
         DiffusionCriteria dc1 = new DiffusionCriteria();
         dc1.setCriteria_Name("Nom");
-        DiffusionCriteriaListViewValuesArr.add(dc1);
+        AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc1);
         DiffusionCriteria dc2 = new DiffusionCriteria();
         dc2.setCriteria_Name("CP");
-        DiffusionCriteriaListViewValuesArr.add(dc2);
+        AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc2);
         DiffusionCriteria dc3 = new DiffusionCriteria();
         dc3.setCriteria_Name("Age");
         dc3.setSpinner_type(true);
         dc3.setValuesTest();
-        DiffusionCriteriaListViewValuesArr.add(dc3);
+        AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc3);
     }
 
     public void onItemClick(int mPosition) {
         if (mPosition >= 0) {
-            DiffusionCriteria dc_to_delete = DiffusionCriteriaListViewValuesArr.get(mPosition);
-            DiffusionCriteriaListViewValuesArr.remove(dc_to_delete);
+            DiffusionCriteria dc_to_delete = AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.get(mPosition);
+            AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.remove(dc_to_delete);
             adapter.notifyDataSetChanged();
         }
         /*final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
                 .findViewById(android.R.id.content)).getChildAt(0);
         Snackbar.make(viewGroup ,tempValues.getCriteria_Name() + " " +tempValues.getValue()!= null ? tempValues.getValue().toString() : ""+" supprimmé", Snackbar.LENGTH_LONG)
                 .setAction("Ajouter", null).show();*/
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("AppSessionContext", AppCtx);
     }
 
 

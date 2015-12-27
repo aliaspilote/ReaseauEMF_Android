@@ -1,15 +1,16 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Omar_Desk on 20/12/2015.
  */
-public class DiffusionList {
+public class DiffusionList implements Serializable {
 
+    public ArrayList<DiffusionCriteria> DiffusionCriteriaListViewValuesArr = new ArrayList<DiffusionCriteria>();
     String label;
     String id;
-    List<DiffusionCriteria> diffusionCriterias;
 
     public DiffusionList() {
     }
@@ -30,11 +31,4 @@ public class DiffusionList {
         this.id = id;
     }
 
-    public List<DiffusionCriteria> getDiffusionCriterias() {
-        return diffusionCriterias;
-    }
-
-    public void setDiffusionCriterias(List<DiffusionCriteria> diffusionCriterias) {
-        this.diffusionCriterias = diffusionCriterias;
-    }
 }

@@ -2,13 +2,14 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 
 import android.widget.ArrayAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Omar_Desk on 20/12/2015.
  */
-public class DiffusionCriteria {
+public class DiffusionCriteria implements Serializable {
     String criteria_Name;
     Object value;
     List<Object> values_List;

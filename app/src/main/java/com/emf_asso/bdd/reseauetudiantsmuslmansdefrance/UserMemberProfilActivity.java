@@ -43,7 +43,7 @@ import java.text.SimpleDateFormat;
 
 public class UserMemberProfilActivity extends AppCompatActivity {
 
-    public int Current_Position = 0;
+    public int Current_Position;
     public SessionWsService AppCtx;
     public MenuDrawer menu;
     private UserMember usermember;

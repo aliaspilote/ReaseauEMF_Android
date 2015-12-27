@@ -40,6 +40,8 @@ public class UserMember implements Serializable {
     private Date registration_date;
     private Date last_update_date;
 
+    private boolean isAdmin;
+
     public UserMember() {
         name = "n/a";
         email = "n/a";
@@ -86,6 +88,14 @@ public class UserMember implements Serializable {
                 (jsonObject.get("city")).toString(), BD_date,
                 (jsonObject.get("phone")).toString(), (jsonObject.get("hashed_pwd")).toString());
 
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public void setUserfromJSON(String name, String firstname, String civility, String email, String city, Date birth_date, String phone, String hashed_pwd) {

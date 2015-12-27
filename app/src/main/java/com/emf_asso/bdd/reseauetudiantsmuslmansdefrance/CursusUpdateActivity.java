@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawerAdmin;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
@@ -29,7 +29,7 @@ public class CursusUpdateActivity extends AppCompatActivity {
 
     public int Current_Position;
     public SessionWsService AppCtx;
-    public MenuDrawerAdmin menu;
+    public MenuDrawer menuUser;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -56,22 +56,8 @@ public class CursusUpdateActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
+        DisplayToast(String.valueOf(a), 10);
         Current_Position = a;
-        menu = new MenuDrawerAdmin(this, Current_Position);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        menu.setMaListViewPerso(maListViewPerso);
-        menu.setmDrawerLayout(mDrawerLayout);
-        menu.setAppCtx(AppCtx);
-        menu.setContext(context);
-        menu.addDrawerItems();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
         Boolean intentExtrat = false;
 
         if (intent.getSerializableExtra("AppSessionContext") != null) {
@@ -84,26 +70,33 @@ public class CursusUpdateActivity extends AppCompatActivity {
                 intentExtrat = true;
             }
         }
-        //
+        menuUser = new MenuDrawer(this, Current_Position);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        menuUser.setMaListViewPerso(maListViewPerso);
+        menuUser.setmDrawerLayout(mDrawerLayout);
+        menuUser.setAppCtx(AppCtx);
+        menuUser.setContext(context);
+        menuUser.addDrawerItems();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        menu.setAppCtx(AppCtx);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 
         setupDrawer();
 
-
         ImageListener();
 
-
+        DisplayToast(String.valueOf(AppCtx.getUserMember().isAdmin()), 10);
         //mDrawerToggle.onDrawerOpened(mDrawerLayout);
 
         if (Current_Position == -1)
             mDrawerLayout.openDrawer(GravityCompat.START);
-
     }
 
 

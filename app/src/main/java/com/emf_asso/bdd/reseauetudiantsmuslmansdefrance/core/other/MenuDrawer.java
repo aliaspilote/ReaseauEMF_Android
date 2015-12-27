@@ -12,9 +12,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusUpdateActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UpdateCursusListActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UserMemberProfilActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
@@ -161,51 +161,36 @@ public class MenuDrawer extends AppCompatActivity {
     public void startActivityByPosition(int position) {
         Intent intent;
         Bundle b;
+        b = new Bundle();
+        b.putInt("p", position);
+        b.putSerializable("AppSessionContext", AppCtx);
         switch (position) {
             case 0:
                 intent = new Intent(this.context, UserMemberProfilActivity.class);
-                b = new Bundle();
-                b.putInt("p", position);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
                 break;
             case 1:
                 intent = new Intent(this.context, UserMemberProfilActivity.class);
-                b = new Bundle();
-                b.putInt("p", position);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
-
-
                 break;
             case 2:
                 intent = new Intent(this.context, UserMemberProfilActivity.class);
-                b = new Bundle();
-                b.putInt("p", position);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
-
                 break;
             case 3:
                 intent = new Intent(this.context, UserMemberProfilActivity.class);
-                b = new Bundle();
-                b.putInt("p", position);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
-                this.hideStubByPosition(0);
-                displayStubByPosition(3);
                 break;
             case 5:
-                intent = new Intent(this.context, UpdateCursusListActivity.class);
-                b = new Bundle();
-                b.putInt("p", position);
+                intent = new Intent(this.context, CursusUpdateActivity.class);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
-                break;
             case 7:
                 intent = new Intent(this.context, AboutEmfActivity.class);
-                b = new Bundle();
-                b.putInt("p", position);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
                 break;
@@ -221,12 +206,15 @@ public class MenuDrawer extends AppCompatActivity {
 
     public void MenuAction(int position) {
         if (Current_Position < 5 && position < 5) {
-            hideStubByPosition(Current_Position);
+            if (Current_Position < 0)
+                hideStubByPosition(0);
+            else
+                hideStubByPosition(Current_Position);
             displayStubByPosition(position);
         } else
             startActivityByPosition(position);
 
-        // DisplayToast("Current = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
+        //DisplayToast("Current = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
         Current_Position = position;
     }
 

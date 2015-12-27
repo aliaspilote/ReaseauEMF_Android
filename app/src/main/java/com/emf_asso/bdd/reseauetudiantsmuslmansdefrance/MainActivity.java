@@ -224,6 +224,11 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         AppSessionContext.resetLocationAllView();
         AppSessionContext.inProfileView = true;
         AppSessionContext.setUser_From_DB(obj);
+
+
+        // user ou admin
+        AppSessionContext.getUserMember().setIsAdmin(false);
+
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("p", -1);

@@ -35,7 +35,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DiffusionCriteria dc_to_add = (DiffusionCriteria) ((Spinner) findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
 
-                AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc_to_add);
+                AppCtx.getServiceLDF().add_criteria_currentldf(dc_to_add);
                 adapter.notifyDataSetChanged();
                 Snackbar.make(view, "Critère \'" + dc_to_add.toString() + "\' ajouté.", Snackbar.LENGTH_LONG)
                         .setAction("Ajouter", null).show();
@@ -58,7 +58,6 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             }
         }
         AppCtx.getServiceLDF().onStart();
-
         DiffusionCriteriaCtx = this;
         ListViewInit.loadListStaticData(AppCtx);
         ListViewInit.loadCriteriaType_List_View(DiffusionCriteriaCtx);
@@ -92,10 +91,12 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
     public void onItemClick(int mPosition) {
         if (mPosition >= 0) {
             DiffusionCriteria dc_to_delete = AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.get(mPosition);
-            AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.remove(dc_to_delete);
+            AppCtx.getServiceLDF().remove_criteria_currentldf(dc_to_delete);
             adapter.notifyDataSetChanged();
         }
-        /*final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
+        /*    Snackbar.make(view,dc_to_delete.getCriteria_Name() + " " +dc_to_delete.getValue()!= null ? dc_to_delete.getValue().toString() : "" + " supprimmé", Snackbar.LENGTH_LONG)
+                    .setAction("Supprimmer", null).show();
+        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
                 .findViewById(android.R.id.content)).getChildAt(0);
         Snackbar.make(viewGroup ,tempValues.getCriteria_Name() + " " +tempValues.getValue()!= null ? tempValues.getValue().toString() : ""+" supprimmé", Snackbar.LENGTH_LONG)
                 .setAction("Ajouter", null).show();*/

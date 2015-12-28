@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.DiffusionCriteriasActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.util.ArrayList;
 
@@ -28,23 +28,24 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
 
     private static LayoutInflater inflater = null;
     public Resources res;
-    DiffusionCriteria tempValues = null;
+    //DiffusionCriteria tempValues = null;
     int i = 0;
     /***********
      * Declare Used Variables
      *********/
     private Activity activity;
-    private ArrayList data;
+    //private ArrayList data;
+    private SessionWsService AppCtx;
 
     /*************
      * CustomAdapter Constructor
      *****************/
-    public DiffusionCriteriaRowContent(Activity a, ArrayList d)//Resources resLocal)
+    public DiffusionCriteriaRowContent(Activity a, ArrayList d, SessionWsService AppCtx)//Resources resLocal)
     {
         /********** Take passed values **********/
         activity = a;
-        data = d;
-        // res = resLocal;
+        // data = d;
+        this.AppCtx = AppCtx;
 
         /***********  Layout inflator to call external xml layout () ***********/
         inflater = (LayoutInflater) activity.
@@ -57,16 +58,17 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
      ************/
     public int getCount() {
 
-        if (data.size() <= 0)
-            return 1;
-        return data.size();
+        if (AppCtx.getServiceLDF().getCurrent_ldf().size() <= 0)
+            return 0;
+        return AppCtx.getServiceLDF().getCurrent_ldf().size();
     }
 
     public Object getItem(int position) {
-        return position;
+        return AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position);
     }
 
     public long getItemId(int position) {
+
         return position;
     }
 
@@ -76,8 +78,7 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View vi = convertView;
-        ViewHolder holder;
-
+        final ViewHolder holder;
         if (convertView == null) {
 
             /****** Inflate tabitem.xml file for each row ( Defined below ) *******/
@@ -86,53 +87,81 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
             /****** View Holder Object to contain tabitem.xml file elements ******/
 
             holder = new ViewHolder();
+            holder.currentPos = position;
             holder.diff_crit_name = (TextView) vi.findViewById(R.id.lbl_row_diffusion_criteria_name);
             holder.diff_crit_text_value = (EditText) vi.findViewById(R.id.editxt_diffusion_criteria_value);
             holder.diff_crit_spin_value = (Spinner) vi.findViewById(R.id.spin_diffusion_criteria_value);
             holder.diff_critt_delete = (ImageButton) vi.findViewById(R.id.suppr_criteria);
-            //holder.image=(ImageView)vi.findViewById(R.id.image);
+            holder.diff_critt_save = (ImageButton) vi.findViewById(R.id.save_criteria);
 
+            //holder.image=(ImageView)vi.findViewById(R.id.image);
+           /* holder.diff_crit_text_value.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s != null)
+                    {
+                        AppCtx.getServiceLDF().updateVal_criteria_currentldf(holder.currentPos, s.toString());
+                    }
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start,
+                                              int count, int after) {  }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+                }
+            });
+*/
+            //holder.diff_crit_spin_value.addTextChangedListener(new CustomTextWatcher(text2,wed));
             /************  Set holder with LayoutInflater ************/
             vi.setTag(holder);
         } else
             holder = (ViewHolder) vi.getTag();
 
-        if (data.size() <= 0) {
+        if (AppCtx.getServiceLDF().getCurrent_ldf().size() <= 0) {
             holder.diff_crit_name.setText("pas de critères ajoutés");
             holder.diff_crit_spin_value.setContentDescription("pas de critères ajoutés");
             holder.diff_crit_text_value.setVisibility(View.GONE);
             holder.diff_critt_delete.setVisibility(View.GONE);
+            holder.diff_critt_save.setVisibility(View.GONE);
         } else {
             /***** Get each Model object from Arraylist ********/
-            tempValues = null;
-            tempValues = (DiffusionCriteria) data.get(position);
+            //tempValues = AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position);
             /************  Set Model values in Holder elements ***********/
-            holder.diff_crit_name.setText(tempValues.getCriteria_Name());
+            holder.diff_crit_name.setText(AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getCriteria_Name());
             holder.diff_critt_delete.setVisibility(View.VISIBLE);
+            holder.diff_critt_save.setVisibility(View.VISIBLE);
             holder.diff_crit_text_value.setVisibility(View.VISIBLE);
 
-            if (tempValues.isSpinner_type()) {
+            if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).isSpinner_type()) {
                 holder.diff_crit_text_value.setVisibility(View.GONE);
                 holder.diff_crit_spin_value.setVisibility(View.VISIBLE);
                 holder.diff_crit_spin_value.setAdapter(
-                        new ArrayAdapter<Object>(vi.getContext(), android.R.layout.simple_list_item_1, tempValues.getValues_List())
+                        new ArrayAdapter<Object>(vi.getContext(), android.R.layout.simple_list_item_1,
+                                AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValues_List())
                 );
+                if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position) != null)
+                    if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue() != null)
+                        holder.diff_crit_spin_value.setSelection(
+                                AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValues_List().
+                                        indexOf(AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue().toString()));
             } else {
                 holder.diff_crit_spin_value.setVisibility(View.GONE);
                 holder.diff_crit_text_value.setVisibility(View.VISIBLE);
-                if (tempValues != null)
-                    if (tempValues.getValue() != null)
-                        holder.diff_crit_text_value.setText(tempValues.getValue().toString());
+                if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position) != null)
+                    if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue() != null)
+                        holder.diff_crit_text_value.setText(
+                                AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue().toString());
             }
-            /*holder.image.setImageResource(
-                    res.getIdentifier(
-                            "com.androidexample.customlistview:drawable/"+tempValues.getImage()
-                            ,null,null));*/
 
             /******** Set Item Click Listner for LayoutInflater for each row *******/
 
             //vi.setOnClickListener(new OnItemClickListener( position ));
-            holder.diff_critt_delete.setOnClickListener(new OnItemClickListener(position));
+            holder.diff_critt_delete.setOnClickListener(new OnItemClickListener(false, position));
+            // holder.diff_critt_save.setOnClickListener(new OnItemClickListener(true, position));
         }
         return vi;
     }
@@ -160,6 +189,7 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
         // in the afterDescendants mode if the EditText was focused
         listView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
     }
+
     @Override
     public void onClick(View v) {
         Log.v("CustomAdapter", "=====Row button clicked=====");
@@ -174,6 +204,8 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
         public EditText diff_crit_text_value;
         public TextView diff_crit_name;
         public ImageButton diff_critt_delete;
+        public ImageButton diff_critt_save;
+        public int currentPos;
         /*public TextView textWide;
         public ImageView image;*/
 
@@ -184,22 +216,22 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
      ************/
     private class OnItemClickListener implements View.OnClickListener {
         private int mPosition;
+        private boolean save;
 
-        OnItemClickListener(int position) {
+        OnItemClickListener(boolean b, int position) {
             mPosition = position;
+            save = b;
         }
 
         @Override
         public void onClick(View arg0) {
-
-
             DiffusionCriteriasActivity sct = (DiffusionCriteriasActivity) activity;
-
             /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
-
-            Log.v("Diff_Crit", "=====Delete button clicked====="+mPosition);
-            sct.onItemClick(mPosition);
+            //Log.v("Diff_Crit", "=====Delete button clicked=====" + mPosition);
+            if (!save)
+                sct.onItemClickDelete(mPosition);
+            else
+                sct.onItemClickSave(mPosition);
         }
     }
-
 }

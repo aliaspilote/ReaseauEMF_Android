@@ -11,6 +11,7 @@ public class DiffusionList implements Serializable {
     public ArrayList<DiffusionCriteria> DiffusionCriteriaListViewValuesArr = new ArrayList<DiffusionCriteria>();
     String label;
     String id;
+    String count;
 
     public DiffusionList() {
     }
@@ -30,5 +31,22 @@ public class DiffusionList implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
+    public int size() {
+        return DiffusionCriteriaListViewValuesArr.size();
+    }
+
+    public DiffusionCriteria get_criteria_byInt(int a) {
+        return DiffusionCriteriaListViewValuesArr.get(a);
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
 
 }

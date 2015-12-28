@@ -3,7 +3,6 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 import android.widget.ArrayAdapter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +14,13 @@ public class DiffusionCriteria implements Serializable {
     List<Object> values_List;
     ArrayAdapter<Object> adapter_values_List;
     boolean spinner_type = false;
+
+    public DiffusionCriteria(DiffusionCriteria another) {
+        this.criteria_Name = another.criteria_Name;
+        this.value = another.value;
+        this.values_List = another.values_List;
+        this.adapter_values_List = another.adapter_values_List;
+    }
 
     public DiffusionCriteria() {
     }
@@ -67,21 +73,12 @@ public class DiffusionCriteria implements Serializable {
         this.adapter_values_List = adapter_values_List;
     }
 
-    public void setValuesTest() {
-        values_List = new ArrayList<>();
-        values_List.add((Object) new String("val1"));
-        values_List.add((Object) new String("val2"));
-        values_List.add((Object) new String("val3"));
-    }
-
     @Override
     public String toString() {
         String display = "";
         if (criteria_Name != null)
-            if (criteria_Name.length() > 2)
                 display += criteria_Name;
         if (value != null)
-            if (value.toString().length() > 2)
                 display += " : " + value.toString();
         return display;
     }

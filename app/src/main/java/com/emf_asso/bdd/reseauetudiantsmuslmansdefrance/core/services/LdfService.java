@@ -66,16 +66,26 @@ public class LdfService implements Serializable {
         return ldfList.get(position);
     }
 
+    public DiffusionCriteria get_criteria_currentldf(int pos) {
+        return current_ldf.DiffusionCriteriaListViewValuesArr.get(pos);
+    }
+
     public void add_criteria_currentldf(DiffusionCriteria criteria) {
         current_ldf.DiffusionCriteriaListViewValuesArr.add(criteria);
     }
 
     public void remove_criteria_currentldf(DiffusionCriteria criteria) {
-        current_ldf.DiffusionCriteriaListViewValuesArr.add(criteria);
+        current_ldf.DiffusionCriteriaListViewValuesArr.remove(criteria);
     }
 
     public void update_criteria_currentldf(int position, DiffusionCriteria criteria) {
         current_ldf.DiffusionCriteriaListViewValuesArr.set(position, criteria);
+    }
+
+    public void updateVal_criteria_currentldf(int position, Object criteriaVal) {
+        DiffusionCriteria df = get_criteria_currentldf(position);
+        df.setValue(criteriaVal);
+        update_criteria_currentldf(position, df);
     }
 
 

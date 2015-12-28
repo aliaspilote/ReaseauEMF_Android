@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.DiffusionCriteriaRowContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
@@ -18,8 +22,10 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
 public class DiffusionCriteriasActivity extends AppCompatActivity {
 
     public DiffusionCriteriasActivity DiffusionCriteriaCtx = null;
+    public DiffusionCriteriaRowContent adapter;
     ListView list;
-    DiffusionCriteriaRowContent adapter;
+    EditText ldf_name;
+    TextView ldf_count;
     private SessionWsService AppCtx;
 
     @Override
@@ -30,12 +36,15 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button fab = (Button) findViewById(R.id.btn_add_diff_crit);
+        ldf_name = (EditText) findViewById(R.id.editxt_ldf_name);
+        ldf_count = (TextView) findViewById(R.id.editxt_ldf_count);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DiffusionCriteria dc_to_add = (DiffusionCriteria) ((Spinner) findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
-
-                AppCtx.getServiceLDF().add_criteria_currentldf(dc_to_add);
+                DiffusionCriteria dc_to_add = (DiffusionCriteria)
+                        ((Spinner) findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
+                AppCtx.getServiceLDF().add_criteria_currentldf(new DiffusionCriteria(dc_to_add));
+                saveAllItemRow();
                 adapter.notifyDataSetChanged();
                 Snackbar.make(view, "Critère \'" + dc_to_add.toString() + "\' ajouté.", Snackbar.LENGTH_LONG)
                         .setAction("Ajouter", null).show();
@@ -58,48 +67,74 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             }
         }
         AppCtx.getServiceLDF().onStart();
+        // Set Here the current LDF
         DiffusionCriteriaCtx = this;
         ListViewInit.loadListStaticData(AppCtx);
         ListViewInit.loadCriteriaType_List_View(DiffusionCriteriaCtx);
+
+        if (AppCtx.getServiceLDF().getCurrent_ldf().getLabel() != null)
+            ldf_name.setText(AppCtx.getServiceLDF().getCurrent_ldf().getLabel());
+        if (AppCtx.getServiceLDF().getCurrent_ldf().getCount() != null)
+            ldf_count.setText(AppCtx.getServiceLDF().getCurrent_ldf().getCount());
 
         /******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
         //setListData();
         list = (ListView) findViewById(R.id.listview_diffusion_criterias);  // List defined in XML ( See Below )
         list.setItemsCanFocus(true);
         /**************** Create Custom Adapter *********/
-        adapter = new DiffusionCriteriaRowContent(DiffusionCriteriaCtx, AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr);
+        adapter = new DiffusionCriteriaRowContent(DiffusionCriteriaCtx, AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr, AppCtx);
         list.setAdapter(adapter);
+
+        ldf_name.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    AppCtx.getServiceLDF().getCurrent_ldf().setLabel(s.toString());
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+            }
+        });
     }
 
     /******
      * Function to set data in ArrayList
      *************/
-    public void setListData() {
-        DiffusionCriteria dc1 = new DiffusionCriteria();
-        dc1.setCriteria_Name("Nom");
-        AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc1);
-        DiffusionCriteria dc2 = new DiffusionCriteria();
-        dc2.setCriteria_Name("CP");
-        AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc2);
-        DiffusionCriteria dc3 = new DiffusionCriteria();
-        dc3.setCriteria_Name("Age");
-        dc3.setSpinner_type(true);
-        dc3.setValuesTest();
-        AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.add(dc3);
+    public void saveAllItemRow() {
+        for (int i = 0; i < AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.size(); i++)
+            onItemClickSave(i);
     }
 
-    public void onItemClick(int mPosition) {
+    public void onItemClickDelete(int mPosition) {
         if (mPosition >= 0) {
             DiffusionCriteria dc_to_delete = AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.get(mPosition);
             AppCtx.getServiceLDF().remove_criteria_currentldf(dc_to_delete);
             adapter.notifyDataSetChanged();
         }
-        /*    Snackbar.make(view,dc_to_delete.getCriteria_Name() + " " +dc_to_delete.getValue()!= null ? dc_to_delete.getValue().toString() : "" + " supprimmé", Snackbar.LENGTH_LONG)
-                    .setAction("Supprimmer", null).show();
-        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
-                .findViewById(android.R.id.content)).getChildAt(0);
-        Snackbar.make(viewGroup ,tempValues.getCriteria_Name() + " " +tempValues.getValue()!= null ? tempValues.getValue().toString() : ""+" supprimmé", Snackbar.LENGTH_LONG)
-                .setAction("Ajouter", null).show();*/
+    }
+
+    public void onItemClickSave(int mPosition) {
+        if (mPosition >= 0) {
+            Object val;
+            DiffusionCriteria dc_to_save = AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.get(mPosition);
+            if (dc_to_save == null)
+                return;
+            if (dc_to_save.isSpinner_type())
+                val = ((Spinner) getViewByPosition(mPosition, list).findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
+            else
+                val = ((EditText) getViewByPosition(mPosition, list).findViewById(R.id.editxt_diffusion_criteria_value)).getText().toString();
+            dc_to_save.setValue(val);
+            AppCtx.getServiceLDF().update_criteria_currentldf(mPosition, dc_to_save);
+        }
     }
 
     @Override
@@ -108,5 +143,16 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         outState.putSerializable("AppSessionContext", AppCtx);
     }
 
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
+    }
 
 }

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.LDFActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
@@ -95,13 +96,13 @@ public class LdfRowContent extends BaseAdapter implements View.OnClickListener {
             /***** Get each Model object from Arraylist ********/
             //tempValues = AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position);
             /************  Set Model values in Holder elements ***********/
-            holder.ldf_name.setText(AppCtx.getServiceLDF().get_ldf(position).getLabel().toString());
+            holder.ldf_name.setText(AppCtx.getServiceLDF().get_ldf(position).getLabel() != null ? AppCtx.getServiceLDF().get_ldf(position).getLabel().toString() : "");
             holder.ldf_count.setText(AppCtx.getServiceLDF().get_ldf(position).getCount() != null ? AppCtx.getServiceLDF().get_ldf(position).getCount().toString() : "-");
             holder.ldf_send_mail.setVisibility(View.VISIBLE);
 
             /******** Set Item Click Listner for LayoutInflater for each row *******/
 
-            vi.setOnClickListener(new OnRowClickListener(position));
+            vi.setOnClickListener(new OnRowClickListener(position, (LDFActivity) activity));
             holder.ldf_send_mail.setOnClickListener(new OnSendClickListener(position));
             // holder.diff_critt_save.setOnClickListener(new OnItemClickListener(true, position));
         }
@@ -155,16 +156,18 @@ public class LdfRowContent extends BaseAdapter implements View.OnClickListener {
      ************/
     private class OnRowClickListener implements View.OnClickListener {
         private int mPosition;
+        private LDFActivity mActivity;
 
-        OnRowClickListener(int position) {
+        OnRowClickListener(int position, LDFActivity activity) {
             mPosition = position;
+            mActivity = activity;
         }
 
         @Override
         public void onClick(View arg0) {
-            //DiffusionCriteriasActivity sct = (DiffusionCriteriasActivity) activity;
+            AppCtx.getServiceLDF().setCurrent_ldf(AppCtx.getServiceLDF().get_ldf(mPosition));
+            mActivity.gotoDiffusionCriteriasActivity();
             Log.v("LDF ROW Action", "=====Row clicked=====" + mPosition);
-            //sct.onItemClickSave(mPosition);
         }
     }
 

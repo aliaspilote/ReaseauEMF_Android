@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void OnTry(View view) throws IOException {
 
-        Intent intent = new Intent(context, DiffusionCriteriasActivity.class);
+        Intent intent = new Intent(context, LDFActivity.class);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);
@@ -229,12 +229,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void OnTryTaha(View view) throws IOException {
 
-        Intent intent = new Intent(context, LDFActivity.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("AppSessionContext", AppSessionContext);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+        DisplayToast("Salam Taha");
     }
 
     public String getTextByEditTextId(int id_editText) {

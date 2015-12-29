@@ -22,6 +22,7 @@ public class DiffusionCriteria implements Serializable {
         this.values_List = another.values_List;
         this.adapter_values_List = another.adapter_values_List;
         this.criteria_id = another.criteria_id;
+        this.spinner_type = another.spinner_type;
     }
 
     public DiffusionCriteria() {

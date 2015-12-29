@@ -1,5 +1,8 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -23,6 +26,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
 public class DiffusionCriteriasActivity extends AppCompatActivity {
 
     public DiffusionCriteriasActivity DiffusionCriteriaCtx = null;
+    public Context context;
     public DiffusionCriteriaRowContent adapter;
     ListView list;
     EditText ldf_name;
@@ -35,6 +39,10 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diffusion_criterias);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        DiffusionCriteriaCtx = this;
+        context = this;
 
         Button add_criteria = (Button) findViewById(R.id.btn_add_diff_crit);
         ImageButton cancel_ldf = (ImageButton) findViewById(R.id.btn_cancel_current_ldf);
@@ -55,24 +63,67 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         cancel_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Annuler modification non sauvegarder, retour liste des ldf", Snackbar.LENGTH_LONG)
-                        .setAction("Cancel", null).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder
+                        .setMessage("Annuler toutes les modifications non enregistrées ?")
+                        .setPositiveButton("Confirmer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                gotoLDFActivity();
+                            }
+                        })
+                        .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
         suppr_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Supprimmer la ldf courante, retour liste des ldf", Snackbar.LENGTH_LONG)
-                        .setAction("Supprimmer", null).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder
+                        .setMessage("Supprimer de la bdd cette liste de diffusion ? (pas les utisateurs)")
+                        .setPositiveButton("Confirmer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                AppCtx.getServiceLDF().remove_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
+                                gotoLDFActivity();
+                            }
+                        })
+                        .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
         save_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveAllItemRow();
-                // Save the current ldf in the model ldt_list
-                Snackbar.make(view, "Sauvegarder la ldf courante, retour liste des ldf", Snackbar.LENGTH_LONG)
-                        .setAction("Sauvegarder", null).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder
+                        .setMessage("Sauvegarder cette liste de diffusion")
+                        .setPositiveButton("Confirmer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                saveAllItemRow();
+                                AppCtx.getServiceLDF().update_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
+                                gotoLDFActivity();
+                            }
+                        })
+                        .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
         ldf_name = (EditText) findViewById(R.id.editxt_ldf_name);
@@ -95,7 +146,6 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         }
         AppCtx.getServiceLDF().onStart();
         // Set Here the current LDF
-        DiffusionCriteriaCtx = this;
         ListViewInit.loadListStaticData(AppCtx);
         ListViewInit.loadCriteriaType_List_View(DiffusionCriteriaCtx);
 
@@ -156,7 +206,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             if (dc_to_save == null)
                 return;
             if (dc_to_save.isSpinner_type())
-                val = ((Spinner) getViewByPosition(mPosition, list).findViewById(R.id.spin_diffusion_criteria_type)).getSelectedItem();
+                val = ((Spinner) getViewByPosition(mPosition, list).findViewById(R.id.spin_diffusion_criteria_value)).getSelectedItem();
             else
                 val = ((EditText) getViewByPosition(mPosition, list).findViewById(R.id.editxt_diffusion_criteria_value)).getText().toString();
             dc_to_save.setValue(val);
@@ -180,6 +230,14 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
             final int childIndex = pos - firstListItemPosition;
             return listView.getChildAt(childIndex);
         }
+    }
+
+    public void gotoLDFActivity() {
+        Intent intent = new Intent(DiffusionCriteriaCtx, LDFActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AppSessionContext", AppCtx);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
 }

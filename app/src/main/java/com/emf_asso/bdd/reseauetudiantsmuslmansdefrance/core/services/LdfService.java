@@ -55,7 +55,15 @@ public class LdfService implements Serializable {
     }
 
     public void remove_ldf(DiffusionList ldf) {
-        ldfList.remove(ldf);
+        if (ldfList.contains(ldf))
+            ldfList.remove(ldf);
+    }
+
+    public void update_ldf(DiffusionList newldf) {
+        if (ldfList.contains(newldf))
+            ldfList.set(ldfList.indexOf(newldf), newldf);
+        else
+            ldfList.add(newldf);
     }
 
     public void update_ldf(int position, DiffusionList newldf) {

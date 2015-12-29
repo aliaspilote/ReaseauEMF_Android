@@ -94,27 +94,6 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
             holder.diff_critt_delete = (ImageButton) vi.findViewById(R.id.suppr_criteria);
             // holder.diff_critt_save = (ImageButton) vi.findViewById(R.id.save_criteria);
 
-            //holder.image=(ImageView)vi.findViewById(R.id.image);
-           /* holder.diff_crit_text_value.addTextChangedListener(new TextWatcher() {
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s != null)
-                    {
-                        AppCtx.getServiceLDF().updateVal_criteria_currentldf(holder.currentPos, s.toString());
-                    }
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start,
-                                              int count, int after) {  }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start,
-                                          int before, int count) {
-                }
-            });
-*/
             //holder.diff_crit_spin_value.addTextChangedListener(new CustomTextWatcher(text2,wed));
             /************  Set holder with LayoutInflater ************/
             vi.setTag(holder);
@@ -147,7 +126,7 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
                     if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue() != null)
                         holder.diff_crit_spin_value.setSelection(
                                 AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValues_List().
-                                        indexOf(AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue().toString()));
+                                        indexOf(AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getValue()));
             } else {
                 holder.diff_crit_spin_value.setVisibility(View.GONE);
                 holder.diff_crit_text_value.setVisibility(View.VISIBLE);

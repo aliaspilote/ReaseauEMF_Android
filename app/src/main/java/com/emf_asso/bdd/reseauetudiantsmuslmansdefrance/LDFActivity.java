@@ -1,5 +1,6 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ public class LDFActivity extends AppCompatActivity {
     public LDFActivity LDFActivityCtx = null;
     public LdfRowContent adapter;
     public ListView list;
+    private Context context = this;
     private SessionWsService AppCtx;
 
     @Override
@@ -36,6 +38,8 @@ public class LDFActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Ajouter une nouvelle liste", Snackbar.LENGTH_LONG)
                         .setAction("Ajouter", null).show();
+                AppCtx.getServiceLDF().setCurrent_ldf(new DiffusionList());
+                gotoDiffusionCriteriasActivity();
             }
         });
 
@@ -55,8 +59,8 @@ public class LDFActivity extends AppCompatActivity {
             }
         }
         AppCtx.getServiceLDF().onStart();
-        loadDataLdf();
 
+        //loadDataLdf();
         // Set Here the current LDF
         LDFActivityCtx = this;
         ListViewInit.loadListStaticData(AppCtx);
@@ -143,6 +147,14 @@ public class LDFActivity extends AppCompatActivity {
             final int childIndex = pos - firstListItemPosition;
             return listView.getChildAt(childIndex);
         }
+    }
+
+    public void gotoDiffusionCriteriasActivity() {
+        Intent intent = new Intent(context, DiffusionCriteriasActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AppSessionContext", AppCtx);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
 }

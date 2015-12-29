@@ -71,8 +71,8 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
         Current_Position = a;
-        menu = new MenuDrawer(this, Current_Position);
-        InitStubs();
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -89,6 +89,8 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             SystemClock.sleep(3000);
             gotoMainActivity();
         }
+        menu = new MenuDrawer(this, Current_Position);
+        InitStubs();
         ListViewInit.loadListStaticPI(this, AppCtx);
         setUsermember(AppCtx.getUserMember());
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -106,7 +108,10 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         CreateProfil();
         fillInfoPerso();
         //selectSpinner();
-        mDrawerLayout.openDrawer(GravityCompat.START);
+        if (Current_Position == -1)
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        if (AppCtx.getToken() == null)
+            gotoMainActivity();
     }
 
     private void setupDrawer() {
@@ -213,8 +218,32 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         findViewById(R.id.stub_Inflated_pup2).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup3).setVisibility(View.GONE);
         findViewById(R.id.stub_Inflated_pup4).setVisibility(View.GONE);
+
+        displayStub(Current_Position);
     }
 
+    void displayStub(int current_Position) {
+        switch (current_Position) {
+            case 1:
+                menu.hideStubByPosition(0);
+                menu.displayStubByPosition(1);
+                break;
+            case 2:
+                menu.hideStubByPosition(0);
+                menu.displayStubByPosition(2);
+                break;
+            case 3:
+                menu.hideStubByPosition(0);
+                menu.displayStubByPosition(3);
+                break;
+            case 4:
+                menu.hideStubByPosition(0);
+                menu.displayStubByPosition(4);
+                break;
+            default:
+                break;
+        }
+    }
     public void CreateProfil() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 

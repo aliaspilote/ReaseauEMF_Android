@@ -1,7 +1,9 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.DialogBox;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
@@ -61,6 +64,36 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         menucontrol.setAppSessionContext(AppSessionContext);
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set title
+        alertDialogBuilder.setTitle("Quitter l'application");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Voulez-vous vraiment quitter l'application")
+                .setCancelable(false)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        moveTaskToBack(true);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
@@ -235,13 +268,21 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         AppSessionContext.setUser_From_DB(obj);
         // user ou admin
         AppSessionContext.getUserMember().setIsAdmin(false);
+        // active ou desactive
+        AppSessionContext.getUserMember().setIsEnable(true);
+
         AppSessionContext.BeInProfileView();
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("p", -1);
         bundle.putSerializable("AppSessionContext", AppSessionContext);
         intent.putExtras(bundle);
-        context.startActivity(intent);
+        if (AppSessionContext.getUserMember().isEnable() == false) {
+            DialogBox dialog = new DialogBox(context, intent);
+            dialog.createDialogBox("Compte désactivé", "Voulez vous l'activer ?");
+        } else
+            context.startActivity(intent);
+
     }
 
     public void OnRegisterClick(View view) {

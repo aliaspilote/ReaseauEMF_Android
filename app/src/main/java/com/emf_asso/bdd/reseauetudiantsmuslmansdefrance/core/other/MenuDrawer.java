@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity;
@@ -105,6 +106,26 @@ public class MenuDrawer extends AppCompatActivity {
         map.put("img", String.valueOf(R.drawable.ic_propos));
         listItem.add(map);
 
+        if (AppCtx.getUserMember().isAdmin() == true) {
+            map = new HashMap<String, String>();
+            map.put("title", "Gestion des listes");
+            map.put("img", String.valueOf(R.drawable.ic_list));
+            listItem.add(map);
+            map = new HashMap<String, String>();
+            map.put("title", "Envoyer un message");
+            map.put("img", String.valueOf(R.drawable.ic_message));
+            listItem.add(map);
+            map = new HashMap<String, String>();
+            map.put("title", "Rechercher un profil");
+            map.put("img", String.valueOf(R.drawable.ic_search));
+            listItem.add(map);
+            map = new HashMap<String, String>();
+            map.put("title", "Gestion des admins");
+            map.put("img", String.valueOf(R.drawable.ic_admin));
+            listItem.add(map);
+
+        }
+
         map = new HashMap<String, String>();
         map.put("title", "Déconnexion");
         map.put("img", String.valueOf(R.drawable.ic_disconnect));
@@ -196,7 +217,17 @@ public class MenuDrawer extends AppCompatActivity {
                 intent.putExtras(b);
                 this.context.startActivity(intent);
                 break;
+            case 4:
+                intent = new Intent(this.context, UserMemberProfilActivity.class);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                break;
             case 5:
+                intent = new Intent(this.context, CursusListActivity.class);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
+                break;
+            case 6:
                 intent = new Intent(this.context, CursusListActivity.class);
                 intent.putExtras(b);
                 this.context.startActivity(intent);
@@ -206,7 +237,15 @@ public class MenuDrawer extends AppCompatActivity {
                 intent.putExtras(b);
                 this.context.startActivity(intent);
                 break;
+            case 8:
+                if (AppCtx.getUserMember().isAdmin() == false) {
+                    intent = new Intent(this.context, MainActivity.class);
+                    intent.putExtras(b);
+                    AppCtx.killSession();
+                    this.context.startActivity(intent);
 
+                }
+                break;
             default:
                 intent = new Intent(this.context, MainActivity.class);
                 this.context.startActivity(intent);
@@ -222,14 +261,20 @@ public class MenuDrawer extends AppCompatActivity {
             else
                 hideStubByPosition(Current_Position);
             displayStubByPosition(position);
+
         } else
             startActivityByPosition(position);
 
-        //DisplayToast("Current = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
+        DisplayToast("Currenttttttt = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
         Current_Position = position;
     }
 
-
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this.context, text, time);
+        toast.show();
+    }
 
 
 

@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
     public void OnTryTaha(View view) throws IOException {
 
-        Intent intent = new Intent(context, DiffusionCriteriasActivity.class);
+        Intent intent = new Intent(context, LDFActivity.class);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("AppSessionContext", AppSessionContext);

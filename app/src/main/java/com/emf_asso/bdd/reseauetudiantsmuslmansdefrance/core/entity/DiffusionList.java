@@ -16,6 +16,12 @@ public class DiffusionList implements Serializable {
     public DiffusionList() {
     }
 
+    public DiffusionList(String label, String id, String count) {
+        this.label = label;
+        this.id = id;
+        this.count = count;
+    }
+
     public String getLabel() {
         return label;
     }

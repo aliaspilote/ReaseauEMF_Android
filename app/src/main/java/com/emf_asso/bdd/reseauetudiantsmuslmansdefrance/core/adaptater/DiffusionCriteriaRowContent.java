@@ -92,7 +92,7 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
             holder.diff_crit_text_value = (EditText) vi.findViewById(R.id.editxt_diffusion_criteria_value);
             holder.diff_crit_spin_value = (Spinner) vi.findViewById(R.id.spin_diffusion_criteria_value);
             holder.diff_critt_delete = (ImageButton) vi.findViewById(R.id.suppr_criteria);
-            holder.diff_critt_save = (ImageButton) vi.findViewById(R.id.save_criteria);
+            // holder.diff_critt_save = (ImageButton) vi.findViewById(R.id.save_criteria);
 
             //holder.image=(ImageView)vi.findViewById(R.id.image);
            /* holder.diff_crit_text_value.addTextChangedListener(new TextWatcher() {
@@ -126,14 +126,14 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
             holder.diff_crit_spin_value.setContentDescription("pas de critères ajoutés");
             holder.diff_crit_text_value.setVisibility(View.GONE);
             holder.diff_critt_delete.setVisibility(View.GONE);
-            holder.diff_critt_save.setVisibility(View.GONE);
+            // holder.diff_critt_save.setVisibility(View.GONE);
         } else {
             /***** Get each Model object from Arraylist ********/
             //tempValues = AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position);
             /************  Set Model values in Holder elements ***********/
             holder.diff_crit_name.setText(AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).getCriteria_Name());
             holder.diff_critt_delete.setVisibility(View.VISIBLE);
-            holder.diff_critt_save.setVisibility(View.VISIBLE);
+            // holder.diff_critt_save.setVisibility(View.VISIBLE);
             holder.diff_crit_text_value.setVisibility(View.VISIBLE);
 
             if (AppCtx.getServiceLDF().getCurrent_ldf().get_criteria_byInt(position).isSpinner_type()) {
@@ -208,7 +208,6 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
         public int currentPos;
         /*public TextView textWide;
         public ImageView image;*/
-
     }
 
     /*********

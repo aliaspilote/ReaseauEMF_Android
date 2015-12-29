@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,10 +36,11 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button fab = (Button) findViewById(R.id.btn_add_diff_crit);
-        ldf_name = (EditText) findViewById(R.id.editxt_ldf_name);
-        ldf_count = (TextView) findViewById(R.id.editxt_ldf_count);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button add_criteria = (Button) findViewById(R.id.btn_add_diff_crit);
+        ImageButton cancel_ldf = (ImageButton) findViewById(R.id.btn_cancel_current_ldf);
+        ImageButton suppr_ldf = (ImageButton) findViewById(R.id.btn_suppr_current_ldf);
+        ImageButton save_ldf = (ImageButton) findViewById(R.id.btn_save_current_ldf);
+        add_criteria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DiffusionCriteria dc_to_add = (DiffusionCriteria)
@@ -50,6 +52,31 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
                         .setAction("Ajouter", null).show();
             }
         });
+        cancel_ldf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Annuler modification non sauvegarder, retour liste des ldf", Snackbar.LENGTH_LONG)
+                        .setAction("Cancel", null).show();
+            }
+        });
+        suppr_ldf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Supprimmer la ldf courante, retour liste des ldf", Snackbar.LENGTH_LONG)
+                        .setAction("Supprimmer", null).show();
+            }
+        });
+        save_ldf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveAllItemRow();
+                // Save the current ldf in the model ldt_list
+                Snackbar.make(view, "Sauvegarder la ldf courante, retour liste des ldf", Snackbar.LENGTH_LONG)
+                        .setAction("Sauvegarder", null).show();
+            }
+        });
+        ldf_name = (EditText) findViewById(R.id.editxt_ldf_name);
+        ldf_count = (TextView) findViewById(R.id.editxt_ldf_count);
 
         if (savedInstanceState != null) {
             AppCtx = (SessionWsService) savedInstanceState.getSerializable("AppSessionContext");

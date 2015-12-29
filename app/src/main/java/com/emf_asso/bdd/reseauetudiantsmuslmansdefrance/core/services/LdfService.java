@@ -20,7 +20,7 @@ public class LdfService implements Serializable {
     public void onStart() {
         if (!startedService) {
             current_position = 0;
-            current_ldf = new DiffusionList();
+            current_ldf = null;
             ldfList = new ArrayList<>();
             startedService = true;
         }
@@ -86,6 +86,10 @@ public class LdfService implements Serializable {
         DiffusionCriteria df = get_criteria_currentldf(position);
         df.setValue(criteriaVal);
         update_criteria_currentldf(position, df);
+    }
+
+    public int size_ldf() {
+        return ldfList.size();
     }
 
 

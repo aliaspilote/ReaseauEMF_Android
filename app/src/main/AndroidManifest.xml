@@ -73,8 +73,11 @@
             android:label="@string/app_name" />
         <activity
             android:name=".CursusUpdateActivity"
-            android:label="@string/app_name">
-
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".LDFActivity"
+            android:label="@string/title_activity_ldf"
+            android:theme="@style/AppThemeDAB">
         </activity>
     </application>
 

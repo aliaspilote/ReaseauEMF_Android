@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class DiffusionCriteria implements Serializable {
     String criteria_Name;
+    String criteria_id;
     Object value;
     List<Object> values_List;
     ArrayAdapter<Object> adapter_values_List;
@@ -20,17 +21,27 @@ public class DiffusionCriteria implements Serializable {
         this.value = another.value;
         this.values_List = another.values_List;
         this.adapter_values_List = another.adapter_values_List;
+        this.criteria_id = another.criteria_id;
     }
 
     public DiffusionCriteria() {
     }
 
-    public DiffusionCriteria(String name, Boolean isSpin, List<Object> valuesList) {
+    public DiffusionCriteria(String name, String id, Boolean isSpin, List<Object> valuesList) {
         criteria_Name = name;
+        criteria_id = id;
         if (isSpin) {
             spinner_type = isSpin;
             values_List = valuesList;
         }
+    }
+
+    public String getCriteria_id() {
+        return criteria_id;
+    }
+
+    public void setCriteria_id(String criteria_id) {
+        this.criteria_id = criteria_id;
     }
 
     public String getCriteria_Name() {

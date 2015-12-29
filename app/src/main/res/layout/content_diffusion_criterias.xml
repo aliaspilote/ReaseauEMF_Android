@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/lbl_diffusion_criterias_count" />
+                android:text="@string/lbl_ldf_result_count" />
 
             <TextView
                 android:id="@+id/editxt_ldf_count"

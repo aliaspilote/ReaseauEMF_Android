@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.DiffusionCriteriasActivity">
 
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +18,38 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppThemeDAB.PopupOverlay" />
+            app:popupTheme="@style/AppThemeDAB.PopupOverlay">
+
+            <ImageButton
+                android:id="@+id/btn_save_current_ldf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_save_cheked" />
+
+            <ImageButton
+                android:id="@+id/btn_cancel_current_ldf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_cancel_light" />
+
+            <ImageButton
+                android:id="@+id/btn_suppr_current_ldf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_suppr" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

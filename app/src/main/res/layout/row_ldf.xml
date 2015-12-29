@@ -5,29 +5,29 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/lbl_row_diffusion_criteria_name"
+        android:id="@+id/lbl_row_ldf_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
         android:gravity="center"
-        android:hint="Nom critère" />
+        android:hint="Nom de la liste" />
 
-
-    <EditText
-        android:id="@+id/editxt_diffusion_criteria_value"
+    <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
-        android:hint="@string/lbl_val_criteria" />
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/lbl_ldf_result_count" />
 
-    <Spinner
-        android:id="@+id/spin_diffusion_criteria_value"
+    <TextView
+        android:id="@+id/lbl_ldf_row_result_count"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:prompt="@string/lbl_ldf_criteria"
-        android:visibility="gone" />
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/int_null" />
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -36,11 +36,11 @@
         android:layout_weight="0.3">
 
         <ImageButton
-            android:id="@+id/suppr_criteria"
+            android:id="@+id/send_mail_ldf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@null"
-            android:src="@drawable/ic_suppr_dark" />
+            android:src="@drawable/ic_message" />
     </RelativeLayout>
 </LinearLayout>

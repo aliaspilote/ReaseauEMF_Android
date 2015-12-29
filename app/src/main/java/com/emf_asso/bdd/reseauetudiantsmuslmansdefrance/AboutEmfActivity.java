@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawerAdmin;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
@@ -29,7 +29,7 @@ public class AboutEmfActivity extends AppCompatActivity {
 
     public int Current_Position;
     public SessionWsService AppCtx;
-    public MenuDrawerAdmin menu;
+    public MenuDrawer menu;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -57,7 +57,21 @@ public class AboutEmfActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
         Current_Position = a;
-        menu = new MenuDrawerAdmin(this, Current_Position);
+
+        Boolean intentExtrat = false;
+
+        if (intent.getSerializableExtra("AppSessionContext") != null) {
+            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
+            intentExtrat = true;
+        }
+        if (bundle != null) {
+            if (bundle.getSerializable("AppSessionContext") != null) {
+                AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
+                intentExtrat = true;
+            }
+        }
+
+        menu = new MenuDrawer(this, Current_Position);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -72,18 +86,7 @@ public class AboutEmfActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        Boolean intentExtrat = false;
 
-        if (intent.getSerializableExtra("AppSessionContext") != null) {
-            AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
-            intentExtrat = true;
-        }
-        if (bundle != null) {
-            if (bundle.getSerializable("AppSessionContext") != null) {
-                AppCtx = (SessionWsService) bundle.getSerializable("AppSessionContext");
-                intentExtrat = true;
-            }
-        }
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,6 +1,8 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,17 +36,55 @@ public class Menu_Control extends AppCompatActivity {
     }
 
 
+    public void createDialogBox() {
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set title
+        alertDialogBuilder.setTitle("Your Title");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Click yes to exit!")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        //MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_about_emf:
+
                 intent = new Intent(context, AboutEmfActivity.class);
                 context.startActivity(intent);
                 return true;
             case R.id.action_emf_network:
-                intent = new Intent(context, EmfNetworkActivity.class);
-                context.startActivity(intent);
+                createDialogBox();
+                // intent = new Intent(context, EmfNetworkActivity.class);
+                //  context.startActivity(intent);
                 return true;
             case R.id.action_profil:
                 intent = new Intent(context, ProfilActivity.class);

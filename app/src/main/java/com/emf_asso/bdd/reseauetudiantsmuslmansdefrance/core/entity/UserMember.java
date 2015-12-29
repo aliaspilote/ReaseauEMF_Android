@@ -41,6 +41,7 @@ public class UserMember implements Serializable {
     private Date last_update_date;
 
     private boolean isAdmin;
+    private boolean isEnable;
 
     public UserMember() {
         name = "n/a";
@@ -88,6 +89,14 @@ public class UserMember implements Serializable {
                 (jsonObject.get("city")).toString(), BD_date,
                 (jsonObject.get("phone")).toString(), (jsonObject.get("hashed_pwd")).toString());
 
+    }
+
+    public boolean isEnable() {
+        return isEnable;
+    }
+
+    public void setIsEnable(boolean isEnable) {
+        this.isEnable = isEnable;
     }
 
     public boolean isAdmin() {

@@ -125,7 +125,7 @@ public class SessionWsService implements Serializable {
 
             try {
                 if (count_skills > 0) {
-                    for (int i = 1; i <= count_cursus; i++) {
+                    for (int i = 1; i <= count_skills; i++) {
                         JSONObject skillsJson = (JSONObject) list_Skills.get(i + "");
                         userMember.getSkills().add(dataContext.getSkillById(skillsJson.get("skill_id").toString()));
                     }

@@ -1,6 +1,7 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,10 +31,13 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
@@ -39,7 +45,9 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by taha on 24/11/2015.
@@ -50,6 +58,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     public int Current_Position;
     public SessionWsService AppCtx;
     public MenuDrawer menu;
+    public CreateDate default_birthday_date;
     private UserMember usermember;
     private Context context = this;
     private Activity activity = this;
@@ -276,6 +285,9 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         if (usermember.getCity() != null)
             CreateProfilByStep("Ville :", usermember.getCity(), R.id.content_for_city);
 
+        if (usermember.getPhone() != null)
+            CreateProfilByStep("Téléphone :", usermember.getPhone(), R.id.content_for_phone);
+
         if (usermember.getInvolvement() != null)
             CreateProfilByStep("Engagement :", usermember.getInvolvement().toString(), R.id.content_for_involevment);
 
@@ -431,8 +443,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         textview = (TextView) (findViewById(R.id.editxt_ins_firstname));
         AppCtx.getUserMember().setFirstname(textview.getText().toString());
 
-        textview = (TextView) (findViewById(R.id.editxt_ins_birthday));
-        //AppCtx.getUserMember().setBirth_date(textview.getText().toString());
+        AppCtx.getUserMember().setBirth_date(getDateByEditTextId(R.id.editxt_ins_birthday));
 
         textview = (TextView) (findViewById(R.id.editxt_ins_zipcode));
         AppCtx.getUserMember().setZip_code(textview.getText().toString());
@@ -485,5 +496,38 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         intent = new Intent(this.context, UserMemberProfilActivity.class);
         intent.putExtras(b);
         this.context.startActivity(intent);
+    }
+
+    public void onChooseBirthday(View v) {
+        showDate(default_birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);
+
+    }
+
+
+    public void showDate(CreateDate cr, int img, int txt) {
+        cr = new CreateDate();
+        cr.initDate();
+        cr.setIb((ImageButton) findViewById(img));
+        cr.setEt((EditText) findViewById(txt));
+        CustomDatePickerDialog dp = new CustomDatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog,
+                cr.getDatePickerListener(),
+                cr.getYear(),
+                cr.getMonth(),
+                cr.getDay());
+
+        DatePickerDialog obj = dp.getPicker();
+
+        obj.show();
+    }
+
+    public Date getDateByEditTextId(int id_editText) {
+        Date dt = null;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DataContext.dateDisplayFormat, Locale.FRANCE);
+        try {
+            dt = dateFormatter.parse(((EditText) findViewById(id_editText)).getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dt;
     }
 }

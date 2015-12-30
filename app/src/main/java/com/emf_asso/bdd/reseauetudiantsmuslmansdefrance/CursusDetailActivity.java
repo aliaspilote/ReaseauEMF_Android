@@ -123,6 +123,10 @@ public class CursusDetailActivity extends AppCompatActivity {
 
     public void deleteCursus(String current_ARG_ITEM_ID) {
         CursusContent.removeItem(current_ARG_ITEM_ID);
+        if (AppCtx.inProfileView)
+            AppCtx.getUserMember().setCurriculum(CursusContent.pullCursusList());
+        else
+            AppCtx.getServiceProcessInscription().getInscription().getUser().setCurriculum(CursusContent.pullCursusList());
     }
 
     public void saveCursus(String current_ARG_ITEM_ID) {
@@ -159,6 +163,11 @@ public class CursusDetailActivity extends AppCompatActivity {
             currentCursus.setEnd_date(null);
             currentCursus.setStart_date(null);
         }
+        if (AppCtx.inProfileView)
+            AppCtx.getUserMember().setCurriculum(CursusContent.pullCursusList());
+        else
+            AppCtx.getServiceProcessInscription().getInscription().getUser().setCurriculum(CursusContent.pullCursusList());
+
     }
 
     public void saveCursus(Curriculum cursus) {

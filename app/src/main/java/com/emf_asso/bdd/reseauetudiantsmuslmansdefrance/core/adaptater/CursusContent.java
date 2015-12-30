@@ -28,6 +28,10 @@ public class CursusContent {
             addItem(c);
     }
 
+    public static List<Curriculum> pullCursusList() {
+        return ITEMS;
+    }
+
     public static void addItem(Curriculum item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.getId(), item);

@@ -61,10 +61,14 @@ public class CursusListActivity extends AppCompatActivity
                         CursusContent.pushCursusList(AppSessionContext.getUserMember().getCurriculum());
                 Bundle bundle = intent.getExtras();
                 Current_Position = bundle.getInt("p");
+            } else if (AppSessionContext.inProssInscrView) {
+                if (AppSessionContext.getServiceProcessInscription().getInscription().getUser() != null)
+                    if (AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum() != null)
+                        CursusContent.pushCursusList(AppSessionContext.getServiceProcessInscription().getInscription().getUser().getCurriculum());
             }
         }
         setContentView(R.layout.activity_cursus_app_bar);
-        if (AppSessionContext != null)
+        if (AppSessionContext != null) {
             if (AppSessionContext.inProfileView) {
                 mnavList = (ListView) findViewById(R.id.navList);
                 findViewById(R.id.btn_PI_next).setVisibility(View.GONE);
@@ -74,6 +78,7 @@ public class CursusListActivity extends AppCompatActivity
                 menu.addDrawerItems();
                 setupDrawer();
             }
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
@@ -83,8 +88,12 @@ public class CursusListActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Curriculum newCursus = new Curriculum(getResources().getString(R.string.label_new_cursus));
+                //CursusContent.pushCursusList(newCursus);
                 CursusContent.addItem(newCursus);
-                recreate();
+                if (AppSessionContext.inProfileView)
+                    AppSessionContext.getUserMember().setCurriculum(CursusContent.pullCursusList());
+                else
+                    AppSessionContext.getServiceProcessInscription().getInscription().getUser().setCurriculum(CursusContent.pullCursusList());
                 onItemSelected(newCursus.id);
             }
         });

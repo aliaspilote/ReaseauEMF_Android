@@ -17,14 +17,22 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.DiffusionCriteriaRowContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
-public class DiffusionCriteriasActivity extends AppCompatActivity {
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.syncLDF;
 
+public class DiffusionCriteriasActivity extends AppCompatActivity implements ActivityConnectedWeb {
+
+    public final HttpReponse LastReponse = new HttpReponse();
     public DiffusionCriteriasActivity DiffusionCriteriaCtx = null;
     public Context context;
     public DiffusionCriteriaRowContent adapter;
@@ -114,6 +122,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 saveAllItemRow();
                                 AppCtx.getServiceLDF().update_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
+                                synchronizeLDF();
                                 gotoLDFActivity();
                             }
                         })
@@ -183,6 +192,12 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         });
     }
 
+    private void synchronizeLDF() {
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, syncLDF(AppCtx.getServiceLDF().getCurrent_ldf()));
+        wb_thread.execute();
+    }
+
     /******
      * Function to set data in ArrayList
      *************/
@@ -240,4 +255,50 @@ public class DiffusionCriteriasActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+
+    public void ReceptionResponse(HttpReponse Rep) {
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
+        String Message = "";
+
+        if (LastReponse.getResultat() == null)
+            DisplayToast(LastReponse.getExceptionText());
+        else if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
+            DisplayToast(LastReponse.getExceptionText());
+        else {
+            Boolean result = false;
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
+                result = true;
+
+            switch (LastReponse.Action) {
+                case "sync_ldf":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+                        } else
+                            Message += Messages.error_generique;
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                default:
+                    Message = LastReponse.Action + " effectué\n";
+                    Message += "aucun post traitement défini \n";
+                    Message += LastReponse.getResultat().toString();
+                    break;
+            }
+            if (Message.length() > 2)
+                DisplayToast(Message);
+        }
+    }
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 100);
+    }
 }

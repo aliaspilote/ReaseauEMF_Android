@@ -3,6 +3,8 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -35,6 +37,31 @@ public class FormBodyManager {
         return formBody;
     }
 
+
+    public static RequestBody syncLDF(DiffusionList ldf) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "sync_ldf")
+                .add("ldf_id", ldf.getId())
+                .add("ldf_label", ldf.getLabel());
+        formBody = addLDFCriteriasFormBody(ldf.DiffusionCriteriaListViewValuesArr, formBody);
+        return formBody.build();
+    }
+
+    private static FormEncodingBuilder addLDFCriteriasFormBody(List<DiffusionCriteria> ldf_criterias, FormEncodingBuilder form) {
+        if (ldf_criterias != null) {
+            form.add("criterias_count", ldf_criterias.size() + "");
+            int i = 0;
+            for (DiffusionCriteria crt : ldf_criterias) {
+                i++;
+                form.add("criterias_id" + i, crt.getCriteria_id() + "");
+                form.add("criterias_id" + i, crt.getCriteria_Name() + "");
+                form.add("criterias_id" + i, crt.getValue().toString() + "");
+            }
+        } else
+            form.add("criterias_count", "0");
+        return form;
+    }
+
     public static RequestBody addUser(UserMember user) {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "add_user")
@@ -62,12 +89,15 @@ public class FormBodyManager {
                 .build();
         return formBody;
     }
+
     public static RequestBody getAction(String actionName) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", actionName)
                 .build();
         return formBody;
     }
+
+
     private static FormEncodingBuilder addCursusToFormBody(List<Curriculum> listCursus, FormEncodingBuilder form) {
         if (listCursus != null) {
             form.add("cursus_count", listCursus.size() + "");
@@ -105,4 +135,6 @@ public class FormBodyManager {
 
         return ContactPreferenceJson.replace("\\", "");
     }
+
+
 }

@@ -9,16 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.LdfRowContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
-public class LDFActivity extends AppCompatActivity {
+public class LDFActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
 
+    public final HttpReponse LastReponse = new HttpReponse();
     public LDFActivity LDFActivityCtx = null;
     public LdfRowContent adapter;
     public ListView list;
@@ -76,17 +81,17 @@ public class LDFActivity extends AppCompatActivity {
     }
 
     public void loadDataLdf() {
-        DiffusionList ldf1 = new DiffusionList("List 1", "1", "20");
-        DiffusionList ldf2 = new DiffusionList("List 2", "2", "40");
-        DiffusionList ldf3 = new DiffusionList("List 3", "3", "60");
+        DiffusionList ldf1 = new DiffusionList("List 1", "20");
+        DiffusionList ldf2 = new DiffusionList("List 2", "40");
+        DiffusionList ldf3 = new DiffusionList("List 3", "60");
         Object val1 = "Omar";
         Object val2 = "Latreche";
         Object val3 = "age";
         Object val4 = "90000";
-        DiffusionCriteria dc1 = new DiffusionCriteria("Code postal", "zip_code", false, null);
-        DiffusionCriteria dc2 = new DiffusionCriteria("Nom", "name", false, null);
-        DiffusionCriteria dc3 = new DiffusionCriteria("Prénom", "firstname", false, null);
-        DiffusionCriteria dc4 = new DiffusionCriteria("Age", "age", false, null);
+        DiffusionCriteria dc1 = new DiffusionCriteria("Code postal", false, null);
+        DiffusionCriteria dc2 = new DiffusionCriteria("Nom", false, null);
+        DiffusionCriteria dc3 = new DiffusionCriteria("Prénom", false, null);
+        DiffusionCriteria dc4 = new DiffusionCriteria("Age", false, null);
         dc1.setValue(val1);
         dc2.setValue(val2);
         dc3.setValue(val3);
@@ -157,4 +162,54 @@ public class LDFActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    @Override
+
+    public void ReceptionResponse(HttpReponse Rep) {
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
+        String Message = "";
+
+        if (LastReponse.getResultat() == null)
+            DisplayToast(LastReponse.getExceptionText());
+        else if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
+            DisplayToast(LastReponse.getExceptionText());
+        else {
+            Boolean result = false;
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
+                result = true;
+
+            // code personaliser pour cette activité
+            switch (LastReponse.Action) {
+                case "get_user":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+
+                            Message += LastReponse.getResultat().toString();
+                        } else
+                            Message += Messages.error_generique;
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                default:
+                    Message = LastReponse.Action + " : \n";
+                    Message += "aucun post traitement défini \n";
+                    Message += LastReponse.getResultat().toString();
+                    break;
+            }
+            if (Message.length() > 2)
+                DisplayToast(Message);
+        }
+    }
+
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 100);
+    }
 }

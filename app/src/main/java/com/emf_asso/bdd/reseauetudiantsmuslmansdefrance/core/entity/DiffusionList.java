@@ -10,18 +10,23 @@ public class DiffusionList implements Serializable {
 
     public ArrayList<DiffusionCriteria> DiffusionCriteriaListViewValuesArr = new ArrayList<DiffusionCriteria>();
     String label;
-    String id;
+    String id = "new";
     String count;
 
     public DiffusionList() {
     }
 
-    public DiffusionList(String label, String id, String count) {
+    public DiffusionList(String label, String count) {
         this.label = label;
-        this.id = id;
         this.count = count;
     }
 
+
+    public DiffusionList(String id, String label, String count) {
+        this.label = label;
+        this.count = count;
+        this.id = id;
+    }
     public String getLabel() {
         return label;
     }

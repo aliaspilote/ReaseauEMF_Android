@@ -82,8 +82,8 @@ public class SessionWsService implements Serializable {
             userMember.setCity((info_User.get("city")).toString());
             userMember.setPhone((info_User.get("phone")).toString());
             userMember.setPhone((info_User.get("phone")).toString());
-            userMember.setSection(dataContext.getSectionById((info_User.get("section")).toString()));
-            userMember.setInvolvement(dataContext.getInvolvementById((info_User.get("involvement")).toString()));
+            userMember.setSection(dataContext.getSectionByLabel(((info_User.get("section")).toString())));
+            userMember.setInvolvement(dataContext.getInvolvementByLabel((info_User.get("involvement")).toString()));
             try {
                 userMember.setBirth_date(dateFormatter_MySQL.parse((info_User.get("birth_date")).toString()));
                 userMember.setRegistration_date(dateFormatter_MySQL.parse((info_User.get("registration_date")).toString()));

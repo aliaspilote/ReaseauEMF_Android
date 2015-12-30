@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                         moveTaskToBack(true);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }

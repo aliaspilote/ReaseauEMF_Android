@@ -6,12 +6,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+
 /**
  * Created by taha on 29/12/2015.
  */
 public class DialogBox {
+    public Boolean kill;
     private Context context;
     private Intent intent;
+    private SessionWsService AppCtx;
 
     public DialogBox() {
     }
@@ -19,6 +23,22 @@ public class DialogBox {
     public DialogBox(Context context, Intent intent) {
         this.context = context;
         this.intent = intent;
+    }
+
+    public Boolean getKill() {
+        return kill;
+    }
+
+    public void setKill(Boolean kill) {
+        this.kill = kill;
+    }
+
+    public SessionWsService getAppCtx() {
+        return AppCtx;
+    }
+
+    public void setAppCtx(SessionWsService appCtx) {
+        AppCtx = appCtx;
     }
 
     public void createDialogBox(String title, String msg) {
@@ -36,10 +56,15 @@ public class DialogBox {
                 .setCancelable(false)
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        if (kill == true) {
+                            AppCtx.setDisableAccount();
+                            AppCtx.killSession();
+
+                        }
                         context.startActivity(intent);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }

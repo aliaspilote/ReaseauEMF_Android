@@ -62,6 +62,12 @@ public class SessionWsService implements Serializable {
         CursusContent.clearCursus();
     }
 
+    public void setDisableAccount() {
+        userMember.setIsEnable(false);
+
+        // modifier dans la base de données
+
+    }
     public void setUser_From_DB(JSONObject JsonResult) {
 
         try {

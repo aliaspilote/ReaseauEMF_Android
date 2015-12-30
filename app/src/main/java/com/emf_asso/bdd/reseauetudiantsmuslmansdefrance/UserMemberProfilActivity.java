@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,10 +22,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
@@ -36,6 +38,8 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by taha on 24/11/2015.
@@ -105,9 +109,12 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         mActivityTitle = getTitle().toString();
         setupDrawer();
         ImageListener();
+
         CreateProfil();
         fillInfoPerso();
-        //selectSpinner();
+
+
+        selectSpinner();
         if (Current_Position == -1)
             mDrawerLayout.openDrawer(GravityCompat.START);
         if (AppCtx.getToken() == null)
@@ -244,6 +251,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                 break;
         }
     }
+
     public void CreateProfil() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -286,9 +294,20 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             }
             CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
         }
-        // il faut mettre une liste
-        if (usermember.getStatus() != null)
-            CreateProfilByStep("Contact pour :", usermember.getStatus().toString(), R.id.content_for_contact);
+        usermember.getSkills();
+        if (usermember.getStatus() != null) {
+            String listString = "";
+            if (usermember.getStatus().getJobs_offers() == true)
+                listString += "Offre stage/emploi\n";
+            if (usermember.getStatus().getCity_activities() == true)
+                listString += "Activités EMF dans ma ville\n";
+            if (usermember.getStatus().getNational_activities() == true)
+                listString += "Activités EMF national\n";
+            if (usermember.getStatus().getProject_volontary() == true)
+                listString += "Projets liés à compétences";
+            if (listString != "")
+                CreateProfilByStep("Contact pour :", listString, R.id.content_for_contact);
+        }
 
 
         if (!usermember.getCurriculum().isEmpty()) {
@@ -339,12 +358,14 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     public void selectSpinner() {
         selectInvolvement();
         selectSection();
+        selectSkills();
+        selectContactPreference();
 
     }
 
     public void selectInvolvement() {
         Spinner mSpinner = (Spinner) findViewById(R.id.spinner_involvement);
-        Involvement in1 = AppCtx.getUserMember().getInvolvement();
+     /*   Involvement in1 = AppCtx.getUserMember().getInvolvement();
         Involvement in2;
 
 
@@ -358,23 +379,111 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                 }
             }
         }
+        mSpinner.setSelection(2);*/
+
+
+        mSpinner.setSelection(AppCtx.getUserMember().getInvolvement() != null ? ListViewInit.adapter_involvement.getPosition(AppCtx.getUserMember().getInvolvement()) : 0);
+
+
     }
 
     public void selectSection() {
         Spinner mSpinner = (Spinner) findViewById(R.id.spinner_section);
-        Section sec1 = AppCtx.getUserMember().getSection();
-        Section sec2;
+        mSpinner.setSelection(AppCtx.getUserMember().getSection() != null ? ListViewInit.adapter_section.getPosition(AppCtx.getUserMember().getSection()) : 0);
 
+    }
 
-        if (sec1 != null) {
-            String compareValue = sec1.getSection_id();
-            SpinnerAdapter adapter = mSpinner.getAdapter();
-            for (int i = 0; i < adapter.getCount(); i++) {
-                sec2 = (Section) adapter.getItem(i);
-                if (sec2.getSection_id() == compareValue) {
-                    mSpinner.setSelection(i);
-                }
-            }
+    public void selectContactPreference() {
+        Switch sw = (Switch) findViewById(R.id.switch_offer);
+        sw.setChecked(AppCtx.getUserMember().getStatus().getJobs_offers());
+
+        sw = (Switch) findViewById(R.id.switch_info_EMFcity);
+        sw.setChecked(AppCtx.getUserMember().getStatus().getCity_activities());
+
+        sw = (Switch) findViewById(R.id.switch_info_national);
+        sw.setChecked(AppCtx.getUserMember().getStatus().getNational_activities());
+
+        sw = (Switch) findViewById(R.id.switch_project);
+        sw.setChecked(AppCtx.getUserMember().getStatus().getProject_volontary());
+
+    }
+
+    public void selectSkills() {
+        ListView mList = (ListView) findViewById(R.id.listview_skill);
+
+        List<Skill> listSkill = AppCtx.getUserMember().getSkills();
+        if (listSkill != null) {
         }
+        Involvement in2;
+        int position;
+        for (int i = 0; i < listSkill.size(); i++) {
+            position = ListViewInit.adapter_skill.getPosition(AppCtx.getUserMember().getSkills().get(i));
+            mList.setItemChecked(position, true);
+        }
+
+
+    }
+
+    public void OnSave(View v) {
+        TextView textview = (TextView) (findViewById(R.id.editxt_ins_name));
+        AppCtx.getUserMember().setName(textview.getText().toString());
+
+        textview = (TextView) (findViewById(R.id.editxt_ins_firstname));
+        AppCtx.getUserMember().setFirstname(textview.getText().toString());
+
+        textview = (TextView) (findViewById(R.id.editxt_ins_birthday));
+        //AppCtx.getUserMember().setBirth_date(textview.getText().toString());
+
+        textview = (TextView) (findViewById(R.id.editxt_ins_zipcode));
+        AppCtx.getUserMember().setZip_code(textview.getText().toString());
+
+        textview = (TextView) (findViewById(R.id.editxt_ins_city));
+        AppCtx.getUserMember().setCity(textview.getText().toString());
+
+        textview = (TextView) (findViewById(R.id.editxt_ins_phone));
+        AppCtx.getUserMember().setPhone(textview.getText().toString());
+
+        Spinner spinner = (Spinner) (findViewById(R.id.spinner_involvement));
+        AppCtx.getUserMember().setInvolvement((Involvement) spinner.getSelectedItem());
+
+        spinner = (Spinner) (findViewById(R.id.spinner_section));
+        AppCtx.getUserMember().setSection((Section) spinner.getSelectedItem());
+
+        ContactPreference contact = new ContactPreference();
+
+        Switch sw = (Switch) (findViewById(R.id.switch_offer));
+        contact.setJobs_offers(sw.isChecked());
+
+        sw = (Switch) (findViewById(R.id.switch_info_EMFcity));
+        contact.setCity_activities(sw.isChecked());
+
+        sw = (Switch) (findViewById(R.id.switch_info_national));
+        contact.setNational_activities(sw.isChecked());
+
+        sw = (Switch) (findViewById(R.id.switch_project));
+        contact.setProject_volontary(sw.isChecked());
+
+        AppCtx.getUserMember().setStatus(contact);
+
+        ListView listview = (ListView) findViewById(R.id.listview_skill);
+        SparseBooleanArray checked = listview.getCheckedItemPositions();
+        ArrayList<Skill> selectedItems = new ArrayList<>();
+        for (int i = 0; i < checked.size(); i++) {
+            int position = checked.keyAt(i);
+            if (checked.valueAt(i))
+                if (position != -1)
+                    selectedItems.add((Skill) listview.getAdapter().getItem(position));
+        }
+        AppCtx.getUserMember().setSkills(selectedItems);
+
+        Intent intent;
+        Bundle b;
+        b = new Bundle();
+        b.putInt("p", 0);
+        b.putSerializable("AppSessionContext", AppCtx);
+
+        intent = new Intent(this.context, UserMemberProfilActivity.class);
+        intent.putExtras(b);
+        this.context.startActivity(intent);
     }
 }

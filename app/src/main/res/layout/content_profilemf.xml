@@ -171,8 +171,7 @@
                                             android:checked="true"
                                             android:textOff="OFF"
                                             android:textOn="ON" />
-                                        android:textOn=""
-                                        android:textOff=""
+
 
                                         />
                                     </LinearLayout>

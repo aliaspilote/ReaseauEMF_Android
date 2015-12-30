@@ -228,10 +228,14 @@ public class MenuDrawer extends AppCompatActivity {
                 this.context.startActivity(intent);
                 break;
             case 6:
-                intent = new Intent(this.context, CursusListActivity.class);
+                intent = new Intent(this.context, MainActivity.class);
                 intent.putExtras(b);
-                this.context.startActivity(intent);
+                DialogBox dialog = new DialogBox(context, intent);
+                dialog.setAppCtx(AppCtx);
+                dialog.setKill(true);
+                dialog.createDialogBox("Désactiver votre compte", "Voulez-vous vraiment continuer ?");
                 break;
+
             case 7:
                 intent = new Intent(this.context, AboutEmfActivity.class);
                 intent.putExtras(b);

@@ -271,10 +271,12 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                 result = true;
 
             switch (LastReponse.Action) {
-                case "sync_ldf":
+                case "add_ldf":
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
+                            AppCtx.getServiceLDF().getCurrent_ldf().setId(LastReponse.getResultat().get("ldf_id").toString());
+                            AppCtx.getServiceLDF().update_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
                         } else
                             Message += Messages.error_generique;
                     } else

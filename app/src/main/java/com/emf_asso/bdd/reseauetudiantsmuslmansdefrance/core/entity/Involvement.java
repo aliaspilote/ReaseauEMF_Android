@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by Omar_Desk on 13/11/2015.
  */
-public class Involvement implements Serializable {
+public class Involvement extends CriteriaObject implements Serializable {
+
 
     private String label;
     private String description;
     private String involvement_id;
-
     public Involvement() {
 
         label = "";
@@ -24,6 +24,10 @@ public class Involvement implements Serializable {
         setInvolvement_id(id);
     }
 
+    @Override
+    public String getCriteriaValue() {
+        return involvement_id;
+    }
 
     public String toString() {
         return label;

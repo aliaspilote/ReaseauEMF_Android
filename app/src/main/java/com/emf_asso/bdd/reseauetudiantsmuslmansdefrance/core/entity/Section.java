@@ -5,13 +5,13 @@ import java.io.Serializable;
 /**
  * Created by Omar_Desk on 10/11/2015.
  */
-public class Section implements Serializable {
+public class Section extends CriteriaObject implements Serializable {
+
 
     private String label;
     private String section_id;
     private int[] zipCode;
     private boolean isActive;
-
     public Section(String lbl) {
         setLabel(lbl);
     }
@@ -26,6 +26,11 @@ public class Section implements Serializable {
         setLabel(lbl);
         setSection_id(id);
         setIsActive(active);
+    }
+
+    @Override
+    public String getCriteriaValue() {
+        return section_id;
     }
 
     public String toString() {

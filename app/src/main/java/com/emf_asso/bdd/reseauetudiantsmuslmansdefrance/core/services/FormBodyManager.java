@@ -1,6 +1,7 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.CriteriaObject;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
@@ -54,7 +55,11 @@ public class FormBodyManager {
             for (DiffusionCriteria crt : ldf_criterias) {
                 form.add("criteria_id" + i, crt.getCriteria_id() + "");
                 form.add("criteria_name" + i, crt.getCriteria_Name() + "");
-                form.add("criteria_value" + i, crt.getValue().toString() + "");
+                if (crt.isSpinner_type())
+                    form.add("criteria_value" + i, ((CriteriaObject) crt.getValue()).getCriteriaValue() + "");
+                else
+                    form.add("criteria_value" + i, crt.getValue().toString() + "");
+
                 i++;
             }
         } else

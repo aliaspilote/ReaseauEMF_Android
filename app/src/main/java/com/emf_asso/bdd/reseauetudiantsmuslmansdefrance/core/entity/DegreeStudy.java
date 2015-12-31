@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by Omar_Desk on 11/11/2015.
  */
-public class DegreeStudy implements Serializable {
+public class DegreeStudy extends CriteriaObject implements Serializable {
+
 
     private String label;
     private int order;
     private String degree_id;
-
     public DegreeStudy() {
         label = "";
         order = 0;
@@ -21,6 +21,11 @@ public class DegreeStudy implements Serializable {
         setLabel(label);
         setDegree_id(degree_id);
         setOrder(order);
+    }
+
+    @Override
+    public String getCriteriaValue() {
+        return degree_id;
     }
 
     public String toString() {

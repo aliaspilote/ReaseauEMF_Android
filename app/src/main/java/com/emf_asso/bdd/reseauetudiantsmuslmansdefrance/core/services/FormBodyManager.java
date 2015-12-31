@@ -52,10 +52,10 @@ public class FormBodyManager {
             form.add("criterias_count", ldf_criterias.size() + "");
             int i = 0;
             for (DiffusionCriteria crt : ldf_criterias) {
+                form.add("criteria_id" + i, crt.getCriteria_id() + "");
+                form.add("criteria_name" + i, crt.getCriteria_Name() + "");
+                form.add("criteria_value" + i, crt.getValue().toString() + "");
                 i++;
-                form.add("criterias_id" + i, crt.getCriteria_id() + "");
-                form.add("criterias_id" + i, crt.getCriteria_Name() + "");
-                form.add("criterias_id" + i, crt.getValue().toString() + "");
             }
         } else
             form.add("criterias_count", "0");

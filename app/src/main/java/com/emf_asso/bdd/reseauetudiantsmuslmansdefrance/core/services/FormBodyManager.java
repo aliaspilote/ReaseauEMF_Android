@@ -30,6 +30,16 @@ public class FormBodyManager {
 
     }
 
+    public static RequestBody get_ldf(String mail, String token) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", "get_ldf")
+                .add("mail", mail)
+                .add("token", token)
+                .build();
+        return formBody;
+
+    }
+
     public static RequestBody checkmail(String mail) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "check_mail")

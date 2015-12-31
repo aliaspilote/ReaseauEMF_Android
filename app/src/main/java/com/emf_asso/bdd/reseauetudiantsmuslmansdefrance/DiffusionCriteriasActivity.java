@@ -123,7 +123,6 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                                 saveAllItemRow();
                                 AppCtx.getServiceLDF().update_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
                                 synchronizeLDF();
-                                gotoLDFActivity();
                             }
                         })
                         .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
@@ -203,10 +202,10 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
      *************/
     public void saveAllItemRow() {
         for (int i = 0; i < AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.size(); i++)
-            onItemClickSave(i);
+            SaveRowCriteria(i);
     }
 
-    public void onItemClickDelete(int mPosition) {
+    public void DeleteRowCriteria(int mPosition) {
         if (mPosition >= 0) {
             DiffusionCriteria dc_to_delete = AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.get(mPosition);
             AppCtx.getServiceLDF().remove_criteria_currentldf(dc_to_delete);
@@ -214,7 +213,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
         }
     }
 
-    public void onItemClickSave(int mPosition) {
+    public void SaveRowCriteria(int mPosition) {
         if (mPosition >= 0) {
             Object val;
             DiffusionCriteria dc_to_save = AppCtx.getServiceLDF().getCurrent_ldf().DiffusionCriteriaListViewValuesArr.get(mPosition);
@@ -274,9 +273,11 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                 case "add_ldf":
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+
                             Message += LastReponse.getResultat().toString();
                             AppCtx.getServiceLDF().getCurrent_ldf().setId(LastReponse.getResultat().get("ldf_id").toString());
                             AppCtx.getServiceLDF().update_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
+                            gotoLDFActivity();
                         } else
                             Message += Messages.error_generique;
                     } else

@@ -3,6 +3,8 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
 
+import org.json.simple.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +102,36 @@ public class LdfService implements Serializable {
         return ldfList.size();
     }
 
+    public void setLDF_From_DB(JSONObject JsonResult) {
+
+        try {
+            JSONObject ldf = (JSONObject) JsonResult.get("ldf");
+            JSONObject criterias = (JSONObject) JsonResult.get("criterias");
+            int count_ldf = 0;
+            int count_criterias = 0;
+            try {
+                count_ldf = Integer.parseInt((ldf.get("count")).toString());
+                count_criterias = Integer.parseInt((criterias.get("count")).toString());
+            } catch (Exception e) {
+            }
+            try {
+                DiffusionList l;
+                if (count_ldf > 0) {
+                    for (int i = 0; i < count_ldf; i++) {
+                        JSONObject oneldfjson = (JSONObject) ldf.get(i + "");
+                        l = new DiffusionList();
+                        l.setId(oneldfjson.get("num_ldf").toString());
+                        l.setLabel(oneldfjson.get("nom_ldf").toString());
+                        add_ldf(l);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

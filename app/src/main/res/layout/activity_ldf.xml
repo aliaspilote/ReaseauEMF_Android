@@ -32,4 +32,14 @@
         android:src="@drawable/ic_add_white"
         app:backgroundTint="@color/green_light" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_refresh_ldf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginRight="85dp"
+        android:layout_marginTop="16dp"
+        android:src="@android:drawable/stat_sys_download"
+        app:backgroundTint="@color/gray" />
+
 </android.support.design.widget.CoordinatorLayout>

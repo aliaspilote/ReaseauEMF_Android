@@ -207,9 +207,9 @@ public class DiffusionCriteriaRowContent extends BaseAdapter implements View.OnC
             /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
             //Log.v("Diff_Crit", "=====Delete button clicked=====" + mPosition);
             if (!save)
-                sct.onItemClickDelete(mPosition);
+                sct.DeleteRowCriteria(mPosition);
             else
-                sct.onItemClickSave(mPosition);
+                sct.SaveRowCriteria(mPosition);
         }
     }
 }

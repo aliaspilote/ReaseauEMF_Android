@@ -19,6 +19,9 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
+
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_ldf;
 
 public class LDFActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
@@ -36,7 +39,6 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
         setContentView(R.layout.activity_ldf);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton Add_ldf = (FloatingActionButton) findViewById(R.id.btn_add_ldf);
         Add_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +47,16 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                         .setAction("Ajouter", null).show();
                 AppCtx.getServiceLDF().setCurrent_ldf(new DiffusionList());
                 gotoDiffusionCriteriasActivity();
+            }
+        });
+        FloatingActionButton Refresh_ldf = (FloatingActionButton) findViewById(R.id.btn_refresh_ldf);
+        Refresh_ldf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Rafraichir les listes de diffusion", Snackbar.LENGTH_LONG)
+                        .setAction("Rafraichir", null).show();
+                refreshLDF();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -162,8 +174,13 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
         context.startActivity(intent);
     }
 
-    @Override
+    private void refreshLDF() {
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, get_ldf(AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "", AppCtx.getToken()));
+        wb_thread.execute();
+    }
 
+    @Override
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
@@ -180,11 +197,12 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
 
             // code personaliser pour cette activité
             switch (LastReponse.Action) {
-                case "get_user":
+                case "get_ldf":
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
-
                             Message += LastReponse.getResultat().toString();
+                            AppCtx.getServiceLDF().setLDF_From_DB(LastReponse.getResultat());
+
                         } else
                             Message += Messages.error_generique;
                     } else

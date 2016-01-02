@@ -74,12 +74,10 @@ public class CursusListActivity extends AppCompatActivity
                 mnavList = (ListView) findViewById(R.id.navList);
                 mnavList.setVisibility(View.VISIBLE);
                 Button Next = (Button) findViewById(R.id.btn_PI_next);
-                Next.setVisibility(View.GONE);
                 Next.setText("Modifier");
                 Button Previous = (Button) findViewById(R.id.btn_PI_previous);
-                Previous.setText("Profil");
+                Previous.setText("Retour Profil");
 
-                findViewById(R.id.btn_PI_next).setVisibility(View.GONE);
                 mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
                 menu = new MenuDrawer(this, context, AppSessionContext, mDrawerLayout, mnavList, Current_Position);
                 menu.addDrawerItems();

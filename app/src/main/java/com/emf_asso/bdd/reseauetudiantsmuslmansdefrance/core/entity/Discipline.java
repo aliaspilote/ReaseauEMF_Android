@@ -33,6 +33,9 @@ public class Discipline extends CriteriaObject implements Serializable {
         return label;
     }
 
+    public String getId() {
+        return discipline_id;
+    }
     public String getLabel() {
         return label;
     }

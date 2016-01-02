@@ -41,6 +41,10 @@ public class Involvement extends CriteriaObject implements Serializable {
         this.label = label;
     }
 
+    public String getId() {
+        return involvement_id;
+    }
+
     public String getDescription() {
         return description;
     }

@@ -47,20 +47,8 @@ public class ListViewInit {
     public ListViewInit() {
     }
 
-    /*
-    public static void loadLDF_List_View(Activity ctx, SessionWsService AppContext) {
 
-        DiffusionCriteriaListViewValuesArr = null;
-
-        Spinner listViewDiffCrit = (Spinner) ctx.findViewById(R.id.listview_diffusion_criterias);
-
-        DiffusionCriteriaAdapter = new DiffusionCriteriaRowContent(ctx, DiffusionCriteriaListViewValuesArr);
-
-        listViewDiffCrit.setAdapter(DiffusionCriteriaAdapter);
-    }
-*/
-    public static void loadCriteriaType_List_View(Activity ctx) {
-
+    public static void PopulateCriteriasListType() {
         CriteriaListViewTypeArr = new ArrayList<>();
 
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Nom", false, null));
@@ -76,6 +64,11 @@ public class ListViewInit {
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Section", true, new ArrayList<Object>(sectionList)));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Discipline", true, new ArrayList<Object>(disciplineList)));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Compétance", true, new ArrayList<Object>(skillList)));
+
+    }
+
+    public static void loadCriteriaType_List_View(Activity ctx) {
+
 
         Spinner listViewDiffCrit = (Spinner) ctx.findViewById(R.id.spin_diffusion_criteria_type);
 

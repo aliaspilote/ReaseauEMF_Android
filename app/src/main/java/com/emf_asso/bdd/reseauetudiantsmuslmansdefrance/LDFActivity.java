@@ -3,11 +3,11 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,7 +39,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
         setContentView(R.layout.activity_ldf);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton Add_ldf = (FloatingActionButton) findViewById(R.id.btn_add_ldf);
+        ImageButton Add_ldf = (ImageButton) findViewById(R.id.btn_add_ldf);
         Add_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +49,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                 gotoDiffusionCriteriasActivity();
             }
         });
-        FloatingActionButton Refresh_ldf = (FloatingActionButton) findViewById(R.id.btn_refresh_ldf);
+        ImageButton Refresh_ldf = (ImageButton) findViewById(R.id.btn_refresh_ldf);
         Refresh_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +75,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                 }
             }
         }
-        AppCtx.getServiceLDF().onStart();
+        AppCtx.getServiceLDF().onStart(AppCtx);
 
         //loadDataLdf();
         // Set Here the current LDF
@@ -202,6 +202,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             AppCtx.getServiceLDF().setLDF_From_DB(LastReponse.getResultat());
+                            adapter.notifyDataSetChanged();
 
                         } else
                             Message += Messages.error_generique;

@@ -27,6 +27,7 @@ public class DiffusionList implements Serializable {
         this.count = count;
         this.id = id;
     }
+
     public String getLabel() {
         return label;
     }
@@ -59,5 +60,7 @@ public class DiffusionList implements Serializable {
         this.count = count;
     }
 
-
+    public void add_criterias(DiffusionCriteria c) {
+        DiffusionCriteriaListViewValuesArr.add(c);
+    }
 }

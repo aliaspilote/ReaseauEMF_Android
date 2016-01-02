@@ -28,6 +28,10 @@ public class DiffusionCriteria implements Serializable {
     public DiffusionCriteria() {
     }
 
+    public DiffusionCriteria(String cri_id, String cri_name, String cri_value) {
+
+    }
+
     public DiffusionCriteria(String name, Boolean isSpin, List<Object> valuesList) {
         criteria_Name = name;
         if (isSpin) {
@@ -66,6 +70,17 @@ public class DiffusionCriteria implements Serializable {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public void buildValueFromString(String value) {
+        if (isSpinner_type()) {
+            for (Object cObj : values_List) {
+                if (((CriteriaObject) cObj).getId().contentEquals(value))
+                    this.value = cObj;
+            }
+        } else {
+            this.value = value;
+        }
     }
 
     public boolean isSpinner_type() {

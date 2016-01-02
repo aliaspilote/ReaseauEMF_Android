@@ -37,6 +37,9 @@ public class Section extends CriteriaObject implements Serializable {
         return label;
     }
 
+    public String getId() {
+        return section_id;
+    }
     public String getLabel() {
         return label;
     }

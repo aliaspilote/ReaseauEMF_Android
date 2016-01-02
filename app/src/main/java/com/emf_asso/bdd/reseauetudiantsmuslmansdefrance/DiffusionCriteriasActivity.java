@@ -24,6 +24,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCri
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
@@ -99,7 +100,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 AppCtx.getServiceLDF().remove_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
-                                gotoLDFActivity();
+                                deleteLDF();
                             }
                         })
                         .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
@@ -152,7 +153,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                 }
             }
         }
-        AppCtx.getServiceLDF().onStart();
+        AppCtx.getServiceLDF().onStart(AppCtx);
         // Set Here the current LDF
         ListViewInit.loadListStaticData(AppCtx);
         ListViewInit.loadCriteriaType_List_View(DiffusionCriteriaCtx);
@@ -194,6 +195,12 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
     private void synchronizeLDF() {
         Web_Service_Controlleur wb_thread;
         wb_thread = new Web_Service_Controlleur(this, syncLDF(AppCtx.getServiceLDF().getCurrent_ldf()));
+        wb_thread.execute();
+    }
+
+    private void deleteLDF() {
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.deleteLDF(AppCtx.getServiceLDF().getCurrent_ldf()));
         wb_thread.execute();
     }
 
@@ -270,13 +277,23 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                 result = true;
 
             switch (LastReponse.Action) {
-                case "add_ldf":
+                case "add_ldf": //gotoLDFActivity();
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
 
                             Message += LastReponse.getResultat().toString();
                             AppCtx.getServiceLDF().getCurrent_ldf().setId(LastReponse.getResultat().get("ldf_id").toString());
                             AppCtx.getServiceLDF().update_ldf(AppCtx.getServiceLDF().getCurrent_ldf());
+                            gotoLDFActivity();
+                        } else
+                            Message += Messages.error_generique;
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                case "delete_ldf":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
                             gotoLDFActivity();
                         } else
                             Message += Messages.error_generique;

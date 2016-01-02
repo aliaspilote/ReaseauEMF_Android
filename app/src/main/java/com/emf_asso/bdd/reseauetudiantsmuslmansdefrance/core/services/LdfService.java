@@ -2,7 +2,9 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
@@ -19,12 +21,14 @@ public class LdfService implements Serializable {
     private int current_position;
     private boolean startedService = false;
 
-    public void onStart() {
+    public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
             current_position = 0;
             current_ldf = null;
             ldfList = new ArrayList<>();
             startedService = true;
+            ListViewInit.loadListStaticData(AppCtx);
+            ListViewInit.PopulateCriteriasListType();
         }
     }
 
@@ -76,6 +80,15 @@ public class LdfService implements Serializable {
         return ldfList.get(position);
     }
 
+    public DiffusionList get_ldf_byId(String id) {
+        DiffusionList ldf = null;
+        for (DiffusionList l : ldfList) {
+            if (id.equals(l.getId()))
+                ldf = l;
+        }
+        return ldf;
+    }
+
     public DiffusionCriteria get_criteria_currentldf(int pos) {
         return current_ldf.DiffusionCriteriaListViewValuesArr.get(pos);
     }
@@ -102,8 +115,20 @@ public class LdfService implements Serializable {
         return ldfList.size();
     }
 
-    public void setLDF_From_DB(JSONObject JsonResult) {
+    public DiffusionCriteria get_new_criteria_byName(String name) {
+        DiffusionCriteria c = null;
+        for (DiffusionCriteria crit : ListViewInit.CriteriaListViewTypeArr) {
 
+            String A = name;
+            String B = crit.getCriteria_Name();
+            if (A.equals(B))
+                c = crit;
+        }
+        return c;
+    }
+
+    public void setLDF_From_DB(JSONObject JsonResult) {
+        ldfList.clear();
         try {
             JSONObject ldf = (JSONObject) JsonResult.get("ldf");
             JSONObject criterias = (JSONObject) JsonResult.get("criterias");
@@ -114,15 +139,40 @@ public class LdfService implements Serializable {
                 count_criterias = Integer.parseInt((criterias.get("count")).toString());
             } catch (Exception e) {
             }
+
+            JSONArray ldf_data = (JSONArray) ldf.get("data");
+            JSONArray criterias_data = (JSONArray) criterias.get("data");
             try {
                 DiffusionList l;
                 if (count_ldf > 0) {
                     for (int i = 0; i < count_ldf; i++) {
-                        JSONObject oneldfjson = (JSONObject) ldf.get(i + "");
+                        JSONObject oneldfjson = (JSONObject) ldf_data.get(i);
                         l = new DiffusionList();
                         l.setId(oneldfjson.get("num_ldf").toString());
                         l.setLabel(oneldfjson.get("nom_ldf").toString());
                         add_ldf(l);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (count_ldf > 0) {
+
+                    DiffusionList l_c = new DiffusionList();
+                    DiffusionCriteria crit;
+                    String previous_id = "";
+                    for (int i = 0; i < count_criterias; i++) {
+                        JSONObject oneldfjson = (JSONObject) criterias_data.get(i);
+                        String id = oneldfjson.get("num_ldf").toString();
+                        String ref = oneldfjson.get("ref_critere").toString();
+                        String val = oneldfjson.get("val_critere").toString();
+                        DiffusionCriteria TypeCrit = get_new_criteria_byName(ref);
+                        crit = new DiffusionCriteria(TypeCrit);
+                        crit.buildValueFromString(val);
+                        if (previous_id.toString() != id.toString())
+                            l_c = get_ldf_byId(id);
+                        l_c.add_criterias(crit);
                     }
                 }
             } catch (Exception e) {

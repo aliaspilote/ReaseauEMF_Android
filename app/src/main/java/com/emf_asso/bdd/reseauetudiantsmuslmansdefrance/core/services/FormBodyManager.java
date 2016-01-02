@@ -33,8 +33,8 @@ public class FormBodyManager {
     public static RequestBody get_ldf(String mail, String token) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "get_ldf")
-                .add("mail", mail)
-                .add("token", token)
+                .add("mail", mail == null ? "" : mail)
+                .add("token", token == null ? "" : token)
                 .build();
         return formBody;
 
@@ -53,8 +53,16 @@ public class FormBodyManager {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "sync_ldf")
                 .add("ldf_id", ldf.getId())
-                .add("ldf_label", ldf.getLabel());
+                .add("ldf_label", ldf.getLabel() + "");
         formBody = addLDFCriteriasFormBody(ldf.DiffusionCriteriaListViewValuesArr, formBody);
+        return formBody.build();
+    }
+
+
+    public static RequestBody deleteLDF(DiffusionList ldf) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "delete_ldf")
+                .add("ldf_id", ldf.getId());
         return formBody.build();
     }
 

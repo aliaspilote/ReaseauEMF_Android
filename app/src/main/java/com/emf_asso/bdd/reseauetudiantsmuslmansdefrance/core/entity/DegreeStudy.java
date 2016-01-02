@@ -28,6 +28,10 @@ public class DegreeStudy extends CriteriaObject implements Serializable {
         return degree_id;
     }
 
+    public String getId() {
+        return degree_id;
+    }
+
     public String toString() {
         return label;
     }

@@ -6,4 +6,6 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity;
 public abstract class CriteriaObject {
 
     public abstract String getCriteriaValue();
+
+    public abstract String getId();
 }

@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         String mail = getTextByEditTextId(R.id.editxt_auth_email);
         String mdp = getTextByEditTextId(R.id.editxt_auth_pwd);
 
-        if (mail.length() > 5 && mdp.length() > 6) {
+        if (mail.length() > 5 && mdp.length() > 5) {
             Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                     this, auth(mail, mdp));
             wb_thread.execute();

@@ -92,30 +92,6 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
 
     }
 
-    public void loadDataLdf() {
-        DiffusionList ldf1 = new DiffusionList("List 1", "20");
-        DiffusionList ldf2 = new DiffusionList("List 2", "40");
-        DiffusionList ldf3 = new DiffusionList("List 3", "60");
-        Object val1 = "Omar";
-        Object val2 = "Latreche";
-        Object val3 = "age";
-        Object val4 = "90000";
-        DiffusionCriteria dc1 = new DiffusionCriteria("Code postal", false, null);
-        DiffusionCriteria dc2 = new DiffusionCriteria("Nom", false, null);
-        DiffusionCriteria dc3 = new DiffusionCriteria("Prénom", false, null);
-        DiffusionCriteria dc4 = new DiffusionCriteria("Age", false, null);
-        dc1.setValue(val1);
-        dc2.setValue(val2);
-        dc3.setValue(val3);
-        dc4.setValue(val4);
-        ldf1.DiffusionCriteriaListViewValuesArr.add(dc1);
-        ldf2.DiffusionCriteriaListViewValuesArr.add(dc2);
-        ldf2.DiffusionCriteriaListViewValuesArr.add(dc3);
-        ldf3.DiffusionCriteriaListViewValuesArr.add(dc4);
-        AppCtx.getServiceLDF().add_ldf(ldf1);
-        AppCtx.getServiceLDF().add_ldf(ldf2);
-        AppCtx.getServiceLDF().add_ldf(ldf3);
-    }
 
     /******
      * Function to set data in ArrayList

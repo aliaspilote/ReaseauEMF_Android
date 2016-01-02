@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
             android:layout_weight="1"
-            android:gravity="right">
+            android:gravity="right"
+            android:onClick="OnCancel">
 
 
             <Button

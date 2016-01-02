@@ -187,26 +187,6 @@ public class SessionWsService implements Serializable {
         this.dataContext = dataContext;
     }
 
-    public void updateinfoperso() {
-
-    }
-
-    public void updateefmprofile() {
-
-    }
-
-    public void updateskills() {
-
-    }
-
-    public Boolean checkPwd(String pwd) {
-        return true;
-    }
-
-    public void changePwd(String pwd) {
-
-    }
-
 }
 
 

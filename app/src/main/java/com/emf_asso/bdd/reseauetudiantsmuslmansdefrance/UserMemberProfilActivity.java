@@ -36,11 +36,13 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Involvement;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CreateDate;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePickerDialog;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.text.SimpleDateFormat;
@@ -53,12 +55,14 @@ import java.util.Locale;
  * Created by taha on 24/11/2015.
  */
 
-public class UserMemberProfilActivity extends AppCompatActivity {
+public class UserMemberProfilActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
+    public final HttpReponse LastReponse = new HttpReponse();
     public int Current_Position;
     public SessionWsService AppCtx;
     public MenuDrawer menu;
     public CreateDate default_birthday_date;
+    public boolean checkpwd = false;
     private UserMember usermember;
     private Context context = this;
     private Activity activity = this;
@@ -351,17 +355,6 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         linearlayout.addView(Value);
     }
 
-    public void DisplayToast(String text, int time) {
-        if (time > 0)
-            time = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, time);
-        toast.show();
-    }
-
-    public void DisplayToast(String text) {
-        DisplayToast(text, 0);
-    }
-
     public void gotoMainActivity() {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
@@ -411,22 +404,23 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
 
     }
+
     public void OnSave(View v) {
 
         switch (menu.Current_Position) {
             case 1:
                 saveInfoPerso();
-                AppCtx.updateinfoperso();
+                updateinfoperso();
                 gotousermemberprofile();
                 break;
             case 2:
                 saveEMFProfile();
-                AppCtx.updateefmprofile();
+                updateemfprofile();
                 gotousermemberprofile();
                 break;
             case 3:
                 saveSkills();
-                AppCtx.updateskills();
+                updateskills();
                 gotousermemberprofile();
                 break;
             case 4:
@@ -435,6 +429,10 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    public void OnCancel(View v) {
+        menu.startActivityByPosition(menu.Current_Position);
     }
 
     public void saveInfoPerso() {
@@ -490,11 +488,13 @@ public class UserMemberProfilActivity extends AppCompatActivity {
             lbl.setText("Saisie incomplétes");
 
         else {
-            if (AppCtx.checkPwd(pwd.getText().toString())) {
+            checkPwd(pwd.getText().toString());
+            if (checkpwd == true)//checkPwd())
+            {
                 if (pwd1 != pwd2) {
                     lbl.setText("Les mots de passes ne sont pas identiques");
                 } else {
-                    AppCtx.changePwd(pwd1.getText().toString());
+                    changePwd(pwd1.getText().toString());
                     gotousermemberprofile();
 
 
@@ -520,12 +520,10 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         this.context.startActivity(intent);
     }
 
-
     public void onChooseBirthday(View v) {
         showDate(default_birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);
 
     }
-
 
     public void showDate(CreateDate cr, int img, int txt) {
         cr = new CreateDate();
@@ -553,4 +551,127 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         }
         return dt;
     }
+
+    public void updateinfoperso() {
+        // Requete http, resultat bool mot clés, Action : save_infoperso, Resultat : resultat_infoperso
+
+    }
+
+    public void updateemfprofile() {
+        // Requete http, resultat bool mot clés, Action : save_emfprofile, Resultat : resultat_emfprofile
+
+    }
+
+    public void updateskills() {
+        // Requete http, resultat bool mot clés, Action : save_skills, Resultat : resultat_skills
+
+    }
+
+    public void checkPwd(String old_pwd) {
+
+        // Requete http, resultat bool mot clés, Action : check_pwd, Resultat : old_pwd_match
+        if (true)// si le résultat est true
+            checkpwd = true;
+    }
+
+    public void changePwd(String pwd) {
+    }
+
+    @Override
+    public void ReceptionResponse(HttpReponse Rep) {
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
+        String Message = "";
+
+        if (LastReponse.getResultat() == null)
+            DisplayToast(LastReponse.getExceptionText());
+        else if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
+            DisplayToast(LastReponse.getExceptionText());
+        else {
+            Boolean result = false;
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
+                result = true;
+
+            // code personaliser pour cette activité
+            switch (LastReponse.Action) {
+                case "check_pwd":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("old_pwd_match").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+                            // Action suit si le old pwd est valide
+                            //Appel changePwd()
+
+                        } else {
+                            Message += Messages.error_generique;
+                            // Action suit si le old pwd est different
+                        }
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                case "change_pwd":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+
+                        } else {
+                            Message += Messages.error_generique;
+                        }
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                case "save_infoperso":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result_infoperso").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+
+                        } else {
+                            Message += Messages.error_generique;
+                        }
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                case "save_emfprofile":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result_emf_profile").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+
+                        } else {
+                            Message += Messages.error_generique;
+                        }
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                case "save_skills":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result_skills").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+
+                        } else {
+                            Message += Messages.error_generique;
+                        }
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                default:
+                    Message = LastReponse.Action + " : \n";
+                    Message += "aucun post traitement défini \n";
+                    Message += LastReponse.getResultat().toString();
+                    break;
+            }
+            if (Message.length() > 2)
+                DisplayToast(Message);
+        }
+    }
+
+    public void DisplayToast(String text, int time) {
+        if (time > 0)
+            time = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, time);
+        toast.show();
+    }
+
+    public void DisplayToast(String text) {
+        DisplayToast(text, 0);
+    }
+
 }

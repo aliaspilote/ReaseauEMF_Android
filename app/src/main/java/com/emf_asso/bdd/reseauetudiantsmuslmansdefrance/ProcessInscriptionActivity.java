@@ -576,22 +576,5 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             }
             CreateProfilByStep("Cursus :", listCursus, R.id.content_for_cursus);
         }
-
-
     }
-
-
 }
-/*
-new AlertDialog.Builder(context).setTitle(Messages.error_inscription_Titre).setMessage(AppCtx.getServiceProcessInscription().getErrors(current_NUM_PAGES))
-                        .setPositiveButton(Messages.error_continu, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                // Some stuff to do when ok got clicked
-                                hideViewByNum(current_NUM_PAGES);
-                                current_NUM_PAGES++;
-                                displayViewByNum(current_NUM_PAGES);
-                            }
-                        }).setNegativeButton(Messages.error_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {}})
-                    .show();
- */

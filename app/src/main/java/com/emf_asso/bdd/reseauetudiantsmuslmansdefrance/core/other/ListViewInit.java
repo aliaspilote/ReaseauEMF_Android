@@ -52,14 +52,14 @@ public class ListViewInit {
         CriteriaListViewTypeArr = new ArrayList<>();
 
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Nom", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Prénom", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Prenom", false, null));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Age", false, null));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Code postal", false, null));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Ville", false, null));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Email", false, null));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Etablissement", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Diplôme", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Niveau étude", true, new ArrayList<Object>(degreeStudyList)));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Diplome", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Niveau etude", true, new ArrayList<Object>(degreeStudyList)));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Engagement", true, new ArrayList<Object>(involvementsList)));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Section", true, new ArrayList<Object>(sectionList)));
         CriteriaListViewTypeArr.add(new DiffusionCriteria("Discipline", true, new ArrayList<Object>(disciplineList)));

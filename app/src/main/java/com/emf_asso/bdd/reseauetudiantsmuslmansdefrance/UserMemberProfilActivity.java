@@ -489,7 +489,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
 
         else {
             checkPwd(pwd.getText().toString());
-            if (checkpwd == true)//checkPwd())
+            if (checkpwd)//checkPwd())
             {
                 if (pwd1 != pwd2) {
                     lbl.setText("Les mots de passes ne sont pas identiques");

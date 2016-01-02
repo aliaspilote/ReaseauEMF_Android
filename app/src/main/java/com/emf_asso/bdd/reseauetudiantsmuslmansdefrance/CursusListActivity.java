@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
@@ -71,9 +72,15 @@ public class CursusListActivity extends AppCompatActivity
         if (AppSessionContext != null) {
             if (AppSessionContext.inProfileView) {
                 mnavList = (ListView) findViewById(R.id.navList);
+                mnavList.setVisibility(View.VISIBLE);
+                Button Next = (Button) findViewById(R.id.btn_PI_next);
+                Next.setVisibility(View.GONE);
+                Next.setText("Modifier");
+                Button Previous = (Button) findViewById(R.id.btn_PI_previous);
+                Previous.setText("Profil");
+
                 findViewById(R.id.btn_PI_next).setVisibility(View.GONE);
                 mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-                mDrawerLayout.setVisibility(View.VISIBLE);
                 menu = new MenuDrawer(this, context, AppSessionContext, mDrawerLayout, mnavList, Current_Position);
                 menu.addDrawerItems();
                 setupDrawer();
@@ -161,14 +168,18 @@ public class CursusListActivity extends AppCompatActivity
             setResult(resutlInt, intent);
             finish();
         } else if (AppSessionContext.inProfileView) {
+
             Bundle bundle = new Bundle();
             AppSessionContext.getUserMember().setCursuses(CursusContent.ITEMS);
             if (AppSessionContext.getUserMember().isAdmin())
                 intent = new Intent(context, AdminActivity.class);
             else
                 intent = new Intent(context, UserMemberProfilActivity.class);
+            if (resutlInt == 2) {
+                bundle.putString("SaveCursus", "save");
+                // Pour taha : ici implementer Save Cursus vers WebService
+            }
             bundle.putSerializable("AppSessionContext", AppSessionContext);
-            bundle.putInt("p", -1);
             intent.putExtras(bundle);
             startActivity(intent);
         }

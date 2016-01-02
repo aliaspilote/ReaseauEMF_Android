@@ -553,6 +553,17 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             }
             CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
         }
+
+
+        if (usermember.getStatus() != null) {
+            String temp = "";
+            temp += "Offres d'emploi : " + (usermember.getStatus().getJobs_offers() ? "Ok" : "Non Ok") + "\n";
+            temp += "Activités dans ma ville : " + (usermember.getStatus().getCity_activities() ? "Ok" : "Non Ok") + "\n";
+            temp += "Activités nationales : " + (usermember.getStatus().getNational_activities() ? "Ok" : "Non Ok") + "\n";
+            temp += "Appel à projet : " + (usermember.getStatus().getProject_volontary() ? "Ok" : "Non Ok") + "\n";
+            CreateProfilByStep("Contact pour :", temp, R.id.content_for_contact);
+        }
+
         if (usermember.getCurriculum() != null) {
             String listCursus = "";
             int i = 0;
@@ -564,15 +575,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 }
             }
             CreateProfilByStep("Cursus :", listCursus, R.id.content_for_cursus);
-        }
-
-        if (usermember.getStatus() != null) {
-            String temp = "";
-            temp += "Offres d'emploi : " + (usermember.getStatus().getJobs_offers() ? "Ok" : "Non Ok") + "\n";
-            temp += "Activités dans ma ville : " + (usermember.getStatus().getCity_activities() ? "Ok" : "Non Ok") + "\n";
-            temp += "Activités nationales : " + (usermember.getStatus().getNational_activities() ? "Ok" : "Non Ok") + "\n";
-            temp += "Appel à projet : " + (usermember.getStatus().getProject_volontary() ? "Ok" : "Non Ok") + "\n";
-            CreateProfilByStep("Contact pour :", temp, R.id.content_for_contact);
         }
 
 

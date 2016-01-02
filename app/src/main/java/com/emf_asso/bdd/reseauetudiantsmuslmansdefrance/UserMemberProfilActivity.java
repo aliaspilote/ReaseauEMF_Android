@@ -84,8 +84,6 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
         Current_Position = a;
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -118,7 +116,6 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         mActivityTitle = getTitle().toString();
         setupDrawer();
         ImageListener();
-
         CreateProfil();
         fillInfoPerso();
 
@@ -203,7 +200,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
     public void fillInfoPerso() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(DataContext.dateDisplayFormat, Locale.FRANCE);
         if (usermember.getName() != null)
             fillInfoPersoByStep(usermember.getName(), R.id.editxt_ins_name);
         if (usermember.getFirstname() != null)
@@ -262,7 +259,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
     }
 
     public void CreateProfil() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(DataContext.dateDisplayFormat, Locale.FRANCE);
 
         if (usermember.getRegistration_date() != null)
             CreateProfilByStep("Date d'inscription :", sdf.format(usermember.getRegistration_date()), R.id.content_for_registrationdate);
@@ -296,43 +293,43 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
         if (usermember.getSkills() != null) {
             String listString = "";
+            Boolean is = false;
             int i = 0;
             for (Skill s : usermember.getSkills()) {
-                listString += s;
+                if (s != null)
+                    if (!s.equals("null")) {
+                        listString += s;
+                        is = true;
+                    }
+
                 i++;
-                if (i < usermember.getSkills().size()) {
+                if (is == true && i < usermember.getSkills().size()) {
                     listString += ",\n";
                 }
+                is = false;
             }
             CreateProfilByStep("Compétences :", listString, R.id.content_for_skills);
         }
-        usermember.getSkills();
         if (usermember.getStatus() != null) {
-            String listString = "";
-            if (usermember.getStatus().getJobs_offers() == true)
-                listString += "Offre stage/emploi\n";
-            if (usermember.getStatus().getCity_activities() == true)
-                listString += "Activités EMF dans ma ville\n";
-            if (usermember.getStatus().getNational_activities() == true)
-                listString += "Activités EMF national\n";
-            if (usermember.getStatus().getProject_volontary() == true)
-                listString += "Projets liés à compétences";
-            if (listString != "")
-                CreateProfilByStep("Contact pour :", listString, R.id.content_for_contact);
+            String temp = "";
+            temp += "Offres d'emploi : " + (usermember.getStatus().getJobs_offers() ? "Ok" : "Non Ok") + "\n";
+            temp += "Activités dans ma ville : " + (usermember.getStatus().getCity_activities() ? "Ok" : "Non Ok") + "\n";
+            temp += "Activités nationales : " + (usermember.getStatus().getNational_activities() ? "Ok" : "Non Ok") + "\n";
+            temp += "Appel à projet : " + (usermember.getStatus().getProject_volontary() ? "Ok" : "Non Ok") + "\n";
+            CreateProfilByStep("Contact pour :", temp, R.id.content_for_contact);
         }
 
-
-        if (!usermember.getCurriculum().isEmpty()) {
-            String listString = "";
+        if (usermember.getCurriculum() != null) {
+            String listCursus = "";
             int i = 0;
-            for (Curriculum s : usermember.getCurriculum()) {
-                listString += s;
+            for (Curriculum c : usermember.getCurriculum()) {
+                listCursus += c.getLabel() + " " + c.getDiscipline().getLabel() + " " + c.getEstablishment() + " " + sdf.format(c.getStart_date());
                 i++;
                 if (i < usermember.getCurriculum().size()) {
-                    listString += ",\n";
+                    listCursus += ",\n";
                 }
             }
-            CreateProfilByStep("Vos Cursus :", listString, R.id.content_for_curriculum);
+            CreateProfilByStep("Cursus :", listCursus, R.id.content_for_curriculum);
         }
 
     }
@@ -343,8 +340,11 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         TextView Value = new TextView(this);
         Value.setText(value);
 
-        Label.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-        Value.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+        //Label.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+        LinearLayout.LayoutParams lbl_layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 5f);
+        lbl_layout_params.setMargins(5, 0, 0, 0);
+        Label.setLayoutParams(lbl_layout_params);
+        Value.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 3f));
 
         LinearLayout linearlayout = (LinearLayout) findViewById(content);
         linearlayout.addView(Label);
@@ -377,47 +377,23 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
     public void selectInvolvement() {
         Spinner mSpinner = (Spinner) findViewById(R.id.spinner_involvement);
-     /*   Involvement in1 = AppCtx.getUserMember().getInvolvement();
-        Involvement in2;
-
-
-        if (in1 != null) {
-            String compareValue = in1.getInvolvement_id();
-            SpinnerAdapter adapter = mSpinner.getAdapter();
-            for (int i = 0; i < adapter.getCount(); i++) {
-                in2 = (Involvement) adapter.getItem(i);
-                if (in2.getInvolvement_id() == compareValue) {
-                    mSpinner.setSelection(i);
-                }
-            }
-        }
-        mSpinner.setSelection(2);*/
-
-
         mSpinner.setSelection(AppCtx.getUserMember().getInvolvement() != null ? ListViewInit.adapter_involvement.getPosition(AppCtx.getUserMember().getInvolvement()) : 0);
-
-
     }
 
     public void selectSection() {
         Spinner mSpinner = (Spinner) findViewById(R.id.spinner_section);
         mSpinner.setSelection(AppCtx.getUserMember().getSection() != null ? ListViewInit.adapter_section.getPosition(AppCtx.getUserMember().getSection()) : 0);
-
     }
 
     public void selectContactPreference() {
         Switch sw = (Switch) findViewById(R.id.switch_offer);
         sw.setChecked(AppCtx.getUserMember().getStatus().getJobs_offers());
-
         sw = (Switch) findViewById(R.id.switch_info_EMFcity);
         sw.setChecked(AppCtx.getUserMember().getStatus().getCity_activities());
-
         sw = (Switch) findViewById(R.id.switch_info_national);
         sw.setChecked(AppCtx.getUserMember().getStatus().getNational_activities());
-
         sw = (Switch) findViewById(R.id.switch_project);
         sw.setChecked(AppCtx.getUserMember().getStatus().getProject_volontary());
-
     }
 
     public void selectSkills() {
@@ -435,47 +411,64 @@ public class UserMemberProfilActivity extends AppCompatActivity {
 
 
     }
-
     public void OnSave(View v) {
+
+        switch (menu.Current_Position) {
+            case 1:
+                saveInfoPerso();
+                AppCtx.updateinfoperso();
+                gotousermemberprofile();
+                break;
+            case 2:
+                saveEMFProfile();
+                AppCtx.updateefmprofile();
+                gotousermemberprofile();
+                break;
+            case 3:
+                saveSkills();
+                AppCtx.updateskills();
+                gotousermemberprofile();
+                break;
+            case 4:
+                savePassword();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void saveInfoPerso() {
         TextView textview = (TextView) (findViewById(R.id.editxt_ins_name));
         AppCtx.getUserMember().setName(textview.getText().toString());
-
         textview = (TextView) (findViewById(R.id.editxt_ins_firstname));
         AppCtx.getUserMember().setFirstname(textview.getText().toString());
-
         AppCtx.getUserMember().setBirth_date(getDateByEditTextId(R.id.editxt_ins_birthday));
-
         textview = (TextView) (findViewById(R.id.editxt_ins_zipcode));
         AppCtx.getUserMember().setZip_code(textview.getText().toString());
-
         textview = (TextView) (findViewById(R.id.editxt_ins_city));
         AppCtx.getUserMember().setCity(textview.getText().toString());
-
         textview = (TextView) (findViewById(R.id.editxt_ins_phone));
         AppCtx.getUserMember().setPhone(textview.getText().toString());
+    }
 
+    void saveEMFProfile() {
         Spinner spinner = (Spinner) (findViewById(R.id.spinner_involvement));
         AppCtx.getUserMember().setInvolvement((Involvement) spinner.getSelectedItem());
-
         spinner = (Spinner) (findViewById(R.id.spinner_section));
         AppCtx.getUserMember().setSection((Section) spinner.getSelectedItem());
-
         ContactPreference contact = new ContactPreference();
-
         Switch sw = (Switch) (findViewById(R.id.switch_offer));
         contact.setJobs_offers(sw.isChecked());
-
         sw = (Switch) (findViewById(R.id.switch_info_EMFcity));
         contact.setCity_activities(sw.isChecked());
-
         sw = (Switch) (findViewById(R.id.switch_info_national));
         contact.setNational_activities(sw.isChecked());
-
         sw = (Switch) (findViewById(R.id.switch_project));
         contact.setProject_volontary(sw.isChecked());
-
         AppCtx.getUserMember().setStatus(contact);
+    }
 
+    public void saveSkills() {
         ListView listview = (ListView) findViewById(R.id.listview_skill);
         SparseBooleanArray checked = listview.getCheckedItemPositions();
         ArrayList<Skill> selectedItems = new ArrayList<>();
@@ -486,7 +479,36 @@ public class UserMemberProfilActivity extends AppCompatActivity {
                     selectedItems.add((Skill) listview.getAdapter().getItem(position));
         }
         AppCtx.getUserMember().setSkills(selectedItems);
+    }
 
+    public void savePassword() {
+        TextView pwd = (TextView) findViewById(R.id.editxt_upd_pwd_current);
+        TextView pwd1 = (TextView) findViewById(R.id.editxt_upd_pwd1);
+        TextView pwd2 = (TextView) findViewById(R.id.editxt_upd_pwd2);
+        TextView lbl = (TextView) findViewById(R.id.lbl_legend_error);
+        if (pwd.getText().toString().isEmpty() || pwd1.getText().toString().isEmpty() || pwd2.getText().toString().isEmpty())
+            lbl.setText("Saisie incomplétes");
+
+        else {
+            if (AppCtx.checkPwd(pwd.getText().toString())) {
+                if (pwd1 != pwd2) {
+                    lbl.setText("Les mots de passes ne sont pas identiques");
+                } else {
+                    AppCtx.changePwd(pwd1.getText().toString());
+                    gotousermemberprofile();
+
+
+                }
+            } else {
+                lbl.setText("Le mot de passe actuel est incorrecte");
+            }
+
+        }
+
+
+    }
+
+    public void gotousermemberprofile() {
         Intent intent;
         Bundle b;
         b = new Bundle();
@@ -497,6 +519,7 @@ public class UserMemberProfilActivity extends AppCompatActivity {
         intent.putExtras(b);
         this.context.startActivity(intent);
     }
+
 
     public void onChooseBirthday(View v) {
         showDate(default_birthday_date, R.id.icon_choose_birthday, R.id.editxt_ins_birthday);

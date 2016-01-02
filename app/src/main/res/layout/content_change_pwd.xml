@@ -68,7 +68,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/lbl_ins3_legend_error"
+                                    android:id="@+id/lbl_legend_error"
                                     style="@style/lbl_style_legend_error"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />

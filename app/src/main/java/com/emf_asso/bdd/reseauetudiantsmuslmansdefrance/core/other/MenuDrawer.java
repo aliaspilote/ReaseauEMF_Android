@@ -232,7 +232,7 @@ public class MenuDrawer extends AppCompatActivity {
                 intent.putExtras(b);
                 DialogBox dialog = new DialogBox(context, intent);
                 dialog.setAppCtx(AppCtx);
-                dialog.setKill(true);
+                dialog.setDisable(true);
                 dialog.createDialogBox("Désactiver votre compte", "Voulez-vous vraiment continuer ?");
                 break;
 
@@ -245,9 +245,10 @@ public class MenuDrawer extends AppCompatActivity {
                 if (AppCtx.getUserMember().isAdmin() == false) {
                     intent = new Intent(this.context, MainActivity.class);
                     intent.putExtras(b);
-                    AppCtx.killSession();
-                    this.context.startActivity(intent);
-
+                    DialogBox dialogDec = new DialogBox(context, intent);
+                    dialogDec.setAppCtx(AppCtx);
+                    dialogDec.setKill(true);
+                    dialogDec.createDialogBox("Déconnexion", "Voulez-vous vraiment vous déconnecter ?");
                 }
                 break;
             default:

@@ -12,7 +12,8 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
  * Created by taha on 29/12/2015.
  */
 public class DialogBox {
-    public Boolean kill;
+    public Boolean kill = false;
+    public Boolean disable = false;
     private Context context;
     private Intent intent;
     private SessionWsService AppCtx;
@@ -23,6 +24,14 @@ public class DialogBox {
     public DialogBox(Context context, Intent intent) {
         this.context = context;
         this.intent = intent;
+    }
+
+    public Boolean getDisable() {
+        return disable;
+    }
+
+    public void setDisable(Boolean disable) {
+        this.disable = disable;
     }
 
     public Boolean getKill() {
@@ -56,11 +65,13 @@ public class DialogBox {
                 .setCancelable(false)
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (kill == true) {
+                        if (disable == true) {
                             AppCtx.setDisableAccount();
                             AppCtx.killSession();
 
                         }
+                        if (kill == true)
+                            AppCtx.killSession();
                         context.startActivity(intent);
                     }
                 })

@@ -196,8 +196,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         home_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent mainIntent = new Intent(context, UserMemberProfilActivity.class);
-                startActivity(mainIntent);
+                gotousermemberprofile();
             }
         });
 
@@ -489,20 +488,6 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
 
         else {
             checkPwd(pwd.getText().toString());
-            if (checkpwd)//checkPwd())
-            {
-                if (pwd1 != pwd2) {
-                    lbl.setText("Les mots de passes ne sont pas identiques");
-                } else {
-                    changePwd(pwd1.getText().toString());
-                    gotousermemberprofile();
-
-
-                }
-            } else {
-                lbl.setText("Le mot de passe actuel est incorrecte");
-            }
-
         }
 
 
@@ -570,11 +555,12 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
     public void checkPwd(String old_pwd) {
 
         // Requete http, resultat bool mot clés, Action : check_pwd, Resultat : old_pwd_match
-        if (true)// si le résultat est true
-            checkpwd = true;
+
     }
 
     public void changePwd(String pwd) {
+        // Requete http, resultat bool mot clés, Action : change_pwd, Resultat : resultat
+
     }
 
     @Override
@@ -595,15 +581,23 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
             // code personaliser pour cette activité
             switch (LastReponse.Action) {
                 case "check_pwd":
+                    TextView lbl = (TextView) findViewById(R.id.lbl_legend_error);
                     if (result) {
                         if ((LastReponse.getResultat().get("old_pwd_match").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             // Action suit si le old pwd est valide
-                            //Appel changePwd()
-
+                            TextView pwd1 = (TextView) findViewById(R.id.editxt_upd_pwd1);
+                            TextView pwd2 = (TextView) findViewById(R.id.editxt_upd_pwd2);
+                            if (pwd1 != pwd2) {
+                                lbl.setText("Les mots de passes ne sont pas identiques");
+                            } else {
+                                changePwd(pwd1.getText().toString());
+                                gotousermemberprofile();
+                            }
                         } else {
                             Message += Messages.error_generique;
                             // Action suit si le old pwd est different
+                            lbl.setText("Le mot de passe actuel est incorrecte");
                         }
                     } else
                         Message += LastReponse.getExceptionText();
@@ -612,9 +606,12 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
+                            DisplayToast("Mot de passe est bien changé");
 
                         } else {
                             Message += Messages.error_generique;
+                            DisplayToast("Erreur !!!");
+
                         }
                     } else
                         Message += LastReponse.getExceptionText();
@@ -623,9 +620,13 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     if (result) {
                         if ((LastReponse.getResultat().get("result_infoperso").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
+                            DisplayToast("Votre profil est bien mise à jour");
+
 
                         } else {
                             Message += Messages.error_generique;
+                            DisplayToast("Erreur !!!");
+
                         }
                     } else
                         Message += LastReponse.getExceptionText();
@@ -634,9 +635,13 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     if (result) {
                         if ((LastReponse.getResultat().get("result_emf_profile").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
+                            DisplayToast("Votre profil est bien mise à jour");
+
 
                         } else {
                             Message += Messages.error_generique;
+                            DisplayToast("Erreur !!!");
+
                         }
                     } else
                         Message += LastReponse.getExceptionText();
@@ -645,9 +650,13 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     if (result) {
                         if ((LastReponse.getResultat().get("result_skills").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
+                            DisplayToast("Votre profil est bien mise à jour");
+
 
                         } else {
                             Message += Messages.error_generique;
+                            DisplayToast("Erreur");
+
                         }
                     } else
                         Message += LastReponse.getExceptionText();

@@ -72,7 +72,7 @@ public class FormBodyManager {
             int i = 0;
             for (DiffusionCriteria crt : ldf_criterias) {
                 form.add("criteria_id" + i, crt.getCriteria_id() + "");
-                form.add("criteria_name" + i, crt.getCriteria_Name() + "");
+                form.add("criteria_name" + i, crt.getCriteria_Ref() + "");
                 if (crt.isSpinner_type())
                     form.add("criteria_value" + i, ((CriteriaObject) crt.getValue()).getCriteriaValue() + "");
                 else

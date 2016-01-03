@@ -115,12 +115,12 @@ public class LdfService implements Serializable {
         return ldfList.size();
     }
 
-    public DiffusionCriteria get_new_criteria_byName(String name) {
+    public DiffusionCriteria get_new_criteria_byName(String ref) {
         DiffusionCriteria c = null;
         for (DiffusionCriteria crit : ListViewInit.CriteriaListViewTypeArr) {
 
-            String A = name;
-            String B = crit.getCriteria_Name();
+            String A = ref;
+            String B = crit.getCriteria_Ref();
             if (A.equals(B))
                 c = crit;
         }
@@ -150,6 +150,7 @@ public class LdfService implements Serializable {
                         l = new DiffusionList();
                         l.setId(oneldfjson.get("num_ldf").toString());
                         l.setLabel(oneldfjson.get("nom_ldf").toString());
+                        l.setCount(oneldfjson.get("count_ldf").toString());
                         add_ldf(l);
                     }
                 }

@@ -51,19 +51,21 @@ public class ListViewInit {
     public static void PopulateCriteriasListType() {
         CriteriaListViewTypeArr = new ArrayList<>();
 
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Nom", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Prenom", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Age", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Code postal", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Ville", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Email", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Etablissement", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Diplome", false, null));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Niveau etude", true, new ArrayList<Object>(degreeStudyList)));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Engagement", true, new ArrayList<Object>(involvementsList)));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Section", true, new ArrayList<Object>(sectionList)));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Discipline", true, new ArrayList<Object>(disciplineList)));
-        CriteriaListViewTypeArr.add(new DiffusionCriteria("Compétance", true, new ArrayList<Object>(skillList)));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Nom", "nom", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Prenom", "prenom", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Telephone", "phone", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Code postal", "cp", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Ville", "ville", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Email", "mail", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Etabli./Cursus", "etabl", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Diplome/Cursus", "dipl", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Ville/Cursus", "ville_c", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("CodePo./Cursus", "cp_c", false, null));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Niveau/Cursus", "bac+", true, new ArrayList<Object>(degreeStudyList)));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Engagement", "enga", true, new ArrayList<Object>(involvementsList)));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Section", "section", true, new ArrayList<Object>(sectionList)));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Discipline", "discip", true, new ArrayList<Object>(disciplineList)));
+        CriteriaListViewTypeArr.add(new DiffusionCriteria("Competance", "skill", true, new ArrayList<Object>(skillList)));
 
     }
 

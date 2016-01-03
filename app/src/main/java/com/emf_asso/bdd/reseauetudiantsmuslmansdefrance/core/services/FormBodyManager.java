@@ -57,19 +57,23 @@ public class FormBodyManager {
     }
 
 
-    public static RequestBody syncLDF(DiffusionList ldf) {
+    public static RequestBody syncLDF(DiffusionList ldf, SessionWsService AppCtx) {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "sync_ldf")
                 .add("ldf_id", ldf.getId())
-                .add("ldf_label", ldf.getLabel() + "");
+                .add("ldf_label", ldf.getLabel() + "")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx.getToken() != null ? AppCtx.getToken() : "");
         formBody = addLDFCriteriasFormBody(ldf.DiffusionCriteriaListViewValuesArr, formBody);
         return formBody.build();
     }
 
 
-    public static RequestBody deleteLDF(DiffusionList ldf) {
+    public static RequestBody deleteLDF(DiffusionList ldf, SessionWsService AppCtx) {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "delete_ldf")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx.getToken() != null ? AppCtx.getToken() : "")
                 .add("ldf_id", ldf.getId());
         return formBody.build();
     }

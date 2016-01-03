@@ -194,13 +194,13 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
 
     private void synchronizeLDF() {
         Web_Service_Controlleur wb_thread;
-        wb_thread = new Web_Service_Controlleur(this, syncLDF(AppCtx.getServiceLDF().getCurrent_ldf()));
+        wb_thread = new Web_Service_Controlleur(this, syncLDF(AppCtx.getServiceLDF().getCurrent_ldf(), AppCtx));
         wb_thread.execute();
     }
 
     private void deleteLDF() {
         Web_Service_Controlleur wb_thread;
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.deleteLDF(AppCtx.getServiceLDF().getCurrent_ldf()));
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.deleteLDF(AppCtx.getServiceLDF().getCurrent_ldf(), AppCtx));
         wb_thread.execute();
     }
 
@@ -287,10 +287,25 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                             gotoLDFActivity();
                         } else
                             Message += Messages.error_generique;
-                    } else
+                    } else {
                         Message += Messages.error_generique;
-                    Message += LastReponse.getExceptionText() + "";
-                    Message += LastReponse.getResultat().get("data_debug").toString();
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
+                    break;
+                case "update_ldf": //gotoLDFActivity();
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+
+                            Message += LastReponse.getResultat().toString();
+                            gotoLDFActivity();
+                        } else
+                            Message += Messages.error_generique;
+                    } else {
+                        Message += Messages.error_generique;
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
                     break;
                 case "delete_ldf":
                     if (result) {
@@ -299,10 +314,11 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                             gotoLDFActivity();
                         } else
                             Message += Messages.error_generique;
-                    } else
+                    } else {
                         Message += Messages.error_generique;
-                    Message += LastReponse.getExceptionText() + "";
-                    Message += LastReponse.getResultat().get("data_debug").toString();
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
                     break;
                 default:
                     Message = LastReponse.Action + " effectué\n";

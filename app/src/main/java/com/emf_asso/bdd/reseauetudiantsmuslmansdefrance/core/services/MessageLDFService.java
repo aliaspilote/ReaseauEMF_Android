@@ -16,12 +16,10 @@ public class MessageLDFService implements Serializable {
 
     Map<Integer, Boolean> PosSelectedLdf; // Position and isSelected
     private List<DiffusionList> LDFList;
-    private DiffusionList current_ldf;
     private boolean startedService = false;
 
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
-            current_ldf = null;
             PosSelectedLdf = new HashMap<>();
             LDFList = new ArrayList<>();
             startedService = true;
@@ -36,13 +34,6 @@ public class MessageLDFService implements Serializable {
         this.LDFList = LDFList;
     }
 
-    public DiffusionList getCurrent_ldf() {
-        return current_ldf;
-    }
-
-    public void setCurrent_ldf(DiffusionList current_ldf) {
-        this.current_ldf = current_ldf;
-    }
 
     public boolean isStartedService() {
         return startedService;

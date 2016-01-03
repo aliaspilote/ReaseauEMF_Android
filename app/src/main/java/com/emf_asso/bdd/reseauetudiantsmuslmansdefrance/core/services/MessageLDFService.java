@@ -4,14 +4,17 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionLis
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Omar_Desk on 03/01/2016.
  */
 public class MessageLDFService implements Serializable {
 
-    private List<DiffusionList> selectedLDFList;
+
+    Map<Integer, Boolean> PosSelectedLdf; // Position and isSelected
     private List<DiffusionList> LDFList;
     private DiffusionList current_ldf;
     private boolean startedService = false;
@@ -19,18 +22,10 @@ public class MessageLDFService implements Serializable {
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
             current_ldf = null;
-            selectedLDFList = new ArrayList<>();
+            PosSelectedLdf = new HashMap<>();
             LDFList = new ArrayList<>();
             startedService = true;
         }
-    }
-
-    public List<DiffusionList> getSelectedLDFList() {
-        return selectedLDFList;
-    }
-
-    public void setSelectedLDFList(List<DiffusionList> selectedLDFList) {
-        this.selectedLDFList = selectedLDFList;
     }
 
     public List<DiffusionList> getLDFList() {
@@ -55,5 +50,9 @@ public class MessageLDFService implements Serializable {
 
     public void setStartedService(boolean startedService) {
         this.startedService = startedService;
+    }
+
+    public void setSelectedLDFByPosition(int pos) {
+
     }
 }

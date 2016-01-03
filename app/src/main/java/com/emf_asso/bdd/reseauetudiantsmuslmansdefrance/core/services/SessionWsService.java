@@ -26,6 +26,7 @@ public class SessionWsService implements Serializable {
     private DataContext dataContext = new DataContext();
     private ProcessInscriptionService ServiceProcessInscription = new ProcessInscriptionService();
     private LdfService ServiceLDF = new LdfService();
+    private MessageLDFService ServiceMessage = new MessageLDFService();
 
     public SessionWsService() {
         setIsConnected(false);
@@ -137,6 +138,14 @@ public class SessionWsService implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public MessageLDFService getServiceMessage() {
+        return ServiceMessage;
+    }
+
+    public void setServiceMessage(MessageLDFService serviceMessage) {
+        ServiceMessage = serviceMessage;
     }
 
     public LdfService getServiceLDF() {

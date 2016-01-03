@@ -21,8 +21,8 @@
     <string name="lbl_password">Mot de passe</string>
     <string name="lbl_souvenir">Se Souvenir de moi</string>
     <string name="lbl_mdp_oublie">Mot de passe oublié ?</string>
-    <string name="lbl_ins_via">Inscription via</string>
-    <string name="lbl_direct">ou inscription directe</string>
+    <string name="lbl_ins_via">ou via</string>
+    <string name="lbl_direct">Inscription directe</string>
     <string name="lbl_register">inscription</string>
     <string name="lbl_vos_id">Vos identifiants</string>
     <string name="lbl_votre_mail">Votre email</string>

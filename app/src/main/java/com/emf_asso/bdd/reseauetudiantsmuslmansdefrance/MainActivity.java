@@ -38,7 +38,7 @@ import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.For
 
 public class MainActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
-    private static final String SPF_LOGINS = "emflogin"; //  <--- shared preference
+    private static final String SPF_LOGINS = "emflogin"; //  <---Name shared preference
     private static final String USERMAIL = "emfmail";  //  <--- To save username
     private static final String PASSWORD = "emfpassword";  //  <--- To save password
     private static final String CHECK_REMEMBER = "check_remember";  //  <--- To save password
@@ -280,10 +280,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         context.startActivity(intent);
     }
 
-    public void OnTryTaha(View view) throws IOException {
-
-        DisplayToast("Salam Taha");
-    }
 
     public String getTextByEditTextId(int id_editText) {
         return ((EditText) findViewById(id_editText)).getText().toString();

@@ -28,7 +28,7 @@ public class DiffusionList implements Serializable {
     }
 
     public String toString() {
-        if (count != null)
+        if (count == null)
             return label + " : -";
         else
             return label + " : " + count;

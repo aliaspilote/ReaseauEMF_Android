@@ -15,15 +15,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.MessageMail;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
+
+import java.util.Iterator;
+import java.util.Map;
 
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_ldf;
 
@@ -99,6 +104,7 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         listView = (ListView) findViewById(R.id.listview_destination);
         refreshLDF();
         initAlias();
+        //initlist();
     }
 
     public void initAlias() {
@@ -108,6 +114,49 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         String tab[] = {temp};
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tab);
         spinner.setAdapter(arrayAdapter);
+    }
+
+    public void initlist() {
+        Map<String, Boolean> map = AppCtx.getServiceLDF().getNumSelectedLdf();
+        ListView listView = (ListView) findViewById(R.id.listview_destination);
+        int position;
+        if (!map.isEmpty()) {
+            for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
+                String cle = (String) i.next();
+                if (map.get(cle) == true) {
+                    position = adapter_diffusion_list.getPosition(AppCtx.getServiceLDF().get_ldf_byId(cle));
+                    listView.setItemChecked(position, true);
+                }
+            }
+        }
+    }
+
+    public void sendMsg() {
+        TextView objet = (TextView) findViewById(R.id.editxt_subject);
+        TextView msg = (TextView) findViewById(R.id.editxt_msg);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_alias);
+        ListView listView = (ListView) findViewById(R.id.listview_destination);
+        Map<String, Boolean> map = null;
+        Boolean check = false;
+        if (!adapter_diffusion_list.isEmpty()) {
+            for (int i = 0; i < listView.getCount(); i++) {
+                if (listView.isItemChecked(i)) {
+                    check = true;
+                    map.put(adapter_diffusion_list.getItem(i).getId(), true);
+                } else
+                    map.put(adapter_diffusion_list.getItem(i).getId(), false);
+            }
+        }
+        if (check == false) {
+            TextView textView = (TextView) findViewById(R.id.lbl_legend_error);
+            textView.setText("Desinataire manquant");
+        } else {
+            MessageMail messageMail = new MessageMail();
+            messageMail.setObject((String) objet.getText());
+            messageMail.setCorps((String) msg.getText());
+            messageMail.setSender((String) spinner.getSelectedItem());
+            AppCtx.getServiceLDF().setMessage(messageMail);
+        }
     }
 
     private void refreshLDF() {
@@ -187,14 +236,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
     }
 
 
-
-
-
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -244,7 +285,7 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         send_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                gotousermemberprofile();
+                sendMsg();
             }
         });
 

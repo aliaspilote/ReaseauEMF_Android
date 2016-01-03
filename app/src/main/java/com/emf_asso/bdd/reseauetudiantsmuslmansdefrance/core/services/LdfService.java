@@ -26,6 +26,14 @@ public class LdfService implements Serializable {
     private boolean startedService = false;
     private MessageMail message;
 
+    public MessageMail getMessage() {
+        return message;
+    }
+
+    public void setMessage(MessageMail message) {
+        this.message = message;
+    }
+
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
             message = new MessageMail();
@@ -38,6 +46,7 @@ public class LdfService implements Serializable {
             ListViewInit.PopulateCriteriasListType();
         }
     }
+
 
     public List<DiffusionList> getLdfList() {
         return ldfList;

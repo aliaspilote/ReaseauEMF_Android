@@ -261,11 +261,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     public void startProfileActivity(JSONObject obj) {
         AppSessionContext.BeInProfileView();
         AppSessionContext.setUser_From_DB(obj);
-        // user ou admin
-        AppSessionContext.getUserMember().setIsAdmin(false);
-        // active ou desactive
-        AppSessionContext.getUserMember().setIsEnable(true);
-
         AppSessionContext.BeInProfileView();
         Intent intent = new Intent(context, UserMemberProfilActivity.class);
         Bundle bundle = new Bundle();

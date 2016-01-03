@@ -243,6 +243,10 @@ public class UserMember implements Serializable {
     }
 
     public void setRight(String right) {
+        if ((right.toLowerCase()).contains("admin"))
+            isAdmin = true;
+        else
+            isAdmin = false;
         this.right = right;
     }
 

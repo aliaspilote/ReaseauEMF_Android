@@ -87,7 +87,7 @@ public class SessionWsService implements Serializable {
             userMember.setZip_code((info_User.get("zip_code")).toString() + "");
             userMember.setCity((info_User.get("city")).toString() + "");
             userMember.setPhone((info_User.get("phone")).toString() + "");
-            userMember.setRight((info_User.get("right")).toString() + "");
+            userMember.setRight((info_User.get("right")) != null ? (info_User.get("right")).toString() : "");
             userMember.setIsEnable(info_User.get("enable").toString() == "false" ? false : true);
             userMember.setSection(dataContext.getSectionByLabel(((info_User.get("section")).toString() + "")));
             userMember.setInvolvement(dataContext.getInvolvementByLabel((info_User.get("involvement")).toString() + ""));

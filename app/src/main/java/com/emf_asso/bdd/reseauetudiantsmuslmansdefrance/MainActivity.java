@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                             //Message += Messages.error_is_Existing;
                             //AppSessionContext.setUser_From_DB(LastReponse.getResultat());
                             startProfileActivity(LastReponse.getResultat());
-                            Message += LastReponse.getResultat().toString();
+                            Message += Messages.success_w8_load_data;
                         }
                         else
                             Message += Messages.error_load_profil;

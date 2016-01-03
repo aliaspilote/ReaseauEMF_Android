@@ -176,7 +176,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                 case "get_ldf":
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
+                            Message += Messages.success_w8_load_data;
                             AppCtx.getServiceLDF().setLDF_From_DB(LastReponse.getResultat());
                             adapter.notifyDataSetChanged();
 

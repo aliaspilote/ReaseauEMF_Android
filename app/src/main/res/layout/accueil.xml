@@ -76,7 +76,8 @@
                 style="@style/style_lbl_forget_pwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:clickable="true" />
 
             <View
                 style="@style/style_feature"

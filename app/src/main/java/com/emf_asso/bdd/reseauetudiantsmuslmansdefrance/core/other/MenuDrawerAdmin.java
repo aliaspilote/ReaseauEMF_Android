@@ -1,3 +1,4 @@
+/*
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other;
 
 import android.app.Activity;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AdminActivity;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusUpdateActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.SendMessageActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
@@ -23,9 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+*/
 /**
  * Created by taha on 13/12/2015.
- */
+ *//*
+
 public class MenuDrawerAdmin extends AppCompatActivity {
     public Activity activity;
     public int Current_Position;
@@ -236,7 +239,7 @@ public class MenuDrawerAdmin extends AppCompatActivity {
 
                 break;
             case 5:
-                intent = new Intent(this.context, CursusUpdateActivity.class);
+                intent = new Intent(this.context, CursusListActivity.class);
                 b = new Bundle();
                 b.putInt("p", position);
                 b.putSerializable("AppSessionContext", AppCtx);
@@ -300,3 +303,4 @@ public class MenuDrawerAdmin extends AppCompatActivity {
 
 
 }
+*/

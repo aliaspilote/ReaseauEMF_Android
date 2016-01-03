@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.AboutEmfActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.LDFActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UserMemberProfilActivity;
@@ -21,6 +22,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -69,67 +71,93 @@ public class MenuDrawer extends AppCompatActivity {
 
     public void addDrawerItems() {
 
+
+        final Map<Integer, Integer> Index_Name = new HashMap<Integer, Integer>();
+        Integer dynamiquePostion = 0;
         maListViewPerso = (ListView) this.activity.findViewById(R.id.navList);
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
-        map = new HashMap<String, String>();
-        map.put("title", "Informations Générales");
-        map.put("img", String.valueOf(R.drawable.ic_info_g));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Informations Personnelles");
-        map.put("img", String.valueOf(R.drawable.ic_info_perso));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Profil EMF");
-        map.put("img", String.valueOf(R.drawable.ic_profil_emf));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Compétences/Talents");
-        map.put("img", String.valueOf(R.drawable.ic_skills));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Changer mot de passe");
-        map.put("img", String.valueOf(R.drawable.ic_change_pwd));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Mes Cursus");
-        map.put("img", String.valueOf(R.drawable.ic_cursus));
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("title", "Désactiver le compte");
-        map.put("img", String.valueOf(R.drawable.ic_disable_profil));
-        listItem.add(map);
 
         map = new HashMap<String, String>();
         map.put("title", "A propos");
         map.put("img", String.valueOf(R.drawable.ic_propos));
         listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 7);
+
+        map = new HashMap<String, String>();
+        map.put("title", "Vue Profil");
+        map.put("img", String.valueOf(R.drawable.ic_info_g));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 0);
+
+        map = new HashMap<String, String>();
+        map.put("title", "Identité");
+        map.put("img", String.valueOf(R.drawable.ic_info_perso));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 1);
+
+        map = new HashMap<String, String>();
+        map.put("title", "Profil EMF");
+        map.put("img", String.valueOf(R.drawable.ic_profil_emf));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 2);
+
+        map = new HashMap<String, String>();
+        map.put("title", "Compétences");
+        map.put("img", String.valueOf(R.drawable.ic_skills));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 3);
+
+        map = new HashMap<String, String>();
+        map.put("title", "Mot de passe");
+        map.put("img", String.valueOf(R.drawable.ic_change_pwd));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 4);
+
+        map = new HashMap<String, String>();
+        map.put("title", "Mes Cursus");
+        map.put("img", String.valueOf(R.drawable.ic_cursus));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 5);
+
 
         if (AppCtx.getUserMember().isAdmin() == true) {
             map = new HashMap<String, String>();
-            map.put("title", "Gestion des listes");
+            map.put("title", "Listes diffusion");
             map.put("img", String.valueOf(R.drawable.ic_list));
             listItem.add(map);
+            Index_Name.put(dynamiquePostion++, 8);
+
             map = new HashMap<String, String>();
             map.put("title", "Envoyer un message");
             map.put("img", String.valueOf(R.drawable.ic_message));
             listItem.add(map);
+            Index_Name.put(dynamiquePostion++, 9);
+
             map = new HashMap<String, String>();
             map.put("title", "Rechercher un profil");
             map.put("img", String.valueOf(R.drawable.ic_search));
             listItem.add(map);
+            Index_Name.put(dynamiquePostion++, 10);
+
             map = new HashMap<String, String>();
             map.put("title", "Gestion des admins");
             map.put("img", String.valueOf(R.drawable.ic_admin));
             listItem.add(map);
-
+            Index_Name.put(dynamiquePostion++, 11);
         }
+
+        map = new HashMap<String, String>();
+        map.put("title", "Désactiver le compte");
+        map.put("img", String.valueOf(R.drawable.ic_disable_profil));
+        listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 6);
 
         map = new HashMap<String, String>();
         map.put("title", "Déconnexion");
         map.put("img", String.valueOf(R.drawable.ic_disconnect));
         listItem.add(map);
+        Index_Name.put(dynamiquePostion++, 12);
 
         SimpleAdapter mSchedule = new SimpleAdapter(activity.getBaseContext(), listItem, R.layout.listview_item,
                 new String[]{"img", "title"}, new int[]{R.id.img_menu_item, R.id.title_menu_item});
@@ -140,7 +168,8 @@ public class MenuDrawer extends AppCompatActivity {
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 //HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-                MenuAction(position);
+                int pos = Index_Name.get(position);
+                MenuAction(pos);
                 mDrawerLayout.closeDrawers();
             }
         });
@@ -242,18 +271,31 @@ public class MenuDrawer extends AppCompatActivity {
                 this.context.startActivity(intent);
                 break;
             case 8:
-                if (AppCtx.getUserMember().isAdmin() == false) {
-                    intent = new Intent(this.context, MainActivity.class);
+                intent = new Intent(this.context, LDFActivity.class);
                     intent.putExtras(b);
-                    DialogBox dialogDec = new DialogBox(context, intent);
-                    dialogDec.setAppCtx(AppCtx);
-                    dialogDec.setKill(true);
-                    dialogDec.createDialogBox("Déconnexion", "Voulez-vous vraiment vous déconnecter ?");
-                }
+                this.context.startActivity(intent);
+                break;
+            case 9:
+                DisplayToast("'Envoyer un message' en cours de developpement : postion " + position, 4000);
+                break;
+            case 10:
+                DisplayToast("'Rechercher un profil' en cours de developpement : postion " + position, 4000);
+                break;
+            case 11:
+                DisplayToast("'Gerer les admins' en cours de developpement : postion " + position, 4000);
+                break;
+            case 12:
+                intent = new Intent(this.context, MainActivity.class);
+                intent.putExtras(b);
+                DialogBox dialogDec = new DialogBox(context, intent);
+                dialogDec.setAppCtx(AppCtx);
+                dialogDec.setKill(true);
+                dialogDec.createDialogBox("Déconnexion", "Voulez-vous vraiment vous déconnecter ?");
                 break;
             default:
-                intent = new Intent(this.context, MainActivity.class);
-                this.context.startActivity(intent);
+                //intent = new Intent(this.context, MainActivity.class);
+                //this.context.startActivity(intent);
+                DisplayToast("Action en cours de developpement : postion " + position, 4000);
                 break;
         }
 
@@ -270,7 +312,7 @@ public class MenuDrawer extends AppCompatActivity {
         } else
             startActivityByPosition(position);
 
-        DisplayToast("Currenttttttt = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
+        // DisplayToast("Currenttttttt = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
         Current_Position = position;
     }
 

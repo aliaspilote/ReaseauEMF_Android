@@ -288,7 +288,9 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                         } else
                             Message += Messages.error_generique;
                     } else
-                        Message += LastReponse.getExceptionText();
+                        Message += Messages.error_generique;
+                    Message += LastReponse.getExceptionText() + "";
+                    Message += LastReponse.getResultat().get("data_debug").toString();
                     break;
                 case "delete_ldf":
                     if (result) {
@@ -298,7 +300,9 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
                         } else
                             Message += Messages.error_generique;
                     } else
-                        Message += LastReponse.getExceptionText();
+                        Message += Messages.error_generique;
+                    Message += LastReponse.getExceptionText() + "";
+                    Message += LastReponse.getResultat().get("data_debug").toString();
                     break;
                 default:
                     Message = LastReponse.Action + " effectué\n";

@@ -49,6 +49,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                 gotoDiffusionCriteriasActivity();
             }
         });
+        //
         ImageButton Refresh_ldf = (ImageButton) findViewById(R.id.btn_refresh_ldf);
         Refresh_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +58,22 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                         .setAction("Rafraichir", null).show();
                 refreshLDF();
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        ImageButton Back_profil = (ImageButton) findViewById(R.id.btn_back_profil);
+        Back_profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Retour profil", Snackbar.LENGTH_LONG)
+                        .setAction("Profil", null).show();
+
+                Intent intent = new Intent(context, UserMemberProfilActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("p", -1);
+                bundle.putSerializable("AppSessionContext", AppCtx);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -182,8 +199,11 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
 
                         } else
                             Message += Messages.error_generique;
-                    } else
-                        Message += LastReponse.getExceptionText();
+                    } else {
+                        Message += Messages.error_generique;
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
                     break;
                 default:
                     Message = LastReponse.Action + " : \n";

@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawerAdmin;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
@@ -28,7 +28,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
     public int Current_Position;
     public SessionWsService AppCtx;
-    public MenuDrawerAdmin menu;
+    public MenuDrawer menu;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -56,7 +56,7 @@ public class SendMessageActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
         Current_Position = a;
-        menu = new MenuDrawerAdmin(this, Current_Position);
+        menu = new MenuDrawer(this, Current_Position);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -174,7 +174,7 @@ public class SendMessageActivity extends AppCompatActivity {
         home_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent intent = new Intent(context, AdminActivity.class);
+                Intent intent = new Intent(context, UserMemberProfilActivity.class);
                 context.startActivity(intent);
             }
         });

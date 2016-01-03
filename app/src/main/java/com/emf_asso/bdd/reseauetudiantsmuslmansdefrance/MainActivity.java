@@ -5,19 +5,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.DialogBox;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.CheckContentService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
@@ -27,19 +32,26 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.auth;
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.forgotPswd;
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.getAction;
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_user;
 
 public class MainActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
+    private static final String SPF_LOGINS = "emflogin"; //  <--- shared preference
+    private static final String USERMAIL = "emfmail";  //  <--- To save username
+    private static final String PASSWORD = "emfpassword";  //  <--- To save password
+    private static final String CHECK_REMEMBER = "check_remember";  //  <--- To save password
     public final HttpReponse LastReponse = new HttpReponse();
+    CheckBox CheckRememberBox;
+    EditText EditTextMail;
+    EditText EditTextPswd;
     private SessionWsService AppSessionContext;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
     private ProgressDialog progress;
     private int progressVal = 0;
     private int progressValMax = 5;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,21 +70,55 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         if (AppSessionContext == null)
             AppSessionContext = new SessionWsService();
 
+        TextView ForgotPsw = (TextView) findViewById(R.id.txtview_forget_pwd);
+        ForgotPsw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                final String mail = getTextByEditTextId(R.id.editxt_auth_email);
+                if (CheckContentService.checkEmail(mail)) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    alertDialogBuilder.setTitle("Récupérer mot de passe");
+                    alertDialogBuilder
+                            .setMessage("Un nouveau mot de passe sera envoyé sur votre boîte mail. ")
+                            .setCancelable(false)
+                            .setPositiveButton("Envoyer", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    forgotenPswd(mail);
+                                }
+                            })
+                            .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } else {
+                    Snackbar.make(view, "Email saisi incorret", Snackbar.LENGTH_LONG)
+                            .setAction("Email incorret", null).show();
+                }
+
+            }
+        });
         loadListsFromWebService();
-
         menucontrol.setAppSessionContext(AppSessionContext);
+
+        CheckRememberBox = (CheckBox) findViewById(R.id.checkbox_remember_me);
+        EditTextMail = (EditText) findViewById(R.id.editxt_auth_email);
+        EditTextPswd = (EditText) findViewById(R.id.editxt_auth_pwd);
+        SharedPreferences settings = getSharedPreferences(SPF_LOGINS, 0);
+        if (settings.getString(CHECK_REMEMBER, "").contentEquals("true")) {
+            EditTextMail.setText(settings.getString(USERMAIL, ""));
+            EditTextPswd.setText(settings.getString(PASSWORD, ""));
+            CheckRememberBox.setChecked(true);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                context);
-
-        // set title
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setTitle("Quitter l'application");
-
-        // set dialog message
         alertDialogBuilder
                 .setMessage("Voulez-vous vraiment quitter l'application")
                 .setCancelable(false)
@@ -86,11 +132,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
                     }
                 });
-
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
         alertDialog.show();
 
     }
@@ -122,6 +164,17 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                             Message += Messages.error_load_profil;
                     } else
                         Message += LastReponse.getExceptionText();
+                    break;
+                case "forgot_pswd":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("isExisting").toString().contentEquals("true")))
+                            Message += "Mot de passe envoyé à : " + LastReponse.getResultat().get("mail").toString();
+                        else
+                            Message += Messages.error_isnot_Existing;
+                    } else {
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += Messages.error_generique;
+                    }
                     break;
                 case "check_mail":
                     if (result) {
@@ -237,6 +290,14 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void OnTryConnect(View view) {
+        SharedPreferences settings = getSharedPreferences(SPF_LOGINS, Context.MODE_PRIVATE);
+        if (!CheckRememberBox.isChecked()) {
+            settings.edit().clear().commit();
+            settings.edit().putString(CHECK_REMEMBER, "false").commit();
+        } else {
+            settings.edit().putString(CHECK_REMEMBER, "true").commit();
+        }
+
         String mail = getTextByEditTextId(R.id.editxt_auth_email);
         String mdp = getTextByEditTextId(R.id.editxt_auth_pwd);
 
@@ -251,10 +312,23 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     }
 
     public void successAuth(JSONObject obj) {
+
+        if (CheckRememberBox.isChecked()) {
+            SharedPreferences settings = getSharedPreferences(SPF_LOGINS, 0);
+            settings.edit().
+                    putString(USERMAIL, EditTextMail.getText().toString() + "")
+                    .putString(PASSWORD, EditTextPswd.getText().toString() + "")
+                    .commit();
+        }
         JSONObject object = obj;
         AppSessionContext.setSession(object);
         Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(
                 this, get_user(AppSessionContext.getUserMember().getEmail(), AppSessionContext.getToken()));
+        wb_thread.execute();
+    }
+
+    public void forgotenPswd(String mail) {
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, forgotPswd(mail));
         wb_thread.execute();
     }
 

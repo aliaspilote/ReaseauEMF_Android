@@ -60,7 +60,6 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
     public SessionWsService AppCtx;
     public MenuDrawer menu;
     public CreateDate default_birthday_date;
-    public boolean checkpwd = false;
     private UserMember usermember;
     private Context context = this;
     private Activity activity = this;
@@ -91,7 +90,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                 saveCursus();
 
             }
-        DisplayToast("a" + sv + "a");
+        //DisplayToast("a" + sv + "a");
 
         Current_Position = a;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

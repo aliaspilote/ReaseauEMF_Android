@@ -28,7 +28,7 @@ public final class Messages {
     public static String success_load_data = "Chargement données réussi : ";
     public static String success_w8_load_data = "Chargement données, veuillez patienter";
     public static String error_no_internet = "Pas de connexion internet ";
-    public static String error_generique = "Une erreur est survenue .. dommage ;)";
+    public static String error_generique = "Erreur... : ";
 
 
     private Messages() {

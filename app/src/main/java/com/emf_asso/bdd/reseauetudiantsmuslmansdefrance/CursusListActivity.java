@@ -169,10 +169,10 @@ public class CursusListActivity extends AppCompatActivity
 
             Bundle bundle = new Bundle();
             AppSessionContext.getUserMember().setCursuses(CursusContent.ITEMS);
-            if (AppSessionContext.getUserMember().isAdmin())
+            /*if (AppSessionContext.getUserMember().isAdmin())
                 intent = new Intent(context, AdminActivity.class);
-            else
-                intent = new Intent(context, UserMemberProfilActivity.class);
+            else*/
+            intent = new Intent(context, UserMemberProfilActivity.class);
             if (resutlInt == 1) {
                 bundle.putString("SaveCursus", "save");
             }

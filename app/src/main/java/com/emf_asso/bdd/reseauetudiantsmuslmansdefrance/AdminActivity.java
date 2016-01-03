@@ -25,7 +25,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Section;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Skill;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawerAdmin;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +41,7 @@ public class AdminActivity extends AppCompatActivity {
 
     public int Current_Position;
     public SessionWsService AppCtx;
-    public MenuDrawerAdmin menu;
+    public MenuDrawer menu;
     private UserMember usermember;
     private Context context = this;
     public Menu_Control menucontrol = new Menu_Control(context);
@@ -69,7 +69,7 @@ public class AdminActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
         Current_Position = a;
-        menu = new MenuDrawerAdmin(this, Current_Position);
+        menu = new MenuDrawer(this, Current_Position);
         InitStubs();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -48,6 +48,14 @@ public class FormBodyManager {
         return formBody;
     }
 
+    public static RequestBody forgotPswd(String mail) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("action", "forgot_pswd")
+                .add("mail", mail)
+                .build();
+        return formBody;
+    }
+
 
     public static RequestBody syncLDF(DiffusionList ldf) {
         FormEncodingBuilder formBody = new FormEncodingBuilder()

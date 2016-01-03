@@ -39,6 +39,16 @@
                 android:background="@null"
                 android:src="@drawable/ic_refresh" />
 
+            <ImageButton
+                android:id="@+id/btn_back_profil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_back_left" />
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

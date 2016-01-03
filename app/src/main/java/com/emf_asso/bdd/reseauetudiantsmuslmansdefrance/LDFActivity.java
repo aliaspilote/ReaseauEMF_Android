@@ -2,20 +2,28 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.LdfRowContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
@@ -30,8 +38,20 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
     public LDFActivity LDFActivityCtx = null;
     public LdfRowContent adapter;
     public ListView list;
+    public int Current_Position;
+    public SessionWsService AppCtx;
+    public MenuDrawer menu;
     private Context context = this;
-    private SessionWsService AppCtx;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
+    private UserMember usermember;
+    private ListView maListViewPerso;
+
+
+    public void setUsermember(UserMember usermember) {
+        this.usermember = usermember;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +59,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
         setContentView(R.layout.activity_ldf);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         ImageButton Add_ldf = (ImageButton) findViewById(R.id.btn_add_ldf);
         Add_ldf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +82,7 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
             }
         });
 
-        ImageButton Back_profil = (ImageButton) findViewById(R.id.btn_back_profil);
+       /* ImageButton Back_profil = (ImageButton) findViewById(R.id.btn_back_profil);
         Back_profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,13 +96,14 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
-        });
+        });*/
 
         if (savedInstanceState != null) {
             AppCtx = (SessionWsService) savedInstanceState.getSerializable("AppSessionContext");
         }
+        Intent intent = this.getIntent();
+
         if (!(AppCtx != null)) {
-            Intent intent = this.getIntent();
             if (intent.getSerializableExtra("AppSessionContext") != null) {
                 AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
             }
@@ -92,6 +114,26 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
                 }
             }
         }
+        Bundle bundle = intent.getExtras();
+        int a = bundle.getInt("p");
+        Current_Position = a;
+
+
+        menu = new MenuDrawer(this, Current_Position);
+        setUsermember(AppCtx.getUserMember());
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        maListViewPerso = (ListView) findViewById(R.id.navList);
+        menu.setMaListViewPerso(maListViewPerso);
+        menu.setmDrawerLayout(mDrawerLayout);
+        menu.setAppCtx(AppCtx);
+        menu.setContext(context);
+        menu.addDrawerItems();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mActivityTitle = getTitle().toString();
+        setupDrawer();
+
+
         AppCtx.getServiceLDF().onStart(AppCtx);
 
         //loadDataLdf();
@@ -107,7 +149,92 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
         adapter = new LdfRowContent(LDFActivityCtx, AppCtx);
         list.setAdapter(adapter);
 
+
+        ImageListener();
+
+
+        if (Current_Position == -1)
+            mDrawerLayout.openDrawer(GravityCompat.START);
+
+
     }
+
+    private void setupDrawer() {
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_about_emf) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void ImageListener() {
+        ImageView home_icon;
+        home_icon = (ImageView) this.findViewById(R.id.icon_home);
+        // set a onclick listener for when the button gets clicked
+        home_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                gotousermemberprofile();
+            }
+        });
+
+    }
+
+    public void gotousermemberprofile() {
+        Intent intent;
+        Bundle b;
+        b = new Bundle();
+        b.putInt("p", 0);
+        b.putSerializable("AppSessionContext", AppCtx);
+
+        intent = new Intent(this.context, UserMemberProfilActivity.class);
+        intent.putExtras(b);
+        this.context.startActivity(intent);
+    }
+
+
 
 
     /******

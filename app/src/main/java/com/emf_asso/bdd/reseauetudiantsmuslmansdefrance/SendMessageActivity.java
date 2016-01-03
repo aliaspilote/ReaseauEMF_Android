@@ -65,12 +65,6 @@ public class SendMessageActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         menu.setMaListViewPerso(maListViewPerso);
         menu.setmDrawerLayout(mDrawerLayout);
-        menu.setAppCtx(AppCtx);
-        menu.setContext(context);
-        menu.addDrawerItems();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
         Boolean intentExtrat = false;
         if (intent.getSerializableExtra("AppSessionContext") != null) {
             AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
@@ -83,6 +77,12 @@ public class SendMessageActivity extends AppCompatActivity {
             }
         }
         menu.setAppCtx(AppCtx);
+        menu.setContext(context);
+        menu.addDrawerItems();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

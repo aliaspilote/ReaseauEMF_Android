@@ -83,20 +83,19 @@ public class Menu_Control extends AppCompatActivity {
                 return true;
             case R.id.action_emf_network:
                 createDialogBox();
-                // intent = new Intent(context, EmfNetworkActivity.class);
-                //  context.startActivity(intent);
+
                 return true;
             case R.id.action_profil:
-                intent = new Intent(context, ProfilActivity.class);
+                intent = new Intent(context, AboutEmfActivity.class);
                 context.startActivity(intent);
                 return true;
             case R.id.testprofil:
-                intent = new Intent(context, UpdateCursusListActivity.class);
+                intent = new Intent(context, AboutEmfActivity.class);
                 context.startActivity(intent);
                 return true;
             case R.id.action_admin:
                 Bundle b;
-                intent = new Intent(context, AdminActivity.class);
+                intent = new Intent(context, AboutEmfActivity.class);
                 b = new Bundle();
                 b.putSerializable("AppSessionContext", AppSessionContext);
                 b.putInt("p", -1);

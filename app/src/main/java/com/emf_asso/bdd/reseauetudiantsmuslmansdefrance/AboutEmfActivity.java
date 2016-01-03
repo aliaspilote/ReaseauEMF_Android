@@ -175,13 +175,23 @@ public class AboutEmfActivity extends AppCompatActivity {
         home_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent intent = new Intent(context, AboutEmfActivity.class);
-                context.startActivity(intent);
+                gotousermemberprofile();
             }
         });
 
     }
 
+    public void gotousermemberprofile() {
+        Intent intent;
+        Bundle b;
+        b = new Bundle();
+        b.putInt("p", 0);
+        b.putSerializable("AppSessionContext", AppCtx);
+
+        intent = new Intent(this.context, UserMemberProfilActivity.class);
+        intent.putExtras(b);
+        this.context.startActivity(intent);
+    }
 
     public void DisplayToast(String text, int time) {
         if (time > 0)

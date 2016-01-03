@@ -17,6 +17,7 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.CursusListActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.LDFActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.MainActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.SendMessageActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.UserMemberProfilActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
@@ -276,7 +277,9 @@ public class MenuDrawer extends AppCompatActivity {
                 this.context.startActivity(intent);
                 break;
             case 9:
-                DisplayToast("'Envoyer un message' en cours de developpement : postion " + position, 4000);
+                intent = new Intent(this.context, SendMessageActivity.class);
+                intent.putExtras(b);
+                this.context.startActivity(intent);
                 break;
             case 10:
                 DisplayToast("'Rechercher un profil' en cours de developpement : postion " + position, 4000);

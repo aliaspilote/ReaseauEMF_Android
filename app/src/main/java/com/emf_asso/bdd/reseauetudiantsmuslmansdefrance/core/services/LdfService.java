@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,12 @@ public class LdfService implements Serializable {
 
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
+            message = new MessageMail();
             current_position = 0;
             current_ldf = null;
             ldfList = new ArrayList<>();
             startedService = true;
+            numSelectedLdf = new HashMap<String, Boolean>();
             ListViewInit.loadListStaticData(AppCtx);
             ListViewInit.PopulateCriteriasListType();
         }
@@ -42,6 +45,14 @@ public class LdfService implements Serializable {
 
     public void setLdfList(List<DiffusionList> ldfList) {
         this.ldfList = ldfList;
+    }
+
+    public Map<String, Boolean> getNumSelectedLdf() {
+        return numSelectedLdf;
+    }
+
+    public void setNumSelectedLdf(Map<String, Boolean> numSelectedLdf) {
+        this.numSelectedLdf = numSelectedLdf;
     }
 
     public DiffusionList getCurrent_ldf() {

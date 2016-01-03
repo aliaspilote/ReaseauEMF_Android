@@ -2,7 +2,9 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.LDFActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.R;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.SendMessageActivity;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 
 /**
@@ -31,6 +34,7 @@ public class LdfRowContent extends BaseAdapter implements View.OnClickListener {
      *********/
     private Activity activity;
     private SessionWsService AppCtx;
+    private Context context;
 
     /*************
      * CustomAdapter Constructor
@@ -39,7 +43,6 @@ public class LdfRowContent extends BaseAdapter implements View.OnClickListener {
         /********** Take passed values **********/
         activity = a;
         this.AppCtx = AppCtx;
-
         /***********  Layout inflator to call external xml layout () ***********/
         inflater = (LayoutInflater) activity.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -173,16 +176,23 @@ public class LdfRowContent extends BaseAdapter implements View.OnClickListener {
 
     private class OnSendClickListener implements View.OnClickListener {
         private int mPosition;
-
+        private LDFActivity mActivity;
         OnSendClickListener(int position) {
             mPosition = position;
         }
 
         @Override
         public void onClick(View arg0) {
-            //DiffusionCriteriasActivity sct = (DiffusionCriteriasActivity) activity;
-            Log.v("LDF ROW Action", "=====Send button clicked=====" + mPosition);
-            //sct.onItemClickSave(mPosition);
+            AppCtx.getServiceLDF().getNumSelectedLdf().put(
+                    AppCtx.getServiceLDF().get_ldf(mPosition).getId().toString(), true);
+            Intent intent;
+            Bundle b;
+            b = new Bundle();
+            b.putInt("p", 9);
+            b.putSerializable("AppSessionContext", AppCtx);
+            intent = new Intent(activity, SendMessageActivity.class);
+            intent.putExtras(b);
+            activity.startActivity(intent);
         }
     }
 }

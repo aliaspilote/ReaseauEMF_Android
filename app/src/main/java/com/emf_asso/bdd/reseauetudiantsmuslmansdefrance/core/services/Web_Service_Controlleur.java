@@ -65,7 +65,14 @@ public class Web_Service_Controlleur extends AsyncTask<String,String,String>{
 
                 mActivity.ReceptionResponse(new HttpReponse(false, e.getMessage()));
             }
-            mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, (jsonResult.get("action")).toString(), DT, null));
+            String action = "";
+            try {
+                action = (jsonResult.get("action")).toString();
+            } catch (Exception e) {
+
+                mActivity.ReceptionResponse(new HttpReponse(false, e.getMessage()));
+            }
+            mActivity.ReceptionResponse(new HttpReponse(jsonResult, true, action, DT, null));
         }
     }
 

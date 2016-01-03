@@ -16,16 +16,25 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.UserMember;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.MessageLDFService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
+
+import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_ldf;
 
 /**
  * Created by taha on 24/11/2015.
  */
 
-public class SendMessageActivity extends AppCompatActivity {
+public class SendMessageActivity extends AppCompatActivity implements ActivityConnectedWeb {
 
+    public final HttpReponse LastReponse = new HttpReponse();
     public int Current_Position;
     public SessionWsService AppCtx;
     public MenuDrawer menu;
@@ -39,6 +48,7 @@ public class SendMessageActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private ListView maListViewPerso;
+    private MessageLDFService messageLDFService;
 
     public UserMember getUsermember() {
         return usermember;
@@ -92,11 +102,15 @@ public class SendMessageActivity extends AppCompatActivity {
 
 
         ImageListener();
+        refreshLDF();
+        // messageLDFService.setLDFList(AppCtx.getServiceLDF().getLdfList());
+        ArrayAdapter<DiffusionList> adapter_diffusion_list;
 
+        ListView listView = (ListView) findViewById(R.id.listview_destination);
+        adapter_diffusion_list =
+                new ArrayAdapter<DiffusionList>(this, android.R.layout.simple_list_item_1, AppCtx.getServiceLDF().getLdfList());
 
-
-
-
+        listView.setAdapter(adapter_diffusion_list);
 
     }
 
@@ -196,6 +210,55 @@ public class SendMessageActivity extends AppCompatActivity {
     public void gotoMainActivity() {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+    }
+
+    private void refreshLDF() {
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, get_ldf(AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "", AppCtx.getToken()));
+        wb_thread.execute();
+    }
+
+    @Override
+    public void ReceptionResponse(HttpReponse Rep) {
+        LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
+        String Message = "";
+
+        if (LastReponse.getResultat() == null)
+            DisplayToast(LastReponse.getExceptionText());
+        else if (!LastReponse.getSucces() && LastReponse.getResultat().get("result").toString() != "true")
+            DisplayToast(LastReponse.getExceptionText());
+        else {
+            Boolean result = false;
+            String tempResultBool = LastReponse.getResultat().get("result").toString();
+            if (tempResultBool.contentEquals("true"))
+                result = true;
+
+            // code personaliser pour cette activité
+            switch (LastReponse.Action) {
+                case "get_ldf":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                            Message += Messages.success_w8_load_data;
+                            AppCtx.getServiceLDF().setLDF_From_DB(LastReponse.getResultat());
+                            // adapter.notifyDataSetChanged();
+
+                        } else
+                            Message += Messages.error_generique;
+                    } else {
+                        Message += Messages.error_generique;
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
+                    break;
+                default:
+                    Message = LastReponse.Action + " : \n";
+                    Message += "aucun post traitement défini \n";
+                    Message += LastReponse.getResultat().toString();
+                    break;
+            }
+            if (Message.length() > 2)
+                DisplayToast(Message);
+        }
     }
 
 }

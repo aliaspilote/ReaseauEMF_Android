@@ -21,11 +21,17 @@ public class DiffusionList implements Serializable {
         this.count = count;
     }
 
-
     public DiffusionList(String id, String label, String count) {
         this.label = label;
         this.count = count;
         this.id = id;
+    }
+
+    public String toString() {
+        if (count != null)
+            return label + " : -";
+        else
+            return label + " : " + count;
     }
 
     public String getLabel() {

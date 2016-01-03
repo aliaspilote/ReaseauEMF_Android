@@ -256,6 +256,7 @@ public class DiffusionCriteriasActivity extends AppCompatActivity implements Act
     public void gotoLDFActivity() {
         Intent intent = new Intent(DiffusionCriteriaCtx, LDFActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putInt("p", 7);
         bundle.putSerializable("AppSessionContext", AppCtx);
         intent.putExtras(bundle);
         context.startActivity(intent);

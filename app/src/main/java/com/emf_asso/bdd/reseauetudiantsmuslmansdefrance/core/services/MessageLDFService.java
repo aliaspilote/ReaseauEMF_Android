@@ -20,6 +20,9 @@ public class MessageLDFService implements Serializable {
     private boolean startedService = false;
     private MessageMail message;
 
+    public MessageLDFService() {
+
+    }
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
             PosSelectedLdf = new HashMap<>();

@@ -86,12 +86,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
-        String sv = bundle.getString("SaveCursus");
-        if (sv != null)
-            if (sv.equals("save")) {
-                saveCursus();
 
-            }
         Current_Position = a;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,6 +104,11 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
             SystemClock.sleep(3000);
             gotoMainActivity();
         }
+        String sv = bundle.getString("SaveCursus");
+        if (sv != null)
+            if (sv.equals("save"))
+                saveCursus();
+
         menu = new MenuDrawer(this, Current_Position);
         InitStubs();
         ListViewInit.loadListStaticPI(this, AppCtx);
@@ -159,7 +159,6 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
 
 
     @Override
@@ -484,11 +483,17 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         TextView pwd1 = (TextView) findViewById(R.id.editxt_upd_pwd1);
         TextView pwd2 = (TextView) findViewById(R.id.editxt_upd_pwd2);
         TextView lbl = (TextView) findViewById(R.id.lbl_legend_error);
-        if (pwd.getText().toString().isEmpty() || pwd1.getText().toString().isEmpty() || pwd2.getText().toString().isEmpty())
-            lbl.setText("Saisie incomplétes");
+        lbl.setText("");
+        if (pwd.getText().toString().length() < 6
+                || pwd1.getText().toString().length() < 6
+                || pwd2.getText().toString().length() < 6)
+            lbl.setText("Saisie insuffisantes");
 
         else {
-            checkPwd(pwd.getText().toString());
+            if (pwd1.getText().toString().equals(pwd2.getText().toString()))
+                checkPwd(pwd.getText().toString());
+            else
+                lbl.setText("Les mots de passes saisies différents");
         }
 
 
@@ -579,9 +584,12 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
 
     public void saveCursus() {
         // Requete http, resultat bool mot clés, Action : save_cursus, Resultat : resultat_cursus
-        Web_Service_Controlleur wb_thread;
-        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.update_cursus(AppCtx));
-        wb_thread.execute();
+        if (AppCtx != null) {
+            Web_Service_Controlleur wb_thread;
+            wb_thread = new Web_Service_Controlleur(this, FormBodyManager.update_cursus(AppCtx));
+            wb_thread.execute();
+        } else
+            DisplayToast("Error, null AppCtx");
 
     }
 
@@ -599,102 +607,68 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
             String tempResultBool = LastReponse.getResultat().get("result").toString();
             if (tempResultBool.contentEquals("true"))
                 result = true;
-
+            TextView lbl;
             // code personaliser pour cette activité
             switch (LastReponse.Action) {
                 case "check_pwd":
-                    TextView lbl = (TextView) findViewById(R.id.lbl_legend_error);
+                    lbl = (TextView) findViewById(R.id.lbl_legend_error);
                     if (result) {
                         if ((LastReponse.getResultat().get("check_pwd").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
-                            // Action suit si le old pwd est valide
+                            Message += "";
                             TextView pwd1 = (TextView) findViewById(R.id.editxt_upd_pwd1);
-                            TextView pwd2 = (TextView) findViewById(R.id.editxt_upd_pwd2);
-                            if (pwd1 != pwd2) {
-                                lbl.setText("Les mots de passes ne sont pas identiques");
-                            } else {
-                                changePwd(pwd1.getText().toString());
-                                gotousermemberprofile();
-                            }
+                            changePwd(pwd1.getText().toString());
+                            gotousermemberprofile();
                         } else {
-                            Message += Messages.error_generique;
-                            // Action suit si le old pwd est different
-                            lbl.setText("Le mot de passe actuel est incorrecte");
+                            Message += "Ancien mot de passe saisie incorrecte";
+                            lbl.setText("Ancien mot de passe saisie incorrecte");
                         }
                     } else
                         Message += LastReponse.getExceptionText();
                     break;
                 case "change_pwd":
+                    lbl = (TextView) findViewById(R.id.lbl_legend_error);
                     if (result) {
                         if ((LastReponse.getResultat().get("change_pwd").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
-                            DisplayToast("Mot de passe est bien changé");
-
-                        } else {
+                            Message += "Mot de passe modifié avec succès";
+                            lbl.setText("");
+                        } else
                             Message += Messages.error_generique;
-                            DisplayToast("Erreur !!!");
-
-                        }
                     } else
                         Message += LastReponse.getExceptionText();
                     break;
                 case "save_infoperso":
                     if (result) {
-                        if ((LastReponse.getResultat().get("save_infoperso").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
-                            DisplayToast("Votre profil est bien mise à jour");
-
-
-                        } else {
+                        if ((LastReponse.getResultat().get("update_infoperso").toString().contentEquals("true")))
+                            Message += "Profil modifié avec succès";
+                        else
                             Message += Messages.error_generique;
-                            DisplayToast("Erreur !!!");
-
-                        }
                     } else
                         Message += LastReponse.getExceptionText();
                     break;
                 case "save_emfprofile":
                     if (result) {
-                        if ((LastReponse.getResultat().get("save_emfprofile").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
-                            DisplayToast("Votre profil est bien mise à jour");
-
-
-                        } else {
+                        if ((LastReponse.getResultat().get("update_emfprofile").toString().contentEquals("true")))
+                            Message += "Profil modifié avec succès";
+                        else
                             Message += Messages.error_generique;
-                            DisplayToast("Erreur !!!");
-
-                        }
                     } else
                         Message += LastReponse.getExceptionText();
                     break;
                 case "save_skills":
                     if (result) {
-                        if ((LastReponse.getResultat().get("save_skills").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
-                            DisplayToast("Votre profil est bien mise à jour");
-
-
-                        } else {
+                        if ((LastReponse.getResultat().get("save_skills").toString().contentEquals("true")))
+                            Message += "Compétances modifiés avec succès";
+                        else
                             Message += Messages.error_generique;
-                            DisplayToast("Erreur");
-
-                        }
                     } else
                         Message += LastReponse.getExceptionText();
                     break;
                 case "save_cursus":
                     if (result) {
-                        if ((LastReponse.getResultat().get("save_cursus").toString().contentEquals("true"))) {
-                            Message += LastReponse.getResultat().toString();
-                            DisplayToast("Vos cursus sont bien modifiés");
-
-
-                        } else {
+                        if ((LastReponse.getResultat().get("save_cursus").toString().contentEquals("true")))
+                            Message += "Cursus modifiés avec succès";
+                        else
                             Message += Messages.error_generique;
-                            DisplayToast("Erreur");
-
-                        }
                     } else
                         Message += LastReponse.getExceptionText();
                     break;

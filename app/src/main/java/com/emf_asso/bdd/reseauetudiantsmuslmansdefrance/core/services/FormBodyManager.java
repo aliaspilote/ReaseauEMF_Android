@@ -201,19 +201,8 @@ public class FormBodyManager {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "change_pwd")
                 .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
-                .add("token", AppCtx != null ? AppCtx.getToken() : "")
-                .add("name", AppCtx.getUserMember().getName() + "")
-                .add("firstname", AppCtx.getUserMember().getFirstname() + "")
-                .add("zip_code", AppCtx.getUserMember().getZip_code() + "")
-                .add("city", AppCtx.getUserMember().getCity() + "")
-                .add("section", (AppCtx.getUserMember().getSection() != null ? AppCtx.getUserMember().getSection().getLabel() : ""))
-                .add("phone", AppCtx.getUserMember().getPhone() + "")
-                .add("hashed_pwd", AppCtx.getUserMember().getHashed_pwd() + "")
-                .add("birth_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getBirth_date()) : ""))
-                .add("registration_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getRegistration_date()) : ""))
-                .add("involvement", (AppCtx.getUserMember().getInvolvement() != null ? AppCtx.getUserMember().getInvolvement().getLabel() : ""));
-        formBody = addCursusToFormBody(AppCtx.getUserMember().getCurriculum(), formBody);
-        formBody = addSkillsToFormBody(AppCtx.getUserMember().getSkills(), formBody);
+                .add("hashed_pwd", pswd != null ? pswd : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "");
 
         return formBody.build();
     }
@@ -222,6 +211,7 @@ public class FormBodyManager {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "check_pwd")
                 .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("hashed_pwd", Old_pswd != null ? Old_pswd : "")
                 .add("token", AppCtx != null ? AppCtx.getToken() : "");
 
         return formBody.build();

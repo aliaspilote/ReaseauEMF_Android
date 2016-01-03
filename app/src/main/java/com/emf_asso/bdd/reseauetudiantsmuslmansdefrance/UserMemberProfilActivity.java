@@ -40,8 +40,10 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.CustomDatePic
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,8 +92,6 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                 saveCursus();
 
             }
-        //DisplayToast("a" + sv + "a");
-
         Current_Position = a;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -540,32 +540,48 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
 
     public void updateinfoperso() {
         // Requete http, resultat bool mot clés, Action : save_infoperso, Resultat : resultat_infoperso
-
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.update_infoperso(AppCtx));
+        wb_thread.execute();
     }
 
     public void updateemfprofile() {
         // Requete http, resultat bool mot clés, Action : save_emfprofile, Resultat : resultat_emfprofile
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.update_emfprofile(AppCtx));
+        wb_thread.execute();
 
     }
 
     public void updateskills() {
         // Requete http, resultat bool mot clés, Action : save_skills, Resultat : resultat_skills
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.update_skills(AppCtx));
+        wb_thread.execute();
 
     }
 
     public void checkPwd(String old_pwd) {
-
         // Requete http, resultat bool mot clés, Action : check_pwd, Resultat : old_pwd_match
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.check_pwd(AppCtx, old_pwd));
+        wb_thread.execute();
 
     }
 
     public void changePwd(String pwd) {
         // Requete http, resultat bool mot clés, Action : change_pwd, Resultat : resultat
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.change_pwd(AppCtx, pwd));
+        wb_thread.execute();
 
     }
 
     public void saveCursus() {
         // Requete http, resultat bool mot clés, Action : save_cursus, Resultat : resultat_cursus
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.update_cursus(AppCtx));
+        wb_thread.execute();
 
     }
 
@@ -589,7 +605,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                 case "check_pwd":
                     TextView lbl = (TextView) findViewById(R.id.lbl_legend_error);
                     if (result) {
-                        if ((LastReponse.getResultat().get("old_pwd_match").toString().contentEquals("true"))) {
+                        if ((LastReponse.getResultat().get("check_pwd").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             // Action suit si le old pwd est valide
                             TextView pwd1 = (TextView) findViewById(R.id.editxt_upd_pwd1);
@@ -610,7 +626,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     break;
                 case "change_pwd":
                     if (result) {
-                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                        if ((LastReponse.getResultat().get("change_pwd").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             DisplayToast("Mot de passe est bien changé");
 
@@ -624,7 +640,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     break;
                 case "save_infoperso":
                     if (result) {
-                        if ((LastReponse.getResultat().get("result_infoperso").toString().contentEquals("true"))) {
+                        if ((LastReponse.getResultat().get("save_infoperso").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             DisplayToast("Votre profil est bien mise à jour");
 
@@ -639,7 +655,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     break;
                 case "save_emfprofile":
                     if (result) {
-                        if ((LastReponse.getResultat().get("result_emf_profile").toString().contentEquals("true"))) {
+                        if ((LastReponse.getResultat().get("save_emfprofile").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             DisplayToast("Votre profil est bien mise à jour");
 
@@ -654,7 +670,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     break;
                 case "save_skills":
                     if (result) {
-                        if ((LastReponse.getResultat().get("result_skills").toString().contentEquals("true"))) {
+                        if ((LastReponse.getResultat().get("save_skills").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             DisplayToast("Votre profil est bien mise à jour");
 
@@ -669,7 +685,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                     break;
                 case "save_cursus":
                     if (result) {
-                        if ((LastReponse.getResultat().get("result_cursus").toString().contentEquals("true"))) {
+                        if ((LastReponse.getResultat().get("save_cursus").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             DisplayToast("Vos cursus sont bien modifiés");
 

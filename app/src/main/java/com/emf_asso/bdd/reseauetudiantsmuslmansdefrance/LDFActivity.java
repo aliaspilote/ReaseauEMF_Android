@@ -82,21 +82,6 @@ public class LDFActivity extends AppCompatActivity implements ActivityConnectedW
             }
         });
 
-       /* ImageButton Back_profil = (ImageButton) findViewById(R.id.btn_back_profil);
-        Back_profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Retour profil", Snackbar.LENGTH_LONG)
-                        .setAction("Profil", null).show();
-
-                Intent intent = new Intent(context, UserMemberProfilActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("p", -1);
-                bundle.putSerializable("AppSessionContext", AppCtx);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });*/
 
         if (savedInstanceState != null) {
             AppCtx = (SessionWsService) savedInstanceState.getSerializable("AppSessionContext");

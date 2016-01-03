@@ -68,4 +68,6 @@ public class MessageLDFService implements Serializable {
     public void setNumSelectedLdf(Map<String, Boolean> numSelectedLdf) {
         this.numSelectedLdf = numSelectedLdf;
     }
+
+
 }

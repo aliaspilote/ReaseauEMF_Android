@@ -127,6 +127,11 @@ public class LdfService implements Serializable {
         return c;
     }
 
+    public List<DiffusionList> getLDF_fromJson(JSONObject JsonResult) {
+        setLDF_From_DB(JsonResult);
+        return ldfList;
+    }
+
     public void setLDF_From_DB(JSONObject JsonResult) {
         ldfList.clear();
         try {

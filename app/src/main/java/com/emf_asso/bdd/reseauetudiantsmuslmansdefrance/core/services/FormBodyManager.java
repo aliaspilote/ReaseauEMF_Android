@@ -1,6 +1,5 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
-import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.ContactPreference;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.CriteriaObject;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DataContext;
@@ -20,6 +19,16 @@ public class FormBodyManager {
 
     public static java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DataContext.dateMysqlFormat);
 
+
+    public static RequestBody template(SessionWsService AppCtx) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "save_infoperso")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "");
+
+        return formBody.build();
+    }
+    
     public static RequestBody get_user(String mail, String token) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("action", "get_user")
@@ -97,6 +106,7 @@ public class FormBodyManager {
         return form;
     }
 
+
     public static RequestBody addUser(UserMember user) {
         FormEncodingBuilder formBody = new FormEncodingBuilder()
                 .add("action", "add_user")
@@ -165,11 +175,120 @@ public class FormBodyManager {
         return form;
     }
 
-    private static String listContactPreferenceTojson(ContactPreference contectPreference) {
-        String ContactPreferenceJson = "";
 
-        return ContactPreferenceJson.replace("\\", "");
+    public static RequestBody update_infoperso(SessionWsService AppCtx) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "save_infoperso")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "")
+                .add("name", AppCtx.getUserMember().getName() + "")
+                .add("firstname", AppCtx.getUserMember().getFirstname() + "")
+                .add("zip_code", AppCtx.getUserMember().getZip_code() + "")
+                .add("city", AppCtx.getUserMember().getCity() + "")
+                .add("section", (AppCtx.getUserMember().getSection() != null ? AppCtx.getUserMember().getSection().getLabel() : ""))
+                .add("phone", AppCtx.getUserMember().getPhone() + "")
+                .add("hashed_pwd", AppCtx.getUserMember().getHashed_pwd() + "")
+                .add("birth_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getBirth_date()) : ""))
+                .add("registration_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getRegistration_date()) : ""))
+                .add("involvement", (AppCtx.getUserMember().getInvolvement() != null ? AppCtx.getUserMember().getInvolvement().getLabel() : ""));
+        //formBody = addCursusToFormBody(AppCtx.getUserMember().getCurriculum(), formBody);
+        //formBody = addSkillsToFormBody(AppCtx.getUserMember().getSkills(), formBody);
+
+        return formBody.build();
     }
 
+    public static RequestBody change_pwd(SessionWsService AppCtx, String pswd) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "change_pwd")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "")
+                .add("name", AppCtx.getUserMember().getName() + "")
+                .add("firstname", AppCtx.getUserMember().getFirstname() + "")
+                .add("zip_code", AppCtx.getUserMember().getZip_code() + "")
+                .add("city", AppCtx.getUserMember().getCity() + "")
+                .add("section", (AppCtx.getUserMember().getSection() != null ? AppCtx.getUserMember().getSection().getLabel() : ""))
+                .add("phone", AppCtx.getUserMember().getPhone() + "")
+                .add("hashed_pwd", AppCtx.getUserMember().getHashed_pwd() + "")
+                .add("birth_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getBirth_date()) : ""))
+                .add("registration_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getRegistration_date()) : ""))
+                .add("involvement", (AppCtx.getUserMember().getInvolvement() != null ? AppCtx.getUserMember().getInvolvement().getLabel() : ""));
+        formBody = addCursusToFormBody(AppCtx.getUserMember().getCurriculum(), formBody);
+        formBody = addSkillsToFormBody(AppCtx.getUserMember().getSkills(), formBody);
+
+        return formBody.build();
+    }
+
+    public static RequestBody check_pwd(SessionWsService AppCtx, String Old_pswd) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "check_pwd")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "");
+
+        return formBody.build();
+    }
+
+    public static RequestBody update_skills(SessionWsService AppCtx) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "save_skills")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "")
+                .add("name", AppCtx.getUserMember().getName() + "")
+                .add("firstname", AppCtx.getUserMember().getFirstname() + "")
+                .add("zip_code", AppCtx.getUserMember().getZip_code() + "")
+                .add("city", AppCtx.getUserMember().getCity() + "")
+                .add("section", (AppCtx.getUserMember().getSection() != null ? AppCtx.getUserMember().getSection().getLabel() : ""))
+                .add("phone", AppCtx.getUserMember().getPhone() + "")
+                .add("hashed_pwd", AppCtx.getUserMember().getHashed_pwd() + "")
+                .add("birth_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getBirth_date()) : ""))
+                .add("registration_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getRegistration_date()) : ""))
+                .add("involvement", (AppCtx.getUserMember().getInvolvement() != null ? AppCtx.getUserMember().getInvolvement().getLabel() : ""));
+        // formBody = addCursusToFormBody(AppCtx.getUserMember().getCurriculum(), formBody);
+        formBody = addSkillsToFormBody(AppCtx.getUserMember().getSkills(), formBody);
+
+        return formBody.build();
+    }
+
+    public static RequestBody update_emfprofile(SessionWsService AppCtx) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "save_emfprofile")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "")
+                .add("name", AppCtx.getUserMember().getName() + "")
+                .add("firstname", AppCtx.getUserMember().getFirstname() + "")
+                .add("zip_code", AppCtx.getUserMember().getZip_code() + "")
+                .add("city", AppCtx.getUserMember().getCity() + "")
+                .add("section", (AppCtx.getUserMember().getSection() != null ? AppCtx.getUserMember().getSection().getLabel() : ""))
+                .add("phone", AppCtx.getUserMember().getPhone() + "")
+                .add("hashed_pwd", AppCtx.getUserMember().getHashed_pwd() + "")
+                .add("birth_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getBirth_date()) : ""))
+                .add("registration_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getRegistration_date()) : ""))
+                .add("involvement", (AppCtx.getUserMember().getInvolvement() != null ? AppCtx.getUserMember().getInvolvement().getLabel() : ""));
+        //formBody = addCursusToFormBody(AppCtx.getUserMember().getCurriculum(), formBody);
+        //formBody = addSkillsToFormBody(AppCtx.getUserMember().getSkills(), formBody);
+
+        return formBody.build();
+    }
+
+    public static RequestBody update_cursus(SessionWsService AppCtx) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "save_cursus")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx != null ? AppCtx.getToken() : "")
+                .add("name", AppCtx.getUserMember().getName() + "")
+                .add("firstname", AppCtx.getUserMember().getFirstname() + "")
+                .add("zip_code", AppCtx.getUserMember().getZip_code() + "")
+                .add("city", AppCtx.getUserMember().getCity() + "")
+                .add("section", (AppCtx.getUserMember().getSection() != null ? AppCtx.getUserMember().getSection().getLabel() : ""))
+                .add("phone", AppCtx.getUserMember().getPhone() + "")
+                .add("hashed_pwd", AppCtx.getUserMember().getHashed_pwd() + "")
+                .add("birth_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getBirth_date()) : ""))
+                .add("registration_date", (AppCtx.getUserMember().getBirth_date() != null ? sdf.format(AppCtx.getUserMember().getRegistration_date()) : ""))
+                .add("involvement", (AppCtx.getUserMember().getInvolvement() != null ? AppCtx.getUserMember().getInvolvement().getLabel() : ""));
+        formBody = addCursusToFormBody(AppCtx.getUserMember().getCurriculum(), formBody);
+        //formBody = addSkillsToFormBody(AppCtx.getUserMember().getSkills(), formBody);
+
+        return formBody.build();
+    }
+    
 
 }

@@ -173,9 +173,8 @@ public class CursusListActivity extends AppCompatActivity
                 intent = new Intent(context, AdminActivity.class);
             else
                 intent = new Intent(context, UserMemberProfilActivity.class);
-            if (resutlInt == 2) {
+            if (resutlInt == 1) {
                 bundle.putString("SaveCursus", "save");
-                // Pour taha : ici implementer Save Cursus vers WebService
             }
             bundle.putSerializable("AppSessionContext", AppSessionContext);
             intent.putExtras(bundle);

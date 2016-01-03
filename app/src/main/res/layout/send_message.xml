@@ -136,7 +136,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
@@ -151,8 +151,7 @@
                 <ListView
                     android:id="@+id/listview_destination"
                     android:layout_width="fill_parent"
-                    android:layout_height="165dp"
-                    android:entries="@array/liste_section"
+                    android:layout_height="fill_parent"
                     android:fillViewport="true" />
 
 
@@ -165,7 +164,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <include layout="@layout/bottom_bar_sendmessage" />
 
     </LinearLayout>
 

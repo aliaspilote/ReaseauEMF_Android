@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
@@ -100,6 +101,16 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
 
         listView = (ListView) findViewById(R.id.listview_destination);
         refreshLDF();
+        initAlias();
+    }
+
+    public void initAlias() {
+        Spinner spinner = (Spinner) (findViewById(R.id.spinner_alias));
+        ArrayAdapter<String> arrayAdapter;
+        String temp = AppCtx.getUserMember().getEmail();
+        String tab[] = {temp};
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tab);
+        spinner.setAdapter(arrayAdapter);
     }
 
     private void refreshLDF() {
@@ -132,8 +143,9 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                             AppCtx.getServiceMessage().setLDFList(
                                     AppCtx.getServiceLDF().getLDF_fromJson(LastReponse.getResultat())
                             );
-                            adapter_diffusion_list = new ArrayAdapter<DiffusionList>(this, android.R.layout.simple_list_item_1, AppCtx.getServiceMessage().getLDFList());
+                            adapter_diffusion_list = new ArrayAdapter<DiffusionList>(this, android.R.layout.simple_list_item_multiple_choice, AppCtx.getServiceMessage().getLDFList());
                             listView.setAdapter(adapter_diffusion_list);
+                            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
                         } else
                             Message += Messages.error_generique;
@@ -227,11 +239,42 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         home_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent intent = new Intent(context, UserMemberProfilActivity.class);
-                context.startActivity(intent);
+                gotousermemberprofile();
             }
         });
 
+        ImageView send_icon;
+        send_icon = (ImageView) this.findViewById(R.id.btn_send);
+        // set a onclick listener for when the button gets clicked
+        send_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                gotousermemberprofile();
+            }
+        });
+
+        ImageView remove_icon;
+        remove_icon = (ImageView) this.findViewById(R.id.btn_remove);
+        // set a onclick listener for when the button gets clicked
+        remove_icon.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                gotousermemberprofile();
+            }
+        });
+
+    }
+
+    public void gotousermemberprofile() {
+        Intent intent;
+        Bundle b;
+        b = new Bundle();
+        b.putInt("p", 0);
+        b.putSerializable("AppSessionContext", AppCtx);
+
+        intent = new Intent(this.context, UserMemberProfilActivity.class);
+        intent.putExtras(b);
+        this.context.startActivity(intent);
     }
 
 

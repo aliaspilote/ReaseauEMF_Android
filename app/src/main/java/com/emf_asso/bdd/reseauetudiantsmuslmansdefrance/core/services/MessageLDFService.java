@@ -15,7 +15,7 @@ import java.util.Map;
 public class MessageLDFService implements Serializable {
 
 
-    Map<Integer, Boolean> PosSelectedLdf; // Position and isSelected
+    Map<String, Boolean> numSelectedLdf; // numLDF and isSelected
     private List<DiffusionList> LDFList;
     private boolean startedService = false;
     private MessageMail message;
@@ -25,7 +25,7 @@ public class MessageLDFService implements Serializable {
     }
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {
-            PosSelectedLdf = new HashMap<>();
+            numSelectedLdf = new HashMap<>();
             LDFList = new ArrayList<>();
             startedService = true;
             message = new MessageMail();
@@ -53,19 +53,19 @@ public class MessageLDFService implements Serializable {
 
     }
 
-    public Map<Integer, Boolean> getPosSelectedLdf() {
-        return PosSelectedLdf;
-    }
-
-    public void setPosSelectedLdf(Map<Integer, Boolean> posSelectedLdf) {
-        PosSelectedLdf = posSelectedLdf;
-    }
-
     public MessageMail getMessage() {
         return message;
     }
 
     public void setMessage(MessageMail message) {
         this.message = message;
+    }
+
+    public Map<String, Boolean> getNumSelectedLdf() {
+        return numSelectedLdf;
+    }
+
+    public void setNumSelectedLdf(Map<String, Boolean> numSelectedLdf) {
+        this.numSelectedLdf = numSelectedLdf;
     }
 }

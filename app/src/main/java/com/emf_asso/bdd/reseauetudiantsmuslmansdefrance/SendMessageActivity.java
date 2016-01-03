@@ -80,8 +80,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
 
         if (savedInstanceState != null) {
             AppCtx = (SessionWsService) savedInstanceState.getSerializable("AppSessionContext");
-
-            // ici taha charger contenu message
         }
         menu.setAppCtx(AppCtx);
         menu.setContext(context);
@@ -91,7 +89,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         getSupportActionBar().setHomeButtonEnabled(true);
 
         AppCtx.getServiceLDF().onStart(AppCtx);
-        AppCtx.getServiceMessage().onStart(AppCtx);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
@@ -140,10 +137,8 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             Message += Messages.success_w8_load_data;
-                            AppCtx.getServiceMessage().setLDFList(
-                                    AppCtx.getServiceLDF().getLDF_fromJson(LastReponse.getResultat())
-                            );
-                            adapter_diffusion_list = new ArrayAdapter<DiffusionList>(this, android.R.layout.simple_list_item_multiple_choice, AppCtx.getServiceMessage().getLDFList());
+                            AppCtx.getServiceLDF().setLDF_From_DB(LastReponse.getResultat());
+                            adapter_diffusion_list = new ArrayAdapter<DiffusionList>(this, android.R.layout.simple_list_item_multiple_choice, AppCtx.getServiceLDF().getLdfList());
                             listView.setAdapter(adapter_diffusion_list);
                             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 

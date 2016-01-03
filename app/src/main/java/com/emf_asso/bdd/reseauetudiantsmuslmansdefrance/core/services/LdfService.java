@@ -2,6 +2,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionCriteria;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.DiffusionList;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.MessageMail;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ListViewInit;
 
 import org.json.simple.JSONArray;
@@ -10,16 +11,19 @@ import org.json.simple.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Omar on 27/12/2015.
  */
 public class LdfService implements Serializable {
 
+    Map<String, Boolean> numSelectedLdf;
     private List<DiffusionList> ldfList;
     private DiffusionList current_ldf;
     private int current_position;
     private boolean startedService = false;
+    private MessageMail message;
 
     public void onStart(SessionWsService AppCtx) {
         if (!startedService) {

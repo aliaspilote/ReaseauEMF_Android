@@ -13,8 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseBooleanArray;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
@@ -87,6 +85,14 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         int a = bundle.getInt("p");
+        String sv = bundle.getString("SaveCursus");
+        if (sv != null)
+            if (sv.equals("save")) {
+                saveCursus();
+
+            }
+        DisplayToast("a" + sv + "a");
+
         Current_Position = a;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,6 +135,8 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
             mDrawerLayout.openDrawer(GravityCompat.START);
         if (AppCtx.getToken() == null)
             gotoMainActivity();
+
+
     }
 
     private void setupDrawer() {
@@ -153,13 +161,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -563,6 +565,11 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
 
     }
 
+    public void saveCursus() {
+        // Requete http, resultat bool mot clés, Action : save_cursus, Resultat : resultat_cursus
+
+    }
+
     @Override
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
@@ -651,6 +658,21 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                         if ((LastReponse.getResultat().get("result_skills").toString().contentEquals("true"))) {
                             Message += LastReponse.getResultat().toString();
                             DisplayToast("Votre profil est bien mise à jour");
+
+
+                        } else {
+                            Message += Messages.error_generique;
+                            DisplayToast("Erreur");
+
+                        }
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
+                case "save_cursus":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result_cursus").toString().contentEquals("true"))) {
+                            Message += LastReponse.getResultat().toString();
+                            DisplayToast("Vos cursus sont bien modifiés");
 
 
                         } else {

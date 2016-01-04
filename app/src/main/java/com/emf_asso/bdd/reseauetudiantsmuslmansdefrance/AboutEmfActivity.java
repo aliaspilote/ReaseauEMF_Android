@@ -33,7 +33,6 @@ public class AboutEmfActivity extends AppCompatActivity {
     public MenuDrawer menu;
     private UserMember usermember;
     private Context context = this;
-    public Menu_Control menucontrol = new Menu_Control(context);
     private Activity activity = this;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
@@ -134,26 +133,20 @@ public class AboutEmfActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about_emf) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

@@ -12,9 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -50,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
     EditText EditTextPswd;
     private SessionWsService AppSessionContext;
     private Context context = this;
-    public Menu_Control menucontrol = new Menu_Control(context);
     private ProgressDialog progress;
     private int progressVal = 0;
     private int progressValMax = 5;
@@ -61,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         this.testInternetConnection.setContext(context);
 
         Intent intent = this.getIntent();
@@ -104,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             }
         });
         loadListsFromWebService();
-        menucontrol.setAppSessionContext(AppSessionContext);
 
         CheckRememberBox = (CheckBox) findViewById(R.id.checkbox_remember_me);
         EditTextMail = (EditText) findViewById(R.id.editxt_auth_email);
@@ -151,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         alertDialog.show();
 
     }
+
     public void ReceptionResponse(HttpReponse Rep) {
         LastReponse.setHttpReponse(Rep.getResultat(), Rep.getSucces(), Rep.getAction(), Rep.getDataReponse(), Rep.getExceptionText());
         String Message = "";
@@ -174,8 +171,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                             //AppSessionContext.setUser_From_DB(LastReponse.getResultat());
                             startProfileActivity(LastReponse.getResultat());
                             Message += Messages.success_w8_load_data;
-                        }
-                        else
+                        } else
                             Message += Messages.error_load_profil;
                     } else
                         Message += LastReponse.getExceptionText();
@@ -270,20 +266,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return menucontrol.onOptionsItemSelected(item);
-    }
 
     public void OnTry(View view) throws IOException {
 

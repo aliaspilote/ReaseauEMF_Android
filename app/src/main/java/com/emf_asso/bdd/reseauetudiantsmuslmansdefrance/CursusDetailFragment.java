@@ -65,12 +65,10 @@ public class CursusDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_cursus_detail, container, false);
         ListViewInit.loadEmptyCursusList_View(rootView, getActivity());
         if (mItem != null) {
+            ((Spinner) rootView.findViewById(R.id.spinner_discipline)).setSelection(ListViewInit.getPositionByToStringMatch(ListViewInit.disciplineList, mItem.getDiscipline()));
+            ((Spinner) rootView.findViewById(R.id.spinner_degree_study)).setSelection(ListViewInit.getPositionByToStringMatch(ListViewInit.degreeStudyList, mItem.getDegree()));
             ((TextView) rootView.findViewById(R.id.cursus_editxt_entiled_diploma)).setText(mItem.getLabel());
             ((TextView) rootView.findViewById(R.id.cursus_editxt_establishment)).setText(mItem.getEstablishment());
-            ((Spinner) rootView.findViewById(R.id.spinner_discipline)).
-                    setSelection(ListViewInit.adapter_discipline.getPosition(mItem.getDiscipline()));
-            ((Spinner) rootView.findViewById(R.id.spinner_degree_study)).
-                    setSelection(ListViewInit.adapter_degree_study.getPosition(mItem.getDegree()));
             ((TextView) rootView.findViewById(R.id.editxt_date_begin)).setText(sdf.format(mItem.getStart_date()));
             ((TextView) rootView.findViewById(R.id.editxt_date_end)).setText(sdf.format(mItem.getEnd_date()));
             ((TextView) rootView.findViewById(R.id.cursus_editxt_city_study)).setText(mItem.getCity());

@@ -123,4 +123,15 @@ public class ListViewInit {
             listViewDiscipline.setAdapter(adapter_discipline);
         }
     }
+
+    public static int getPositionByToStringMatch(List<?> b, Object a) {
+        int i = 0;
+        int d = -1;
+        for (Object c : b) {
+            if (a.toString().equals(c.toString()))
+                d = i;
+            i++;
+        }
+        return d;
+    }
 }

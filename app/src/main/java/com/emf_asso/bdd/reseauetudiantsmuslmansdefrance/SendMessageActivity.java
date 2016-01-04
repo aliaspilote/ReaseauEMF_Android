@@ -45,7 +45,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
     ArrayAdapter<DiffusionList> adapter_diffusion_list;
     ListView listView;
     private Context context = this;
-    public Menu_Control menucontrol = new Menu_Control(context);
     private Activity activity = this;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
@@ -276,10 +275,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
             return true;
         }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about_emf) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

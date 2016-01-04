@@ -171,9 +171,7 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
             return true;
         }
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about_emf) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

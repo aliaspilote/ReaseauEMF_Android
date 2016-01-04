@@ -7,9 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
@@ -63,7 +60,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     public CreateDate default_end_curriculum_date;
     public java.text.SimpleDateFormat sdfdisplay = new java.text.SimpleDateFormat(DataContext.dateDisplayFormat);
     private Context context = this;
-    public Menu_Control menucontrol = new Menu_Control(context);
     private int current_NUM_PAGES = 1;
     private SessionWsService AppCtx;
 
@@ -95,19 +91,15 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         AppCtx.getServiceProcessInscription().onStart();
         AppCtx.BeInProssInscrView();
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return menucontrol.onOptionsItemSelected(item);
-    }
 
     public void InitStubs() {
 

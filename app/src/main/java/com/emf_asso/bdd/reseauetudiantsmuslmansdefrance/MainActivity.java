@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -106,6 +108,19 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
         CheckRememberBox = (CheckBox) findViewById(R.id.checkbox_remember_me);
         EditTextMail = (EditText) findViewById(R.id.editxt_auth_email);
+        EditTextMail.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    EditTextPswd.getText().clear();
+                }
+            }
+        });
         EditTextPswd = (EditText) findViewById(R.id.editxt_auth_pwd);
         SharedPreferences settings = getSharedPreferences(SPF_LOGINS, 0);
         if (settings.getString(CHECK_REMEMBER, "").contentEquals("true")) {

@@ -109,7 +109,7 @@ public class CursusDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, CursusListActivity.class));
+            backToListCursus();
             return true;
         }
         return super.onOptionsItemSelected(item);

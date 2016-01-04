@@ -28,7 +28,6 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsS
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.util.Iterator;
-import java.util.Map;
 
 import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_ldf;
 
@@ -117,13 +116,12 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
     }
 
     public void initlist() {
-        Map<String, Boolean> map = AppCtx.getServiceLDF().getNumSelectedLdf();
         ListView listView = (ListView) findViewById(R.id.listview_destination);
         int position;
-        if (!map.isEmpty()) {
-            for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
+        if (!AppCtx.getServiceLDF().getNumSelectedLdf().isEmpty()) {
+            for (Iterator i = AppCtx.getServiceLDF().getNumSelectedLdf().keySet().iterator(); i.hasNext(); ) {
                 String cle = (String) i.next();
-                if (map.get(cle) == true) {
+                if (AppCtx.getServiceLDF().getNumSelectedLdf().get(cle) == true) {
                     position = adapter_diffusion_list.getPosition(AppCtx.getServiceLDF().get_ldf_byId(cle));
                     listView.setItemChecked(position, true);
                 }
@@ -136,15 +134,14 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         TextView msg = (TextView) findViewById(R.id.editxt_msg);
         Spinner spinner = (Spinner) findViewById(R.id.spinner_alias);
         ListView listView = (ListView) findViewById(R.id.listview_destination);
-        Map<String, Boolean> map = null;
         Boolean check = false;
         if (!adapter_diffusion_list.isEmpty()) {
             for (int i = 0; i < listView.getCount(); i++) {
                 if (listView.isItemChecked(i)) {
                     check = true;
-                    map.put(adapter_diffusion_list.getItem(i).getId(), true);
+                    AppCtx.getServiceLDF().getNumSelectedLdf().put(adapter_diffusion_list.getItem(i).getId(), true);
                 } else
-                    map.put(adapter_diffusion_list.getItem(i).getId(), false);
+                    AppCtx.getServiceLDF().getNumSelectedLdf().put(adapter_diffusion_list.getItem(i).getId(), false);
             }
         }
         if (check == false) {
@@ -152,9 +149,9 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
             textView.setText("Desinataire manquant");
         } else {
             MessageMail messageMail = new MessageMail();
-            messageMail.setObject((String) objet.getText());
-            messageMail.setCorps((String) msg.getText());
-            messageMail.setSender((String) spinner.getSelectedItem());
+            messageMail.setObject(objet.getText().toString());
+            messageMail.setCorps(msg.getText().toString());
+            messageMail.setSender(spinner.getSelectedItem().toString());
             AppCtx.getServiceLDF().setMessage(messageMail);
         }
     }

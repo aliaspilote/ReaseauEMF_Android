@@ -218,6 +218,7 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                     if (result) {
                         if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
                             Message += "Messages envoyés.";
+                            clear();
 
                         } else
                             Message += Messages.error_generique;
@@ -295,6 +296,21 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    public void clear() {
+        TextView objet = (TextView) findViewById(R.id.editxt_subject);
+        TextView msg = (TextView) findViewById(R.id.editxt_msg);
+        TextView note = (TextView) findViewById(R.id.editxt_note);
+        TextView abstact = (TextView) findViewById(R.id.editxt_m_abstract);
+
+        ListView listView = (ListView) findViewById(R.id.listview_destination);
+
+        listView.setAdapter(adapter_diffusion_list);
+        objet.setText("");
+        msg.setText("");
+        note.setText("");
+        abstact.setText("");
+    }
+
 
     public void ImageListener() {
         ImageView home_icon;
@@ -323,7 +339,7 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         remove_icon.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                gotousermemberprofile();
+                clear();
             }
         });
 

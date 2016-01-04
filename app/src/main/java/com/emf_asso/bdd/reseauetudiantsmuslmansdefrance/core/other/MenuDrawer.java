@@ -1,7 +1,9 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -226,6 +228,7 @@ public class MenuDrawer extends AppCompatActivity {
         b = new Bundle();
         b.putInt("p", position);
         b.putSerializable("AppSessionContext", AppCtx);
+        DialogBox dialog;
         switch (position) {
             case 0:
                 intent = new Intent(this.context, UserMemberProfilActivity.class);
@@ -260,7 +263,7 @@ public class MenuDrawer extends AppCompatActivity {
             case 6:
                 intent = new Intent(this.context, MainActivity.class);
                 intent.putExtras(b);
-                DialogBox dialog = new DialogBox(context, intent);
+                dialog = new DialogBox(context, intent);
                 dialog.setAppCtx(AppCtx);
                 dialog.setDisable(true);
                 dialog.createDialogBox("Désactiver votre compte", "Voulez-vous vraiment continuer ?");
@@ -305,18 +308,47 @@ public class MenuDrawer extends AppCompatActivity {
     }
 
     public void MenuAction(int position) {
+        DialogBox dialog;
+        final int pos = position;
         if (Current_Position < 5 && position < 5) {
             if (Current_Position < 0)
                 hideStubByPosition(0);
             else
                 hideStubByPosition(Current_Position);
             displayStubByPosition(position);
+            Current_Position = position;
 
-        } else
-            startActivityByPosition(position);
+
+        } else {
+            if (Current_Position == 9) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Envoyer le message");
+                alertDialogBuilder
+                        .setMessage("Voulez vous vraiment quitter l'envoie du message ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivityByPosition(pos);
+                                Current_Position = pos;
+
+                            }
+                        })
+                        .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+            } else {
+                startActivityByPosition(position);
+                Current_Position = position;
+
+            }
+
+        }
 
         // DisplayToast("Currenttttttt = " + String.valueOf(Current_Position) + " || position = " + String.valueOf(position), 3000);
-        Current_Position = position;
     }
 
     public void DisplayToast(String text, int time) {

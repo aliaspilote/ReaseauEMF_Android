@@ -18,12 +18,21 @@ public class DialogBox {
     private Intent intent;
     private SessionWsService AppCtx;
 
+
     public DialogBox() {
     }
 
     public DialogBox(Context context, Intent intent) {
         this.context = context;
         this.intent = intent;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public Boolean getDisable() {

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -23,13 +24,13 @@ import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.MessageMail;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.ActivityConnectedWeb;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.MenuDrawer;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other.Messages;
+import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.HttpReponse;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.SessionWsService;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.Web_Service_Controlleur;
 
 import java.util.Iterator;
-
-import static com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.services.FormBodyManager.get_ldf;
+import java.util.Map;
 
 /**
  * Created by taha on 24/11/2015.
@@ -94,6 +95,7 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
 
         AppCtx.getServiceLDF().onStart(AppCtx);
 
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 
@@ -101,6 +103,7 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         ImageListener();
 
         listView = (ListView) findViewById(R.id.listview_destination);
+
         refreshLDF();
         initAlias();
         //initlist();
@@ -152,13 +155,22 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
             messageMail.setObject(objet.getText().toString());
             messageMail.setCorps(msg.getText().toString());
             messageMail.setSender(spinner.getSelectedItem().toString());
+            messageMail.setM_abstract(((EditText) findViewById(R.id.editxt_m_abstract)).getText().toString());
+            messageMail.setNote(((EditText) findViewById(R.id.editxt_note)).getText().toString());
             AppCtx.getServiceLDF().setMessage(messageMail);
+            sendMail();
         }
     }
 
     private void refreshLDF() {
         Web_Service_Controlleur wb_thread;
-        wb_thread = new Web_Service_Controlleur(this, get_ldf(AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "", AppCtx.getToken()));
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.get_ldf(AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "", AppCtx.getToken()));
+        wb_thread.execute();
+    }
+
+    private void sendMail() {
+        Web_Service_Controlleur wb_thread;
+        wb_thread = new Web_Service_Controlleur(this, FormBodyManager.sendMailLDF(AppCtx));
         wb_thread.execute();
     }
 
@@ -187,6 +199,25 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                             adapter_diffusion_list = new ArrayAdapter<DiffusionList>(this, android.R.layout.simple_list_item_multiple_choice, AppCtx.getServiceLDF().getLdfList());
                             listView.setAdapter(adapter_diffusion_list);
                             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                            if (AppCtx.getServiceLDF().getNumSelectedLdf() != null)
+                                for (Map.Entry<String, Boolean> entry : AppCtx.getServiceLDF().getNumSelectedLdf().entrySet()) {
+                                    if (entry.getValue())
+                                        listView.setItemChecked(
+                                                adapter_diffusion_list.
+                                                        getPosition(AppCtx.getServiceLDF().get_ldf_byId(entry.getKey())), true);
+                                }
+                        } else
+                            Message += Messages.error_generique;
+                    } else {
+                        Message += Messages.error_generique;
+                        Message += LastReponse.getExceptionText() + "";
+                        Message += LastReponse.getResultat().get("data_debug").toString();
+                    }
+                    break;
+                case "send_mail_ldf":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("result").toString().contentEquals("true"))) {
+                            Message += "Messages envoyés.";
 
                         } else
                             Message += Messages.error_generique;

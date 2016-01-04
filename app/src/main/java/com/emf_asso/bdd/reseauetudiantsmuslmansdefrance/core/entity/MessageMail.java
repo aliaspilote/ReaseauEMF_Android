@@ -7,8 +7,10 @@ import java.io.Serializable;
  */
 public class MessageMail implements Serializable {
 
-    private String corps;
     private String object;
+    private String m_abstract = "";
+    private String corps;
+    private String note = "";
     private String sender; //emmeteur
 
     public String getCorps() {
@@ -33,5 +35,21 @@ public class MessageMail implements Serializable {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public String getM_abstract() {
+        return m_abstract;
+    }
+
+    public void setM_abstract(String m_abstract) {
+        this.m_abstract = m_abstract;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

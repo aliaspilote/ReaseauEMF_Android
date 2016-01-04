@@ -67,7 +67,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -78,8 +78,7 @@
                                 <Spinner
                                     android:id="@+id/spinner_alias"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="4dp" />
+                                    android:layout_height="wrap_content" />
 
                             </LinearLayout>
 
@@ -88,8 +87,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:orientation="vertical"
-                                android:paddingTop="5dp">
+                                android:orientation="vertical">
 
 
                                 <EditText
@@ -111,6 +109,24 @@
 
 
                                 <EditText
+                                    android:id="@+id/editxt_m_abstract"
+                                    style="@style/text_style"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="@string/Abstract"
+                                    android:padding="4dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <EditText
                                     android:id="@+id/editxt_msg"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
@@ -118,8 +134,25 @@
                                     android:gravity="top"
                                     android:hint="@string/lbl_write_message"
                                     android:inputType="textMultiLine"
-                                    android:lines="8" />
+                                    android:lines="7" />
 
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <EditText
+                                    android:id="@+id/editxt_note"
+                                    style="@style/text_style"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="@string/Note" />
 
                             </LinearLayout>
 
@@ -143,11 +176,6 @@
                 android:layout_marginRight="15dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_destination"
-                    android:textSize="15sp" />
 
                 <ListView
                     android:id="@+id/listview_destination"

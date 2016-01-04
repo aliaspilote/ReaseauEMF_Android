@@ -11,6 +11,7 @@ import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Omar_Desk on 02/11/2015.
@@ -46,7 +47,44 @@ public class FormBodyManager {
                 .add("token", token == null ? "" : token)
                 .build();
         return formBody;
+    }
 
+/*
+messageMail.setObject(
+messageMail.setCorps(m
+messageMail.setSender(
+messageMail.setM_abstr
+messageMail.setNote(((
+ */
+
+
+    public static RequestBody sendMailLDF(SessionWsService AppCtx) {
+        FormEncodingBuilder formBody = new FormEncodingBuilder()
+                .add("action", "send_mail_ldf")
+                .add("mail", AppCtx.getUserMember() != null ? AppCtx.getUserMember().getEmail() : "")
+                .add("token", AppCtx.getToken() != null ? AppCtx.getToken() : "")
+                .add("msg_obj", AppCtx.getServiceLDF().getMessage().getObject() + "")
+                .add("msg_abs", AppCtx.getServiceLDF().getMessage().getM_abstract() + "")
+                .add("msg_corps", AppCtx.getServiceLDF().getMessage().getCorps() + "")
+                .add("msg_note", AppCtx.getServiceLDF().getMessage().getNote() + "");
+        formBody = addSeleectLDFToFormBody(AppCtx.getServiceLDF().getNumSelectedLdf(), formBody);
+        return formBody.build();
+    }
+
+    private static FormEncodingBuilder addSeleectLDFToFormBody(Map<String, Boolean> numSelectedLdf, FormEncodingBuilder form) {
+        if (numSelectedLdf != null) {
+            //form.add("ldf_count",numSelectedLdf.size()+"" );
+            int i = 0;
+            for (Map.Entry<String, Boolean> entry : numSelectedLdf.entrySet()) {
+                if (entry.getValue()) {
+                    form.add("ldf_id" + i, entry.getKey() + "");
+                    i++;
+                }
+            }
+            form.add("ldf_count", i + "");
+        } else
+            form.add("skills_count", "0");
+        return form;
     }
 
     public static RequestBody checkmail(String mail) {

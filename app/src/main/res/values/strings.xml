@@ -152,7 +152,7 @@
     <string name="Accueil_admin">Admin</string>
     <string name="List_managment">Gestion des listes</string>
     <string name="send_message">Envoyer un message</string>
-    <string name="lbl_send_alias">Envoyer en tant que</string>
+    <string name="lbl_send_alias">Emetteur</string>
     <string name="lbl_destination">Destination</string>
     <string name="lbl_subject">Objet :</string>
     <string name="lbl_skill">Compétences/Talents</string>
@@ -168,5 +168,7 @@
     <string name="int_null">-</string>
     <string name="lbl_add_criteria">Ajouter un cirtère à la liste:</string>
     <string name="lbl_ldf">Les listes de diffusions</string>
+    <string name="Abstract">Abstract</string>
+    <string name="Note">Note</string>
 
 </resources>

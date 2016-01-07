@@ -62,17 +62,20 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            if (bundle.getSerializable("AppSessionContext") != null)
-                AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
-        }
+        if (savedInstanceState != null) {
+            AppSessionContext = (SessionWsService) savedInstanceState.getSerializable("AppSessionContext");
+        } else if (!(AppSessionContext != null)) {
+            if (bundle != null) {
+                if (bundle.getSerializable("AppSessionContext") != null)
+                    AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
+            }
+        } else
+            AppSessionContext = new SessionWsService();
+
         if (intent.getStringExtra("MailExisting") != null) {
             ((EditText) findViewById(R.id.editxt_auth_email)).setText((String) bundle.getSerializable("MailExisting"));
             DisplayToast(Messages.error_is_Existing_PI, 20000);
         }
-        if (AppSessionContext == null)
-            AppSessionContext = new SessionWsService();
-
         TextView ForgotPsw = (TextView) findViewById(R.id.txtview_forget_pwd);
         ForgotPsw.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -418,6 +421,13 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             }
         }
 
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("AppSessionContext", AppSessionContext);
     }
 
     public void DisplayToast(String text, int time) {

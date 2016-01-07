@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -134,7 +133,9 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
     public void sendMsg() {
         TextView objet = (TextView) findViewById(R.id.editxt_subject);
         TextView msg = (TextView) findViewById(R.id.editxt_msg);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_alias);
+        TextView abs = (TextView) findViewById(R.id.editxt_m_abstract);
+        TextView note = (TextView) findViewById(R.id.editxt_note);
+        Spinner sender = (Spinner) findViewById(R.id.spinner_alias);
         ListView listView = (ListView) findViewById(R.id.listview_destination);
         Boolean check = false;
         if (!adapter_diffusion_list.isEmpty()) {
@@ -147,17 +148,24 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
             }
         }
         if (check == false) {
-            TextView textView = (TextView) findViewById(R.id.lbl_legend_error);
-            textView.setText("Desinataire manquant");
+            DisplayToast("Destinataire(s) manquant(s)");
         } else {
-            MessageMail messageMail = new MessageMail();
-            messageMail.setObject(objet.getText().toString());
-            messageMail.setCorps(msg.getText().toString());
-            messageMail.setSender(spinner.getSelectedItem().toString());
-            messageMail.setM_abstract(((EditText) findViewById(R.id.editxt_m_abstract)).getText().toString());
-            messageMail.setNote(((EditText) findViewById(R.id.editxt_note)).getText().toString());
-            AppCtx.getServiceLDF().setMessage(messageMail);
-            sendMail();
+            if (objet.getText().length() < 2)
+                DisplayToast("Objet du message manquant");
+            else if (msg.getText().length() < 2)
+                DisplayToast("Contenu du message manquant");
+            else if (sender.getSelectedItem().toString().length() < 2)
+                DisplayToast("Emmetteur du message manquant");
+            else {
+                MessageMail messageMail = new MessageMail();
+                messageMail.setObject(objet.getText().toString());
+                messageMail.setCorps(msg.getText().toString());
+                messageMail.setSender(sender.getSelectedItem().toString());
+                messageMail.setM_abstract(abs.getText().toString());
+                messageMail.setNote(note.getText().toString());
+                AppCtx.getServiceLDF().setMessage(messageMail);
+                sendMail();
+            }
         }
     }
 
@@ -292,20 +300,21 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
     }
 
     public void clear() {
+
         TextView objet = (TextView) findViewById(R.id.editxt_subject);
         TextView msg = (TextView) findViewById(R.id.editxt_msg);
         TextView note = (TextView) findViewById(R.id.editxt_note);
         TextView abstact = (TextView) findViewById(R.id.editxt_m_abstract);
 
         ListView listView = (ListView) findViewById(R.id.listview_destination);
-
         listView.setAdapter(adapter_diffusion_list);
+        listView.clearChoices();
         objet.setText("");
         msg.setText("");
         note.setText("");
         abstact.setText("");
+        AppCtx.getServiceLDF().setMessage(new MessageMail());
     }
-
 
     public void ImageListener() {
         ImageView home_icon;
@@ -317,7 +326,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                 gotousermemberprofile();
             }
         });
-
         ImageView send_icon;
         send_icon = (ImageView) this.findViewById(R.id.btn_send);
         // set a onclick listener for when the button gets clicked
@@ -327,7 +335,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                 sendMsg();
             }
         });
-
         ImageView remove_icon;
         remove_icon = (ImageView) this.findViewById(R.id.btn_remove);
         // set a onclick listener for when the button gets clicked
@@ -337,7 +344,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
                 clear();
             }
         });
-
     }
 
     public void gotousermemberprofile() {
@@ -346,12 +352,10 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
         b = new Bundle();
         b.putInt("p", 0);
         b.putSerializable("AppSessionContext", AppCtx);
-
         intent = new Intent(this.context, UserMemberProfilActivity.class);
         intent.putExtras(b);
         this.context.startActivity(intent);
     }
-
 
     public void DisplayToast(String text, int time) {
         if (time > 0)
@@ -374,7 +378,6 @@ public class SendMessageActivity extends AppCompatActivity implements ActivityCo
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // ici taha save contenu message
-
         outState.putSerializable("AppSessionContext", AppCtx);
     }
 

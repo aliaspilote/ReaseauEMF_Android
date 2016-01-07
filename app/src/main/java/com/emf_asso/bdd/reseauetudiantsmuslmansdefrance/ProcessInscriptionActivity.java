@@ -91,15 +91,6 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         AppCtx.getServiceProcessInscription().onStart();
         AppCtx.BeInProssInscrView();
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
-
 
     public void InitStubs() {
 
@@ -146,6 +137,21 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                         twResult.setText(Message);
                     }
                     break;
+                case "check_mail":
+                    if (result) {
+                        if ((LastReponse.getResultat().get("isExisting").toString().contentEquals("true"))) {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("AppSessionContext", AppCtx);
+                            intent.putExtra("MailExisting", AppCtx.getServiceProcessInscription().getInscription().getUser().getEmail().toString() + "");
+                            intent.putExtras(bundle);
+                            AppCtx.getServiceProcessInscription().onClose();
+                            context.startActivity(intent);
+                        } else
+                            Message = "";
+                    } else
+                        Message += LastReponse.getExceptionText();
+                    break;
                 case "try":
                     TextView TryResult = (TextView) findViewById(R.id.lbl_ins5_legend_error);
                     if (result)
@@ -164,6 +170,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
                 DisplayToast(Message, 3000);
         }
     }
+
 
     public void OnNext(View view) {
         if (current_NUM_PAGES > NUM_PAGES)
@@ -291,6 +298,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     public void hideViewByNum(int numView) {
         switch (numView) {
             case 1:
+                checkMailExisting();
                 findViewById(R.id.stub_Inflated1).setVisibility(View.GONE);
                 break;
             case 2:
@@ -309,6 +317,12 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
 
                 break;
         }
+    }
+
+    private void checkMailExisting() {
+
+        Web_Service_Controlleur wb_thread = new Web_Service_Controlleur(this, FormBodyManager.checkmail(AppCtx.getServiceProcessInscription().getInscription().getUser().getEmail()));
+        wb_thread.execute();
     }
 
     public void displayViewByNum(int numView) {

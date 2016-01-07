@@ -38,9 +38,14 @@ public class ProcessInscriptionService implements Serializable {
     }
 
     public boolean submit(Inscription inscription) {
-
         onGoingInscr = false;
         return true;
+    }
+
+    public void onClose() {
+        onGoingInscr = false;
+        inscription = null;
+        multi_inscriptions = null;
     }
 
     public boolean submit_all() {

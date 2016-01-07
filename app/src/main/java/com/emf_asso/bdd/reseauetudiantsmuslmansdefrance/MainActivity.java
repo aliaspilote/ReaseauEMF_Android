@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
             if (bundle.getSerializable("AppSessionContext") != null)
                 AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
         }
+        if (intent.getStringExtra("MailExisting") != null) {
+            ((EditText) findViewById(R.id.editxt_auth_email)).setText((String) bundle.getSerializable("MailExisting"));
+            DisplayToast(Messages.error_is_Existing_PI, 20000);
+        }
         if (AppSessionContext == null)
             AppSessionContext = new SessionWsService();
 
@@ -73,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
         ForgotPsw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final String mail = getTextByEditTextId(R.id.editxt_auth_email);
                 if (CheckContentService.checkEmail(mail)) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);

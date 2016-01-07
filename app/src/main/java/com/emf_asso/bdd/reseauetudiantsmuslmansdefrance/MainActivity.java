@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                 if (bundle.getSerializable("AppSessionContext") != null)
                     AppSessionContext = (SessionWsService) bundle.getSerializable("AppSessionContext");
             }
-        } else
+        }
+        if (AppSessionContext == null)
             AppSessionContext = new SessionWsService();
 
         if (intent.getStringExtra("MailExisting") != null) {

@@ -1,6 +1,7 @@
 package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.adaptater.CursusContent;
 import com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.entity.Curriculum;
@@ -36,6 +38,7 @@ public class CursusDetailActivity extends AppCompatActivity {
 
     public CreateDate start_curriculum_date;
     public CreateDate end_curriculum_date;
+    Context ctx;
     private String current_ARG_ITEM_ID;
     private CursusDetailFragment fragment;
     private Curriculum currentCursus;
@@ -58,6 +61,7 @@ public class CursusDetailActivity extends AppCompatActivity {
             }
         });
 */
+        ctx = this;
         Intent intent = this.getIntent();
         if (intent.getSerializableExtra("AppSessionContext") != null)
             AppCtx = (SessionWsService) intent.getSerializableExtra("AppSessionContext");
@@ -91,8 +95,16 @@ public class CursusDetailActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveCursus(current_ARG_ITEM_ID);
-                backToListCursus();
+                String label_diploma = ((TextView) fragment.getView().findViewById(R.id.cursus_editxt_entiled_diploma)).getText().toString();
+                if (label_diploma != null)
+                    if (label_diploma.trim().length() > 0) {
+                        saveCursus(current_ARG_ITEM_ID);
+                        backToListCursus();
+                    } else {
+                        Toast toast = Toast.makeText(ctx, "Saisie initulé diplôme obligatoire.", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+
             }
         });
 

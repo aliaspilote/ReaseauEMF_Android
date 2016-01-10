@@ -485,13 +485,13 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
         if (pwd.getText().toString().length() < 6
                 || pwd1.getText().toString().length() < 6
                 || pwd2.getText().toString().length() < 6)
-            lbl.setText("Saisie insuffisantes");
+            lbl.setText("Saisie insuffisante");
 
         else {
             if (pwd1.getText().toString().equals(pwd2.getText().toString()))
                 checkPwd(pwd.getText().toString());
             else
-                lbl.setText("Les mots de passes saisies différents");
+                lbl.setText("Les mots de passe saisis sont différents");
         }
 
 
@@ -617,8 +617,8 @@ public class UserMemberProfilActivity extends AppCompatActivity implements Activ
                             changePwd(pwd1.getText().toString());
                             gotousermemberprofile();
                         } else {
-                            Message += "Ancien mot de passe saisie incorrecte";
-                            lbl.setText("Ancien mot de passe saisie incorrecte");
+                            Message += "Ancien mot de passe saisi incorrect";
+                            lbl.setText("Ancien mot de passe saisi incorrect");
                         }
                     } else
                         Message += LastReponse.getExceptionText();

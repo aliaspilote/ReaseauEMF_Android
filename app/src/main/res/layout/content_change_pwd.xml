@@ -95,8 +95,8 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:inputType="textPassword"
-                                    android:padding="4dp" />
+                                    android:hint="@string/lbl_current_pwd"
+                                    android:inputType="textPassword" />
 
 
                                 <TextView
@@ -113,13 +113,14 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:inputType="textPassword"
-                                    android:padding="4dp" />
+                                    android:hint="@string/lbl_new_pwd"
+                                    android:inputType="textPassword" />
 
                                 <TextView
                                     style="@style/style_txt_upd"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:hint="@string/lbl_current_pwd"
                                     android:text="@string/lbl_confirmation_pwd" />
 
                                 <EditText
@@ -128,8 +129,8 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:inputType="textPassword"
-                                    android:padding="4dp" />
+                                    android:hint="@string/lbl_confirmation_pwd"
+                                    android:inputType="textPassword" />
 
 
                             </LinearLayout>

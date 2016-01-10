@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
 
         if (intent.getStringExtra("MailExisting") != null) {
             ((EditText) findViewById(R.id.editxt_auth_email)).setText((String) bundle.getSerializable("MailExisting"));
-            DisplayToast(Messages.error_is_Existing_PI, 20000);
+            DisplayToast(Messages.error_is_Existing_PI, 60000);
         }
         TextView ForgotPsw = (TextView) findViewById(R.id.txtview_forget_pwd);
         ForgotPsw.setOnClickListener(new View.OnClickListener() {
@@ -208,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements ActivityConnected
                         successAuth(LastReponse.getResultat());
                     else {
                         Message += Messages.error_auth;
-                        Message += LastReponse.getExceptionText();
-                        Message += LastReponse.getResultat().get("data_debug").toString();
+                        //Message += LastReponse.getExceptionText()+"";
+                        //Message += LastReponse.getResultat().get("data_debug").toString();
                     }
                     break;
                 case "get_degree_study":

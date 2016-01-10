@@ -16,29 +16,51 @@
         android:orientation="vertical"
         android:padding="6dp">
 
-        <TextView
-            style="@style/text_petite_taille"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_discipline" />
 
-        <Spinner
-            android:id="@+id/spinner_discipline"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/liste_domaines_etude" />
+            android:orientation="horizontal">
 
-        <TextView
-            style="@style/text_petite_taille"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_degree_study" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/spinner_degree_study"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/liste_diplome" />
+                <TextView
+                    style="@style/text_petite_taille"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_discipline" />
+
+                <Spinner
+                    android:id="@+id/spinner_discipline"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/liste_domaines_etude" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_petite_taille"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_degree_study" />
+
+                <Spinner
+                    android:id="@+id/spinner_degree_study"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/liste_diplome" />
+            </LinearLayout>
+        </LinearLayout>
+
 
         <TextView
             style="@style/text_petite_taille"
@@ -52,7 +74,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/lbl_entiled_diploma"
             android:inputType="text"
-            android:padding="4dp"
             android:selectAllOnFocus="true" />
 
         <TextView
@@ -67,8 +88,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lbl_entiled_establishment"
-            android:inputType="text"
-            android:padding="4dp" />
+            android:inputType="text" />
 
 
         <TextView
@@ -82,107 +102,107 @@
             android:id="@+id/cursus_editxt_city_study"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/cursus_lbl_city_studies"
-            android:padding="4dp" />
+            android:hint="@string/cursus_lbl_city_studies" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/text_petite_taille"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_date_begin" />
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-
-                <EditText
-                    android:id="@+id/editxt_date_begin"
-                    style="@style/text_style"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="2"
-                    android:enabled="false"
-                    android:hint="@string/lbl_date_begin"
-                    android:inputType="date"
-                    android:padding="4dp" />
-
-
-                <ImageButton
-                    android:id="@+id/icon_choose_curriculumDateBegin"
+                <TextView
+                    style="@style/text_petite_taille"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_calendar"
-                    android:onClick="onChooseCurriculumDateBegin" />
+                    android:text="@string/lbl_date_begin" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/editxt_date_begin"
+                        style="@style/text_style"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_weight="2"
+                        android:enabled="false"
+                        android:hint="@string/lbl_date_begin"
+                        android:inputType="date"
+                        android:padding="4dp" />
+
+
+                    <ImageButton
+                        android:id="@+id/icon_choose_curriculumDateBegin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_calendar"
+                        android:onClick="onChooseCurriculumDateBegin" />
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/text_petite_taille"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_date_end" />
-
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                android:orientation="horizontal">
-
-
-                <EditText
-                    android:id="@+id/editxt_date_end"
-                    style="@style/text_style"
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="3"
-                    android:enabled="false"
-
-                    android:hint="@string/lbl_date_end"
-                    android:inputType="date"
-                    android:padding="4dp" />
-
-
-                <ImageButton
-                    android:id="@+id/icon_choose_curriculumDateEnd"
+                <TextView
+                    style="@style/text_petite_taille"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_calendar"
-                    android:onClick="onChooseCurriculumDateEnd" />
+                    android:text="@string/lbl_date_end" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+
+                    android:orientation="horizontal">
 
 
+                    <EditText
+                        android:id="@+id/editxt_date_end"
+                        style="@style/text_style"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_marginTop="3dp"
+                        android:layout_weight="3"
+                        android:enabled="false"
+
+                        android:hint="@string/lbl_date_end"
+                        android:inputType="date"
+                        android:padding="4dp" />
+
+
+                    <ImageButton
+                        android:id="@+id/icon_choose_curriculumDateEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_calendar"
+                        android:onClick="onChooseCurriculumDateEnd" />
+
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
         </LinearLayout>

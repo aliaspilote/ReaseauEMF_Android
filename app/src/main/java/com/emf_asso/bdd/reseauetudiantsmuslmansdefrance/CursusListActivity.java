@@ -92,7 +92,7 @@ public class CursusListActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Curriculum newCursus = new Curriculum(getResources().getString(R.string.label_new_cursus));
+                Curriculum newCursus = new Curriculum("");//getResources().getString(R.string.label_new_cursus));
                 //CursusContent.pushCursusList(newCursus);
                 CursusContent.addItem(newCursus);
                 if (AppSessionContext.inProfileView)

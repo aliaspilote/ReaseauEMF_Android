@@ -69,14 +69,11 @@
     </style>
 
     <style name="style_editxt_email" parent="AppTheme">
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:padding">4dp</item>
         <item name="android:hint">@string/lbl_mail</item>
         <item name="android:textColor">#747373</item>
     </style>
 
     <style name="style_editxt_pwd" parent="AppTheme">
-        <item name="android:padding">4dp</item>
         <item name="android:hint">@string/lbl_password</item>
         <item name="android:textColor">#747373</item>
     </style>

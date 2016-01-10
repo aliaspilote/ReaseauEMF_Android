@@ -96,8 +96,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:hint="@string/subject"
-                                    android:padding="4dp" />
+                                    android:hint="@string/subject" />
 
                             </LinearLayout>
 
@@ -114,8 +113,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:hint="@string/Abstract"
-                                    android:padding="4dp" />
+                                    android:hint="@string/Abstract" />
 
                             </LinearLayout>
 

@@ -90,8 +90,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="20dp"
-                                android:inputType="textPersonName"
-                                android:padding="4dp" />
+                                android:inputType="textPersonName" />
 
                             <TextView
 
@@ -108,8 +107,7 @@
                                 android:layout_height="0dp"
                                 android:layout_marginBottom="20dp"
                                 android:layout_weight="1"
-                                android:inputType="textPersonName"
-                                android:padding="4dp" />
+                                android:inputType="textPersonName" />
 
                             <TextView
 
@@ -135,8 +133,7 @@
                                     android:layout_weight="3"
 
                                     android:enabled="false"
-                                    android:inputType="date"
-                                    android:padding="4dp" />
+                                    android:inputType="date" />
 
                                 <ImageButton
                                     android:id="@+id/icon_choose_birthday"
@@ -177,8 +174,7 @@
                                         android:layout_weight="2"
 
                                         android:inputType="number"
-                                        android:maxLength="5"
-                                        android:padding="4dp" />
+                                        android:maxLength="5" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -201,8 +197,7 @@
                                         android:layout_height="fill_parent"
                                         android:layout_marginLeft="5dp"
                                         android:layout_weight="3"
-                                        android:inputType="text"
-                                        android:padding="4dp" />
+                                        android:inputType="text" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -223,7 +218,6 @@
                                 android:layout_weight="1"
                                 android:inputType="phone"
                                 android:maxLength="10"
-                                android:padding="4dp"
 
                                 />
 

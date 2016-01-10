@@ -5,7 +5,7 @@ package com.emf_asso.bdd.reseauetudiantsmuslmansdefrance.core.other;
  */
 public final class Messages {
     public static String error_email = "Email saisi invalide. \n";
-    public static String error_shortpassword = "Mot de passe trop court . \n";
+    public static String error_shortpassword = "Mot de passe trop court(6 caract. min). \n";
     public static String error_password = "Mots de passe non saisis ou différents . \n";
     public static String error_name = "Nom non saisi ou comporte des caratères interdits. \n";
     public static String error_firstname = "Prénom non saisi ou comporte des caratères interdits. \n";
@@ -22,7 +22,7 @@ public final class Messages {
     public static String error_in_progress = "Traitement en cours";
     public static String error_isnot_Existing = "Adresse mail non enregistrée";
     public static String error_is_Existing = "Adresse mail déjà enregistrée";
-    public static String error_is_Existing_PI = "Adresse mail déjà enregistrée, merci de vous authentifier. Si vous avez oublier votre mot de passe, cliquez sur 'mot de passe oublier'";
+    public static String error_is_Existing_PI = "Adresse mail déjà enregistrée, merci de vous authentifier. Si vous avez oublié votre mot de passe, cliquez sur 'mot de passe oublié'";
     public static String error_addUser_success = "Enregistrement dans le Réseau EMF effectué";
     public static String error_unknow_action = "Erreur du traitement de la requête, action inconnu.";
     public static String error_load_profil = "Impossible de charger les données utilisateur.";

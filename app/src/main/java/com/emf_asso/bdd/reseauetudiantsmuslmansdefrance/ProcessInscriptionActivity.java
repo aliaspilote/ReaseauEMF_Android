@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -171,8 +172,14 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
         }
     }
 
+    protected void hideKeyboard(View view) {
+        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
     public void OnNext(View view) {
+        if (view != null)
+            hideKeyboard(view);
         if (current_NUM_PAGES > NUM_PAGES)
             current_NUM_PAGES = NUM_PAGES;
         else if (current_NUM_PAGES < 0)
@@ -194,6 +201,8 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
     }
 
     public void OnPrevious(View view) {
+        if (view != null)
+            hideKeyboard(view);
         if (current_NUM_PAGES > NUM_PAGES)
             current_NUM_PAGES = NUM_PAGES;
         else if (current_NUM_PAGES < 0)
@@ -536,7 +545,7 @@ public class ProcessInscriptionActivity extends Activity implements ActivityConn
             CreateProfilByStep("Date naissance :", sdfdisplay.format(usermember.getBirth_date()), R.id.content_for_birthday);
 
         if (usermember.getZip_code() != null)
-            CreateProfilByStep("Code Postale :", usermember.getZip_code(), R.id.content_for_zipcode);
+            CreateProfilByStep("Code Postal :", usermember.getZip_code(), R.id.content_for_zipcode);
 
         if (usermember.getCity() != null)
             CreateProfilByStep("Ville :", usermember.getCity(), R.id.content_for_city);
